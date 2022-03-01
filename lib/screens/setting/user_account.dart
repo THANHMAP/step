@@ -30,11 +30,30 @@ class _AccountScreenState extends State<AccountScreen> {
   bool _isDisableUsername = true;
   String urlActionUsername = "assets/images/ic_edit.png";
   List<UserGroupData>? userGroupData;
-  List<CityData>? cityData;
+  List<CityData>? cityData = [];
+  List<CityData> _cityDataReSearch = [];
   bool isChecked = false;
   List<int> selectedList = [1, 3];
   List<String> sexList = ["Nam", "Nữ", "Khác"];
   int currentSexindex = 0;
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController textController = new TextEditingController();
+  List<String> _tempListOfCities = [];
+  static List<String> _listOfCities = <String>[
+    "Tokyo",
+    "New York",
+    "London",
+    "Paris",
+    "Madrid",
+    "Dubai",
+    "Rome",
+    "Barcelona",
+    "Cologne",
+    "Monte Carlo",
+    "Puebla",
+    "Florence"
+  ];
 
   @override
   void initState() {
@@ -431,7 +450,8 @@ class _AccountScreenState extends State<AccountScreen> {
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
       child: InkWell(
         onTap: () {
-          _cityEditModalBottomSheet(context);
+          _showModal(context);
+          // _cityEditModalBottomSheet(context);
         },
         child: Container(
           height: 50,
@@ -778,7 +798,9 @@ class _AccountScreenState extends State<AccountScreen> {
           });
         });
   }
+
   TextEditingController editingController = TextEditingController();
+
   void _cityEditModalBottomSheet(context) {
     showModalBottomSheet(
         shape: const RoundedRectangleBorder(
@@ -832,30 +854,44 @@ class _AccountScreenState extends State<AccountScreen> {
                         ],
                       ),
                     ),
-
-                    TextField(
-                      controller: editingController,
-                      decoration: InputDecoration(
-                          labelText: "Search",
-                          hintText: "Search",
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        child: TextField(
+                          controller: editingController,
+                          decoration: InputDecoration(
+                              labelText: "Search",
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)))),
+                            onChanged: onSearchTextChanged
+                        ),
+                      ),
                     ),
-
-                    Container(
-                      height: 468,
-                      child: Stack(
-                        children: [
-                          ListView.builder(
-                            itemCount: cityData?.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text('${cityData?[index].name}'),
-                              );
-                            },
-                          ),
-                        ],
+                    Flexible(
+                      child: SizedBox(
+                        height: 468,
+                        child: Stack(
+                          children: [
+                            _cityDataReSearch.isNotEmpty ? ListView.builder(
+                              itemCount: _cityDataReSearch.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text('${_cityDataReSearch[index].name}'),
+                                );
+                              },
+                            ):  ListView.builder(
+                              itemCount: cityData?.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text('${cityData?[index].name}'),
+                                );
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -965,4 +1001,137 @@ class _AccountScreenState extends State<AccountScreen> {
     }
     return Colors.green;
   }
+
+  onSearchTextChanged(String text) async {
+    _cityDataReSearch.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+
+    cityData?.forEach((cityDetail) {
+      // if(text == "thanh"){
+      //   _cityDataReSearch.add(cityDetail);
+      //   return;
+      // }
+      if (cityDetail.name!.contains(text)) {
+        _cityDataReSearch.add(cityDetail);
+      }
+    });
+
+    this.setState(() {
+      _cityDataReSearch;
+    });
+  }
+
+  void _showModal(context) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+        ),
+        context: context,
+        builder: (context) {
+          //3
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+                return DraggableScrollableSheet(
+                    expand: false,
+                    builder:
+                        (BuildContext context, ScrollController scrollController) {
+                      return Column(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Row(children: <Widget>[
+                              Expanded(
+                                  child: TextField(
+                                      controller: textController,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(8),
+                                        border: new OutlineInputBorder(
+                                          borderRadius:
+                                          new BorderRadius.circular(15.0),
+                                          borderSide: new BorderSide(),
+                                        ),
+                                        prefixIcon: Icon(Icons.search),
+                                      ),
+                                      onChanged: (value) {
+                                        //4
+                                        setState(() {
+                                          _tempListOfCities =
+                                              _buildSearchList(value);
+                                        });
+                                      })),
+                              IconButton(
+                                  icon: Icon(Icons.close),
+                                  color: Color(0xFF1F91E7),
+                                  onPressed: () {
+                                    setState(() {
+                                      textController.clear();
+                                      _tempListOfCities.clear();
+                                    });
+                                  }),
+                            ])),
+                        Expanded(
+                          child: ListView.separated(
+                              controller: scrollController,
+                              //5
+                              itemCount: (_tempListOfCities != null &&
+                                  _tempListOfCities.length > 0)
+                                  ? _tempListOfCities.length
+                                  : _listOfCities.length,
+                              separatorBuilder: (context, int) {
+                                return Divider();
+                              },
+                              itemBuilder: (context, index) {
+                                return InkWell(
+
+                                  //6
+                                    child: (_tempListOfCities != null &&
+                                        _tempListOfCities.length > 0)
+                                        ? _showBottomSheetWithSearch(
+                                        index, _tempListOfCities)
+                                        : _showBottomSheetWithSearch(
+                                        index, _listOfCities),
+                                    onTap: () {
+                                      //7
+                                      _scaffoldKey.currentState?.showSnackBar(
+                                          SnackBar(
+                                              behavior: SnackBarBehavior.floating,
+                                              content: Text((_tempListOfCities !=
+                                                  null &&
+                                                  _tempListOfCities.length > 0)
+                                                  ? _tempListOfCities[index]
+                                                  : _listOfCities[index])));
+
+                                      Navigator.of(context).pop();
+                                    });
+                              }),
+                        )
+                      ]);
+                    });
+              });
+        });
+  }
+
+  //8
+  Widget _showBottomSheetWithSearch(int index, List<String> listOfCities) {
+    return Text(listOfCities[index],
+        style: TextStyle(color: Colors.black, fontSize: 16),textAlign: TextAlign.center);
+  }
+
+  //9
+  List<String> _buildSearchList(String userSearchTerm) {
+    List<String> _searchList = [];
+
+    for (int i = 0; i < _listOfCities.length; i++) {
+      String name = _listOfCities[i];
+      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
+        _searchList.add(_listOfCities[i]);
+      }
+    }
+    return _searchList;
+  }
+
 }
