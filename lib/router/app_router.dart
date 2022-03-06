@@ -13,4 +13,5 @@ class AppRoutes {
   static const String item = "/item";
   static const String editProfile = "/editProfile";
   static const String fullImage = "/fullimage";
+  static const String test = "/test";
 }

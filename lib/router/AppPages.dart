@@ -8,12 +8,17 @@ import 'package:step_bank/screens/otp/otp_screen.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
 import 'package:step_bank/screens/setting/user_account.dart';
 import 'package:step_bank/screens/splash/splash.dart';
+import 'package:step_bank/screens/test.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 
 import 'app_router.dart';
 
 class AppPages {
   static var listPage = [
+    GetPage(
+      name: AppRoutes.test,
+      page: () => const TestScreen(),
+    ),
     GetPage(
       name: AppRoutes.intro,
       page: () => const SplashPage(),

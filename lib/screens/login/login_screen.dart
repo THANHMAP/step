@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
@@ -18,6 +19,12 @@ import 'package:step_bank/util.dart';
 
 import '../../themes.dart';
 
+enum _SupportState {
+  unknown,
+  supported,
+  unsupported,
+}
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -30,6 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool isPasswordVisible = true;
   late ProgressDialog pr;
+  final LocalAuthentication auth = LocalAuthentication();
+  _SupportState _supportState = _SupportState.unknown;
+  bool _canCheckBiometrics = false;
+  bool _isFingerprint = false;
+  bool _isDeviceSupported = false;
+  List<BiometricType>? _availableBiometrics;
+  String _authorized = 'Not Authorized';
+  bool _isAuthenticating = false;
 
   @override
   void initState() {
@@ -42,7 +57,86 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
+    auth.isDeviceSupported().then((isSupported) {
+      // setState(() => _supportState = isSupported ? _SupportState.supported : _SupportState.unsupported),
+      setState(() {
+        if (isSupported == _SupportState.supported) {
+          _isDeviceSupported = true;
+        } else {
+          _isDeviceSupported = false;
+        }
+      });
+    });
+    _checkBiometrics();
+    _getAvailableBiometrics();
     // loadData();
+  }
+
+  Future<void> _checkBiometrics() async {
+    late bool canCheckBiometrics;
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } on PlatformException catch (e) {
+      canCheckBiometrics = false;
+      print(e);
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _canCheckBiometrics = canCheckBiometrics;
+    });
+  }
+
+  Future<void> _getAvailableBiometrics() async {
+    late List<BiometricType> availableBiometrics;
+    try {
+      availableBiometrics = await auth.getAvailableBiometrics();
+    } on PlatformException catch (e) {
+      availableBiometrics = <BiometricType>[];
+      print(e);
+    }
+    if (!mounted) return;
+
+    if (availableBiometrics.contains(BiometricType.fingerprint)) {
+      setState(() {
+        _isFingerprint = true;
+      });
+    }
+
+    setState(() {
+      _availableBiometrics = availableBiometrics;
+    });
+  }
+
+  Future<void> _authenticate() async {
+    bool authenticated = false;
+    try {
+      setState(() {
+        _isAuthenticating = true;
+        _authorized = 'Authenticating';
+      });
+      authenticated = await auth.authenticate(
+          localizedReason: 'Let OS determine authentication method',
+          useErrorDialogs: true,
+          stickyAuth: true);
+      setState(() {
+        _isAuthenticating = false;
+      });
+    } on PlatformException catch (e) {
+      print(e);
+      setState(() {
+        _isAuthenticating = false;
+        _authorized = "Error - ${e.message}";
+      });
+      return;
+    }
+    if (!mounted) return;
+
+    if (authenticated) {
+    } else {}
+
+    setState(
+        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
   @override
@@ -180,35 +274,47 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ))),
                           Expanded(
                             flex: 1,
-                            child: Stack(
-                              children: <Widget>[
-                                Container(
-                                  height: 44,
-                                  width: 44,
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          "assets/images/bg_fingerprint.png"),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8, left: 8, bottom: 8, right: 12),
-                                  child: Container(
-                                    height: 24,
-                                    width: 27,
+                            child: InkWell(
+                              onTap: () {
+                                var test1 = _isFingerprint;
+                                var test2 = _canCheckBiometrics;
+                                if (_isFingerprint && _canCheckBiometrics) {
+                                  _authenticate();
+                                } else {
+                                  Utils.showAlertDialogOneButton(context,
+                                      "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
+                                }
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    height: 44,
+                                    width: 44,
                                     decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            "assets/images/fingerprint.png"),
+                                            "assets/images/bg_fingerprint.png"),
                                         fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8, left: 8, bottom: 8, right: 12),
+                                    child: Container(
+                                      height: 24,
+                                      width: 27,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/fingerprint.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -254,9 +360,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onClicked: () => doLogin()),
                       const SizedBox(height: 10),
                       ButtonWidgetBorder(
-                        text: StringText.text_try,
-                        color: Mytheme.kBackgroundColor,
-                        onClicked: () => {}),
+                          text: StringText.text_try,
+                          color: Mytheme.kBackgroundColor,
+                          onClicked: () => {}),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -321,7 +427,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Align(
                         alignment: Alignment.bottomCenter,
                         child: Image(
-                          image: AssetImage('assets/images/img_line_horizone.png'),
+                          image:
+                              AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -344,8 +451,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-
   Future<void> doLogin() async {
     String? phone, password, typeDevice, fcmToken;
     if (_phoneController.text.isNotEmpty &&
@@ -365,7 +470,7 @@ class _LoginScreenState extends State<LoginScreen> {
           (value) async {
         await pr.hide();
         var loginModel = LoginModel.fromJson(value);
-        if (loginModel.statusCode == 200){
+        if (loginModel.statusCode == 200) {
           await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
           await SPref.instance.set("info_login", json.encode(loginModel.data));
           Get.offAllNamed("/home");
@@ -395,5 +500,4 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
   }
-
 }
