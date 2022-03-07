@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     final Map<String, dynamic> data =
-        json.decode(response.body) as Map<String, dynamic>;
+    json.decode(response.body) as Map<String, dynamic>;
     final String? namedContact = _pickFirstNamedContact(data);
     setState(() {
       if (namedContact != null) {
@@ -101,12 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
     final Map<String, dynamic>? contact = connections?.firstWhere(
-      (dynamic contact) => contact['names'] != null,
+          (dynamic contact) => contact['names'] != null,
       orElse: () => null,
     ) as Map<String, dynamic>?;
     if (contact != null) {
       final Map<String, dynamic>? name = contact['names'].firstWhere(
-        (dynamic name) => name['displayName'] != null,
+            (dynamic name) => name['displayName'] != null,
         orElse: () => null,
       ) as Map<String, dynamic>?;
       if (name != null) {
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image:
-                                AssetImage("assets/images/img_top_login.png"),
+                            AssetImage("assets/images/img_top_login.png"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image:
-                                AssetImage("assets/images/img_logo_text.png"),
+                            AssetImage("assets/images/img_logo_text.png"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextFieldWidget(
                                         obscureText: isPasswordVisible,
                                         hintText:
-                                            StringText.text_password_input,
+                                        StringText.text_password_input,
                                         // labelText: 'Password',
                                         // prefixIcon:
                                         // const Icon(Icons.person, color: Colors.grey),
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         clickSuffixIcon: () {
                                           setState(() {
                                             isPasswordVisible =
-                                                !isPasswordVisible;
+                                            !isPasswordVisible;
                                           });
                                         },
                                         textController: _passwordController),
@@ -405,7 +405,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.bottomCenter,
                         child: Image(
                           image:
-                              AssetImage('assets/images/img_line_horizone.png'),
+                          AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -444,21 +444,21 @@ class _LoginScreenState extends State<LoginScreen> {
         'fcm_token': fcmToken
       });
       APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
-          (value) async {
-        await pr.hide();
-        var loginModel = LoginModel.fromJson(value);
-        if (loginModel.statusCode == 200) {
-          await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-          await SPref.instance.set("info_login", json.encode(loginModel.data));
-          Get.offAllNamed("/home");
-        }
-      }, onError: (error) async {
+              (value) async {
+            await pr.hide();
+            var loginModel = LoginModel.fromJson(value);
+            if (loginModel.statusCode == 200) {
+              await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+              await SPref.instance.set("info_login", json.encode(loginModel.data));
+              Get.offAllNamed("/home");
+            }
+          }, onError: (error) async {
         await pr.hide();
         var statuscode = error.toString();
         if (statuscode.contains("Unauthorised:")) {
           var unauthorised = "Unauthorised:";
           var test =
-              statuscode.substring(unauthorised.length, statuscode.length);
+          statuscode.substring(unauthorised.length, statuscode.length);
           var response = json.decode(test.toString());
           var message = response["message"];
           Utils.showAlertDialogOneButton(context, message);
@@ -481,15 +481,15 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param).then(
-        (value) async {
-      await pr.hide();
-      var loginModel = LoginModel.fromJson(value);
-      if (loginModel.statusCode == 200) {
-        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-        await SPref.instance.set("info_login", json.encode(loginModel.data));
-        Get.offAllNamed("/home");
-      }
-    }, onError: (error) async {
+            (value) async {
+          await pr.hide();
+          var loginModel = LoginModel.fromJson(value);
+          if (loginModel.statusCode == 200) {
+            await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+            await SPref.instance.set("info_login", json.encode(loginModel.data));
+            Get.offAllNamed("/home");
+          }
+        }, onError: (error) async {
       await pr.hide();
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
