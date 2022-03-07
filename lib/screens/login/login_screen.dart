@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
@@ -15,8 +16,17 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 import 'package:step_bank/strings.dart';
 import 'package:step_bank/util.dart';
-
+import 'package:http/http.dart' as http;
 import '../../themes.dart';
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -30,11 +40,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool isPasswordVisible = true;
   late ProgressDialog pr;
+  GoogleSignInAccount? _currentUser;
+  String _contactText = '';
 
   @override
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
+    _handleSignOut();
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -42,8 +55,76 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
+
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+      setState(() {
+        _currentUser = account;
+      });
+      if (_currentUser != null) {
+        doLoginBySocial(_currentUser!, "1");
+      }
+    });
+    _googleSignIn.signInSilently();
+
     // loadData();
   }
+
+  Future<void> _handleGetContact(GoogleSignInAccount user) async {
+    setState(() {
+      _contactText = 'Loading contact info...';
+    });
+    final http.Response response = await http.get(
+      Uri.parse('https://people.googleapis.com/v1/people/me/connections'
+          '?requestMask.includeField=person.names'),
+      headers: await user.authHeaders,
+    );
+    if (response.statusCode != 200) {
+      setState(() {
+        _contactText = 'People API gave a ${response.statusCode} '
+            'response. Check logs for details.';
+      });
+      print('People API ${response.statusCode} response: ${response.body}');
+      return;
+    }
+    final Map<String, dynamic> data =
+        json.decode(response.body) as Map<String, dynamic>;
+    final String? namedContact = _pickFirstNamedContact(data);
+    setState(() {
+      if (namedContact != null) {
+        _contactText = 'I see you know $namedContact!';
+      } else {
+        _contactText = 'No contacts to display.';
+      }
+    });
+  }
+
+  String? _pickFirstNamedContact(Map<String, dynamic> data) {
+    final List<dynamic>? connections = data['connections'] as List<dynamic>?;
+    final Map<String, dynamic>? contact = connections?.firstWhere(
+      (dynamic contact) => contact['names'] != null,
+      orElse: () => null,
+    ) as Map<String, dynamic>?;
+    if (contact != null) {
+      final Map<String, dynamic>? name = contact['names'].firstWhere(
+        (dynamic name) => name['displayName'] != null,
+        orElse: () => null,
+      ) as Map<String, dynamic>?;
+      if (name != null) {
+        return name['displayName'] as String?;
+      }
+    }
+    return null;
+  }
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   @override
   Widget build(BuildContext context) {
@@ -254,9 +335,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           onClicked: () => doLogin()),
                       const SizedBox(height: 10),
                       ButtonWidgetBorder(
-                        text: StringText.text_try,
-                        color: Mytheme.kBackgroundColor,
-                        onClicked: () => {}),
+                          text: StringText.text_try,
+                          color: Mytheme.kBackgroundColor,
+                          onClicked: () => {}),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +353,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             icon: Image.asset("assets/images/icon_google.png"),
                             // tooltip: 'Increase volume by 10',
                             iconSize: 50,
-                            onPressed: () {},
+                            onPressed: () {
+                              _handleSignIn();
+                            },
                           ),
                           const Image(
                             image: AssetImage('assets/images/img_col.png'),
@@ -321,7 +404,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Align(
                         alignment: Alignment.bottomCenter,
                         child: Image(
-                          image: AssetImage('assets/images/img_line_horizone.png'),
+                          image:
+                              AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -344,8 +428,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-
   Future<void> doLogin() async {
     String? phone, password, typeDevice, fcmToken;
     if (_phoneController.text.isNotEmpty &&
@@ -365,7 +447,7 @@ class _LoginScreenState extends State<LoginScreen> {
           (value) async {
         await pr.hide();
         var loginModel = LoginModel.fromJson(value);
-        if (loginModel.statusCode == 200){
+        if (loginModel.statusCode == 200) {
           await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
           await SPref.instance.set("info_login", json.encode(loginModel.data));
           Get.offAllNamed("/home");
@@ -388,6 +470,41 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> doLoginBySocial(
+      GoogleSignInAccount _currentUser, String socialType) async {
+    var param = jsonEncode(<String, String>{
+      'email': _currentUser.email,
+      'social_id': _currentUser.id,
+      'social_type': socialType,
+      'device_type': "Android",
+      'fcm_token': "DCM",
+    });
+
+    APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param).then(
+        (value) async {
+      await pr.hide();
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+        Get.offAllNamed("/home");
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error);
+      }
+    });
+  }
+
   void loadData() async {
     var isLogged = await SPref.instance.get("token");
     if (isLogged != null && isLogged.toString().isNotEmpty) {
@@ -395,5 +512,4 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
   }
-
 }

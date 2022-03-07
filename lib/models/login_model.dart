@@ -37,6 +37,7 @@ class UserData {
   int? provinceId;
   bool? loginFinger;
   String? avatar;
+  List<UserGroup>? userGroup;
   String? createdAt;
   String? accessToken;
 
@@ -52,6 +53,7 @@ class UserData {
         this.provinceId,
         this.loginFinger,
         this.avatar,
+        this.userGroup,
         this.createdAt,
         this.accessToken});
 
@@ -67,6 +69,12 @@ class UserData {
     provinceId = json['province_id'];
     loginFinger = json['login_finger'];
     avatar = json['avatar'];
+    if (json['user_group'] != null) {
+      userGroup = <UserGroup>[];
+      json['user_group'].forEach((v) {
+        userGroup!.add(new UserGroup.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     accessToken = json['access_token'];
   }
@@ -84,8 +92,73 @@ class UserData {
     data['province_id'] = this.provinceId;
     data['login_finger'] = this.loginFinger;
     data['avatar'] = this.avatar;
+    if (this.userGroup != null) {
+      data['user_group'] = this.userGroup!.map((v) => v.toJson()).toList();
+    }
     data['createdAt'] = this.createdAt;
     data['access_token'] = this.accessToken;
+    return data;
+  }
+}
+
+class UserGroup {
+  String? id;
+  String? name;
+  String? code;
+  String? description;
+  String? createdAt;
+  String? updatedAt;
+  Pivot? pivot;
+
+  UserGroup(
+      {this.id,
+        this.name,
+        this.code,
+        this.description,
+        this.createdAt,
+        this.updatedAt,
+        this.pivot});
+
+  UserGroup.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    code = json['code'];
+    description = json['description'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['code'] = this.code;
+    data['description'] = this.description;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.pivot != null) {
+      data['pivot'] = this.pivot!.toJson();
+    }
+    return data;
+  }
+}
+
+class Pivot {
+  String? userId;
+  String? userGroupId;
+
+  Pivot({this.userId, this.userGroupId});
+
+  Pivot.fromJson(Map<String, dynamic> json) {
+    userId = json['user_id'];
+    userGroupId = json['user_group_id'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['user_id'] = this.userId;
+    data['user_group_id'] = this.userGroupId;
     return data;
   }
 }

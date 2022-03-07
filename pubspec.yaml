@@ -42,6 +42,8 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   flutter_svg: ^1.0.3
   progress_dialog: ^1.2.4
+  image_picker: ^0.8.4+10
+  google_sign_in: ^5.2.4
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/city.json
   fonts:
     - family: OpenSans-Bold
       fonts:

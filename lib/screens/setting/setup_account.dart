@@ -156,7 +156,7 @@ class _AccountScreenState extends State<AccountScreen> {
               flex: 2,
               child: Padding(
                 padding:
-                    EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                 child: Text(
                   "Họ và tên",
                   textAlign: TextAlign.start,
@@ -197,7 +197,7 @@ class _AccountScreenState extends State<AccountScreen> {
               flex: 1,
               child: Padding(
                 padding:
-                    const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
                 child: IconButton(
                   icon: Image.asset(urlActionUsername),
                   // tooltip: 'Increase volume by 10',
@@ -256,7 +256,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 flex: 2,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     "Giới tính",
                     textAlign: TextAlign.start,
@@ -332,7 +332,7 @@ class _AccountScreenState extends State<AccountScreen> {
               flex: 2,
               child: Padding(
                 padding:
-                    EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                 child: Text(
                   "Sinh nhật",
                   textAlign: TextAlign.start,
@@ -373,7 +373,7 @@ class _AccountScreenState extends State<AccountScreen> {
               flex: 1,
               child: Padding(
                 padding:
-                    const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
                 child: IconButton(
                   icon: Image.asset(urlActionUsername),
                   // tooltip: 'Increase volume by 10',
@@ -430,7 +430,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 flex: 1,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     "Tỉnh / thành phố",
                     textAlign: TextAlign.start,
@@ -469,7 +469,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           width: 40,
                           child: IconButton(
                             icon:
-                                Image.asset("assets/images/ic_arrow_down.png"),
+                            Image.asset("assets/images/ic_arrow_down.png"),
                             // tooltip: 'Increase volume by 10',
                             iconSize: 0,
                             onPressed: () {
@@ -516,7 +516,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 flex: 1,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     "Huyện /quận",
                     textAlign: TextAlign.start,
@@ -717,7 +717,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 width: 40,
                                 child: IconButton(
                                   icon:
-                                      Image.asset("assets/images/ic_close.png"),
+                                  Image.asset("assets/images/ic_close.png"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -812,7 +812,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           const Center(
                             child: Padding(
                               padding:
-                                  const EdgeInsets.only(left: 60, right: 60),
+                              const EdgeInsets.only(left: 60, right: 60),
                               child: Text(
                                 "Chọn Thành viên / khách hàng của tổ chức tín dụng",
                                 textAlign: TextAlign.center,
@@ -832,7 +832,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 width: 40,
                                 child: IconButton(
                                   icon:
-                                      Image.asset("assets/images/ic_close.png"),
+                                  Image.asset("assets/images/ic_close.png"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -945,7 +945,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 width: 40,
                                 child: IconButton(
                                   icon:
-                                      Image.asset("assets/images/ic_close.png"),
+                                  Image.asset("assets/images/ic_close.png"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -965,7 +965,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
+                                  BorderRadius.all(Radius.circular(25.0)))),
                           onChanged: (value) {
                             setState(() {
                               _tempListCity = _buildSearchCityList(value);
@@ -987,9 +987,9 @@ class _AccountScreenState extends State<AccountScreen> {
                               itemBuilder: (context, index) {
                                 return (_tempListCity.isNotEmpty)
                                     ? _showBottomSheetCityWithSearch(
-                                        index, _tempListCity)
+                                    index, _tempListCity)
                                     : _showBottomSheetCityWithSearch(
-                                        index, cityData);
+                                    index, cityData);
                                 //   ListTile(
                                 //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
                                 // );
@@ -1051,7 +1051,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 width: 40,
                                 child: IconButton(
                                   icon:
-                                      Image.asset("assets/images/ic_close.png"),
+                                  Image.asset("assets/images/ic_close.png"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -1071,7 +1071,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               prefixIcon: Icon(Icons.search),
                               border: OutlineInputBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
+                                  BorderRadius.all(Radius.circular(25.0)))),
                           onChanged: (value) {
                             setState(() {
                               _tempProvidersData =
@@ -1094,9 +1094,9 @@ class _AccountScreenState extends State<AccountScreen> {
                               itemBuilder: (context, index) {
                                 return (_tempProvidersData.isNotEmpty)
                                     ? _showBottomSheetProviderWithSearch(
-                                        index, _tempProvidersData)
+                                    index, _tempProvidersData)
                                     : _showBottomSheetProviderWithSearch(
-                                        index, _providersData);
+                                    index, _providersData);
                                 //   ListTile(
                                 //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
                                 // );
@@ -1160,9 +1160,11 @@ class _AccountScreenState extends State<AccountScreen> {
                       image: NetworkImage(user.avatar.toString())))),
           Padding(
             padding:
-                const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
+            const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
             child: InkWell(
-              onTap: () {},
+              onTap: (){
+
+              },
               child: Container(
                 height: 24,
                 width: 27,
@@ -1174,6 +1176,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             ),
+
           ),
         ],
       );
@@ -1181,53 +1184,32 @@ class _AccountScreenState extends State<AccountScreen> {
     }
     return Stack(
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(60.0),
+        Container(
+          width: 116.0,
+          height: 116.0,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            // image: DecorationImage(
+            //   fit: BoxFit.fill,
+            //   image: AssetImage("assets/images/no_image.png"),
+            // ),
+          ),
           child: _image != null
               ? Image.file(
-                  _image,
-                  fit: BoxFit.fill,
-                  height: 125.0,
-                  width: 125.0,
-                )
-              : Image.asset(
-                  "assets/images/no_image.png",
-                  fit: BoxFit.fill,
-                  height: 125.0,
-                  width: 125.0,
-                ),
+            _image,
+            fit: BoxFit.fill,
+          ) : Image.asset(
+            "assets/images/no_image.png",
+            fit: BoxFit.fill,
+          ),
         ),
-        // Container(
-        //   width: 116.0,
-        //   height: 116.0,
-        //   decoration: BoxDecoration(
-        //     shape: BoxShape.circle,
-        //     image: DecorationImage(
-        //       fit: BoxFit.fill,
-        //       image: _image == null
-        //           ? AssetImage('assets/images/noImageAvailable.png')
-        //           : Image.file(_image) as ImageProvider,
-        //     ),
-        //   ),
-        //   child: _image != null
-        //       ? Image.file(
-        //           _image,
-        //           fit: BoxFit.fill,
-        //         )
-        //       : Image.asset(
-        //           "assets/images/no_image.png",
-        //           fit: BoxFit.fill,
-        //         ),
-        // ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
+          const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
           child: InkWell(
             onTap: () async {
               XFile image = await imagePicker.pickImage(
-                  source: ImageSource.gallery,
-                  imageQuality: 50,
-                  preferredCameraDevice: CameraDevice.front);
+                  source: ImageSource.gallery, imageQuality: 50, preferredCameraDevice: CameraDevice.front);
               setState(() {
                 _image = File(image.path);
               });
@@ -1241,8 +1223,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   fit: BoxFit.fill,
                 ),
               ),
+
             ),
           ),
+
         ),
       ],
     );
@@ -1251,17 +1235,17 @@ class _AccountScreenState extends State<AccountScreen> {
   Future<void> loadGroup() async {
     await pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.listUserGroupURL).then(
-        (value) async {
-      await pr.hide();
-      var userGroup = UserGroupModel.fromJson(value);
-      if (userGroup.statusCode == 200) {
-        setState(() {
-          userGroupData = userGroup.data;
-          textUserGroup =
-              _userGroupValue(selectedUserGroupList, userGroupData!);
-        });
-      }
-    }, onError: (error) async {
+            (value) async {
+          await pr.hide();
+          var userGroup = UserGroupModel.fromJson(value);
+          if (userGroup.statusCode == 200) {
+            setState(() {
+              userGroupData = userGroup.data;
+              textUserGroup =
+                  _userGroupValue(selectedUserGroupList, userGroupData!);
+            });
+          }
+        }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -1345,7 +1329,7 @@ class _AccountScreenState extends State<AccountScreen> {
             const Spacer(),
             Visibility(
               visible:
-                  currentCityIndex == listOfCities[index].id! ? true : false,
+              currentCityIndex == listOfCities[index].id! ? true : false,
               child: const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Image(
@@ -1395,7 +1379,7 @@ class _AccountScreenState extends State<AccountScreen> {
             const Spacer(),
             Visibility(
               visible:
-                  currentWardIndex == listOfCities[index].id! ? true : false,
+              currentWardIndex == listOfCities[index].id! ? true : false,
               child: const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Image(
@@ -1508,15 +1492,15 @@ class _AccountScreenState extends State<AccountScreen> {
     });
 
     APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
-        (value) async {
-      await pr.hide();
-      var loginModel = LoginModel.fromJson(value);
-      if (loginModel.statusCode == 200) {
-        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-        await SPref.instance.set("info_login", json.encode(loginModel.data));
-        // Get.offAllNamed("/home");
-      }
-    }, onError: (error) async {
+            (value) async {
+          await pr.hide();
+          var loginModel = LoginModel.fromJson(value);
+          if (loginModel.statusCode == 200) {
+            await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+            await SPref.instance.set("info_login", json.encode(loginModel.data));
+            // Get.offAllNamed("/home");
+          }
+        }, onError: (error) async {
       await pr.hide();
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
@@ -1531,6 +1515,11 @@ class _AccountScreenState extends State<AccountScreen> {
       }
     });
   }
+
+  Future<void> saveAvatar() async {
+
+  }
+
 
 // Future<String> uploadImage(File file) async {
 //   String fileName = file.path.split('/').last;

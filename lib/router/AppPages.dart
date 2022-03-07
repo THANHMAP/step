@@ -6,6 +6,8 @@ import 'package:step_bank/screens/news/news_detail_screen.dart';
 import 'package:step_bank/screens/news/news_screen.dart';
 import 'package:step_bank/screens/otp/otp_screen.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
+import 'package:step_bank/screens/setting/faq.dart';
+import 'package:step_bank/screens/setting/report_error.dart';
 import 'package:step_bank/screens/setting/user_account.dart';
 import 'package:step_bank/screens/splash/splash.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
@@ -53,6 +55,14 @@ class AppPages {
     GetPage(
       name: AppRoutes.editProfile,
       page: () => const AccountScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.reportError,
+      page: () => const ReportScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.faq,
+      page: () => const FAQScreen(),
     ),
   ];
 }

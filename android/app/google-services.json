@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "105597937164",
+    "project_id": "step-bank-35e30",
+    "storage_bucket": "step-bank-35e30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105597937164:android:6d8230c1751694b0b6b029",
+        "android_client_info": {
+          "package_name": "com.step.bank.step_bank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105597937164-bfu90a1sfkb91oagr6de1r7odgr0opqp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.step.bank.step_bank",
+            "certificate_hash": "3f9127d0f3d90601ff2bc2589a045fb2bf215b24"
+          }
+        },
+        {
+          "client_id": "105597937164-kt4c7ssj0b4jmjcbpdr7v7k3rtisc55t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD56gFvod-3aIx9yAawaB4lDRw6wVP6rGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105597937164-kt4c7ssj0b4jmjcbpdr7v7k3rtisc55t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

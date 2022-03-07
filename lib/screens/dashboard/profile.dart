@@ -267,28 +267,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Câu hỏi thường gặp",
                                 linkUrl: 'assets/images/img_cauhoi.png',
                                 onClicked: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return WillPopScope(
-                                            onWillPop: () {
-                                              return Future.value(false);
-                                            },
-                                            child: ConfirmDialogBox(
-                                              title: "Thoát đăng nhập",
-                                              descriptions:
-                                                  "Đăng xuất khỏi tài khoản này?",
-                                              onClickedConfirm: () async {
-                                                await SPref.instance
-                                                    .set("token", "");
-                                                Get.offAllNamed("/login"
-                                                    "");
-                                              },
-                                              onClickedCancel: () {
-                                                Navigator.pop(context, "");
-                                              },
-                                            ));
-                                      });
+                                  Get.toNamed('/faq');
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -298,28 +277,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Báo cáo lỗi",
                                 linkUrl: 'assets/images/img_baocaoloi.png',
                                 onClicked: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return WillPopScope(
-                                            onWillPop: () {
-                                              return Future.value(false);
-                                            },
-                                            child: ConfirmDialogBox(
-                                              title: "Thoát đăng nhập",
-                                              descriptions:
-                                                  "Đăng xuất khỏi tài khoản này?",
-                                              onClickedConfirm: () async {
-                                                await SPref.instance
-                                                    .set("token", "");
-                                                Get.offAllNamed("/login"
-                                                    "");
-                                              },
-                                              onClickedCancel: () {
-                                                Navigator.pop(context, "");
-                                              },
-                                            ));
-                                      });
+                                  Get.toNamed('/reportError');
                                 },
                               ),
                               const SizedBox(height: 10),

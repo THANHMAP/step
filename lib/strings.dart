@@ -41,4 +41,8 @@ class StringText {
   static const text_news_detail = "Chi tiết tin tức";
   static const text_tai_khoan = "Tài khoản";
   static const text_logout = "Đăng xuất";
+  static const text_save = "Lưu thay đổi";
+  static const text_report_title = "Báo cáo lỗi";
+  static const text_report_success = "Báo cáo lỗi thành công";
+  static const text_faq = "Câu hỏi thường gặp";
 }
