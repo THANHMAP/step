@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/dialog_nomal.dart';
@@ -18,6 +19,7 @@ import 'package:step_bank/shared/SPref.dart';
 import 'package:step_bank/strings.dart';
 import 'package:step_bank/util.dart';
 import 'package:http/http.dart' as http;
+import '../../models/biometrics_model.dart';
 import '../../themes.dart';
 
 enum _SupportState {
@@ -58,6 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
   List<BiometricType>? _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
+  BiometricsData _biometricsData = BiometricsData();
 
   @override
   void initState() {
@@ -71,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
-
+    loadCheckBiometrics();
     _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
       setState(() {
         _currentUser = account;
@@ -159,10 +162,13 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted) return;
 
     if (authenticated) {
-    } else {}
+      doLoginWithBiometrics(_biometricsData.phone.toString(), _biometricsData.password.toString());
+    } else {
+
+    }
 
     setState(
-            () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
+        () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
   Future<void> _handleGetContact(GoogleSignInAccount user) async {
@@ -183,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     final Map<String, dynamic> data =
-    json.decode(response.body) as Map<String, dynamic>;
+        json.decode(response.body) as Map<String, dynamic>;
     final String? namedContact = _pickFirstNamedContact(data);
     setState(() {
       if (namedContact != null) {
@@ -197,12 +203,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
     final Map<String, dynamic>? contact = connections?.firstWhere(
-          (dynamic contact) => contact['names'] != null,
+      (dynamic contact) => contact['names'] != null,
       orElse: () => null,
     ) as Map<String, dynamic>?;
     if (contact != null) {
       final Map<String, dynamic>? name = contact['names'].firstWhere(
-            (dynamic name) => name['displayName'] != null,
+        (dynamic name) => name['displayName'] != null,
         orElse: () => null,
       ) as Map<String, dynamic>?;
       if (name != null) {
@@ -255,7 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image:
-                            AssetImage("assets/images/img_top_login.png"),
+                                AssetImage("assets/images/img_top_login.png"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -272,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                             image:
-                            AssetImage("assets/images/img_logo_text.png"),
+                                AssetImage("assets/images/img_logo_text.png"),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -339,7 +345,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextFieldWidget(
                                         obscureText: isPasswordVisible,
                                         hintText:
-                                        StringText.text_password_input,
+                                            StringText.text_password_input,
                                         // labelText: 'Password',
                                         // prefixIcon:
                                         // const Icon(Icons.person, color: Colors.grey),
@@ -350,7 +356,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         clickSuffixIcon: () {
                                           setState(() {
                                             isPasswordVisible =
-                                            !isPasswordVisible;
+                                                !isPasswordVisible;
                                           });
                                         },
                                         textController: _passwordController),
@@ -358,9 +364,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Expanded(
                             flex: 1,
                             child: InkWell(
-                              onTap: (){
+                              onTap: () {
                                 if (_isFingerprint && _canCheckBiometrics) {
-                                  _authenticate();
+                                  checkBiometrics();
                                 } else {
                                   Utils.showAlertDialogOneButton(context,
                                       "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
@@ -400,25 +406,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      // SizedBox(
-                      //   height: 46,
-                      //   child: TextFieldWidget(
-                      //       obscureText: isPasswordVisible,
-                      //       hintText: StringText.text_password_input,
-                      //       // labelText: 'Password',
-                      //       // prefixIcon:
-                      //       // const Icon(Icons.person, color: Colors.grey),
-                      //       textInputAction: TextInputAction.done,
-                      //       suffixIcon: isPasswordVisible
-                      //           ? Icons.visibility_off
-                      //           : Icons.visibility,
-                      //       clickSuffixIcon: () {
-                      //         setState(() {
-                      //           isPasswordVisible = !isPasswordVisible;
-                      //         });
-                      //       },
-                      //       textController: _passwordController),
-                      // ),
                       TextButton(
                           onPressed: () {
                             Get.toNamed('/forgotPassword');
@@ -511,7 +498,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.bottomCenter,
                         child: Image(
                           image:
-                          AssetImage('assets/images/img_line_horizone.png'),
+                              AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -550,21 +537,22 @@ class _LoginScreenState extends State<LoginScreen> {
         'fcm_token': fcmToken
       });
       APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
-              (value) async {
-            await pr.hide();
-            var loginModel = LoginModel.fromJson(value);
-            if (loginModel.statusCode == 200) {
-              await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-              await SPref.instance.set("info_login", json.encode(loginModel.data));
-              Get.offAllNamed("/home");
-            }
-          }, onError: (error) async {
+          (value) async {
+        await pr.hide();
+        var loginModel = LoginModel.fromJson(value);
+        if (loginModel.statusCode == 200) {
+          saveBiometrics(false, phone.toString(), password.toString());
+          await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+          await SPref.instance.set("info_login", json.encode(loginModel.data));
+          Get.offAllNamed("/home");
+        }
+      }, onError: (error) async {
         await pr.hide();
         var statuscode = error.toString();
         if (statuscode.contains("Unauthorised:")) {
           var unauthorised = "Unauthorised:";
           var test =
-          statuscode.substring(unauthorised.length, statuscode.length);
+              statuscode.substring(unauthorised.length, statuscode.length);
           var response = json.decode(test.toString());
           var message = response["message"];
           Utils.showAlertDialogOneButton(context, message);
@@ -586,16 +574,53 @@ class _LoginScreenState extends State<LoginScreen> {
       'fcm_token': "DCM",
     });
 
-    APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param).then(
-            (value) async {
-          await pr.hide();
-          var loginModel = LoginModel.fromJson(value);
-          if (loginModel.statusCode == 200) {
-            await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-            await SPref.instance.set("info_login", json.encode(loginModel.data));
-            Get.offAllNamed("/home");
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
+        .then((value) async {
+      await pr.hide();
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+        Get.offAllNamed("/home");
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error);
+      }
+    });
+  }
+
+  Future<void> doLoginWithBiometrics(String phone, String password) async {
+    String? typeDevice, fcmToken;
+    await pr.show();
+
+    typeDevice = "Android";
+    fcmToken = "test";
+    var param = jsonEncode(<String, String>{
+      'username': phone,
+      'password': password,
+      'device_type': typeDevice,
+      'fcm_token': fcmToken
+    });
+    APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
+        (value) async {
+      await pr.hide();
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+        Get.offAllNamed("/home");
+      }
+    }, onError: (error) async {
       await pr.hide();
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
@@ -616,6 +641,33 @@ class _LoginScreenState extends State<LoginScreen> {
     if (isLogged != null && isLogged.toString().isNotEmpty) {
       Get.offAndToNamed('/home');
       return;
+    }
+  }
+
+  void loadCheckBiometrics() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool checkValueBiometrics = prefs.containsKey("biometrics");
+    if (checkValueBiometrics){
+      var data = await SPref.instance.get("biometrics");
+      setState(() {
+        _biometricsData = BiometricsData.fromJson(json.decode(data.toString()));
+      });
+    }
+  }
+
+  void saveBiometrics(bool active, String phone, String password) {
+    _biometricsData.isActivated = active;
+    _biometricsData.phone = phone;
+    _biometricsData.password = password;
+    SPref.instance.set("biometrics", json.encode(_biometricsData));
+  }
+
+  void checkBiometrics() {
+    if (_biometricsData.isActivated == true) {
+      _authenticate();
+    } else {
+      Utils.showAlertDialogOneButton(
+          context, "Vui lòng đang nhập và mở chức năng này trong cài đặt");
     }
   }
 }

@@ -6,10 +6,9 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
    <application
-        android:label="step_bank"
+        android:label="Co-opSmart"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="step_bank"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"

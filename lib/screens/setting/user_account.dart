@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,15 @@ class _AccountScreenState extends State<AccountScreen> {
                         child: ButtonWidget(
                             text: StringText.text_save,
                             color: Mytheme.colorBgButtonLogin,
-                            onClicked: () => {saveInfoUser()}),
+                            onClicked: () => {
+                              // saveInfoUser()
+                              if(_image != null){
+                                saveImage(_image),
+                                saveInfoUser()
+                              } else {
+                                saveInfoUser()
+                              }
+                            }),
                       ),
                     ],
                   ),
@@ -1532,14 +1541,31 @@ class _AccountScreenState extends State<AccountScreen> {
     });
   }
 
-// Future<String> uploadImage(File file) async {
-//   String fileName = file.path.split('/').last;
-//   FormData formData = FormData.fromMap({
-//     "file":
-//     await MultipartFile.fromFile(file.path, filename:fileName),
-//   });
-//   response = await dio.post("/info", data: formData);
-//   return response.data['id'];
-// }
+  Future<void> saveImage(File file) async {
+    await pr.show();
+    APIManager.uploadImageHTTP(file, RemoteServices.updateAvatarURL).then((value) async {
+      await pr.hide();
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error);
+      }
+    });
+  }
+
+
 
 }

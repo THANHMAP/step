@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import 'custom_exception.dart';
@@ -78,6 +80,30 @@ class APIManager {
     }
     return responseJson;
   }
+
+  static Future<dynamic> uploadImageHTTP(file, String url) async {
+    print("Calling API: $url");
+    var responseJson;
+    var token = await SPref.instance.get("token");
+    Map<String, String> headers = {'Authorization': 'Bearer $token'};
+    try {
+      var request =
+      http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.files.add(await http.MultipartFile.fromPath('avatar', file.path));
+      var response = await http.Response.fromStream(await request.send());
+
+      responseJson = _response(response);
+      if (kDebugMode) {
+        print(responseJson);
+      }
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+
 
 
 

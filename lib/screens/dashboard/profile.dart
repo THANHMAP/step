@@ -160,28 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Cài đặt tài khoản",
                                 linkUrl: 'assets/images/img_setting.png',
                                 onClicked: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return WillPopScope(
-                                            onWillPop: () {
-                                              return Future.value(false);
-                                            },
-                                            child: ConfirmDialogBox(
-                                              title: "Thoát đăng nhập",
-                                              descriptions:
-                                                  "Đăng xuất khỏi tài khoản này?",
-                                              onClickedConfirm: () async {
-                                                await SPref.instance
-                                                    .set("token", "");
-                                                Get.offAllNamed("/login"
-                                                    "");
-                                              },
-                                              onClickedCancel: () {
-                                                Navigator.pop(context, "");
-                                              },
-                                            ));
-                                      });
+                                  Get.toNamed('/setupAccount');
                                 },
                               ),
                               const SizedBox(height: 10),
