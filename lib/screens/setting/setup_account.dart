@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../compoment/appbar_wiget.dart';
+import '../../compoment/dialog_confirm.dart';
 import '../../models/biometrics_model.dart';
 import '../../models/login_model.dart';
 import '../../service/custom_exception.dart';
@@ -88,7 +91,6 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     //   _availableBiometrics = availableBiometrics;
     // });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -341,7 +343,9 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   icon: Image.asset("assets/images/ic_edit.png"),
                   // tooltip: 'Increase volume by 10',
                   iconSize: 50,
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed('/inputAccountAgain',  arguments: user.phone);
+                  },
                 ),
               ),
             ),
@@ -498,15 +502,19 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                         activeColor: Mytheme.color_active,
                         value: _switchValue,
                         onChanged: (bool value) {
-                          setState(() {
-                            _switchValue = value;
-                            if (_isFingerprint && _canCheckBiometrics) {
-                              saveBiometrics(_switchValue);
-                            } else {
-                              Utils.showAlertDialogOneButton(context,
-                                  "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
-                            }
-                          });
+                          if (!value) {
+                            showDialogConfig();
+                          } else {
+                            setState(() {
+                              _switchValue = value;
+                              if (_isFingerprint && _canCheckBiometrics) {
+                                saveBiometrics(_switchValue);
+                              } else {
+                                Utils.showAlertDialogOneButton(context,
+                                    "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
+                              }
+                            });
+                          }
                         },
                       ),
                       onTap: () {
@@ -541,7 +549,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   void loadCheckBiometrics() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool checkValueBiometrics = prefs.containsKey("biometrics");
-    if (checkValueBiometrics){
+    if (checkValueBiometrics) {
       var data = await SPref.instance.get("biometrics");
       setState(() {
         _biometricsData = BiometricsData.fromJson(json.decode(data.toString()));
@@ -550,11 +558,36 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     }
   }
 
+  showDialogConfig() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: ConfirmDialogBox(
+                title: "Tắt xác thực vân tay",
+                descriptions:
+                    "Tính năng giúp bảo mật tài khoản của bạn tốt hơn. Bạn chắc chắn muốn tắt ?",
+                textButtonLeft: "Huỷ",
+                textButtonRight: "Tắt xác thực",
+                onClickedConfirm: () async {
+                  saveBiometrics(false);
+                  setState(() {
+                    _switchValue = false;
+                  });
+                  Navigator.pop(context, "");
+                },
+                onClickedCancel: () {
+                  Navigator.pop(context, "");
+                },
+              ));
+        });
+  }
+
   Future<void> saveBiometrics(bool active) async {
-    BiometricsData data = BiometricsData();
-    data.isActivated = active;
-    data.phone = _biometricsData.password;
-    data.password = _biometricsData.password;
-    await SPref.instance.set("biometrics", json.encode(data));
+    _biometricsData.isActivated = active;
+    await SPref.instance.set("biometrics", json.encode(_biometricsData));
   }
 }

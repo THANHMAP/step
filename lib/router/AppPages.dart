@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:step_bank/screens/forgotpassword/forgotpassowrd_screen.dart';
+import 'package:step_bank/screens/forgotpassword/input_old_password.dart';
 import 'package:step_bank/screens/home/home_main.dart';
 import 'package:step_bank/screens/login/login_screen.dart';
 import 'package:step_bank/screens/news/news_detail_screen.dart';
@@ -73,6 +74,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.setupAccount,
       page: () => const AccountSetupScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.inputAccountAgain,
+      page: () => const InputOldPassWordScreen(),
     ),
   ];
 }

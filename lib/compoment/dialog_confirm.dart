@@ -8,6 +8,8 @@ class ConfirmDialogBox extends StatelessWidget {
   // final String? title, descriptions, text;
   final String? title;
   final String? descriptions;
+  final String? textButtonLeft;
+  final String? textButtonRight;
   final VoidCallback? onClickedConfirm;
   final VoidCallback? onClickedCancel;
 
@@ -15,6 +17,8 @@ class ConfirmDialogBox extends StatelessWidget {
       {Key? key,
       this.title,
       this.descriptions,
+      this.textButtonLeft,
+      this.textButtonRight,
       this.onClickedConfirm,
       this.onClickedCancel})
       : super(key: key);
@@ -120,20 +124,20 @@ class ConfirmDialogBox extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Mytheme.colorBgButtonLogin)
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
-                        //     spreadRadius: 1, //spread radius
-                        //     blurRadius: 7, // blur radius
-                        //     offset: Offset(0, 3), // changes position of shadow
-                        //     //first paramerter of offset is left-right
-                        //     //second parameter is top to down
-                        //   ),
-                        //   //you can set more BoxShadow() here
-                        // ],
-                      ),
+                          // boxShadow: [
+                          //   BoxShadow(
+                          //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
+                          //     spreadRadius: 1, //spread radius
+                          //     blurRadius: 7, // blur radius
+                          //     offset: Offset(0, 3), // changes position of shadow
+                          //     //first paramerter of offset is left-right
+                          //     //second parameter is top to down
+                          //   ),
+                          //   //you can set more BoxShadow() here
+                          // ],
+                          ),
                       child: Text(
-                        "Hủy",
+                        textButtonLeft??"Hủy",
                         style: TextStyle(
                           fontSize: 16,
                           color: Mytheme.color_434657,
@@ -143,7 +147,6 @@ class ConfirmDialogBox extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   InkWell(
                     onTap: onClickedConfirm,
                     child: Container(
@@ -167,7 +170,7 @@ class ConfirmDialogBox extends StatelessWidget {
                         // ],
                       ),
                       child: Text(
-                        "Đăng xuất",
+                        textButtonRight ?? "Đăng xuất",
                         style: TextStyle(
                           fontSize: 16,
                           color: Mytheme.kBackgroundColor,
@@ -177,8 +180,6 @@ class ConfirmDialogBox extends StatelessWidget {
                       ),
                     ),
                   ),
-
-
                 ],
               ),
             ],
