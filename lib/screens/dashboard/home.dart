@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Scaffold(
-        backgroundColor: Mytheme.kBackgroundColor,
+        backgroundColor: Mytheme.colorBgMain,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(bottom: 90),

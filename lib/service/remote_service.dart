@@ -28,6 +28,10 @@ class RemoteServices {
   static var faqURL = '$baseURL/api/v1/setting/list-faqs';
   static var updateAvatarURL = '$baseURL/api/v1/user/update-avatar';
 
+  // education
+
+  static var listCourseURL = '$baseURL/api/v1/education/list-course';
+
 
 
   // static Future<SentOtpModel> postSignInUser(String phone, String type) async {

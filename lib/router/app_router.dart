@@ -18,4 +18,7 @@ class AppRoutes {
   static const String test = "/test";
   static const String setupAccount = "/setupAccount";
   static const String inputAccountAgain = "/inputAccountAgain";
+
+  static const String education = "/education";
+  static const String educationTopic = "/educationTopic";
 }

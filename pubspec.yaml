@@ -46,6 +46,7 @@ dependencies:
   google_sign_in: ^5.2.4
   local_auth: ^1.1.11
   dio: ^4.0.4
+  percent_indicator: ^4.0.0
 
 
 dev_dependencies:
@@ -89,6 +90,10 @@ flutter:
     - family: OpenSans-ExtraBoldItalic
       fonts:
         - asset: assets/fonts/OpenSans-ExtraBold.ttf
+
+    - family: MyFlutterApp # the name of your font family
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

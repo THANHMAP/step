@@ -3,12 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:step_bank/icon.dart';
 import 'package:step_bank/screens/dashboard/home.dart';
 import 'package:step_bank/screens/dashboard/profile.dart';
 import 'package:step_bank/screens/news/news_screen.dart';
 import 'package:step_bank/screens/splash/splash.dart';
+import 'package:step_bank/themes.dart';
 
 import '../../util.dart';
+import '../dashboard/education.dart';
 
 class HomeMain extends StatefulWidget {
   const HomeMain({Key? key}) : super(key: key);
@@ -33,7 +36,7 @@ class _HomeMainState extends State<HomeMain> {
     return [
       HomeScreen(),
       NewsScreen(),
-      SplashPage(),
+      EducationScreen(),
       ProfileScreen()
     ];
   }
@@ -41,32 +44,32 @@ class _HomeMainState extends State<HomeMain> {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.home),
-        title: ("Home"),
+        icon: const Icon(MyFlutterApp.home),
+        title: ("Trang chủ"),
         onSelectedTabPressWhenNoScreensPushed: () {
           scrollHomeController.animateTo(0,
               duration: const Duration(seconds: 1), curve: Curves.ease);
         },
-        activeColorPrimary: CupertinoColors.activeGreen,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        activeColorPrimary: Mytheme.color_active,
+        inactiveColorPrimary: Mytheme.color_inActive,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.clock),
-        title: ("News"),
-        activeColorPrimary: CupertinoColors.activeGreen,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        icon: const Icon(MyFlutterApp.tool),
+        title: ("Công cụ"),
+        activeColorPrimary: Mytheme.color_active,
+        inactiveColorPrimary: Mytheme.color_inActive,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.bubble_left_fill),
-        title: ("Message"),
-        activeColorPrimary: CupertinoColors.activeGreen,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        icon: const Icon(MyFlutterApp.education),
+        title: ("Học tập"),
+        activeColorPrimary: Mytheme.color_active,
+        inactiveColorPrimary: Mytheme.color_inActive,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.profile_circled),
-        title: ("Profile"),
-        activeColorPrimary: CupertinoColors.activeGreen,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
+        icon: const Icon(MyFlutterApp.setting),
+        title: ("Tài khoản"),
+        activeColorPrimary: Mytheme.color_active,
+        inactiveColorPrimary: Mytheme.color_inActive,
       ),
     ];
   }

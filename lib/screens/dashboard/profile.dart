@@ -45,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
+          backgroundColor: Mytheme.colorBgMain,
           body: Column(
             children: <Widget>[
               AppbarWidget(
@@ -92,6 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 linkUrl: 'assets/images/img_info.png',
                                 onClicked: () {
                                   Get.toNamed('/editProfile');
+                                  // Get.toNamed('/educationTopic');
                                 },
                               ),
                               const SizedBox(height: 10),
