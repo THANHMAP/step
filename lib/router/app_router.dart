@@ -21,4 +21,5 @@ class AppRoutes {
 
   static const String education = "/education";
   static const String educationTopic = "/educationTopic";
+  static const String educationTopicDetail = "/educationTopicDetail";
 }

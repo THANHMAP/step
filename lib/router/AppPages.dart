@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:step_bank/screens/education/detail_topic_education.dart';
 import 'package:step_bank/screens/forgotpassword/forgotpassowrd_screen.dart';
 import 'package:step_bank/screens/forgotpassword/input_old_password.dart';
 import 'package:step_bank/screens/home/home_main.dart';
@@ -102,6 +103,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.educationTopic,
       page: () => const TopicEducationScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.educationTopicDetail,
+      page: () => const DetailEducationScreen(),
     ),
   ];
 }

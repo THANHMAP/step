@@ -11,7 +11,7 @@ import 'package:step_bank/models/sent_otp.dart';
 class RemoteServices {
 
   static var client = http.Client();
-  static var baseURL = 'https://step-staging.mvveverlearn.edu.vn';
+  static var baseURL = 'https://co-opsmart.vn';
   static var signInURL = '$baseURL/api/v1/user/login';
   static var validatePhoneURL = '$baseURL/api/v1/user/validate-phone';
   static var getOtpURL = '$baseURL/api/v1/user/get-otp';
@@ -31,6 +31,9 @@ class RemoteServices {
   // education
 
   static var listCourseURL = '$baseURL/api/v1/education/list-course';
+  static var listLessonURL = '$baseURL/api/v1/education/list-lesson';
+  static var listStudyURL = '$baseURL/api/v1/education/list-study-part';
+  static var listExerciseURL = '$baseURL/api/v1/education/list-exercise';
 
 
 

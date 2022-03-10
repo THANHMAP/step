@@ -80,7 +80,7 @@ class _EducationScreenState extends State<EducationScreen> {
                                     numberLesson: "10 bài học",
                                     linkUrl: 'assets/images/img_taichinh.png',
                                     onClicked: () {
-                                      Get.toNamed('/educationTopic');
+                                      Get.toNamed('/educationTopic', arguments: _educationList[i]);
                                     },
                                   ),
                                 ]

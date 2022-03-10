@@ -102,7 +102,7 @@ class UserData {
 }
 
 class UserGroup {
-  String? id;
+  int? id;
   String? name;
   String? code;
   String? description;
@@ -145,8 +145,8 @@ class UserGroup {
 }
 
 class Pivot {
-  String? userId;
-  String? userGroupId;
+  int? userId;
+  int? userGroupId;
 
   Pivot({this.userId, this.userGroupId});
 

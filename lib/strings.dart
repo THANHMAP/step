@@ -45,4 +45,5 @@ class StringText {
   static const text_report_title = "Báo cáo lỗi";
   static const text_report_success = "Báo cáo lỗi thành công";
   static const text_faq = "Câu hỏi thường gặp";
+  static const text_next_lesson = "Bài tiếp";
 }

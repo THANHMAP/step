@@ -11,14 +11,16 @@ import 'dialog_confirm.dart';
 class CardEducationTopicWidget extends StatelessWidget {
   final String? title;
   final String? numberLesson;
-  final String? linkUrl;
+  final int total;
+  final int finish;
   final VoidCallback? onClicked;
 
   const CardEducationTopicWidget({
     Key? key,
     this.title,
     this.numberLesson,
-    this.linkUrl,
+    required this.total,
+    required this.finish,
     this.onClicked,
   }) : super(key: key);
 
@@ -50,7 +52,7 @@ class CardEducationTopicWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     top: 16, left: 20, bottom: 18, right: 0),
                 child: Text(
-                  "01",
+                  numberLesson ?? "0",
                   // textAlign: TextAlign.start,
                   style: const TextStyle(
                     fontSize: 24,
@@ -97,9 +99,9 @@ class CardEducationTopicWidget extends StatelessWidget {
                   animation: true,
                   animationDuration: 1200,
                   lineWidth: 6.0,
-                  percent: 1,
+                  percent: (finish*100/total)/100,
                   center: new Text(
-                    "3/3",
+                    "$finish/$total",
                     style:
                     new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                   ),
