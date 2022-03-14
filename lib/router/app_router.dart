@@ -22,4 +22,7 @@ class AppRoutes {
   static const String education = "/education";
   static const String educationTopic = "/educationTopic";
   static const String educationTopicDetail = "/educationTopicDetail";
+  static const String detailEducationScreen = "/detailEducationScreen";
+  static const String homeQuizScreen = "/homeQuizScreen";
+  static const String quizScreen = "/quizScreen";
 }

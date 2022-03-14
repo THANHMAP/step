@@ -485,7 +485,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Mytheme.colorBgButtonLogin,
+                                  color: Mytheme.colorTextSubTitle,
                                   fontWeight: FontWeight.w400,
                                   fontFamily: "OpenSans-Regular",
                                   decoration: TextDecoration.underline,

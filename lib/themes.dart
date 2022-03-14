@@ -46,6 +46,7 @@ class Mytheme {
   static const color_DCDEE9 = Color(0xFFDCDEE9);
   static const color_0xFF30CD60 = Color(0xFF30CD60);
   static const color_0xFFA7ABC3 = Color(0xFFA7ABC3);
+  static const color_0xFF003A8C = Color(0xFF003A8C);
 
 
 
