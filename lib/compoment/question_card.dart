@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:step_bank/constants.dart';
 
 import '../controllers/question_controller.dart';
+import '../models/result_question.dart';
 import '../models/study_model.dart';
 import '../themes.dart';
 import 'answers.dart';
@@ -12,15 +13,18 @@ class QuestionCard extends StatelessWidget {
     Key? key,
     required this.question,
     required this.indexQuestion,
+    required this.callback,
+    required this.calbackQuestion,
   }) : super(key: key);
 
   final ContentQuizz question;
   final int indexQuestion;
+  final CalbackFunction callback;
+  final CalbackQuestion calbackQuestion;
 
   @override
   Widget build(BuildContext context) {
     QuestionController _controller = Get.put(QuestionController());
-
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: Constants.kDefaultPadding,
@@ -41,17 +45,27 @@ class QuestionCard extends StatelessWidget {
           ...List.generate(
             question.answers!.length,
             (index) => Option(
-                index: index,
-                text: question.answers![index].answerText.toString(),
-                press: () {
-                  if(!_controller.checkAnswerd(indexQuestion)) {
-                    _controller.checkAns(question, index, indexQuestion);
-                  }
-
-                }),
+              index: index,
+              indexQuestion: indexQuestion,
+              isCorrect: question.answers![index].isCorrect!,
+              text: question.answers![index].answerText.toString(),
+              press: () {
+                calbackQuestion(indexQuestion);
+                callback(false);
+                if (!_controller.checkAnswerd(indexQuestion)) {
+                  _controller.checkAns(question, index, indexQuestion);
+                }
+              },
+              callback: (bool value) {
+                callback(value);
+              },
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+typedef CalbackFunction = void Function(bool value);
+typedef CalbackQuestion = void Function(int indexQuestion);

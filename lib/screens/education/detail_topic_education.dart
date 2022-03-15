@@ -172,9 +172,10 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                           _studyData[i].type,
                                                           hideImageRight: false,
                                                           onClicked: () {
+                                                            _studyData[i].nameCourse = _lessonData.nameCourse;
                                                             if(_studyData[i].type == 5) {
                                                               Get.toNamed(
-                                                                  '/homeQuizScreen', arguments: _studyData[i].contentQuizz);
+                                                                  '/homeQuizScreen', arguments: _studyData[i]);
                                                             } else {
                                                               Get.toNamed(
                                                                   '/detailEducationScreen', arguments: _studyData[i]);

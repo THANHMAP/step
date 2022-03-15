@@ -11,11 +11,17 @@ class Option extends StatelessWidget {
     required this.text,
     required this.index,
     required this.press,
+    required this.isCorrect,
+    required this.indexQuestion,
+    required this.callback,
   }) : super(key: key);
 
   final String text;
+  final int indexQuestion;
   final int index;
+  final int isCorrect;
   final VoidCallback press;
+  final CalbackFunction callback;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +30,28 @@ class Option extends StatelessWidget {
         builder: (qnController) {
           Color getTheRightColor() {
             if (qnController.isAnswerd) {
-              if (index == qnController.correctAns) {
+              int correct = qnController.correctAns;
+              if (isCorrect == 1) {
                 return Constants.kGreenColor;
               } else if (index == qnController.selectedAns &&
-                  qnController.selectedAns != qnController.correctAns) {
+                  isCorrect == correct) {
                 return Constants.kRedColor;
               }
             }
-            return Constants.kGrayColor;
-          }
 
-          bool isAnswerd() {
-            return qnController.isAnswerd;
+            if (qnController.checkAnswerd(indexQuestion)) {
+              callback(false);
+              int correct =
+                  qnController.resultQuestion[indexQuestion].isCorrect;
+              if (isCorrect == 1) {
+                return Constants.kGreenColor;
+              } else if (index == qnController.selectedAns &&
+                  isCorrect == correct) {
+                return Constants.kRedColor;
+              }
+            }
+
+            return Constants.kGrayColor;
           }
 
           IconData getTheRightIcon() {
@@ -88,3 +104,5 @@ class Option extends StatelessWidget {
         });
   }
 }
+
+typedef CalbackFunction = void Function(bool value);

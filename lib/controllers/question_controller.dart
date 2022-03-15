@@ -2,39 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_bank/constants.dart';
 
+import '../models/result_question.dart';
 import '../models/study_model.dart';
 
 class QuestionController extends GetxController
     with SingleGetTickerProviderMixin {
-
   late AnimationController _animationController;
   late Animation _animation;
 
   Animation get animation => _animation;
 
-  List<String> answerd = [];
+  List<ResultQuestion> _resultQuestion = [];
+  List<ResultQuestion> get resultQuestion => _resultQuestion;
 
   late PageController _pageController;
+
   PageController get pageController => _pageController;
 
-  List<ContentQuizz>? _questions = Constants.questionsGlobals;
+  final List<ContentQuizz>? _questions = Constants.questionsGlobals;
 
   List<ContentQuizz>? get questions => _questions;
 
   bool _isAnswerd = false;
+
   bool get isAnswerd => _isAnswerd;
 
   late int _correctAns;
+
   int get correctAns => _correctAns;
 
   late int _selectedAns;
+
   int get selectedAns => _selectedAns;
 
   // For more about obs please check documentation
   final RxInt _questionNumber = 1.obs;
+
   RxInt get questionNumber => _questionNumber;
 
   int _numOfCorrectAns = 0;
+
   int get numOfCorrectAns => _numOfCorrectAns;
 
   @override
@@ -66,12 +73,18 @@ class QuestionController extends GetxController
   void checkAns(ContentQuizz question, int selectedIndex, int indexQuestion) {
     // Because once user press any option then it will run
     _isAnswerd = true;
-    _correctAns = question.answers![0].isCorrect ?? 0;
+
+    _correctAns = question.answers![selectedIndex].isCorrect!;
     _selectedAns = selectedIndex;
 
-    answerd.add(indexQuestion.toString());
+    _resultQuestion.add(ResultQuestion(
+        IdAnswer: question.answers![selectedIndex].id!,
+        idQuestion: question.id!,
+        isCorrect: _correctAns,
+        indexQuestion: indexQuestion
+    ));
 
-    if (_correctAns == _selectedAns) _numOfCorrectAns++;
+    if (_correctAns == 1) _numOfCorrectAns++;
 
     // It will stop the counter
     _animationController.stop();
@@ -85,12 +98,12 @@ class QuestionController extends GetxController
 
   bool checkAnswerd(int indexQuestion) {
     bool find = false;
-    if(answerd.isEmpty) return false;
-    for (var i = 0; i < answerd.length; i++) {
-        if(answerd[i] == indexQuestion.toString()) {
-          find = true;
-          break;
-        }
+    if (_resultQuestion.isEmpty) return false;
+    for (var i = 0; i < _resultQuestion.length; i++) {
+      if (_resultQuestion[i].indexQuestion == indexQuestion) {
+        find = true;
+        break;
+      }
     }
     return find;
   }
@@ -138,5 +151,4 @@ class QuestionController extends GetxController
   void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
   }
-
 }

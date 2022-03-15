@@ -40,6 +40,7 @@ class StudyData {
   List<String>? fileSlideShare;
   String? fileScorm;
   List<ContentQuizz>? contentQuizz;
+  String? nameCourse;
 
   StudyData(
       {this.id,
@@ -50,7 +51,9 @@ class StudyData {
         this.type,
         this.fileSlideShare,
         this.fileScorm,
-        this.contentQuizz});
+        this.contentQuizz,
+        this.nameCourse,
+      });
 
   StudyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];

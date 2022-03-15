@@ -31,12 +31,14 @@ class HomeQuizScreen extends StatefulWidget {
 }
 
 class _HomeQuizScreenState extends State<HomeQuizScreen> {
-  List<ContentQuizz> contentQuizz = Get.arguments;
+  final StudyData _studyData = Get.arguments;
+  List<ContentQuizz> contentQuizz = [] ;
 
   @override
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
+    contentQuizz = _studyData.contentQuizz!;
   }
 
   @override
@@ -60,7 +62,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                     flex: 4,
                     child: Container(
                       child: AppbarWidget(
-                        text: "_lessonData.nameCourse",
+                        text: _studyData.nameCourse,
                         onClicked: () => Get.back(),
                       ),
                     ),
@@ -103,7 +105,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                                   ),
                                   onPressed: () {
                                     Constants.questionsGlobals = contentQuizz;
-                                     Get.toNamed('/quizScreen', arguments: contentQuizz);
+                                     Get.toNamed('/quizScreen', arguments: _studyData);
                                   },
                                 )),
                           ),

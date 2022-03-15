@@ -34,6 +34,7 @@ class RemoteServices {
   static var listLessonURL = '$baseURL/api/v1/education/list-lesson';
   static var listStudyURL = '$baseURL/api/v1/education/list-study-part';
   static var listExerciseURL = '$baseURL/api/v1/education/list-exercise';
+  static var submitQuizURL = '$baseURL/api/v1/education/submit-quizz';
 
 
 

@@ -157,28 +157,6 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
     );
   }
 
-  loadCardEducation() {
-    if (_lessonList.isNotEmpty) {
-      Padding(
-        padding: const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 0),
-        child: Column(
-          children: [
-            for (var i = 0; i < _lessonList.length; i++) ...[
-              CardEducationTopicWidget(
-                title: _lessonList[i].name,
-                numberLesson: numberLesson(i),
-                finish: _lessonList[i].numberFinish ?? 0,
-                total: _lessonList[i].totalPart ?? 0,
-                onClicked: () {
-                  Get.toNamed('/editProfile');
-                },
-              ),
-            ]
-          ],
-        ),
-      );
-    }
-  }
 
   String numberLesson(int number) {
     if (number < 10) {
