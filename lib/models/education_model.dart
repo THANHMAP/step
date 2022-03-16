@@ -13,7 +13,7 @@ class EducationModel {
     if (json['data'] != null) {
       data = <EducationData>[];
       json['data'].forEach((v) {
-        data!.add(new EducationData.fromJson(v));
+        data!.add(EducationData.fromJson(v));
       });
     }
   }
@@ -34,14 +34,17 @@ class EducationData {
   int? id;
   String? name;
   String? description;
+  String? icon;
   String? createdAt;
 
-  EducationData({this.id, this.name, this.description, this.createdAt});
+  EducationData(
+      {this.id, this.name, this.description, this.icon, this.createdAt});
 
   EducationData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
+    icon = json['icon'];
     createdAt = json['createdAt'];
   }
 
@@ -50,6 +53,7 @@ class EducationData {
     data['id'] = this.id;
     data['name'] = this.name;
     data['description'] = this.description;
+    data['icon'] = this.icon;
     data['createdAt'] = this.createdAt;
     return data;
   }

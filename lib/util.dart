@@ -10,7 +10,7 @@ class Utils {
     Widget okButton = TextButton(
       child: Text("Thoát"),
       onPressed: () {
-        Navigator.pop(context, 'OK');
+        Navigator.pop(context);
       },
     );
     // set up the AlertDialog

@@ -177,6 +177,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                               Get.toNamed(
                                                                   '/homeQuizScreen', arguments: _studyData[i]);
                                                             } else {
+                                                              _studyData[i].nameCourse = _lessonData.nameCourse;
                                                               Get.toNamed(
                                                                   '/detailEducationScreen', arguments: _studyData[i]);
                                                             }

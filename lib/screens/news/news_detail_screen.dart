@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
@@ -93,16 +94,19 @@ class NewsDetailScreen extends StatelessWidget  {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(
-                                newsData?.content!.toString() ?? "",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
-                                ),
-                                textAlign: TextAlign.left,
+                              Html(
+                                data: newsData?.content!.toString() ?? "",
                               ),
+                              // Text(
+                              //   newsData?.content!.toString() ?? "",
+                              //   style: TextStyle(
+                              //     fontSize: 16,
+                              //     color: Mytheme.colorTextSubTitle,
+                              //     fontWeight: FontWeight.w400,
+                              //     fontFamily: "OpenSans-Regular",
+                              //   ),
+                              //   textAlign: TextAlign.left,
+                              // ),
 
 
                               // newsLayout(),

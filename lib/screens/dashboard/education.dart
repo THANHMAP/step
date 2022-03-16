@@ -46,56 +46,70 @@ class _EducationScreenState extends State<EducationScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                hideBack: true,
-                text: "Học tập",
-                onClicked: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, left: 0, right: 0, bottom: 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        headerLayout(),
-                        if (_educationList.isNotEmpty) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, left: 16, right: 16, bottom: 0),
-                            child: Column(
-                              children: [
-                                for (var i = 0; i < _educationList.length; i++) ...[
-                                  CardEducatonWidget(
-                                    title: _educationList[i].name,
-                                    numberLesson: "10 bài học",
-                                    linkUrl: 'assets/images/img_taichinh.png',
-                                    onClicked: () {
-                                      Get.toNamed('/educationTopic', arguments: _educationList[i]);
-                                    },
-                                  ),
-                                ]
-                              ],
-                            ),
-                          ),
-                        ],
-                      ],
-                    ),
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Mytheme.colorBgMain,
+        body: Column(
+          children: <Widget>[
+            AppbarWidget(
+              hideBack: true,
+              text: "Học Tập",
+              onClicked: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0, left: 0, right: 0, bottom: 70),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      headerLayout(),
+                      layoutCourse(),
+                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-        ));
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  layoutCourse() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+      child: Column(
+        children: [
+          if (_educationList.isNotEmpty) ...[
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, left: 16, right: 16, bottom: 0),
+              child: Column(
+                children: [
+                  for (var i = 0; i < _educationList.length; i++) ...[
+                    const SizedBox(height: 15),
+                    CardEducatonWidget(
+                      title: _educationList[i].name,
+                      numberLesson: "",
+                      linkUrl: _educationList[i].icon,
+                      onClicked: () {
+                        Get.toNamed('/educationTopic',
+                            arguments: _educationList[i]);
+                      },
+                    ),
+                  ]
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
   }
 
   headerLayout() {
@@ -113,31 +127,12 @@ class _EducationScreenState extends State<EducationScreen> {
     );
   }
 
-  loadCardEducation() {
-    if (_educationList.isNotEmpty) {
-      Padding(
-        padding: const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 0),
-        child: Column(
-          children: [
-            for (var i = 0; i < 2; i++) ...[
-              CardEducatonWidget(
-                title: _educationList[i].name,
-                numberLesson: "10 bài học",
-                linkUrl: 'assets/images/img_taichinh.png',
-                onClicked: () {
-                  Get.toNamed('/editProfile');
-                },
-              ),
-            ]
-          ],
-        ),
-      );
-    }
-  }
-
   Future<void> loadListEducation() async {
     await pr.show();
-    APIManager.getAPICallNeedToken(RemoteServices.listCourseURL).then(
+    var param = jsonEncode(<String, String>{
+      'type': '0',
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.listCourseURL, param).then(
         (value) async {
       await pr.hide();
       var data = EducationModel.fromJson(value);

@@ -81,7 +81,7 @@ class QuestionController extends GetxController
         IdAnswer: question.answers![selectedIndex].id!,
         idQuestion: question.id!,
         isCorrect: _correctAns,
-        indexQuestion: indexQuestion
+        indexQuestion: indexQuestion, isCallApi: false
     ));
 
     if (_correctAns == 1) _numOfCorrectAns++;

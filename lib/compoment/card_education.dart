@@ -46,12 +46,23 @@ class CardEducatonWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 16, left: 20, bottom: 18, right: 26),
-              child: Image(
-                image: AssetImage(linkUrl ?? ""),
+                  top: 16, left: 20, bottom: 18, right: 16),
+              child:   Image.network(
+                linkUrl.toString(),
                 fit: BoxFit.fill,
-                width: 52,
-                height: 52,
+                width: 50,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
               ),
             ),
             Padding(

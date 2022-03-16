@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -32,8 +33,9 @@ class DetailEducationLessonScreen extends StatefulWidget {
 class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   late ProgressDialog pr;
   StudyData _studyData = Get.arguments;
-  late CarouselSlider carouselSlider;
-  int _current = 0;
+  late CarouselSlider carouselSlider = CarouselSlider();
+  int activePage = 1;
+  late PageController _pageController;
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -52,6 +54,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
+    _pageController = PageController(viewportFraction: 0.8);
   }
 
   @override
@@ -64,7 +67,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           body: Column(
             children: <Widget>[
               AppbarWidget(
-                text: StringText.text_news,
+                text: _studyData.nameCourse,
                 onClicked: () {
                   Navigator.of(context).pop(false);
                 },
@@ -153,50 +156,73 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
         ),
         Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            _studyData.contentText.toString(),
-            style: const TextStyle(
-              fontSize: 16,
-              color: Mytheme.colorTextSubTitle,
-              fontWeight: FontWeight.w400,
-              fontFamily: "OpenSans-Regular",
-            ),
+          child: Html(
+            data: _studyData.contentText.toString(),
           ),
+
+
+          // Text(
+          //   _studyData.contentText.toString(),
+          //   style: const TextStyle(
+          //     fontSize: 16,
+          //     color: Mytheme.colorTextSubTitle,
+          //     fontWeight: FontWeight.w400,
+          //     fontFamily: "OpenSans-Regular",
+          //   ),
+          // ),
         ),
-        carouselSlider = CarouselSlider(
-          height: 400.0,
-          initialPage: 0,
-          enlargeCenterPage: false,
-          autoPlay: false,
-          reverse: false,
-          enableInfiniteScroll: false,
-          autoPlayInterval: Duration(seconds: 2),
-          autoPlayAnimationDuration: Duration(milliseconds: 2000),
-          pauseAutoPlayOnTouch: Duration(seconds: 10),
-          scrollDirection: Axis.horizontal,
-          onPageChanged: (index) {
-            setState(() {
-              _current = index;
-            });
-          },
-          items: _studyData.fileSlideShare?.map((imgUrl) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                  ),
-                  child: Image.network(
-                    imgUrl,
-                    fit: BoxFit.fill,
-                  ),
-                );
-              },
-            );
-          }).toList(),
+
+        PageView.builder(
+            itemCount: _studyData.fileSlideShare!.length,
+            pageSnapping: true,
+            controller: _pageController,
+            onPageChanged: (page) {
+              setState(() {
+                activePage = page;
+              });
+            },
+            itemBuilder: (context, pagePosition) {
+              return Container(
+                height: 300,
+                margin: EdgeInsets.all(10),
+                child: Image.network(_studyData.fileSlideShare![pagePosition]),
+              );
+            }
         ),
+        // carouselSlider = CarouselSlider(
+        //   height: 300.0,
+        //   initialPage: 0,
+        //   enlargeCenterPage: false,
+        //   autoPlay: false,
+        //   reverse: false,
+        //   enableInfiniteScroll: false,
+        //   autoPlayInterval: Duration(seconds: 2),
+        //   autoPlayAnimationDuration: Duration(milliseconds: 2000),
+        //   pauseAutoPlayOnTouch: Duration(seconds: 10),
+        //   scrollDirection: Axis.horizontal,
+        //   onPageChanged: (index) {
+        //     setState(() {
+        //       _current = index;
+        //     });
+        //   },
+        //   items: _studyData.fileSlideShare?.map((imgUrl) {
+        //     return Builder(
+        //       builder: (BuildContext context) {
+        //         return Container(
+        //           width: MediaQuery.of(context).size.width,
+        //           margin: EdgeInsets.symmetric(horizontal: 10.0),
+        //           decoration: BoxDecoration(
+        //             color: Colors.green,
+        //           ),
+        //           child: Image.network(
+        //             imgUrl,
+        //             fit: BoxFit.fill,
+        //           ),
+        //         );
+        //       },
+        //     );
+        //   }).toList(),
+        // ),
         SizedBox(
           height: 20,
         ),
