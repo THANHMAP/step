@@ -14,16 +14,15 @@ class QuestionCard extends StatelessWidget {
     required this.question,
     required this.indexQuestion,
     required this.callback,
-    required this.calbackQuestion,
   }) : super(key: key);
 
   final ContentQuizz question;
   final int indexQuestion;
   final CalbackFunction callback;
-  final CalbackQuestion calbackQuestion;
 
   @override
   Widget build(BuildContext context) {
+    callback(true);
     QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(
@@ -50,8 +49,7 @@ class QuestionCard extends StatelessWidget {
               isCorrect: question.answers![index].isCorrect!,
               text: question.answers![index].answerText.toString(),
               press: () {
-                calbackQuestion(indexQuestion);
-                callback(false);
+                // callback(false);
                 if (!_controller.checkAnswerd(indexQuestion)) {
                   _controller.checkAns(question, index, indexQuestion);
                 }

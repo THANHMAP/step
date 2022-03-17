@@ -113,17 +113,67 @@ class _EducationScreenState extends State<EducationScreen> {
   }
 
   headerLayout() {
-    return Container(
-      height: 236,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/img_header_home.png"),
-          fit: BoxFit.cover,
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: 236,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bg_home.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          // child: Column(
+          //   children: const <Widget>[],
+          // ),
         ),
-      ),
-      // child: Column(
-      //   children: const <Widget>[],
-      // ),
+        Padding(
+          padding: const EdgeInsets.only(top: 56, left: 28, right: 0),
+          child: Container(
+            width: 216,
+            child: Column(
+              children: [
+                Text(
+                  "Các khái niệm kinh doanh cơ bản",
+                  style: TextStyle(
+                    fontSize: 23,
+                    color: Mytheme.colorBgButtonLogin,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: "OpenSans-Bold",
+                    // decoration: TextDecoration.underline,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 136, left: 28, right: 0),
+          child: SizedBox(
+            width: 130,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    // side: const BorderSide(color: Colors.red)
+                  ),
+                  primary: Mytheme.colorBgButtonLogin,
+                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+              child: const Text(
+                "Xem thêm",
+                style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "OpenSans-Regular",
+                    fontWeight: FontWeight.bold),
+              ),
+              onPressed: () {
+                Get.toNamed("/courseScreen");
+              },
+            ),
+          ),
+        ),
+
+      ],
     );
   }
 

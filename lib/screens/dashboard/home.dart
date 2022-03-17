@@ -331,7 +331,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       screen: NewsScreen(),
                       withNavBar: true,
-                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
                     );
                     // Get.toNamed('/news');
                     // getOtpAgain(phone);
@@ -481,14 +482,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return 0;
   }
 
-
   loadSharedPrefs() async {
     try {
       var isLogged = await SPref.instance.get("info_login");
       var response = json.decode(isLogged.toString());
       UserData user = UserData.fromJson(response);
       print(user);
-    }  on FetchDataException catch(e) {
+    } on FetchDataException catch (e) {
       print('error caught: $e');
     }
   }

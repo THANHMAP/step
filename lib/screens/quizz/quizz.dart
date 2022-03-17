@@ -56,6 +56,8 @@ class _QuizScreenState extends State<QuizScreen> {
       isDismissible: false,
     );
     contentQuizz = _studyData.contentQuizz!;
+    _questionController.setStudyPartId(_studyData.id ?? 0);
+    _questionController.setNameTitle(_studyData.nameCourse.toString());
   }
 
   @override
@@ -90,9 +92,6 @@ class _QuizScreenState extends State<QuizScreen> {
                           isDisable = bool;
                         });
                       });
-                    },
-                    calbackQuestion: (int indexQuestion) {
-                      this.indexQuestion = indexQuestion;
                     },
                   ),
                 ),
@@ -179,21 +178,16 @@ class _QuizScreenState extends State<QuizScreen> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                     onPressed: () {
-                                      if (!isDisable) {
-                                        if (!_questionController.checkAnswerd(indexQuestion)) {
-
-                                        }
-                                        _questionController.nextQuestion();
+                                      _questionController.nextQuestion();
+                                      setState(() {
+                                        isDisable = true;
+                                      });
+                                      if (_questionController
+                                              .questionNumber.value ==
+                                          contentQuizz.length - 1) {
                                         setState(() {
-                                          isDisable = true;
+                                          buttonNext = "Hoàn thành";
                                         });
-                                        if (_questionController
-                                                .questionNumber.value ==
-                                            contentQuizz.length - 1) {
-                                          setState(() {
-                                            buttonNext = "Hoàn thành";
-                                          });
-                                        }
                                       }
 
                                       print(
@@ -213,24 +207,4 @@ class _QuizScreenState extends State<QuizScreen> {
         ));
   }
 
-  Future<void> loadListExercise() async {
-    await pr.show();
-    var param = jsonEncode(<String, String>{
-      'study_part_id': _studyData.id.toString(),
-      'question_id': "",
-      'answer_id': "",
-      'is_correct': '',
-      'total_correct': '',
-    });
-    APIManager.postAPICallNeedToken(RemoteServices.submitQuizURL, param).then(
-        (value) async {
-      await pr.hide();
-      if (value.statusCode == 200) {
-        setState(() {});
-      }
-    }, onError: (error) async {
-      await pr.hide();
-      Utils.showError(error.toString(), context);
-    });
-  }
 }

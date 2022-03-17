@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -34,8 +35,9 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   late ProgressDialog pr;
   StudyData _studyData = Get.arguments;
   late CarouselSlider carouselSlider = CarouselSlider();
-  int activePage = 1;
+  int activePage = 0;
   late PageController _pageController;
+  List<String> fileSlideShare = [];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -48,13 +50,18 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   @override
   void initState() {
     super.initState();
+
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    _pageController = PageController(viewportFraction: 0.8);
+    _pageController = PageController(viewportFraction: 0.8, initialPage: 0);
+    if(_studyData.fileSlideShare != null){
+      fileSlideShare = _studyData.fileSlideShare!;
+    }
+
   }
 
   @override
@@ -159,97 +166,104 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           child: Html(
             data: _studyData.contentText.toString(),
           ),
-
-
-          // Text(
-          //   _studyData.contentText.toString(),
-          //   style: const TextStyle(
-          //     fontSize: 16,
-          //     color: Mytheme.colorTextSubTitle,
-          //     fontWeight: FontWeight.w400,
-          //     fontFamily: "OpenSans-Regular",
-          //   ),
-          // ),
         ),
 
-        PageView.builder(
-            itemCount: _studyData.fileSlideShare!.length,
-            pageSnapping: true,
-            controller: _pageController,
-            onPageChanged: (page) {
-              setState(() {
-                activePage = page;
-              });
-            },
-            itemBuilder: (context, pagePosition) {
-              return Container(
-                height: 300,
-                margin: EdgeInsets.all(10),
-                child: Image.network(_studyData.fileSlideShare![pagePosition]),
-              );
-            }
-        ),
-        // carouselSlider = CarouselSlider(
-        //   height: 300.0,
-        //   initialPage: 0,
-        //   enlargeCenterPage: false,
-        //   autoPlay: false,
-        //   reverse: false,
-        //   enableInfiniteScroll: false,
-        //   autoPlayInterval: Duration(seconds: 2),
-        //   autoPlayAnimationDuration: Duration(milliseconds: 2000),
-        //   pauseAutoPlayOnTouch: Duration(seconds: 10),
-        //   scrollDirection: Axis.horizontal,
-        //   onPageChanged: (index) {
-        //     setState(() {
-        //       _current = index;
-        //     });
-        //   },
-        //   items: _studyData.fileSlideShare?.map((imgUrl) {
-        //     return Builder(
-        //       builder: (BuildContext context) {
-        //         return Container(
-        //           width: MediaQuery.of(context).size.width,
-        //           margin: EdgeInsets.symmetric(horizontal: 10.0),
-        //           decoration: BoxDecoration(
-        //             color: Colors.green,
-        //           ),
-        //           child: Image.network(
-        //             imgUrl,
-        //             fit: BoxFit.fill,
-        //           ),
-        //         );
-        //       },
-        //     );
-        //   }).toList(),
-        // ),
         SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 300,
+          child: PageView.builder(
+              itemCount: fileSlideShare.length,
+              pageSnapping: true,
+              controller: _pageController,
+              onPageChanged: (page) {
+                setState(() {
+                  activePage = page;
+                });
+              },
+              itemBuilder: (context, pagePosition) {
+                bool active = pagePosition == activePage;
+                return slider(fileSlideShare,pagePosition,active);
+              }),
+        ),
+
+        const SizedBox(
           height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            OutlineButton(
+            IconButton(
+              icon: SvgPicture.asset("assets/svg/ic_pre.svg"),
+              // tooltip: 'Increase volume by 10',
+              iconSize: 50,
               onPressed: goToPrevious,
-              child: Text("<"),
             ),
-            OutlineButton(
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "${activePage+1}/${fileSlideShare.length}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Mytheme.colorBgButtonLogin,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "OpenSans-SemiBold",
+                ),
+              ),
+            ),
+            IconButton(
+              icon: SvgPicture.asset("assets/svg/ic_next.svg"),
+              // tooltip: 'Increase volume by 10',
+              iconSize: 50,
               onPressed: goToNext,
-              child: Text(">"),
             ),
+            // OutlineButton(
+            //   onPressed: goToNext,
+            //   child: Text(">"),
+            // ),
           ],
         ),
       ]),
     );
   }
 
+  AnimatedContainer slider(images, pagePosition, active) {
+    double margin = active ? 10 : 20;
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOutCubic,
+      margin: EdgeInsets.all(margin),
+      decoration: BoxDecoration(
+          image: DecorationImage(image: NetworkImage(images[pagePosition].toString()))),
+    );
+  }
+
+  imageAnimation(PageController animation, images, pagePosition) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, widget) {
+        print(pagePosition);
+
+        return SizedBox(
+          width: 200,
+          height: 200,
+          child: widget,
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.all(10),
+        child: Image.network(images[pagePosition]),
+      ),
+    );
+  }
+
   goToPrevious() {
-    carouselSlider.previousPage(
+    _pageController.previousPage(
         duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   goToNext() {
-    carouselSlider.nextPage(
+    _pageController.nextPage(
         duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 

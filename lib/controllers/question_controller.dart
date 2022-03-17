@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:step_bank/constants.dart';
 
 import '../models/result_question.dart';
 import '../models/study_model.dart';
+import '../models/submit_quiz.dart';
 
 class QuestionController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -12,7 +15,19 @@ class QuestionController extends GetxController
 
   Animation get animation => _animation;
 
+  int _studyPartId = 0;
+
+  String _result = "";
+  String get result => _result;
+
+  String _nameTitle = "";
+  String get nameTitle => _nameTitle;
+
+  int get studyPartId => _studyPartId;
+
+  SubmitQuiz submitQuiz = SubmitQuiz();
   List<ResultQuestion> _resultQuestion = [];
+
   List<ResultQuestion> get resultQuestion => _resultQuestion;
 
   late PageController _pageController;
@@ -70,6 +85,10 @@ class QuestionController extends GetxController
     _pageController.dispose();
   }
 
+  void setStudyPartId(int id) {
+    _studyPartId = id;
+  }
+
   void checkAns(ContentQuizz question, int selectedIndex, int indexQuestion) {
     // Because once user press any option then it will run
     _isAnswerd = true;
@@ -81,8 +100,8 @@ class QuestionController extends GetxController
         IdAnswer: question.answers![selectedIndex].id!,
         idQuestion: question.id!,
         isCorrect: _correctAns,
-        indexQuestion: indexQuestion, isCallApi: false
-    ));
+        indexQuestion: indexQuestion,
+        isCallApi: false));
 
     if (_correctAns == 1) _numOfCorrectAns++;
 
@@ -123,6 +142,8 @@ class QuestionController extends GetxController
       // One timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
     } else {
+      finish();
+      Get.offAndToNamed("/resultQuizScreen");
       // Get a package to provide us simple way to navigate another page
       // Get.to(const ScoreScreen());
     }
@@ -144,11 +165,42 @@ class QuestionController extends GetxController
       _animationController.forward().whenComplete(preQuestion);
     } else {
       // Get a package to provide us simple way to navigate another page
-      // Get.to(const ScoreScreen());
+
     }
   }
 
   void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
+  }
+
+  void setNameTitle(String name){
+    _nameTitle = name;
+  }
+
+  void finish() {
+    submitQuiz.studyPartId = studyPartId;
+    submitQuiz.totalCorrect = numOfCorrectAns;
+    List<SubmitQuizData> list = [];
+
+    for (var i = 0; i < _resultQuestion.length; i++) {
+      SubmitQuizData submitQuizData = SubmitQuizData();
+      submitQuizData.questionId = _resultQuestion[i].indexQuestion;
+
+      List<DataAnswer> listAnswer = [];
+      DataAnswer answer = DataAnswer();
+      answer.answerId = _resultQuestion[i].IdAnswer;
+      if (_resultQuestion[i].isCorrect == 0) {
+        answer.isCorrect = false;
+      } else {
+        answer.isCorrect = true;
+      }
+      listAnswer.add(answer);
+      submitQuizData.dataAnswer = listAnswer;
+      list.add(submitQuizData);
+    }
+
+    submitQuiz.data = list;
+    _result = jsonEncode(submitQuiz);
+    print(_result);
   }
 }

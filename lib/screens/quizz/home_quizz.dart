@@ -59,7 +59,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 4,
+                    flex: 2,
                     child: Container(
                       child: AppbarWidget(
                         text: _studyData.nameCourse,
@@ -72,6 +72,35 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                     child: Container(
                       child: Column(
                         children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Câu hỏi khảo sát",
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Mytheme.color_0xFF003A8C,
+                                  fontFamily: "OpenSans-SemiBold",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 10, left: 44, right: 44),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Bộ đề gồm ${contentQuizz.length} câu. Bạn đã sẵn sàng trả lời câu hỏi và khảo sát chưa ?",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontFamily: "OpenSans-Regular",
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+
                           Expanded(
                             flex: 6,
                             child: Padding(

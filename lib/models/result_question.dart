@@ -1,8 +1,7 @@
 class ResultQuestion {
-  final int idQuestion, IdAnswer, indexQuestion;
-  final int isCorrect;
-  final bool isCallApi;
-
+  int idQuestion, IdAnswer, indexQuestion;
+  int isCorrect;
+  bool isCallApi;
 
   ResultQuestion({
     required this.isCallApi,

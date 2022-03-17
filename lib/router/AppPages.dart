@@ -10,6 +10,7 @@ import 'package:step_bank/screens/news/news_screen.dart';
 import 'package:step_bank/screens/otp/otp_screen.dart';
 import 'package:step_bank/screens/quizz/home_quizz.dart';
 import 'package:step_bank/screens/quizz/quizz.dart';
+import 'package:step_bank/screens/quizz/result.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
 import 'package:step_bank/screens/setting/faq.dart';
 import 'package:step_bank/screens/setting/report_error.dart';
@@ -20,6 +21,7 @@ import 'package:step_bank/screens/test.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 
 import '../screens/dashboard/education.dart';
+import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import 'app_router.dart';
@@ -126,6 +128,16 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.quizScreen,
       page: () => const QuizScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.resultQuizScreen,
+      page: () => const ResultQuizScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.courseScreen,
+      page: () => const CourseScreen(),
     ),
   ];
 }
