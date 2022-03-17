@@ -22,6 +22,7 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDisplay = false;
     callback(true);
     QuestionController _controller = Get.put(QuestionController());
     return Container(
@@ -49,7 +50,7 @@ class QuestionCard extends StatelessWidget {
               isCorrect: question.answers![index].isCorrect!,
               text: question.answers![index].answerText.toString(),
               press: () {
-                // callback(false);
+                isDisplay = true;
                 if (!_controller.checkAnswerd(indexQuestion)) {
                   _controller.checkAns(question, index, indexQuestion);
                 }
@@ -57,6 +58,22 @@ class QuestionCard extends StatelessWidget {
               callback: (bool value) {
                 callback(value);
               },
+            ),
+          ),
+          const SizedBox(height: 20),
+          Visibility(
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            visible: _controller.checkAnswerd(indexQuestion),
+            child: Text(
+              "Giải thích: ${question.suggest.toString()}",
+              style: const TextStyle(
+                fontSize: 14,
+                color: Mytheme.color_82869E,
+                fontWeight: FontWeight.w400,
+                fontFamily: "OpenSans-Regular",
+              ),
             ),
           ),
         ],

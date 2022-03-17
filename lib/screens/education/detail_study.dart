@@ -18,6 +18,7 @@ import 'package:step_bank/models/news_model.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
+import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../models/study_model.dart';
@@ -58,10 +59,16 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     );
     Utils.portraitModeOnly();
     _pageController = PageController(viewportFraction: 0.8, initialPage: 0);
-    if(_studyData.fileSlideShare != null){
+    if (_studyData.fileSlideShare != null) {
       fileSlideShare = _studyData.fileSlideShare!;
     }
 
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -92,7 +99,10 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                         ],
                         if (_studyData.type == 3) ...[
                           typeImage(),
-                        ]
+                        ],
+                        if (_studyData.type == 1) ...[
+                          typeText(),
+                        ],
                       ],
                     ),
                   ),
@@ -167,7 +177,6 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
             data: _studyData.contentText.toString(),
           ),
         ),
-
         SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 300,
@@ -182,10 +191,9 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
               },
               itemBuilder: (context, pagePosition) {
                 bool active = pagePosition == activePage;
-                return slider(fileSlideShare,pagePosition,active);
+                return slider(fileSlideShare, pagePosition, active);
               }),
         ),
-
         const SizedBox(
           height: 20,
         ),
@@ -201,7 +209,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "${activePage+1}/${fileSlideShare.length}",
+                "${activePage + 1}/${fileSlideShare.length}",
                 style: const TextStyle(
                   fontSize: 18,
                   color: Mytheme.colorBgButtonLogin,
@@ -226,6 +234,32 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     );
   }
 
+  typeText() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+      child: Column(children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            _studyData.name.toString(),
+            style: const TextStyle(
+              fontSize: 24,
+              color: Mytheme.colorTextSubTitle,
+              fontWeight: FontWeight.w600,
+              fontFamily: "OpenSans-SemiBold",
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Html(
+            data: _studyData.contentText.toString(),
+          ),
+        ),
+      ]),
+    );
+  }
+
   AnimatedContainer slider(images, pagePosition, active) {
     double margin = active ? 10 : 20;
 
@@ -234,7 +268,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       curve: Curves.easeInOutCubic,
       margin: EdgeInsets.all(margin),
       decoration: BoxDecoration(
-          image: DecorationImage(image: NetworkImage(images[pagePosition].toString()))),
+          image: DecorationImage(
+              image: NetworkImage(images[pagePosition].toString()))),
     );
   }
 

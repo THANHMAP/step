@@ -40,7 +40,9 @@ class _EducationScreenState extends State<EducationScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    loadListEducation();
+    Future.delayed(Duration.zero, () {
+      loadListEducation();
+    });
   }
 
   @override

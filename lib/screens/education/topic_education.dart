@@ -43,7 +43,9 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    loadListEducation();
+    Future.delayed(Duration.zero, () {
+      loadListEducation();
+    });
   }
 
   @override

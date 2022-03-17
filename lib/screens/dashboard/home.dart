@@ -42,8 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    // loadSharedPrefs();
-    loadNews();
+    Future.delayed(Duration.zero, () {
+        loadNews();
+    });
+
   }
 
   @override

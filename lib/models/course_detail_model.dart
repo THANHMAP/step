@@ -82,6 +82,7 @@ class InfoList {
   String? description;
   String? createdAt;
   String? updatedAt;
+  bool? collapsed;
 
   InfoList(
       {this.id,
@@ -89,7 +90,8 @@ class InfoList {
         this.title,
         this.description,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.collapsed});
 
   InfoList.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -98,6 +100,7 @@ class InfoList {
     description = json['description'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    collapsed = false;
   }
 
   Map<String, dynamic> toJson() {

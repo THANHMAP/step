@@ -37,7 +37,10 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    sendListExercise();
+    Future.delayed(Duration.zero, () {
+      sendListExercise();
+    });
+
   }
 
   @override

@@ -38,7 +38,9 @@ class _CourseScreenState extends State<CourseScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    loadListEducation();
+    Future.delayed(Duration.zero, () {
+      loadListEducation();
+    });
   }
 
   @override
@@ -58,15 +60,19 @@ class _CourseScreenState extends State<CourseScreen> {
                       text: "Các khái niệm kinh doanh cơ bản",
                       onClicked: () => Get.back(),
                     ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < infoList.length; i++) ...[
-                            layoutFAQ(i, infoList[i])
-                          ],
-                        ],
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 24, right: 24),
+                          child: Column(
+                            children: [
+                              for (var i = 0; i < infoList.length; i++) ...[
+                                layoutFAQ(i, infoList[i])
+                              ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -78,7 +84,6 @@ class _CourseScreenState extends State<CourseScreen> {
   }
 
   layoutFAQ(int index, InfoList faqData) {
-    bool _expanded = false;
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
       child: InkWell(
@@ -102,18 +107,27 @@ class _CourseScreenState extends State<CourseScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ExpansionPanelList(
-                animationDuration: Duration(milliseconds: 2000),
+                expansionCallback: (int index, bool isExpanded) {
+                  setState(() {
+                    faqData.collapsed = !faqData.collapsed!;
+                  });
+                },
+                animationDuration: Duration(milliseconds: 200),
                 children: [
                   ExpansionPanel(
                     headerBuilder: (context, isExpanded) {
                       return ListTile(
-                        title: Text(faqData.title.toString(), style: TextStyle(color: Colors.black),),
+                        title: Text(
+                          faqData.title.toString(),
+                          style: TextStyle(color: Colors.black),
+                        ),
                       );
                     },
-                    body:ListTile(
-                      title: Text(faqData.description.toString(),style: TextStyle(color: Colors.black)),
+                    body: ListTile(
+                      title: Text(faqData.description.toString(),
+                          style: TextStyle(color: Colors.black)),
                     ),
-                    isExpanded: _expanded,
+                    isExpanded: faqData.collapsed ?? false,
                     canTapOnHeader: true,
                   ),
                 ],
@@ -161,15 +175,15 @@ class _CourseScreenState extends State<CourseScreen> {
       'type': '1',
     });
     APIManager.postAPICallNeedToken(RemoteServices.listCourseURL, param).then(
-            (value) async {
-          await pr.hide();
-          var data = CourseDetailModel.fromJson(value);
-          if (data.statusCode == 200) {
-            setState(() {
-              infoList = data.data![0].infoList!;
-            });
-          }
-        }, onError: (error) async {
+        (value) async {
+      await pr.hide();
+      var data = CourseDetailModel.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          infoList = data.data![0].infoList!;
+        });
+      }
+    }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });

@@ -34,15 +34,18 @@ class AppbarWidget extends StatelessWidget {
           child: Stack(
             children: <Widget>[
               Center(
-                child: Text(
-                  text!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "OpenSans-Semibold",
-                    // decoration: TextDecoration.underline,
+                child:  Padding(
+                  padding: const EdgeInsets.only(left: 70, right: 70),
+                  child: Text(
+                    text!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Semibold",
+                      // decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
               ),

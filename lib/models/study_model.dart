@@ -95,16 +95,18 @@ class ContentQuizz {
   String? questionText;
   String? questionFile;
   int? type;
+  String? suggest;
   List<Answers>? answers;
 
   ContentQuizz(
-      {this.id, this.questionText, this.questionFile, this.type, this.answers});
+      {this.id, this.questionText, this.questionFile, this.type, this.suggest, this.answers});
 
   ContentQuizz.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     questionText = json['question_text'];
     questionFile = json['question_file'];
     type = json['type'];
+    suggest = json['suggest'];
     if (json['answers'] != null) {
       answers = <Answers>[];
       json['answers'].forEach((v) {
@@ -119,6 +121,7 @@ class ContentQuizz {
     data['question_text'] = this.questionText;
     data['question_file'] = this.questionFile;
     data['type'] = this.type;
+    data['suggest'] = this.suggest;
     if (this.answers != null) {
       data['answers'] = this.answers!.map((v) => v.toJson()).toList();
     }

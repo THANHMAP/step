@@ -27,4 +27,5 @@ class AppRoutes {
   static const String quizScreen = "/quizScreen";
   static const String resultQuizScreen = "/resultQuizScreen";
   static const String courseScreen = "/courseScreen";
+  static const String videoScreen ="/videoScreen";
 }
