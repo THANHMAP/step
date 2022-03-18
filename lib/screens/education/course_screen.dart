@@ -68,7 +68,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           child: Column(
                             children: [
                               for (var i = 0; i < infoList.length; i++) ...[
-                                layoutFAQ(i, infoList[i])
+                                layoutTest(i, infoList[i])
                               ],
                             ],
                           ),
@@ -132,36 +132,126 @@ class _CourseScreenState extends State<CourseScreen> {
                   ),
                 ],
               ),
-              // Expanded(
-              //   flex: 4,
-              //   child: Padding(
-              //     padding:
-              //     EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-              //     child: Text(
-              //       faqData.title.toString(),
-              //       textAlign: TextAlign.start,
-              //       style: TextStyle(
-              //         fontSize: 16,
-              //         color: Mytheme.colorBgButtonLogin,
-              //         fontWeight: FontWeight.w600,
-              //         fontFamily: "OpenSans-Semibold",
-              //       ),
-              //     ),
-              //   ),
-              // ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  layoutTest(int index, InfoList faqData) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 16),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    faqData.collapsed = !faqData.collapsed!;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: faqData.collapsed == false
+                        ? Colors.white
+                        : Mytheme.color_0xFFCCECFB,
+                    // borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 12, left: 16, bottom: 18, right: 0),
+                          child: Text(
+                            faqData.title.toString(),
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorBgButtonLogin,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 6, bottom: 0, right: 0),
+                          child: IconButton(
+                            icon:
+                                Image.asset("assets/images/ic_arrow_down.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              setState(() {
+                                faqData.collapsed = !faqData.collapsed!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Visibility(
+                  visible: faqData.collapsed ?? false,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 12, left: 16, bottom: 18, right: 16),
+                    child: Text(
+                      faqData.description.toString(),
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Mytheme.colorBgButtonLogin,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "OpenSans-Regular",
+                      ),
+                    ),
+                  ))
+
               // Expanded(
               //   flex: 1,
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(
-              //         top: 0, left: 6, bottom: 0, right: 0),
-              //     child: IconButton(
-              //       icon: Image.asset("assets/images/ic_arrow_down.png"),
-              //       // tooltip: 'Increase volume by 10',
-              //       iconSize: 50,
-              //       onPressed: () {},
+              //   child: Text(
+              //     faqData.description.toString(),
+              //     textAlign: TextAlign.start,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Mytheme.colorBgButtonLogin,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: "OpenSans-Regular",
               //     ),
               //   ),
-              // ),
+              // )
             ],
           ),
         ),

@@ -35,14 +35,16 @@ class FAQData {
   String? question;
   String? answer;
   String? createdAt;
+  bool? collapsed;
 
-  FAQData({this.id, this.question, this.answer, this.createdAt});
+  FAQData({this.id, this.question, this.answer, this.createdAt, this.collapsed});
 
   FAQData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     question = json['question'];
     answer = json['answer'];
     createdAt = json['createdAt'];
+    collapsed = false;
   }
 
   Map<String, dynamic> toJson() {

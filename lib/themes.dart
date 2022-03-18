@@ -48,8 +48,21 @@ class Mytheme {
   static const color_0xFFA7ABC3 = Color(0xFFA7ABC3);
   static const color_0xFF003A8C = Color(0xFF003A8C);
   static const color_0xFFE6706C = Color(0xFFE6706C);
+  static const color_0xFFCCECFB = Color(0xFFCCECFB);
 
+  static final light = ThemeData(
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(secondary: Colors.red),
+    disabledColor: Colors.grey.shade400,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
 
+  static final dark = ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme.dark(secondary: Colors.red),
+    disabledColor: Colors.grey.shade400,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+  );
 
 
   static const kYellowColor = Color(0xFFF2A900);

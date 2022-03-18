@@ -78,11 +78,10 @@ class _FAQScreenState extends State<FAQScreen> {
 
   layoutFAQ(int index, FAQData faqData) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 8, right: 8),
+      padding: const EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 16),
       child: InkWell(
         onTap: () {},
         child: Container(
-          height: 50,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -96,46 +95,107 @@ class _FAQScreenState extends State<FAQScreen> {
               ),
             ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+          child: Column(
             children: [
-              Expanded(
-                flex: 4,
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-                  child: Text(
-                    faqData.question.toString(),
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Mytheme.colorBgButtonLogin,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "OpenSans-Semibold",
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    faqData.collapsed = !faqData.collapsed!;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: faqData.collapsed == false
+                        ? Colors.white
+                        : Mytheme.color_0xFFCCECFB,
+                    // borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
                     ),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 6, bottom: 0, right: 0),
-                  child: IconButton(
-                    icon: Image.asset("assets/images/ic_arrow_down.png"),
-                    // tooltip: 'Increase volume by 10',
-                    iconSize: 50,
-                    onPressed: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 12, left: 16, bottom: 18, right: 0),
+                          child: Text(
+                            faqData.question.toString(),
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorBgButtonLogin,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 6, bottom: 0, right: 0),
+                          child: IconButton(
+                            icon:
+                            Image.asset("assets/images/ic_arrow_down.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              setState(() {
+                                faqData.collapsed = !faqData.collapsed!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+
+              Visibility(
+                  visible: faqData.collapsed ?? false,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 12, left: 16, bottom: 18, right: 16),
+                    child: Text(
+                      faqData.answer.toString(),
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Mytheme.colorBgButtonLogin,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "OpenSans-Regular",
+                      ),
+                    ),
+                  ))
+
+              // Expanded(
+              //   flex: 1,
+              //   child: Text(
+              //     faqData.description.toString(),
+              //     textAlign: TextAlign.start,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Mytheme.colorBgButtonLogin,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: "OpenSans-Regular",
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),
       ),
     );
   }
+
 
   Future<void> loadFAQ() async {
     await pr.show();
