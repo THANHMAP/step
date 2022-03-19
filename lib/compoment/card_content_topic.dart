@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -42,22 +43,20 @@ class CardContentTopicWidget extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 0, left: 20, bottom: 0, right: 0),
-                child: Image(
-                  image: AssetImage(urlIcon(type!)),
-                  fit: BoxFit.none,
-                  width: 5,
-                ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 0, left: 20, bottom: 10, right: 0),
+              child: Image(
+                image: AssetImage(urlIcon(type!)),
+                fit: BoxFit.none,
+                width: 35,
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 8,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 0, left: 0, bottom: 0, right: 0),
@@ -82,16 +81,16 @@ class CardContentTopicWidget extends StatelessWidget {
                 ),
               ),
             ),
+
             if (hideImageRight == false) ...[
               Expanded(
-                flex: 1,
                 child: Padding(
                     padding: const EdgeInsets.only(
                         top: 0, left: 0, bottom: 0, right: 10),
                     child: SizedBox(
                       width: 40,
                       child: IconButton(
-                        icon: Image.asset("assets/images/icon_back.png"),
+                        icon: SvgPicture.asset("assets/svg/ic_download.svg"),
                         onPressed: onClicked,
                       ),
                     )),

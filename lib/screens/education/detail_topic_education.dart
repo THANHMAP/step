@@ -1,10 +1,14 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:io' as io;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/models/exercise_model.dart';
 import 'package:step_bank/models/lesson_model.dart';
@@ -31,6 +35,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
   LessonData _lessonData = Get.arguments;
   List<StudyData> _studyData = [];
   List<ExerciseData> _exerciseData = [];
+  String progressString = '0%';
+  var progressValue = 0.0;
 
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Nội dung'),
@@ -153,38 +159,59 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                             child: SingleChildScrollView(
                                               child: Column(
                                                 children: [
-                                                  if (_studyData.isNotEmpty) ...[
+                                                  if (_studyData
+                                                      .isNotEmpty) ...[
                                                     for (var i = 0;
-                                                    i < _studyData.length;
-                                                    i++) ...[
+                                                        i < _studyData.length;
+                                                        i++) ...[
                                                       Padding(
                                                         padding:
-                                                        const EdgeInsets.only(
-                                                            top: 10,
-                                                            left: 16,
-                                                            right: 16,
-                                                            bottom: 12),
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 10,
+                                                                left: 16,
+                                                                right: 16,
+                                                                bottom: 12),
                                                         child:
-                                                        CardContentTopicWidget(
-                                                          title:
-                                                          _studyData[i].name,
-                                                          type:
-                                                          _studyData[i].type,
-                                                          hideImageRight: false,
+                                                            CardContentTopicWidget(
+                                                          title: _studyData[i]
+                                                              .name,
+                                                          type: _studyData[i]
+                                                              .type,
+                                                          hideImageRight: true,
                                                           onClicked: () {
-                                                            _studyData[i].nameCourse = _lessonData.nameCourse;
-                                                            if(_studyData[i].type == 5) {
+                                                            _studyData[i]
+                                                                    .nameCourse =
+                                                                _lessonData
+                                                                    .nameCourse;
+                                                            if (_studyData[i]
+                                                                    .type ==
+                                                                5) {
                                                               Get.toNamed(
-                                                                  '/homeQuizScreen', arguments: _studyData[i]);
-                                                            } else if(_studyData[i].type == 2) {
+                                                                  '/homeQuizScreen',
+                                                                  arguments:
+                                                                      _studyData[
+                                                                          i]);
+                                                            } else if (_studyData[
+                                                                        i]
+                                                                    .type ==
+                                                                2) {
                                                               Get.toNamed(
-                                                                  '/videoScreen', arguments: _studyData[i]);
+                                                                  '/videoScreen',
+                                                                  arguments:
+                                                                      _studyData[
+                                                                          i]);
                                                             } else {
-                                                              _studyData[i].nameCourse = _lessonData.nameCourse;
+                                                              _studyData[i]
+                                                                      .nameCourse =
+                                                                  _lessonData
+                                                                      .nameCourse;
                                                               Get.toNamed(
-                                                                  '/detailEducationScreen', arguments: _studyData[i]);
+                                                                  '/detailEducationScreen',
+                                                                  arguments:
+                                                                      _studyData[
+                                                                          i]);
                                                             }
-
                                                           },
                                                         ),
                                                       ),
@@ -193,7 +220,6 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                 ],
                                               ),
                                             ),
-
                                           ),
                                           Container(
                                             width: double.infinity,
@@ -201,27 +227,35 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                             child: SingleChildScrollView(
                                               child: Column(
                                                 children: [
-                                                  if (_exerciseData.isNotEmpty) ...[
+                                                  if (_exerciseData
+                                                      .isNotEmpty) ...[
                                                     for (var i = 0;
-                                                    i < _exerciseData.length;
-                                                    i++) ...[
+                                                        i <
+                                                            _exerciseData
+                                                                .length;
+                                                        i++) ...[
                                                       Padding(
                                                         padding:
-                                                        const EdgeInsets.only(
-                                                            top: 10,
-                                                            left: 16,
-                                                            right: 16,
-                                                            bottom: 12),
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 10,
+                                                                left: 16,
+                                                                right: 16,
+                                                                bottom: 12),
                                                         child:
-                                                        CardContentTopicWidget(
+                                                            CardContentTopicWidget(
                                                           title:
-                                                          _exerciseData[i].name,
-                                                          type:
-                                                          1,
+                                                              _exerciseData[i]
+                                                                  .name,
+                                                          type: 1,
                                                           hideImageRight: false,
-                                                          onClicked: () {
-                                                            // if(_exerciseData[i].tu)
-                                                            // Get.toNamed('/detailEducationScreen', arguments: _exerciseData[i].);
+                                                          onClicked: () async {
+                                                            downloadFile(
+                                                                "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
+                                                                _exerciseData[i]
+                                                                    .name
+                                                                    .toString(),
+                                                                "mp4");
                                                           },
                                                         ),
                                                       ),
@@ -349,5 +383,107 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
       await pr.hide();
       Utils.showError(error.toString(), context);
     });
+  }
+
+  Future<void> downloadFile(
+      String url, String fileName, String extension) async {
+    var dio = new Dio();
+    var dir = await getExternalStorageDirectory();
+    var knockDir =
+        await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    print("Hello checking the file in Externaal Sorage");
+    io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
+      print(a);
+      if (a) {
+        OpenFile.open('${knockDir.path}/$fileName.$extension');
+        print("Opening file");
+        // showDialog(
+        //     context: context,
+        //     builder: (_) {
+        //       return AlertDialog(
+        //         title: Text('File is already downloaded'),
+        //         actions: <Widget>[
+        //           RaisedButton(
+        //               child: Text('Open'),
+        //               onPressed: () {
+        //                 // TODO write your function to open file
+        //                 Navigator.pop(context);
+        //               })
+        //         ],
+        //       );
+        //     });
+        return;
+      } else {
+        print("Downloading file");
+        openDialog();
+        await dio.download(url, '${knockDir.path}/$fileName.$extension',
+            onReceiveProgress: (rec, total) {
+          if (mounted) {
+            setState(() {
+              progressValue = (rec / total);
+              progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
+              myDialogState.setState(() {
+                myDialogState.progressData = progressString;
+                myDialogState.progressValue = progressValue;
+              });
+            });
+          }
+        });
+        if (mounted) {
+          setState(() {
+            print('${knockDir.path}');
+            // TODO write your function to open file
+          });
+        }
+        print("Download completed");
+      }
+    });
+  }
+
+  openDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return MyDialog();
+      },
+    );
+  }
+}
+
+_MyDialogState myDialogState = _MyDialogState();
+
+class MyDialog extends StatefulWidget {
+  @override
+  _MyDialogState createState() {
+    myDialogState = _MyDialogState();
+    return myDialogState;
+  }
+}
+
+class _MyDialogState extends State<MyDialog> {
+  String progressData = '0%';
+  var progressValue = 0.0;
+
+  @override
+  Widget build(BuildContext context) {
+    print(progressValue);
+    return AlertDialog(
+      content: LinearProgressIndicator(
+        value: progressValue,
+        backgroundColor: Colors.red,
+      ),
+      title: Text(progressData),
+      actions: <Widget>[
+        progressValue == 1.0
+            ? RaisedButton(
+                child: Text('Done'),
+                onPressed: () {
+                  // TODO write your function to open file
+                  Navigator.pop(context);
+                })
+            : Container()
+      ],
+    );
   }
 }

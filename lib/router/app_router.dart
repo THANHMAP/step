@@ -25,6 +25,7 @@ class AppRoutes {
   static const String detailEducationScreen = "/detailEducationScreen";
   static const String homeQuizScreen = "/homeQuizScreen";
   static const String quizScreen = "/quizScreen";
+  static const String quizCustomScreen = "/quizCustomScreen";
   static const String resultQuizScreen = "/resultQuizScreen";
   static const String courseScreen = "/courseScreen";
   static const String videoScreen ="/videoScreen";

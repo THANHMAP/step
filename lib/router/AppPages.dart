@@ -25,6 +25,7 @@ import '../screens/dashboard/education.dart';
 import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
+import '../screens/quizz/quiz_custom.dart';
 import 'app_router.dart';
 
 class AppPages {
@@ -144,6 +145,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.videoScreen,
       page: () => const VideoScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.quizCustomScreen,
+      page: () => const QuizCustomScreen(),
     ),
   ];
 }
