@@ -48,21 +48,20 @@ class CardContentTopicWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 0, left: 20, bottom: 10, right: 0),
-              child: Image(
-                image: AssetImage(urlIcon(type!)),
-                fit: BoxFit.none,
-                width: 35,
+                  top: 10, left: 20, bottom: 10, right: 0),
+              child: IconButton(
+                icon: SvgPicture.asset(urlIcon(type!)),
+                iconSize: 10,
+                onPressed: onClicked,
               ),
             ),
             Expanded(
-              flex: 8,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 0, left: 0, bottom: 0, right: 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
@@ -86,9 +85,9 @@ class CardContentTopicWidget extends StatelessWidget {
               Expanded(
                 child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 0, left: 0, bottom: 0, right: 10),
+                        top: 10, left: 40, bottom: 0, right: 10),
                     child: SizedBox(
-                      width: 40,
+                      width: 60,
                       child: IconButton(
                         icon: SvgPicture.asset("assets/svg/ic_download.svg"),
                         onPressed: onClicked,
@@ -104,12 +103,12 @@ class CardContentTopicWidget extends StatelessWidget {
 
   String urlIcon(int type){
     if(type == 1){
-      return "assets/images/ic_content.png";
+      return "assets/svg/ic_file.svg";
     } else if(type == 5){
-      return "assets/images/ic_quizz.png";
+      return "assets/svg/ic_quiz.svg";
     } else if(type == 2){
-      return "assets/images/ic_video.png";
+      return "assets/svg/ic_video.svg";
     }
-    return "assets/images/ic_content.png";
+    return "assets/svg/ic_file.svg";
   }
 }

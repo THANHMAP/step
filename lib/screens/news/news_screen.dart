@@ -13,7 +13,7 @@ import 'package:step_bank/models/news_model.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
-
+import 'package:intl/intl.dart';
 import '../../themes.dart';
 import '../../util.dart';
 import 'news_detail_screen.dart';
@@ -59,8 +59,8 @@ class _NewsScreenState extends State<NewsScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 15, right: 15, bottom: 70),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -72,8 +72,7 @@ class _NewsScreenState extends State<NewsScreen> {
               )
             ],
           ),
-        )
-    );
+        ));
   }
 
   newsLayout() {
@@ -194,28 +193,30 @@ class _NewsScreenState extends State<NewsScreen> {
                         flex: 5,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 0, left: 20, right: 10),
+                              top: 10, left: 20, right: 10),
                           child: Column(
                             children: [
                               Flexible(
-                                  child: Text(
-                                newsList?[i].name ?? "",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
-                                ),
-                                textAlign: TextAlign.left,
-                              )),
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      newsList?[i].name ?? "",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    )),
+                              ),
                               const SizedBox(height: 10),
                               Flexible(
                                   child: Align(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        newsList?[i].createdAt ?? "",
+                                        convert(newsList?[i].createdAt ?? ""),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -240,6 +241,10 @@ class _NewsScreenState extends State<NewsScreen> {
         ],
       ),
     );
+  }
+
+  String convert(String date) {
+    return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
   }
 
   Future<void> loadNews() async {

@@ -29,7 +29,7 @@ class NormalDialogBox extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(
-              left: Constants.padding,
+              left: 0,
               top: 0,
               right: 0,
               bottom: Constants.padding),

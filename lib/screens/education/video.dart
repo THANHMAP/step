@@ -41,7 +41,6 @@ class _VideoScreenState extends State<VideoScreen> {
   late VideoPlayerController _videoPlayerController2;
   ChewieController? _chewieController;
 
-
   @override
   void initState() {
     super.initState();
@@ -78,30 +77,23 @@ class _VideoScreenState extends State<VideoScreen> {
   void _createChewieController() {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
+      showOptions: false,
       autoPlay: true,
       looping: false,
 
-      additionalOptions: (context) {
-        return <OptionItem>[
-          OptionItem(
-            onTap: toggleVideo,
-            iconData: Icons.live_tv_sharp,
-            title: 'Toggle Video Src',
-          ),
-        ];
-      },
-      // subtitle: Subtitles(subtitles),
-      subtitleBuilder: (context, dynamic subtitle) => Container(
-        padding: const EdgeInsets.all(10.0),
-        child: subtitle is InlineSpan
-            ? RichText(
-          text: subtitle,
-        )
-            : Text(
-          subtitle.toString(),
-          style: const TextStyle(color: Colors.black),
-        ),
-      ),
+      // Try playing around with some of these other options:
+
+      // showControls: false,
+      // materialProgressColors: ChewieProgressColors(
+      //   playedColor: Colors.red,
+      //   handleColor: Colors.blue,
+      //   backgroundColor: Colors.grey,
+      //   bufferedColor: Colors.lightGreen,
+      // ),
+      // placeholder: Container(
+      //   color: Colors.grey,
+      // ),
+      // autoInitialize: true,
     );
   }
 
@@ -120,34 +112,51 @@ class _VideoScreenState extends State<VideoScreen> {
         platform: _platform ?? Theme.of(context).platform,
       ),
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Mytheme.colorBgButtonLogin,
+          title: Text(
+            _studyData.nameCourse.toString(),
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+              fontFamily: "OpenSans-Semibold",
+              // decoration: TextDecoration.underline,
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: Column(
           children: <Widget>[
-            AppbarWidget(
-              text: _studyData.nameCourse,
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
             Expanded(
               child: Center(
                 child: _chewieController != null &&
-                    _chewieController!
-                        .videoPlayerController.value.isInitialized
-                    ? Chewie( controller: _chewieController!)
+                        _chewieController!
+                            .videoPlayerController.value.isInitialized
+                    ? Chewie(
+                        controller: _chewieController!,
+                      )
                     : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 20),
-                    Text('Loading'),
-                  ],
-                ),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 20),
+                          Text('Loading'),
+                        ],
+                      ),
               ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(),
             ),
           ],
         ),
       ),
     );
   }
-
 }

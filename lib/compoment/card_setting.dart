@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:step_bank/shared/SPref.dart';
@@ -47,11 +48,9 @@ class CardSettingWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 12, left: 16, bottom: 18, right: 26),
-              child: Image(
-                image: AssetImage(
-                    linkUrl ?? ""),
-                fit: BoxFit.fill,
-              ),
+              child: SvgPicture.asset(
+                linkUrl.toString(),
+              )
             ),
             Padding(
                 padding: const EdgeInsets.only(

@@ -13,7 +13,9 @@ import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
 
+import '../../constants.dart';
 import '../../controllers/question_controller.dart';
+import '../../models/result.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -25,9 +27,8 @@ class ResultQuizScreen extends StatefulWidget {
 }
 
 class _ResultQuizScreenState extends State<ResultQuizScreen> {
-  final QuestionController _qnController = Get.put(QuestionController());
   late ProgressDialog pr;
-
+  Result _dataResult = Get.arguments;
   @override
   void initState() {
     super.initState();
@@ -59,7 +60,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                   children: [
                     AppbarWidget(
                       hideBack: true,
-                      text: _qnController.nameTitle,
+                      text: "Kết Quả",
                       onClicked: () => Get.back(),
                     ),
                     Padding(
@@ -88,15 +89,13 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                 crossAxisSpacing: 4.0,
                                 mainAxisSpacing: 4.0,
                                 children: List.generate(
-                                    _qnController.resultQuestion.length,
+                                    _dataResult.listQuestion!.length,
                                     (index) {
                                   return SizedBox(
                                     width: 300,
                                     height: 100,
                                     child: Card(
-                                      color: _qnController.resultQuestion[index]
-                                                  .isCorrect ==
-                                              1
+                                      color: _dataResult.listQuestion![index].isCorrect == true
                                           ? Mytheme.color_0xFF30CD60
                                           : Mytheme.color_0xFFE6706C,
                                       elevation: 4,
@@ -114,10 +113,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                                 left: 16,
                                                 bottom: 18,
                                                 right: 5),
-                                            child: SvgPicture.asset(_qnController
-                                                        .resultQuestion[index]
-                                                        .isCorrect ==
-                                                    1
+                                            child: SvgPicture.asset(_dataResult.listQuestion![index].isCorrect == true
                                                 ? "assets/svg/ic_correct.svg"
                                                 : "assets/svg/ic_wrong.svg"),
                                           ),
@@ -188,18 +184,17 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
   }
 
   String textResult() {
-    if (_qnController.numOfCorrectAns >=
-        _qnController.resultQuestion.length / 2) {
-      return "Chúc mừng!\n Bạn đã đúng ${_qnController.numOfCorrectAns}/${_qnController.resultQuestion.length} câu hỏi";
+    if (_dataResult.numOfCorrectAns! >=   _dataResult.listQuestion!.length / 2) {
+      return "Chúc mừng!\n Bạn đã đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     } else {
-      return "Rát tiếc!\n Bạn chỉ đúng ${_qnController.numOfCorrectAns}/${_qnController.resultQuestion.length} câu hỏi";
+      return "Rát tiếc!\n Bạn chỉ đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     }
   }
 
 
   Future<void> sendListExercise() async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.submitQuizURL, _qnController.result).then(
+    APIManager.postAPICallNeedToken(RemoteServices.submitQuizURL, _dataResult.result).then(
             (value) async {
           await pr.hide();
           if (value["status_code"] == 200) {

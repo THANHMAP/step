@@ -15,6 +15,7 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 import 'package:step_bank/strings.dart';
 
+import '../../compoment/dialog_nomal.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // thong tin ca nhan
                               CardSettingWidget(
                                 title: "Thông tin cá nhân",
-                                linkUrl: 'assets/images/img_info.png',
+                                linkUrl: 'assets/svg/ic_info.svg',
                                 onClicked: () {
                                   Get.toNamed('/editProfile');
                                   // Get.toNamed('/educationTopic');
@@ -99,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // bảng xếp hạng
                               CardSettingWidget(
                                 title: "Bảng xếp hạng",
-                                linkUrl: 'assets/images/img_xephang.png',
+                                linkUrl: 'assets/svg/ic_rank.svg',
                                 onClicked: () {
                                   // showDialog(
                                   //     context: context,
@@ -129,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //tool
                               CardSettingWidget(
                                 title: "Các công cụ của tôi",
-                                linkUrl: 'assets/images/img_tool.png',
+                                linkUrl: 'assets/svg/ic_tool.svg',
                                 onClicked: () {
                                 },
                               ),
@@ -137,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //setting
                               CardSettingWidget(
                                 title: "Cài đặt tài khoản",
-                                linkUrl: 'assets/images/img_setting.png',
+                                linkUrl: 'assets/svg/ic_setting.svg',
                                 onClicked: () {
                                   Get.toNamed('/setupAccount');
                                 },
@@ -163,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //face
                               CardSettingWidget(
                                 title: "Kết nối trên MXH",
-                                linkUrl: 'assets/images/img_fb.png',
+                                linkUrl: 'assets/svg/ic_face.svg',
                                 onClicked: () {
                                 },
                               ),
@@ -171,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //lien he
                               CardSettingWidget(
                                 title: "Liên hệ",
-                                linkUrl: 'assets/images/img_lienhe.png',
+                                linkUrl: 'assets/svg/ic_lienhe.svg',
                                 onClicked: () {
 
                                 },
@@ -180,7 +181,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // cau hoi
                               CardSettingWidget(
                                 title: "Câu hỏi thường gặp",
-                                linkUrl: 'assets/images/img_cauhoi.png',
+                                linkUrl: 'assets/svg/ic_fqa.svg',
                                 onClicked: () {
                                   Get.toNamed('/faq');
                                 },
@@ -190,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // bao cao loi
                               CardSettingWidget(
                                 title: "Báo cáo lỗi",
-                                linkUrl: 'assets/images/img_baocaoloi.png',
+                                linkUrl: 'assets/svg/ic_error.svg',
                                 onClicked: () {
                                   Get.toNamed('/reportError');
                                 },
@@ -200,16 +201,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               // bao cao loi
                               CardSettingWidget(
                                 title: "Điều khoản sử dụng",
-                                linkUrl: 'assets/images/img_dieukhoan.png',
+                                linkUrl: 'assets/svg/ic_dieukhoan.svg',
                                 onClicked: () {
-
+                                  // showDialog(
+                                  //     context: context,
+                                  //     builder: (BuildContext context) {
+                                  //       return WillPopScope(
+                                  //           onWillPop: () {
+                                  //             return Future.value(false);
+                                  //           },
+                                  //           child:  NormalDialogBox(
+                                  //               descriptions: StringText.text_register_acc_success,
+                                  //               onClicked: (){}
+                                  //           ));
+                                  //     });
                                 },
                               ),
                               const SizedBox(height: 10),
                               // logout
                               CardSettingWidget(
                                 title: StringText.text_logout,
-                                linkUrl: 'assets/images/ic_logout.png',
+                                linkUrl: 'assets/svg/ic_dangxuat.svg',
                                 onClicked: () {
                                   showDialog(
                                       context: context,

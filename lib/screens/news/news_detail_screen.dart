@@ -13,12 +13,12 @@ import 'package:step_bank/models/news_model.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
-
+import 'package:intl/intl.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
-class NewsDetailScreen extends StatelessWidget  {
-  const NewsDetailScreen({Key? key, required this.newsData }) : super(key: key);
+class NewsDetailScreen extends StatelessWidget {
+  const NewsDetailScreen({Key? key, required this.newsData}) : super(key: key);
 
   final NewsData? newsData;
 
@@ -41,13 +41,14 @@ class NewsDetailScreen extends StatelessWidget  {
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding:
-                    const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 70),
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 0, right: 0, bottom: 70),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 15, right: 15),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -65,7 +66,8 @@ class NewsDetailScreen extends StatelessWidget  {
                               Align(
                                   alignment: Alignment.topLeft,
                                   child: Text(
-                                    newsData?.createdAt!.toString() ?? "",
+                                    convert(
+                                        newsData?.createdAt!.toString() ?? ""),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
@@ -90,7 +92,8 @@ class NewsDetailScreen extends StatelessWidget  {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 15, right: 15),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -108,7 +111,6 @@ class NewsDetailScreen extends StatelessWidget  {
                               //   textAlign: TextAlign.left,
                               // ),
 
-
                               // newsLayout(),
                             ],
                           ),
@@ -118,9 +120,12 @@ class NewsDetailScreen extends StatelessWidget  {
                   ),
                 ),
               )
-
             ],
           ),
         ));
+  }
+
+  String convert(String date) {
+    return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
   }
 }

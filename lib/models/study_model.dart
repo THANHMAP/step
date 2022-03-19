@@ -42,18 +42,18 @@ class StudyData {
   List<ContentQuizz>? contentQuizz;
   String? nameCourse;
 
-  StudyData(
-      {this.id,
-        this.name,
-        this.icon,
-        this.contentText,
-        this.contentFile,
-        this.type,
-        this.fileSlideShare,
-        this.fileScorm,
-        this.contentQuizz,
-        this.nameCourse,
-      });
+  StudyData({
+    this.id,
+    this.name,
+    this.icon,
+    this.contentText,
+    this.contentFile,
+    this.type,
+    this.fileSlideShare,
+    this.fileScorm,
+    this.contentQuizz,
+    this.nameCourse,
+  });
 
   StudyData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -96,10 +96,17 @@ class ContentQuizz {
   String? questionFile;
   int? type;
   String? suggest;
+  bool? isAnswers;
   List<Answers>? answers;
 
   ContentQuizz(
-      {this.id, this.questionText, this.questionFile, this.type, this.suggest, this.answers});
+      {this.id,
+      this.questionText,
+      this.questionFile,
+      this.type,
+      this.suggest,
+      this.isAnswers,
+      this.answers});
 
   ContentQuizz.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -107,6 +114,7 @@ class ContentQuizz {
     questionFile = json['question_file'];
     type = json['type'];
     suggest = json['suggest'];
+    isAnswers = false;
     if (json['answers'] != null) {
       answers = <Answers>[];
       json['answers'].forEach((v) {
@@ -134,14 +142,24 @@ class Answers {
   String? answerText;
   String? answerFile;
   int? isCorrect;
+  bool? isSelect;
+  int? selectIsCorrect;
 
-  Answers({this.id, this.answerText, this.answerFile, this.isCorrect});
+  Answers(
+      {this.id,
+      this.answerText,
+      this.answerFile,
+      this.isCorrect,
+      this.isSelect,
+      this.selectIsCorrect});
 
   Answers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     answerText = json['answer_text'];
     answerFile = json['answer_file'];
     isCorrect = json['is_correct'];
+    isSelect = false;
+    selectIsCorrect = 0;
   }
 
   Map<String, dynamic> toJson() {

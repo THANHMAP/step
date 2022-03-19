@@ -133,8 +133,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: () {
-                                    Constants.questionsGlobals = contentQuizz;
-                                     Get.toNamed('/quizScreen', arguments: _studyData);
+                                     Get.offAndToNamed('/quizCustomScreen', arguments: _studyData);
                                   },
                                 )),
                           ),
