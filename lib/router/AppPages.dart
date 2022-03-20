@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:step_bank/screens/dashboard/tool.dart';
 import 'package:step_bank/screens/education/detail_topic_education.dart';
 import 'package:step_bank/screens/education/video.dart';
 import 'package:step_bank/screens/forgotpassword/forgotpassowrd_screen.dart';
@@ -150,6 +151,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.quizCustomScreen,
       page: () => const QuizCustomScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.toolScreen,
+      page: () => const ToolScreen(),
     ),
   ];
 }

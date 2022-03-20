@@ -122,7 +122,6 @@ class _AccountScreenState extends State<AccountScreen> {
                               // saveInfoUser()
                               if(_image != null){
                                 saveImage(_image),
-                                saveInfoUser()
                               } else {
                                 saveInfoUser()
                               }
@@ -1496,7 +1495,8 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future<void> saveInfoUser() async {
-    await pr.show();
+    if(!pr.isShowing())
+      await pr.show();
     user.name = _usernameController.text;
     user.gender = currentSexIndex;
     user.dob = _userBodController.text;
@@ -1518,7 +1518,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
         (value) async {
-      await pr.hide();
+
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
@@ -1526,7 +1526,6 @@ class _AccountScreenState extends State<AccountScreen> {
         // Get.offAllNamed("/home");
       }
     }, onError: (error) async {
-      await pr.hide();
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -1539,19 +1538,19 @@ class _AccountScreenState extends State<AccountScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
+    await pr.hide();
   }
 
   Future<void> saveImage(File file) async {
     await pr.show();
     APIManager.uploadImageHTTP(file, RemoteServices.updateAvatarURL).then((value) async {
-      await pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
+        // saveInfoUser();
       }
     }, onError: (error) async {
-      await pr.hide();
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -1564,7 +1563,11 @@ class _AccountScreenState extends State<AccountScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
+    await pr.hide();
   }
+
+
+
 
 
 

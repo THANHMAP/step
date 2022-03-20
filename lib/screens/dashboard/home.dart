@@ -8,8 +8,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:step_bank/models/banner_promotion_model.dart';
 import 'package:step_bank/models/login_model.dart';
 import 'package:step_bank/models/news_model.dart';
+import 'package:step_bank/screens/dashboard/education.dart';
+import 'package:step_bank/screens/dashboard/tool.dart';
 import 'package:step_bank/screens/news/news_detail_screen.dart';
 import 'package:step_bank/screens/news/news_screen.dart';
 import 'package:step_bank/service/api_manager.dart';
@@ -22,8 +25,8 @@ import '../../themes.dart';
 import '../../util.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+  const HomeScreen({Key? key, this.controller}) : super(key: key);
+  final PersistentTabController? controller;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -32,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _index = 0;
   late ProgressDialog pr;
   List<NewsData>? newsList;
+  List<BannerPromotionData>? listBanner = [];
 
   @override
   void initState() {
@@ -265,41 +269,113 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   hoctapLayout() {
-    return Container(
-      height: 123,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/img_bg_hoctap.png"),
-          fit: BoxFit.fill,
+    return InkWell(
+      onTap: () {
+        widget.controller?.index = 2;
+        },
+      child:  Container(
+        height: 123,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/img_bg_hoctap.png"),
+            fit: BoxFit.fill,
+          ),
         ),
+        // child: Column(
+        //   children: const <Widget>[],
+        // ),
       ),
-      // child: Column(
-      //   children: const <Widget>[],
-      // ),
     );
+
   }
 
   viewPager() {
     return SizedBox(
       height: 123,
       child: PageView.builder(
-        itemCount: 10,
+        itemCount: listBanner!.length,
         controller: PageController(viewportFraction: 0.7),
         onPageChanged: (int index) => setState(() => _index = index),
         itemBuilder: (_, i) {
           return Transform.scale(
             scale: i == _index ? 1 : 0.9,
-            child: Card(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: Center(
-                child: Text(
-                  "Card ${i + 1}",
-                  style: TextStyle(fontSize: 32),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Container(
+                height: 140.0,
+                width: double.infinity,
+                color: Colors.blue,
+                child: Image.network(
+                  listBanner![i].thumbnail.toString(),
+                  fit: BoxFit.none,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
+            )
+
+            // new Container(
+            //   height: 300.0,
+            //   color: Colors.transparent,
+            //   child: new Container(
+            //       decoration: new BoxDecoration(
+            //           color: Colors.green,
+            //           borderRadius: new BorderRadius.only(
+            //             topLeft: const Radius.circular(40.0),
+            //             topRight: const Radius.circular(40.0),
+            //           )
+            //       ),
+            //       child: Image.network(
+            //         listBanner![i].thumbnail.toString(),
+            //         fit: BoxFit.none,
+            //         loadingBuilder: (BuildContext context, Widget child,
+            //             ImageChunkEvent? loadingProgress) {
+            //           if (loadingProgress == null) return child;
+            //           return Center(
+            //             child: CircularProgressIndicator(
+            //               value: loadingProgress.expectedTotalBytes != null
+            //                   ? loadingProgress.cumulativeBytesLoaded /
+            //                   loadingProgress.expectedTotalBytes!
+            //                   : null,
+            //             ),
+            //           );
+            //         },
+            //       ),
+            //   ),
+            // ),
+            // Card(
+            //   elevation: 6,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(20)),
+            //   child: Center(
+            //     child: Image.network(
+            //       listBanner![i].thumbnail.toString(),
+            //       fit: BoxFit.none,
+            //       loadingBuilder: (BuildContext context, Widget child,
+            //           ImageChunkEvent? loadingProgress) {
+            //         if (loadingProgress == null) return child;
+            //         return Center(
+            //           child: CircularProgressIndicator(
+            //             value: loadingProgress.expectedTotalBytes != null
+            //                 ? loadingProgress.cumulativeBytesLoaded /
+            //                 loadingProgress.expectedTotalBytes!
+            //                 : null,
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
           );
         },
       ),
@@ -462,17 +538,34 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> loadNews() async {
     await pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.newsURL).then((value) async {
-      await pr.hide();
       var news = NewsModel.fromJson(value);
       if (news.statusCode == 200) {
         setState(() {
           newsList = news.data;
         });
+        loadBanner();
       }
     }, onError: (error) async {
-      await pr.hide();
       Utils.showError(error.toString(), context);
     });
+    await pr.hide();
+  }
+
+  Future<void> loadBanner() async {
+    if(!pr.isShowing()) {
+      await pr.show();
+    }
+    APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then((value) async {
+      var data = BannerPromotionModel.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          listBanner = data.data;
+        });
+      }
+    }, onError: (error) async {
+      Utils.showError(error.toString(), context);
+    });
+    await pr.hide();
   }
 
   int setMaxItem() {

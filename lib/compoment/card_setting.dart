@@ -26,7 +26,6 @@ class CardSettingWidget extends StatelessWidget {
     return InkWell(
       onTap: onClicked,
       child: Container(
-        height: 70,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           color: Colors.white,
@@ -52,22 +51,25 @@ class CardSettingWidget extends StatelessWidget {
                 linkUrl.toString(),
               )
             ),
-            Padding(
-                padding: const EdgeInsets.only(
-                    top: 12,
-                    left: 16,
-                    bottom: 18,
-                    right: 26),
-                child: Text(
-                  title ?? "",
-                  textAlign: TextAlign.end,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Mytheme.colorBgButtonLogin,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "OpenSans-Regular",
-                  ),
-                )),
+            Expanded(
+              child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 12,
+                      left: 16,
+                      bottom: 18,
+                      right: 26),
+                  child: Text(
+                    title ?? "",
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Mytheme.colorBgButtonLogin,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Regular",
+                    ),
+                  )),
+            ),
+
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'exercise_model.dart';
+
 class StudyModel {
   bool? statusError;
   int? statusCode;
@@ -41,6 +43,7 @@ class StudyData {
   String? fileScorm;
   List<ContentQuizz>? contentQuizz;
   String? nameCourse;
+  List<ExerciseData>? exerciseData;
 
   StudyData({
     this.id,
@@ -53,6 +56,7 @@ class StudyData {
     this.fileScorm,
     this.contentQuizz,
     this.nameCourse,
+    this.exerciseData,
   });
 
   StudyData.fromJson(Map<String, dynamic> json) {
@@ -70,6 +74,7 @@ class StudyData {
         contentQuizz!.add(new ContentQuizz.fromJson(v));
       });
     }
+    exerciseData = [];
   }
 
   Map<String, dynamic> toJson() {

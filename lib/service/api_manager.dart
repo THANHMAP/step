@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -82,7 +84,7 @@ class APIManager {
   }
 
   static Future<dynamic> uploadImageHTTP(file, String url) async {
-    print("Calling API: $url");
+    print("Calling uploadImageHTTP: $url");
     var responseJson;
     var token = await SPref.instance.get("token");
     Map<String, String> headers = {'Authorization': 'Bearer $token'};
@@ -102,7 +104,6 @@ class APIManager {
     }
     return responseJson;
   }
-
 
 
 

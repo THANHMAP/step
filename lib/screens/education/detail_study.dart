@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'dart:io' as io;
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
@@ -21,12 +24,18 @@ import 'package:step_bank/strings.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../compoment/card_content_topic.dart';
+import '../../models/exercise_model.dart';
 import '../../models/study_model.dart';
 import '../../themes.dart';
 import '../../util.dart';
+import 'detail_topic_education.dart';
 
 class DetailEducationLessonScreen extends StatefulWidget {
-  const DetailEducationLessonScreen({Key? key}) : super(key: key);
+  const DetailEducationLessonScreen({Key? key, this.exerciseData})
+      : super(key: key);
+
+  final List<ExerciseData>? exerciseData;
 
   @override
   _DetailEducationScreentate createState() => _DetailEducationScreentate();
@@ -34,11 +43,13 @@ class DetailEducationLessonScreen extends StatefulWidget {
 
 class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   late ProgressDialog pr;
-  StudyData _studyData = Get.arguments;
+  final StudyData _studyData = Get.arguments;
   late CarouselSlider carouselSlider = CarouselSlider();
   int activePage = 0;
   late PageController _pageController;
   List<String> fileSlideShare = [];
+  String progressString = '0%';
+  var progressValue = 0.0;
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -62,7 +73,6 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     if (_studyData.fileSlideShare != null) {
       fileSlideShare = _studyData.fileSlideShare!;
     }
-
   }
 
   @override
@@ -103,6 +113,47 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                         if (_studyData.type == 1) ...[
                           typeText(),
                         ],
+
+                        Container(
+                          margin: const EdgeInsets.only(left: 20.0),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Tài liệu",
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                  ),
+                                ),
+                              ),
+                              Divider(
+                                  color: Colors.black
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 16, right: 16, bottom: 12),
+                            child: CardContentTopicWidget(
+                              title: _studyData.exerciseData![i].name,
+                              type: 1,
+                              hideImageRight: false,
+                              onClicked: () async {
+                                downloadFile(
+                                    "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
+                                    _studyData.exerciseData![i].name.toString(),
+                                    "mp4");
+                              },
+                            ),
+                          ),
+                        ]
                       ],
                     ),
                   ),
@@ -302,19 +353,68 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
         duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 
-// Future<void> loadNews() async {
-//   await pr.show();
-//   APIManager.getAPICallNeedToken(RemoteServices.newsURL).then((value) async {
-//     await pr.hide();
-//     var news = NewsModel.fromJson(value);
-//     if (news.statusCode == 200) {
-//       setState(() {
-//         newsList = news.data;
-//       });
-//     }
-//   }, onError: (error) async {
-//     await pr.hide();
-//     Utils.showError(error.toString(), context);
-//   });
-// }
+  Future<void> downloadFile(
+      String url, String fileName, String extension) async {
+    var dio = new Dio();
+    var dir = await getExternalStorageDirectory();
+    var knockDir =
+    await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    print("Hello checking the file in Externaal Sorage");
+    io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
+      print(a);
+      if (a) {
+        OpenFile.open('${knockDir.path}/$fileName.$extension');
+        print("Opening file");
+        // showDialog(
+        //     context: context,
+        //     builder: (_) {
+        //       return AlertDialog(
+        //         title: Text('File is already downloaded'),
+        //         actions: <Widget>[
+        //           RaisedButton(
+        //               child: Text('Open'),
+        //               onPressed: () {
+        //                 // TODO write your function to open file
+        //                 Navigator.pop(context);
+        //               })
+        //         ],
+        //       );
+        //     });
+        return;
+      } else {
+        print("Downloading file");
+        openDialog();
+        await dio.download(url, '${knockDir.path}/$fileName.$extension',
+            onReceiveProgress: (rec, total) {
+              if (mounted) {
+                setState(() {
+                  progressValue = (rec / total);
+                  progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
+                  myDialogState.setState(() {
+                    myDialogState.progressData = progressString;
+                    myDialogState.progressValue = progressValue;
+                  });
+                });
+              }
+            });
+        if (mounted) {
+          setState(() {
+            print('${knockDir.path}');
+            // TODO write your function to open file
+          });
+        }
+        print("Download completed");
+      }
+    });
+  }
+
+  openDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return MyDialog();
+      },
+    );
+  }
 }

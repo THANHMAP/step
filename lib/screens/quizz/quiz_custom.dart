@@ -50,6 +50,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
   List<SubmitQuizData> listSubmitQuizData = [];
   int _numOfCorrectAns = 0;
   List<Question> listQuestion = [];
+  String buttonNext = "Hoàn thành";
 
   @override
   void initState() {
@@ -215,7 +216,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                         maintainSize: true,
                         maintainAnimation: true,
                         maintainState: true,
-                        visible: false,
+                        visible: checkQuestionStatus,
                         child: Text(
                           "Giải thích: ${contentQuizz[index].suggest.toString()}",
                           style: const TextStyle(
@@ -310,7 +311,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                             MediaQuery.of(context).size.width,
                                             44)),
                                     child: Text(
-                                      "Hoàn Thành",
+                                      buttonNext,
                                       style: TextStyle(
                                           color: statusButtonFinish == false
                                               ? Mytheme.color_0xFFA7ABC3
@@ -329,6 +330,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                             } else {
                                               checkQuestionMutil();
                                             }
+                                            buttonNext = "Tiếp tục";
                                             return;
                                           } else {
                                             if (index == contentQuizz.length - 1) {
@@ -339,6 +341,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                               Get.offAndToNamed("/resultQuizScreen", arguments: _dataResult);
                                               return;
                                             } else {
+                                              buttonNext = "Hoàn thành";
                                               index = index + 1;
                                               if (checkQuestionAnswersed() ==
                                                   true) {

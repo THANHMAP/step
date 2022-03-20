@@ -12,6 +12,7 @@ import 'package:step_bank/themes.dart';
 
 import '../../util.dart';
 import '../dashboard/education.dart';
+import '../dashboard/tool.dart';
 
 class HomeMain extends StatefulWidget {
   const HomeMain({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class HomeMain extends StatefulWidget {
   _HomeMainState createState() => _HomeMainState();
 }
 
-class _HomeMainState extends State<HomeMain> {
+class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin {
   PersistentTabController? _controller;
   ScrollController scrollHomeController = ScrollController();
   ScrollController scrollNewsController = ScrollController();
@@ -34,8 +35,8 @@ class _HomeMainState extends State<HomeMain> {
 
   List<Widget> _buildScreens() {
     return [
-      HomeScreen(),
-      NewsScreen(),
+      HomeScreen(controller: _controller),
+      ToolScreen(),
       EducationScreen(),
       ProfileScreen()
     ];

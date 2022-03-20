@@ -21,14 +21,14 @@ import '../../compoment/card_setting.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
-class EducationScreen extends StatefulWidget {
-  const EducationScreen({Key? key}) : super(key: key);
+class ToolScreen extends StatefulWidget {
+  const ToolScreen({Key? key}) : super(key: key);
 
   @override
-  _EducationScreenState createState() => _EducationScreenState();
+  _ToolScreenState createState() => _ToolScreenState();
 }
 
-class _EducationScreenState extends State<EducationScreen> {
+class _ToolScreenState extends State<ToolScreen> {
   late ProgressDialog pr;
   List<EducationData> _educationList = [];
 
@@ -41,9 +41,9 @@ class _EducationScreenState extends State<EducationScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    Future.delayed(Duration.zero, () {
-      loadListEducation();
-    });
+    // Future.delayed(Duration.zero, () {
+    //   loadListEducation();
+    // });
   }
 
   @override
@@ -57,7 +57,7 @@ class _EducationScreenState extends State<EducationScreen> {
           children: <Widget>[
             AppbarWidget(
               hideBack: true,
-              text: "Học Tập",
+              text: "Công cụ",
               onClicked: () {
                 Navigator.of(context).pop(false);
               },
@@ -70,8 +70,64 @@ class _EducationScreenState extends State<EducationScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      headerLayout(),
-                      layoutCourse(),
+
+                  Padding(
+                  padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+                  child: Column(
+                    children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 16, right: 16, bottom: 0),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 15),
+                              CardSettingWidget(
+                                title: "Lập ngân sách",
+                                linkUrl: 'assets/svg/ic_lapngansach.svg',
+                                onClicked: () {
+                                },
+                              ),
+
+                              const SizedBox(height: 15),
+                              CardSettingWidget(
+                                title: "Kế hoạch sản xuất kinh doanh",
+                                linkUrl: 'assets/svg/ic_kehoach.svg',
+                                onClicked: () {
+                                },
+                              ),
+
+                              const SizedBox(height: 15),
+                              CardSettingWidget(
+                                title: "Quản lý tiết kiệm",
+                                linkUrl: 'assets/svg/ic_quanlytietkiem.svg',
+                                onClicked: () {
+                                },
+                              ),
+
+                              const SizedBox(height: 15),
+                              CardSettingWidget(
+                                title: "Lịch trả nợ",
+                                linkUrl: 'assets/svg/ic_lichtrano.svg',
+                                onClicked: () {
+                                },
+                              ),
+
+                              const SizedBox(height: 15),
+                              CardSettingWidget(
+                                title: "Danh mục hồ sơ vay vốn",
+                                linkUrl: 'assets/svg/ic_danhmucvayvon.svg',
+                                onClicked: () {
+                                },
+                              ),
+
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                      // headerLayout(),
+                      // layoutCourse(),
                     ],
                   ),
                 ),
@@ -177,14 +233,14 @@ class _EducationScreenState extends State<EducationScreen> {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(top: 56, left: 28, right: 20),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: SvgPicture.asset(
-              'assets/svg/ic_eduction_home.svg',
-              allowDrawingOutsideViewBox: true,
-            ),
-          )
+            padding: const EdgeInsets.only(top: 56, left: 28, right: 20),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: SvgPicture.asset(
+                'assets/svg/ic_eduction_home.svg',
+                allowDrawingOutsideViewBox: true,
+              ),
+            )
         ),
 
       ],
@@ -197,15 +253,15 @@ class _EducationScreenState extends State<EducationScreen> {
       'type': '0',
     });
     APIManager.postAPICallNeedToken(RemoteServices.listCourseURL, param).then(
-        (value) async {
-      await pr.hide();
-      var data = EducationModel.fromJson(value);
-      if (data.statusCode == 200) {
-        setState(() {
-          _educationList = data.data!;
-        });
-      }
-    }, onError: (error) async {
+            (value) async {
+          await pr.hide();
+          var data = EducationModel.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              _educationList = data.data!;
+            });
+          }
+        }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });

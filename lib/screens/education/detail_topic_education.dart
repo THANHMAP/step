@@ -180,10 +180,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                               .type,
                                                           hideImageRight: true,
                                                           onClicked: () {
-                                                            _studyData[i]
-                                                                    .nameCourse =
-                                                                _lessonData
-                                                                    .nameCourse;
+                                                            _studyData[i].nameCourse = _lessonData.nameCourse;
+                                                            _studyData[i].exerciseData = _exerciseData;
                                                             if (_studyData[i]
                                                                     .type ==
                                                                 5) {
@@ -352,27 +350,30 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
     });
     APIManager.postAPICallNeedToken(RemoteServices.listStudyURL, param).then(
         (value) async {
-      await pr.hide();
       var data = StudyModel.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
           _studyData = data.data!;
         });
+        loadListExercise();
       }
     }, onError: (error) async {
-      await pr.hide();
+
       Utils.showError(error.toString(), context);
     });
+    await pr.hide();
   }
 
   Future<void> loadListExercise() async {
-    await pr.show();
+    if(!pr.isShowing()) {
+      await pr.show();
+    }
     var param = jsonEncode(<String, String>{
       'lesson_id': _lessonData.id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.listExerciseURL, param).then(
         (value) async {
-      await pr.hide();
+
       var data = ExerciseModel.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
@@ -380,9 +381,9 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
         });
       }
     }, onError: (error) async {
-      await pr.hide();
       Utils.showError(error.toString(), context);
     });
+    await pr.hide();
   }
 
   Future<void> downloadFile(

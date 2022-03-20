@@ -573,10 +573,10 @@ class _LoginScreenState extends State<LoginScreen> {
       'device_type': "Android",
       'fcm_token': "DCM",
     });
-
+    await pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
         .then((value) async {
-      await pr.hide();
+      // await pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
@@ -584,7 +584,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.offAllNamed("/home");
       }
     }, onError: (error) async {
-      await pr.hide();
+
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -597,12 +597,12 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
+    await pr.hide();
   }
 
   Future<void> doLoginWithBiometrics(String phone, String password) async {
     String? typeDevice, fcmToken;
     await pr.show();
-
     typeDevice = "Android";
     fcmToken = "test";
     var param = jsonEncode(<String, String>{
@@ -613,7 +613,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
         (value) async {
-      await pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
@@ -621,7 +620,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.offAllNamed("/home");
       }
     }, onError: (error) async {
-      await pr.hide();
+
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -634,6 +633,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
+    await pr.hide();
   }
 
   void loadData() async {
