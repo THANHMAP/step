@@ -1158,22 +1158,50 @@ class _AccountScreenState extends State<AccountScreen> {
     if (user.avatar != null && user.avatar.toString().isNotEmpty) {
       return Stack(
         children: <Widget>[
-          Container(
-              width: 116.0,
-              height: 116.0,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(user.avatar.toString())))),
+          if(_image != null)...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(60.0),
+              child: _image != null
+                  ? Image.file(
+                _image,
+                fit: BoxFit.fill,
+                height: 125.0,
+                width: 125.0,
+              )
+                  : Image.asset(
+                "assets/images/no_image.png",
+                fit: BoxFit.fill,
+                height: 125.0,
+                width: 125.0,
+              ),
+            ),
+          ] else ...[
+            Container(
+                width: 116.0,
+                height: 116.0,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(user.avatar.toString())))),
+          ],
+
           Padding(
             padding:
                 const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
             child: InkWell(
-              onTap: () {},
+              onTap: () async {
+                XFile image = await imagePicker.pickImage(
+                    source: ImageSource.gallery,
+                    imageQuality: 50,
+                    preferredCameraDevice: CameraDevice.front);
+                setState(() {
+                  _image = File(image.path);
+                });
+              },
               child: Container(
-                height: 24,
-                width: 27,
+                height: 44,
+                width: 44,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/ic_camera.png"),
@@ -1205,28 +1233,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   width: 125.0,
                 ),
         ),
-        // Container(
-        //   width: 116.0,
-        //   height: 116.0,
-        //   decoration: BoxDecoration(
-        //     shape: BoxShape.circle,
-        //     image: DecorationImage(
-        //       fit: BoxFit.fill,
-        //       image: _image == null
-        //           ? AssetImage('assets/images/noImageAvailable.png')
-        //           : Image.file(_image) as ImageProvider,
-        //     ),
-        //   ),
-        //   child: _image != null
-        //       ? Image.file(
-        //           _image,
-        //           fit: BoxFit.fill,
-        //         )
-        //       : Image.asset(
-        //           "assets/images/no_image.png",
-        //           fit: BoxFit.fill,
-        //         ),
-        // ),
+
         Padding(
           padding:
               const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),

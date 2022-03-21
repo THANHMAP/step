@@ -136,6 +136,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                     finish: _lessonList[i].numberFinish ?? 0,
                                     total: _lessonList[i].totalPart ?? 0,
                                     onClicked: () {
+                                      trackingLesson(_lessonList[i].id ?? 0);
                                       _lessonList[i].nameCourse = _educationData.name;
                                       Get.toNamed('/educationTopicDetail', arguments: _lessonList[i]);
                                     },
@@ -198,4 +199,15 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
       Utils.showError(error.toString(), context);
     });
   }
+
+  Future<void> trackingLesson(int id) async {
+    var param = jsonEncode(<String, String>{
+      'lesson_id': id.toString(),
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.trackingURL, param).then(
+            (value) async {
+        }, onError: (error) async {
+    });
+  }
+
 }

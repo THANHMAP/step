@@ -30,4 +30,5 @@ class AppRoutes {
   static const String courseScreen = "/courseScreen";
   static const String videoScreen ="/videoScreen";
   static const String toolScreen ="/toolScreen";
+  static const String leaderBoardScreen = "/leaderBoardScreen";
 }

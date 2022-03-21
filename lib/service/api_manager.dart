@@ -105,10 +105,6 @@ class APIManager {
     return responseJson;
   }
 
-
-
-
-
   static dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:

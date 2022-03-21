@@ -29,6 +29,9 @@ class ResultQuizScreen extends StatefulWidget {
 class _ResultQuizScreenState extends State<ResultQuizScreen> {
   late ProgressDialog pr;
   Result _dataResult = Get.arguments;
+  String value = "";
+  String urlImage = "";
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +44,6 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
     Future.delayed(Duration.zero, () {
       sendListExercise();
     });
-
   }
 
   @override
@@ -63,50 +65,53 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                       text: "Kết Quả",
                       onClicked: () => Get.back(),
                     ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding:
-                      const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              textResult(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  color: Mytheme.color_0xFF003A8C,
-                                  fontFamily: "OpenSans-SemiBold",
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: 300,
-                            child: GridView.count(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 4.0,
-                                mainAxisSpacing: 4.0,
-                                children: List.generate(
-                                    _dataResult.listQuestion!.length,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 30, left: 24, right: 24),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  textResult(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      color: Mytheme.color_0xFF003A8C,
+                                      fontFamily: "OpenSans-SemiBold",
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                height: 300,
+                                child: GridView.count(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 4.0,
+                                    mainAxisSpacing: 4.0,
+                                    children: List.generate(
+                                        _dataResult.listQuestion!.length,
                                         (index) {
                                       return SizedBox(
                                         width: 300,
                                         height: 100,
                                         child: Card(
-                                          color: _dataResult.listQuestion![index].isCorrect == true
+                                          color: _dataResult
+                                                      .listQuestion![index]
+                                                      .isCorrect ==
+                                                  true
                                               ? Mytheme.color_0xFF30CD60
                                               : Mytheme.color_0xFFE6706C,
                                           elevation: 4,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(10)),
+                                                  BorderRadius.circular(10)),
                                           child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Padding(
@@ -115,26 +120,32 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                                     left: 16,
                                                     bottom: 18,
                                                     right: 5),
-                                                child: SvgPicture.asset(_dataResult.listQuestion![index].isCorrect == true
+                                                child: SvgPicture.asset(_dataResult
+                                                            .listQuestion![
+                                                                index]
+                                                            .isCorrect ==
+                                                        true
                                                     ? "assets/svg/ic_correct.svg"
                                                     : "assets/svg/ic_wrong.svg"),
                                               ),
                                               Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      top: 12,
-                                                      left: 0,
-                                                      bottom: 18,
-                                                      right: 0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 12,
+                                                          left: 0,
+                                                          bottom: 18,
+                                                          right: 0),
                                                   child: Text(
                                                     "Câu ${index + 1}",
                                                     textAlign: TextAlign.end,
                                                     style: const TextStyle(
                                                       fontSize: 20,
-                                                      color:
-                                                      Mytheme.kBackgroundColor,
-                                                      fontWeight: FontWeight.w600,
+                                                      color: Mytheme
+                                                          .kBackgroundColor,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       fontFamily:
-                                                      "OpenSans-SemiBold",
+                                                          "OpenSans-SemiBold",
                                                     ),
                                                   )),
                                             ],
@@ -142,26 +153,52 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                         ),
                                       );
                                     })),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    height: 136,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/bg_dat.png"),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-
-                ),
-
-                  ],
-                ),
+                  Padding(
+                      padding:
+                          const EdgeInsets.only(top: 80),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          value,
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: Mytheme.kBackgroundColor,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "OpenSans-SemiBold",
+                          ),
+                        ),
+                      ))
+                ],
               ),
               Expanded(
                 flex: 2,
                 child: Container(
-
                   color: Mytheme.kBackgroundColor,
                   child: Center(
                     child: Padding(
-                        padding:
-                        const EdgeInsets.only(bottom: 0, left: 24, right: 24),
+                        padding: const EdgeInsets.only(
+                            bottom: 0, left: 24, right: 24),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
@@ -170,7 +207,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                               ),
                               primary: Mytheme.colorBgButtonLogin,
                               minimumSize:
-                              Size(MediaQuery.of(context).size.width, 44)),
+                                  Size(MediaQuery.of(context).size.width, 44)),
                           child: const Text(
                             "Hoàn Thành",
                             style: TextStyle(
@@ -185,11 +222,9 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                             // });
                             Get.offAndToNamed("/");
                           },
-                        )
-                    ),
+                        )),
                   ),
                 ),
-
               ),
             ],
           ),
@@ -197,28 +232,27 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
   }
 
   String textResult() {
-    if (_dataResult.numOfCorrectAns! >=   _dataResult.listQuestion!.length / 2) {
+    if (_dataResult.numOfCorrectAns! >= _dataResult.listQuestion!.length / 2) {
       return "Chúc mừng!\n Bạn đã đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     } else {
       return "Rát tiếc!\n Bạn chỉ đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     }
   }
 
-
   Future<void> sendListExercise() async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.submitQuizURL, _dataResult.result).then(
-            (value) async {
-          await pr.hide();
-          if (value["status_code"] == 200) {
-            setState(() {
-              var test = value["data"]["result"];
-            });
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(
+            RemoteServices.submitQuizURL, _dataResult.result)
+        .then((value) async {
+      await pr.hide();
+      if (value["status_code"] == 200) {
+        setState(() {
+          value = value["data"]["result"];
+        });
+      }
+    }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });
   }
-
 }

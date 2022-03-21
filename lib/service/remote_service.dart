@@ -28,6 +28,9 @@ class RemoteServices {
   static var faqURL = '$baseURL/api/v1/setting/list-faqs';
   static var updateAvatarURL = '$baseURL/api/v1/user/update-avatar';
   static var listBannerPromotionURL = '$baseURL/api/v1/setting/list-banner-promotion';
+  static var trackingURL = '$baseURL/api/v1/tracking/behavior';
+
+  static var leaderBoardURL = '$baseURL/api/v1/user/leader-board';
 
   // education
 

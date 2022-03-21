@@ -180,6 +180,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                               .type,
                                                           hideImageRight: true,
                                                           onClicked: () {
+                                                            trackingLesson(_studyData[i].id??0);
                                                             _studyData[i].nameCourse = _lessonData.nameCourse;
                                                             _studyData[i].exerciseData = _exerciseData;
                                                             if (_studyData[i]
@@ -450,6 +451,17 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
       },
     );
   }
+
+  Future<void> trackingLesson(int id) async {
+    var param = jsonEncode(<String, String>{
+      'study_part_id': id.toString(),
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.trackingURL, param).then(
+            (value) async {
+        }, onError: (error) async {
+    });
+  }
+
 }
 
 _MyDialogState myDialogState = _MyDialogState();

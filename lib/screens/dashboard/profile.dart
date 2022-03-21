@@ -102,6 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Bảng xếp hạng",
                                 linkUrl: 'assets/svg/ic_rank.svg',
                                 onClicked: () {
+                                  Get.toNamed('/leaderBoardScreen');
                                   // showDialog(
                                   //     context: context,
                                   //     builder: (BuildContext context) {

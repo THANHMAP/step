@@ -15,6 +15,7 @@ import 'package:step_bank/screens/quizz/quizz.dart';
 import 'package:step_bank/screens/quizz/result.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
 import 'package:step_bank/screens/setting/faq.dart';
+import 'package:step_bank/screens/setting/leader_board.dart';
 import 'package:step_bank/screens/setting/report_error.dart';
 import 'package:step_bank/screens/setting/setup_account.dart';
 import 'package:step_bank/screens/setting/user_account.dart';
@@ -156,6 +157,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.toolScreen,
       page: () => const ToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.leaderBoardScreen,
+      page: () => const LeaderBoardScreen(),
     ),
   ];
 }
