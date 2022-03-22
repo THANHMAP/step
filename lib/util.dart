@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 class Utils {
   static showAlertDialogOneButton(BuildContext context, String message) {
     // set up the button
+    BuildContext? dialogContext;
     Widget okButton = TextButton(
       child: Text("Thoát"),
       onPressed: () {
-        Navigator.pop(context);
+        Navigator.pop(dialogContext!);
       },
     );
     // set up the AlertDialog
@@ -26,6 +27,7 @@ class Utils {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        dialogContext = context;
         return alert;
       },
     );

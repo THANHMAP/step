@@ -89,8 +89,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                   return Center(
                                     child: CircularProgressIndicator(
                                       value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
+                                          ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toDouble()
                                           : null,
                                     ),
                                   );

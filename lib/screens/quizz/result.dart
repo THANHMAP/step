@@ -29,7 +29,7 @@ class ResultQuizScreen extends StatefulWidget {
 class _ResultQuizScreenState extends State<ResultQuizScreen> {
   late ProgressDialog pr;
   Result _dataResult = Get.arguments;
-  String value = "";
+  String resultText = "";
   String urlImage = "";
 
   @override
@@ -156,21 +156,21 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                 child:  Stack(
                 children: <Widget>[
                   Container(
-                    height: 196,
+                    height: 126,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(imageUrlResult()),
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Padding(
-                      padding: const EdgeInsets.only(top: 80),
+                      padding: const EdgeInsets.only(bottom: 50),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          value,
-                          textAlign: TextAlign.end,
+                          resultText,
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             fontSize: 24,
                             color: Mytheme.kBackgroundColor,
@@ -293,7 +293,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
       await pr.hide();
       if (value["status_code"] == 200) {
         setState(() {
-          value = value["data"]["result"];
+          resultText = value["data"]["result"];
         });
       }
     }, onError: (error) async {

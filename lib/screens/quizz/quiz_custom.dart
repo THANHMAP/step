@@ -428,6 +428,10 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
         }
       }
     }
+    if(_listAnswers.length == 1) {
+      status = false;
+    }
+
     for(var i = 0; i < _listAnswers.length; i++) {
       if(_listAnswers[i].selectIsCorrect == 1) {
         status = false;
