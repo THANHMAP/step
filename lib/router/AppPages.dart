@@ -13,6 +13,7 @@ import 'package:step_bank/screens/otp/otp_screen.dart';
 import 'package:step_bank/screens/quizz/home_quizz.dart';
 import 'package:step_bank/screens/quizz/quizz.dart';
 import 'package:step_bank/screens/quizz/result.dart';
+import 'package:step_bank/screens/quizz/show_quiz.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
 import 'package:step_bank/screens/setting/faq.dart';
 import 'package:step_bank/screens/setting/leader_board.dart';
@@ -162,6 +163,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.leaderBoardScreen,
       page: () => const LeaderBoardScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.showQuizScreen,
+      page: () => const ShowQuizScreen(),
     ),
   ];
 }

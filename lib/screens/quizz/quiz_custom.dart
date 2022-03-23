@@ -57,9 +57,9 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     super.initState();
     Utils.portraitModeOnly();
     contentQuizz = _studyData.contentQuizz!;
-    for(var i = 0; i < contentQuizz.length; i++) {
+    for (var i = 0; i < contentQuizz.length; i++) {
       contentQuizz[i].isAnswers = false;
-      for(var ii =0; ii < contentQuizz[i].answers!.length; ii++) {
+      for (var ii = 0; ii < contentQuizz[i].answers!.length; ii++) {
         contentQuizz[i].answers![ii].selectIsCorrect = 0;
         contentQuizz[i].answers![ii].isSelect = false;
       }
@@ -119,6 +119,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                           onTap: () {
                             setState(() {
                               statusButtonFinish = true;
+                              anserSelect == i;
                               if (contentQuizz[index].type == 1) {
                                 for (var ii = 0;
                                     ii < contentQuizz[index].answers!.length;
@@ -170,9 +171,16 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SvgPicture.asset(anserSelect == i
-                                    ? "assets/svg/ic_radio_no_select.svg"
-                                    : "assets/svg/ic_radio_no_select.svg"),
+                                if (contentQuizz[index].type == 1) ...[
+                                  SvgPicture.asset(urlIconRadio(
+                                      checkQuestionStatus,
+                                      contentQuizz[index].answers![i],
+                                      i)),
+                                ] else
+                                  ...[
+                                    SvgPicture.asset(urlIconRadioMutil(
+                                        checkQuestionStatus, i)),
+                                  ],
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.only(
@@ -188,24 +196,17 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: 26,
-                                  height: 26,
-                                  decoration: BoxDecoration(
-                                    color: anserSelect == i
-                                        ? Constants.kGreenColor
-                                        : Colors.transparent,
-                                    border: Border.all(
-                                        color: getColorCircle(
-                                            checkQuestionStatus,
-                                            contentQuizz[index].answers![i])),
-                                    borderRadius: BorderRadius.circular(50),
+                                if (getTheRightIcon(checkQuestionStatus,
+                                        contentQuizz[index].answers![i])
+                                    .isNotEmpty) ...[
+                                  Container(
+                                    width: 26,
+                                    height: 26,
+                                    child: SvgPicture.asset(getTheRightIcon(
+                                        checkQuestionStatus,
+                                        contentQuizz[index].answers![i])),
                                   ),
-                                  child: Icon(
-                                      getTheRightIcon(checkQuestionStatus,
-                                          contentQuizz[index].answers![i]),
-                                      size: 16),
-                                ),
+                                ],
                               ],
                             ),
                           ),
@@ -333,12 +334,17 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                             buttonNext = "Tiếp tục";
                                             return;
                                           } else {
-                                            if (index == contentQuizz.length - 1) {
+                                            if (index ==
+                                                contentQuizz.length - 1) {
                                               Result _dataResult = Result();
                                               _dataResult.result = finish();
-                                              _dataResult.numOfCorrectAns = _numOfCorrectAns;
-                                              _dataResult.listQuestion = listQuestion;
-                                              Get.offAndToNamed("/resultQuizScreen", arguments: _dataResult);
+                                              _dataResult.numOfCorrectAns =
+                                                  _numOfCorrectAns;
+                                              _dataResult.listQuestion =
+                                                  listQuestion;
+                                              Get.offAndToNamed(
+                                                  "/resultQuizScreen",
+                                                  arguments: _dataResult);
                                               return;
                                             } else {
                                               buttonNext = "Hoàn thành";
@@ -401,10 +407,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     listDataAnswer.add(dataAnswer);
     submitQuizData.dataAnswer = listDataAnswer;
     listSubmitQuizData.add(submitQuizData);
-    listQuestion.add(Question(
-      isCorrect: isCorrect,
-      id: _answers.id
-    ));
+    listQuestion.add(Question(isCorrect: isCorrect, id: _answers.id));
     setState(() {
       checkQuestionStatus = true;
       contentQuizz;
@@ -428,21 +431,21 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
         }
       }
     }
-    if(_listAnswers.length == 1) {
+    if (_listAnswers.length == 1) {
       status = false;
     }
 
-    for(var i = 0; i < _listAnswers.length; i++) {
-      if(_listAnswers[i].selectIsCorrect == 1) {
+    for (var i = 0; i < _listAnswers.length; i++) {
+      if (_listAnswers[i].selectIsCorrect == 1) {
         status = false;
         break;
       }
     }
-    if(status == true)  _numOfCorrectAns++;
+    if (status == true) _numOfCorrectAns++;
     SubmitQuizData submitQuizData = SubmitQuizData();
     submitQuizData.questionId = contentQuizz[index].id;
     List<DataAnswer> listDataAnswer = [];
-    for(var i = 0; i < _listAnswers.length; i++) {
+    for (var i = 0; i < _listAnswers.length; i++) {
       DataAnswer dataAnswer = DataAnswer();
       dataAnswer.answerId = _listAnswers[i].id;
       if (_listAnswers[i].selectIsCorrect == 2) {
@@ -454,10 +457,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     }
     submitQuizData.dataAnswer = listDataAnswer;
     listSubmitQuizData.add(submitQuizData);
-    listQuestion.add(Question(
-        isCorrect: status,
-        id: _answers.id
-    ));
+    listQuestion.add(Question(isCorrect: status, id: _answers.id));
     setState(() {
       checkQuestionStatus = true;
       contentQuizz;
@@ -509,14 +509,53 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     return Mytheme.kBackgroundColor;
   }
 
-  IconData? getTheRightIcon(bool checkQuestion, Answers answers) {
+  String getTheRightIcon(bool checkQuestion, Answers answers) {
     if (getTheRightColor(checkQuestion, answers) == Mytheme.kRedColor) {
-      return Icons.close;
+      return "assets/svg/check_wrong.svg";
     } else if (getTheRightColor(checkQuestion, answers) ==
         Mytheme.color_0xFF30CD60) {
-      return Icons.done;
+      return "assets/svg/check_circle_correct.svg";
     }
-    return null;
+    return "";
+  }
+
+  String urlIconRadio(bool checkQuestion, Answers answers, int index) {
+    if (!checkQuestion) {
+      if (anserSelect == index) {
+        return "assets/svg/ic_radio_no_select.svg";
+      } else {
+        return "assets/svg/ic_radio_no_select.svg";
+      }
+    } else {
+      if (answers.selectIsCorrect == 2 && answers.isSelect == true) {
+        return "assets/svg/ic_radio_choose_correct.svg";
+      } else if (answers.selectIsCorrect == 2) {
+        return "assets/svg/ic_radio_not_select_green.svg";
+      } else if (answers.selectIsCorrect == 1) {
+        return "assets/svg/ic_radio_choose_incorrect.svg";
+      }
+    }
+    return "assets/svg/ic_radio_no_select.svg";
+  }
+
+  String urlIconRadioMutil(bool checkQuestion, int indexLocal) {
+    var answer = contentQuizz[index].answers![indexLocal];
+    if (!checkQuestion) {
+      if (answer.isSelect == true) {
+        return "assets/svg/checkbox_select.svg";
+      } else {
+        return "assets/svg/checkbox_no_check.svg";
+      }
+    } else {
+      if (answer.selectIsCorrect == 2 && answer.isSelect == true) {
+        return "assets/svg/checkbox_check_correct.svg";
+      } else if (answer.selectIsCorrect == 2) {
+        return "assets/svg/checkbox_green.svg";
+      } else if (answer.selectIsCorrect == 1) {
+        return "assets/svg/checkbox_check_incorrect.svg";
+      }
+    }
+    return "assets/svg/checkbox_no_check.svg";
   }
 
   String finish() {
@@ -524,7 +563,5 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     submitQuiz.totalCorrect = _numOfCorrectAns;
     submitQuiz.data = listSubmitQuizData;
     return jsonEncode(submitQuiz);
-
   }
-
 }

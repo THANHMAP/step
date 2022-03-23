@@ -1,0 +1,398 @@
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+
+import 'package:step_bank/compoment/appbar_wiget.dart';
+import 'package:step_bank/constants.dart';
+import '../../models/answers_model.dart';
+import '../../models/study_model.dart' as study;
+import '../../service/api_manager.dart';
+import '../../service/remote_service.dart';
+import '../../themes.dart';
+import '../../util.dart';
+
+class ShowQuizScreen extends StatefulWidget {
+  const ShowQuizScreen({Key? key}) : super(key: key);
+
+  @override
+  _ShowQuizScreenState createState() => _ShowQuizScreenState();
+}
+
+class _ShowQuizScreenState extends State<ShowQuizScreen> {
+  late ProgressDialog pr;
+  List<ContentQuizz> contentQuizz = [];
+  var studyData = study.StudyData();
+  String textButton = "Tiếp theo";
+  int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    Utils.portraitModeOnly();
+    studyData = Get.arguments;
+    pr = ProgressDialog(
+      context,
+      type: ProgressDialogType.Normal,
+      isDismissible: false,
+    );
+
+    showQuiz(studyData.id ?? 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Mytheme.kBackgroundColor,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: studyData.nameCourse,
+                onClicked: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              Expanded(
+                flex: 11,
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: Constants.kDefaultPadding,
+                  ),
+                  padding: EdgeInsets.only(top: 20),
+                  child: Column(
+                    children: [
+                      if(contentQuizz.isNotEmpty)...[
+                        Text(
+                          "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Mytheme.color_0xFF003A8C,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "OpenSans-SemiBold",
+                          ),
+                        ),
+                        const SizedBox(height: Constants.kDefaultPadding / 2),
+                        for (var i = 0;
+                        i < contentQuizz[index].answers!.length;
+                        i++) ...[
+                          InkWell(
+                            onTap: () {},
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  top: Constants.kDefaultPadding),
+                              padding:
+                              const EdgeInsets.all(Constants.kDefaultPadding),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                border: Border.all(
+                                    color: getTheRightColor(
+                                        contentQuizz[index]
+                                            .answers![i]
+                                            .userChoose,
+                                        contentQuizz[index]
+                                            .answers![i]
+                                            .isCorrect)),
+                                color: Mytheme.kBackgroundColor,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  if(contentQuizz[index].type == 1) ... [
+                                    SvgPicture.asset(urlIconRadio(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect)),
+                                  ]else...[
+                                    SvgPicture.asset(urlIconRadioMutil(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect)),
+                                  ],
+
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          bottom: 0, left: 10, right: 0),
+                                      child: Text(
+                                        "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorBgButtonLogin,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  if (getTheRightIcon(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect).isNotEmpty)...[
+                                    Container(
+                                      width: 26,
+                                      height: 26,
+                                      child: SvgPicture.asset(
+                                        getTheRightIcon(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect),
+                                      ),
+                                    ),
+                                  ],
+
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 20),
+                        Text(
+                          "Giải thích: ${contentQuizz[index].suggest.toString()}",
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Mytheme.color_82869E,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
+                        ),
+                      ],
+
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  color: Mytheme.kBackgroundColor,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 0, left: 0, right: 0),
+                    child: Column(
+                      children: [
+                        const Align(
+                          child: Image(
+                            image: AssetImage(
+                                'assets/images/img_line_horizone.png'),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 0, left: 16, right: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(8),
+                                            side: const BorderSide(
+                                                color: Mytheme
+                                                    .colorBgButtonLogin)),
+                                        primary: Mytheme.kBackgroundColor,
+                                        minimumSize: Size(
+                                            MediaQuery.of(context).size.width,
+                                            44)),
+                                    child: const Text(
+                                      "Trở về",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorBgButtonLogin,
+                                          fontFamily: "OpenSans-SemiBold",
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (index > 0) {
+                                          textButton = "Tiếp theo";
+                                          index = index - 1;
+                                        }
+                                      },
+                                      );
+                                    },
+                                  )),
+                              SizedBox(
+                                height: 100,
+                                width: 30,
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(8),
+                                          // side: const BorderSide(color: Colors.red)
+                                        ),
+                                        primary: Mytheme.colorBgButtonLogin,
+                                        minimumSize: Size(
+                                            MediaQuery.of(context).size.width,
+                                            44)),
+                                    child:  Text(
+                                      textButton,
+                                      style: TextStyle(
+                                          color: Mytheme.kBackgroundColor,
+                                          fontSize: 16,
+                                          fontFamily: "OpenSans-SemiBold",
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (index == contentQuizz.length - 1){
+                                          textButton = "Hoàn Thành";
+                                          return;
+                                        }
+                                        index = index + 1;
+                                      });
+                                    },
+                                  ))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+
+  // Color getTheRightColor(bool checkQuestion, Answers answers) {
+  //   if (!checkQuestion) {
+  //     if (answers.isSelect == true) {
+  //       return Mytheme.color_0xFFCCECFB;
+  //     } else {
+  //       return Mytheme.kBackgroundColor;
+  //     }
+  //   } else {
+  //     if (answers.selectIsCorrect == 2) {
+  //       return Mytheme.color_0xFF30CD60;
+  //     } else if (answers.selectIsCorrect == 1) {
+  //       return Mytheme.kRedColor;
+  //     }
+  //   }
+  //   return Mytheme.kBackgroundColor;
+  // }
+
+  // Color getTheRightColorForBg(bool checkQuestion, Answers answers) {
+  //   if (!checkQuestion) {
+  //     if (answers.isSelect == true) {
+  //       return Mytheme.color_0xFFCCECFB;
+  //     } else {
+  //       return Mytheme.kBackgroundColor;
+  //     }
+  //   } else {
+  //     return Mytheme.kBackgroundColor;
+  //   }
+  //   return Mytheme.kBackgroundColor;
+  // }
+
+  bool? checkQuestionAnswersed() {
+    return false;
+  }
+
+  // Color getColorCircle(bool checkQuestion, Answers answers) {
+  //   if (getTheRightColor(checkQuestion, answers) == Mytheme.kRedColor) {
+  //     return Constants.kRedColor;
+  //   } else if (getTheRightColor(checkQuestion, answers) ==
+  //       Mytheme.color_0xFF30CD60) {
+  //     return Constants.kGreenColor;
+  //   }
+  //   return Colors.transparent;
+  //   return Mytheme.kBackgroundColor;
+  // }
+  //
+  // IconData? getTheRightIcon(bool checkQuestion, Answers answers) {
+  //   if (getTheRightColor(checkQuestion, answers) == Mytheme.kRedColor) {
+  //     return Icons.close;
+  //   } else if (getTheRightColor(checkQuestion, answers) ==
+  //       Mytheme.color_0xFF30CD60) {
+  //     return Icons.done;
+  //   }
+  //   return null;
+  // }
+
+  Future<void> showQuiz(int id) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'study_part_id': id.toString(),
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.userAnswersdURL, param).then(
+        (value) async {
+      await pr.hide();
+      var data = AnswersModel.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          contentQuizz = data.data!.contentQuizz!;
+        });
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  Color getTheRightColor(bool? userChoose, int? isCorrect) {
+    if (userChoose == true) {
+      if (isCorrect == 0) {
+        return Mytheme.kRedColor;
+      } else {
+        return Mytheme.color_0xFF30CD60;
+      }
+    } else {
+      if (isCorrect == 1) {
+        return Mytheme.color_0xFF30CD60;
+      }
+    }
+    return Mytheme.kBackgroundColor;
+  }
+
+  String urlIconRadio(bool? userChoose, int? isCorrect) {
+    if (userChoose == true) {
+      if (isCorrect == 0) {
+        return "assets/svg/ic_radio_choose_incorrect.svg";
+      } else {
+        return "assets/svg/ic_radio_choose_correct.svg";
+      }
+    } else if (isCorrect == 1) {
+      return "assets/svg/ic_radio_not_select_green.svg";
+    }
+    return "assets/svg/ic_radio_no_select.svg";
+  }
+
+  String urlIconRadioMutil(bool? userChoose, int? isCorrect) {
+    if (userChoose == true) {
+      if (isCorrect == 0) {
+        return "assets/svg/checkbox_check_incorrect.svg";
+      } else {
+        return "assets/svg/checkbox_check_correct.svg";
+      }
+    } else if (isCorrect == 1) {
+      return "assets/svg/checkbox_green.svg";
+    }
+    return "assets/svg/checkbox_no_check.svg";
+  }
+
+  String getTheRightIcon(bool? userChoose, int? isCorrect) {
+    if (userChoose == true) {
+      if (isCorrect == 0) {
+        return "assets/svg/check_wrong.svg";
+      } else {
+        return "assets/svg/check_circle_correct.svg";
+      }
+    } else if (isCorrect == 1) {
+      return "assets/svg/check_circle_correct.svg";
+    }
+    return "";
+  }
+
+}

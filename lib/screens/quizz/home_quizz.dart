@@ -33,12 +33,23 @@ class HomeQuizScreen extends StatefulWidget {
 class _HomeQuizScreenState extends State<HomeQuizScreen> {
   final StudyData _studyData = Get.arguments;
   List<ContentQuizz> contentQuizz = [] ;
-
+  bool isFinish = false;
+  late ProgressDialog pr;
+  String textButton = "Bắt đầu";
   @override
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
+    pr = ProgressDialog(
+      context,
+      type: ProgressDialogType.Normal,
+      isDismissible: false,
+    );
     contentQuizz = _studyData.contentQuizz!;
+    Future.delayed(Duration.zero, () {
+      checkQuiz();
+    });
+
   }
 
   @override
@@ -102,7 +113,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                           ),
 
                           Expanded(
-                            flex: 6,
+                            flex: 3,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   bottom: 20, left: 24, right: 24),
@@ -115,27 +126,60 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.only(
                                     bottom: 20, left: 24, right: 24),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        // side: const BorderSide(color: Colors.red)
+                                child: Column(
+                                  children: [
+                                    Visibility(
+                                      maintainSize: true,
+                                      maintainAnimation: true,
+                                      maintainState: true,
+                                      visible: isFinish,
+                                      child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            // side: const BorderSide(color: Colors.red)
+                                          ),
+                                          primary: Mytheme.colorBgButtonLogin,
+                                          minimumSize: Size(
+                                              MediaQuery.of(context).size.width,
+                                              44)),
+                                      child: const Text(
+                                        "Xem lại kết quả",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: "OpenSans-Regular",
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      primary: Mytheme.colorBgButtonLogin,
-                                      minimumSize: Size(
-                                          MediaQuery.of(context).size.width,
-                                          44)),
-                                  child: const Text(
-                                    "Bắt đầu",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: "OpenSans-Regular",
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                     Get.offAndToNamed('/quizCustomScreen', arguments: _studyData);
-                                  },
-                                )),
+                                      onPressed: () {
+                                        Get.offAndToNamed('/showQuizScreen', arguments: _studyData);
+                                      },
+                                    ),),
+                                    const SizedBox(height: 7),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            // side: const BorderSide(color: Colors.red)
+                                          ),
+                                          primary: Mytheme.colorBgButtonLogin,
+                                          minimumSize: Size(
+                                              MediaQuery.of(context).size.width,
+                                              44)),
+                                      child:  Text(
+                                        textButton,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: "OpenSans-Regular",
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      onPressed: () {
+                                        Get.offAndToNamed('/quizCustomScreen', arguments: _studyData);
+                                      },
+                                    )
+                                  ],
+                                ),
+
+                            ),
                           ),
                         ],
                       ),
@@ -147,4 +191,30 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
           ),
         ));
   }
+
+  Future<void> checkQuiz() async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'study_part_id': _studyData.id.toString(),
+    });
+    APIManager.postAPICallNeedToken(
+        RemoteServices.checkQuizdURL, param)
+        .then((value) async {
+      await pr.hide();
+      if (value["status_code"] == 200) {
+        setState(() {
+          isFinish = value["data"]["is_finish"];
+          if(isFinish) {
+            textButton = "Làm lại";
+          } else {
+            textButton = "Bắt đầu";
+          }
+        });
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
 }
