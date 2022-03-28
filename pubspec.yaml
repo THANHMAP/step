@@ -44,6 +44,7 @@ dependencies:
   progress_dialog: ^1.2.4
   image_picker: ^0.8.4+10
   google_sign_in: ^5.2.4
+  flutter_facebook_auth: ^4.1.2
   local_auth: ^1.1.11
   dio: ^4.0.4
   percent_indicator: ^4.0.0
