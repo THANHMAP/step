@@ -223,7 +223,8 @@ class _LoginScreenState extends State<LoginScreen> {
       final userData = await FacebookAuth.i.getUserData(
         fields: "email,name",
       );
-      print(userData);
+      doLoginBySocial(userData['email'].toString(), userData['id'].toString(), "2", platform, "");
+      print(userData['email'].toString());
     }
   }
 
@@ -575,7 +576,7 @@ class _LoginScreenState extends State<LoginScreen> {
       'device_type': platform,
       'fcm_token': token,
     });
-    await pr.show();
+    pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
         .then((value) async {
       // await pr.hide();
@@ -598,7 +599,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
-    await pr.hide();
+    pr.hide();
   }
 
   Future<void> doLoginWithBiometrics(String phone, String password) async {
