@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,12 +62,17 @@ class _LoginScreenState extends State<LoginScreen> {
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
   BiometricsData _biometricsData = BiometricsData();
-
+  var platform = "Android";
   @override
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
     _handleSignOut();
+    if (Platform.isAndroid) {
+      platform = "Android";
+    } else if (Platform.isIOS) {
+      platform = "IOS";
+    }
 
     pr = ProgressDialog(
       context,
@@ -81,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _currentUser = account;
       });
       if (_currentUser != null) {
-        doLoginBySocial(_currentUser!, "1");
+        doLoginBySocial(_currentUser!.email, _currentUser!.id, "1", platform, "");
       }
     });
     _googleSignIn.signInSilently();
@@ -110,7 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
       final userData = await FacebookAuth.i.getUserData(
         fields: "email,name",
       );
-      print(userData);
+      // doLoginBySocial(userData['email'].toString(), userData['id'].toString(), "2", platform, "");
+      print(userData['email'].toString());
     }
   }
 
@@ -560,14 +567,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> doLoginBySocial(
-      GoogleSignInAccount _currentUser, String socialType) async {
+  Future<void> doLoginBySocial(String email, String id, String socialType, String platform, String token) async {
     var param = jsonEncode(<String, String>{
-      'email': _currentUser.email,
-      'social_id': _currentUser.id,
+      'email': email,
+      'social_id': id,
       'social_type': socialType,
-      'device_type': "Android",
-      'fcm_token': "DCM",
+      'device_type': platform,
+      'fcm_token': token,
     });
     await pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
