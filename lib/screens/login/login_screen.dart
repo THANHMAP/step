@@ -52,7 +52,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late ProgressDialog pr;
   GoogleSignInAccount? _currentUser;
 
-
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
   bool _canCheckBiometrics = false;
@@ -104,9 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void login() async {
-    final result = await FacebookAuth.i.login(
-        permissions: ["public_profile", "email"]
-    );
+    final result =
+        await FacebookAuth.i.login(permissions: ["public_profile", "email"]);
 
     if (result.status == LoginStatus.success) {
       final userData = await FacebookAuth.i.getUserData(
@@ -114,9 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       print(userData);
     }
-
   }
-
 
   Future<void> _checkBiometrics() async {
     late bool canCheckBiometrics;
@@ -187,8 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
         () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
-
-
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
     final Map<String, dynamic>? contact = connections?.firstWhere(
@@ -216,7 +210,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loginFacebook() async {
-    final result = await FacebookAuth.instance.login(permissions: ["public_profile", "email"]);
+    final result = await FacebookAuth.instance
+        .login(permissions: ["public_profile", "email"]);
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.i.getUserData(
+        fields: "email,name",
+      );
+      print(userData);
+    }
   }
 
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
