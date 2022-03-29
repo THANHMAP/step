@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
@@ -50,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordVisible = true;
   late ProgressDialog pr;
   GoogleSignInAccount? _currentUser;
-  String _contactText = '';
+
 
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
@@ -67,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     Utils.portraitModeOnly();
     _handleSignOut();
+
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -100,6 +102,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // loadData();
   }
+
+  void login() async {
+    final result = await FacebookAuth.i.login(
+        permissions: ["public_profile", "email"]
+    );
+
+    if (result.status == LoginStatus.success) {
+      final userData = await FacebookAuth.i.getUserData(
+        fields: "email,name",
+      );
+      print(userData);
+    }
+
+  }
+
 
   Future<void> _checkBiometrics() async {
     late bool canCheckBiometrics;
@@ -162,43 +179,15 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!mounted) return;
 
     if (authenticated) {
-      doLoginWithBiometrics(_biometricsData.phone.toString(), _biometricsData.password.toString());
-    } else {
-
-    }
+      doLoginWithBiometrics(_biometricsData.phone.toString(),
+          _biometricsData.password.toString());
+    } else {}
 
     setState(
         () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
-  Future<void> _handleGetContact(GoogleSignInAccount user) async {
-    setState(() {
-      _contactText = 'Loading contact info...';
-    });
-    final http.Response response = await http.get(
-      Uri.parse('https://people.googleapis.com/v1/people/me/connections'
-          '?requestMask.includeField=person.names'),
-      headers: await user.authHeaders,
-    );
-    if (response.statusCode != 200) {
-      setState(() {
-        _contactText = 'People API gave a ${response.statusCode} '
-            'response. Check logs for details.';
-      });
-      print('People API ${response.statusCode} response: ${response.body}');
-      return;
-    }
-    final Map<String, dynamic> data =
-        json.decode(response.body) as Map<String, dynamic>;
-    final String? namedContact = _pickFirstNamedContact(data);
-    setState(() {
-      if (namedContact != null) {
-        _contactText = 'I see you know $namedContact!';
-      } else {
-        _contactText = 'No contacts to display.';
-      }
-    });
-  }
+
 
   String? _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic>? connections = data['connections'] as List<dynamic>?;
@@ -224,6 +213,10 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (error) {
       print(error);
     }
+  }
+
+  void _loginFacebook() async {
+    final result = await FacebookAuth.instance.login(permissions: ["public_profile", "email"]);
   }
 
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
@@ -459,7 +452,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             icon: Image.asset("assets/images/icon_face.png"),
                             // tooltip: 'Increase volume by 10',
                             iconSize: 50,
-                            onPressed: () {},
+                            onPressed: () {
+                              _loginFacebook();
+                            },
                           ),
                         ],
                       ),
@@ -584,7 +579,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.offAllNamed("/home");
       }
     }, onError: (error) async {
-
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -620,7 +614,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.offAllNamed("/home");
       }
     }, onError: (error) async {
-
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -647,7 +640,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void loadCheckBiometrics() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool checkValueBiometrics = prefs.containsKey("biometrics");
-    if (checkValueBiometrics){
+    if (checkValueBiometrics) {
       var data = await SPref.instance.get("biometrics");
       setState(() {
         _biometricsData = BiometricsData.fromJson(json.decode(data.toString()));
