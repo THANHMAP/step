@@ -100,6 +100,7 @@ class Answers {
   int? id;
   String? answerText;
   String? answerFile;
+  int? ordering;
   int? isCorrect;
   bool? userChoose;
 
@@ -107,6 +108,7 @@ class Answers {
       {this.id,
         this.answerText,
         this.answerFile,
+        this.ordering,
         this.isCorrect,
         this.userChoose});
 
@@ -114,6 +116,7 @@ class Answers {
     id = json['id'];
     answerText = json['answer_text'];
     answerFile = json['answer_file'];
+    ordering = json['ordering'];
     isCorrect = json['is_correct'];
     userChoose = json['user_choose'];
   }
@@ -123,6 +126,7 @@ class Answers {
     data['id'] = this.id;
     data['answer_text'] = this.answerText;
     data['answer_file'] = this.answerFile;
+    data['ordering'] = this.ordering;
     data['is_correct'] = this.isCorrect;
     data['user_choose'] = this.userChoose;
     return data;

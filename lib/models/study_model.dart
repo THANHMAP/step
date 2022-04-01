@@ -1,3 +1,4 @@
+import '../screens/quizz/quiz_custom.dart';
 import 'exercise_model.dart';
 
 class StudyModel {
@@ -146,25 +147,31 @@ class Answers {
   int? id;
   String? answerText;
   String? answerFile;
+  String? answerFileTemp;
   int? isCorrect;
   bool? isSelect;
   int? selectIsCorrect;
+  int? ordering;
 
   Answers(
       {this.id,
       this.answerText,
       this.answerFile,
+      this.answerFileTemp,
       this.isCorrect,
       this.isSelect,
-      this.selectIsCorrect});
+      this.selectIsCorrect,
+      this.ordering});
 
   Answers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     answerText = json['answer_text'];
     answerFile = json['answer_file'];
+    answerFileTemp = "";
     isCorrect = json['is_correct'];
     isSelect = false;
     selectIsCorrect = 0;
+    ordering = json['ordering'];
   }
 
   Map<String, dynamic> toJson() {
@@ -173,6 +180,7 @@ class Answers {
     data['answer_text'] = this.answerText;
     data['answer_file'] = this.answerFile;
     data['is_correct'] = this.isCorrect;
+    data['ordering'] = this.ordering;
     return data;
   }
 }

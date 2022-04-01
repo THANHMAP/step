@@ -56,18 +56,21 @@ class SubmitQuizData {
 class DataAnswer {
   int? answerId;
   bool? isCorrect;
+  int? ordering;
 
-  DataAnswer({this.answerId, this.isCorrect});
+  DataAnswer({this.answerId, this.isCorrect, this.ordering});
 
   DataAnswer.fromJson(Map<String, dynamic> json) {
     answerId = json['answer_id'];
     isCorrect = json['is_correct'];
+    ordering = json['ordering'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['answer_id'] = this.answerId;
     data['is_correct'] = this.isCorrect;
+    data['ordering'] = this.ordering;
     return data;
   }
 }

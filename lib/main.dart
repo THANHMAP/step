@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:step_bank/router/AppPages.dart';
 import 'package:step_bank/router/app_router.dart';
+import 'package:step_bank/screens/test.dart';
 
 void main() {
   runApp(const MyApp());

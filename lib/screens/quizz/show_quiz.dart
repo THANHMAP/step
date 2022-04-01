@@ -65,7 +65,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                   padding: EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-                      if(contentQuizz.isNotEmpty)...[
+                      if (contentQuizz.isNotEmpty) ...[
                         Text(
                           "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
                           style: const TextStyle(
@@ -76,89 +76,206 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                           ),
                         ),
                         const SizedBox(height: Constants.kDefaultPadding / 2),
-                        for (var i = 0;
-                        i < contentQuizz[index].answers!.length;
-                        i++) ...[
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  top: Constants.kDefaultPadding),
-                              padding:
-                              const EdgeInsets.all(Constants.kDefaultPadding),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                    color: getTheRightColor(
-                                        contentQuizz[index]
-                                            .answers![i]
-                                            .userChoose,
-                                        contentQuizz[index]
-                                            .answers![i]
-                                            .isCorrect)),
-                                color: Mytheme.kBackgroundColor,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 7,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  if(contentQuizz[index].type == 1) ... [
-                                    SvgPicture.asset(urlIconRadio(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect)),
-                                  ]else...[
-                                    SvgPicture.asset(urlIconRadioMutil(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect)),
+                        if (contentQuizz[index].type == 3) ...[
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: Constants.kDefaultPadding),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    for (var i = 0;
+                                        i < contentQuizz[index].answers!.length;
+                                        i++) ...[
+                                      InkWell(
+                                        onTap: () {},
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 0, left: 0, right: 10),
+                                          child: Container(
+                                            width: 150,
+                                            height: 150,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: getTheRightColorType3(
+                                                    contentQuizz[index]
+                                                        .answers![i]),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Mytheme.kBackgroundColor,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 7,
+                                                  offset: const Offset(0,
+                                                      3), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(urlIconType3(
+                                                    contentQuizz[index]
+                                                        .answers![i])),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  contentQuizz[index]
+                                                          .answers![i]
+                                                          .answerText ??
+                                                      "",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Mytheme
+                                                        .colorBgButtonLogin,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily:
+                                                        "OpenSans-Semibold",
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ],
-
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 0, left: 10, right: 0),
-                                      child: Text(
-                                        "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorBgButtonLogin,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
+                                )
+                              ],
+                            ),
+                          ),
+                        ] else if (contentQuizz[index].type == 4) ...[
+                          Container(
+                            margin: const EdgeInsets.only(
+                                top: Constants.kDefaultPadding),
+                            child: Column(
+                              children: [
+                                loadType4(contentQuizz[index].answers!),
+                              ],
+                            ),
+                          ),
+                        ] else ...[
+                          for (var i = 0;
+                              i < contentQuizz[index].answers!.length;
+                              i++) ...[
+                            InkWell(
+                              onTap: () {},
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    top: Constants.kDefaultPadding),
+                                padding: const EdgeInsets.all(
+                                    Constants.kDefaultPadding),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                      color: getTheRightColor(
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .userChoose,
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .isCorrect)),
+                                  color: Mytheme.kBackgroundColor,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    if (contentQuizz[index].type == 1) ...[
+                                      SvgPicture.asset(urlIconRadio(
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .userChoose,
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .isCorrect)),
+                                    ] else ...[
+                                      SvgPicture.asset(urlIconRadioMutil(
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .userChoose,
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .isCorrect)),
+                                    ],
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 0, left: 10, right: 0),
+                                        child: Text(
+                                          "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  if (getTheRightIcon(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect).isNotEmpty)...[
-                                    Container(
-                                      width: 26,
-                                      height: 26,
-                                      child: SvgPicture.asset(
-                                        getTheRightIcon(contentQuizz[index].answers![i].userChoose, contentQuizz[index].answers![i].isCorrect),
+                                    if (getTheRightIcon(
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .userChoose,
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .isCorrect)
+                                        .isNotEmpty) ...[
+                                      Container(
+                                        width: 26,
+                                        height: 26,
+                                        child: SvgPicture.asset(
+                                          getTheRightIcon(
+                                              contentQuizz[index]
+                                                  .answers![i]
+                                                  .userChoose,
+                                              contentQuizz[index]
+                                                  .answers![i]
+                                                  .isCorrect),
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ],
-
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ],
                         const SizedBox(height: 20),
-                        Text(
-                          "Giải thích: ${contentQuizz[index].suggest.toString()}",
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Mytheme.color_82869E,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "OpenSans-Regular",
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Giải thích: ${contentQuizz[index].suggest.toString()}",
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Mytheme.color_82869E,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "OpenSans-Regular",
+                            ),
                           ),
                         ),
                       ],
-
                     ],
                   ),
                 ),
@@ -192,7 +309,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                             side: const BorderSide(
                                                 color: Mytheme
                                                     .colorBgButtonLogin)),
@@ -209,12 +326,13 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     onPressed: () {
-                                      setState(() {
-                                        if (index > 0) {
-                                          textButton = "Tiếp theo";
-                                          index = index - 1;
-                                        }
-                                      },
+                                      setState(
+                                        () {
+                                          if (index > 0) {
+                                            textButton = "Tiếp theo";
+                                            index = index - 1;
+                                          }
+                                        },
                                       );
                                     },
                                   )),
@@ -228,14 +346,14 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(8),
+                                              BorderRadius.circular(8),
                                           // side: const BorderSide(color: Colors.red)
                                         ),
                                         primary: Mytheme.colorBgButtonLogin,
                                         minimumSize: Size(
                                             MediaQuery.of(context).size.width,
                                             44)),
-                                    child:  Text(
+                                    child: Text(
                                       textButton,
                                       style: TextStyle(
                                           color: Mytheme.kBackgroundColor,
@@ -245,7 +363,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        if (index == contentQuizz.length - 1){
+                                        if (index == contentQuizz.length - 1) {
                                           textButton = "Hoàn Thành";
                                           return;
                                         }
@@ -393,6 +511,96 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
       return "assets/svg/check_circle_correct.svg";
     }
     return "";
+  }
+
+  Color getTheRightColorType3(Answers answers) {
+    if (answers.userChoose == true && answers.isCorrect == 1) {
+      return Mytheme.color_0xFF30CD60;
+    } else if (answers.userChoose == true && answers.isCorrect == 0) {
+      return Mytheme.kRedColor;
+    }
+    return Mytheme.kBackgroundColor;
+  }
+
+  String urlIconType3(Answers answers) {
+    if (answers.userChoose == true) {
+      if (answers.isCorrect == 0) {
+        return "assets/svg/icon_worng_check.svg";
+      } else {
+        return "assets/svg/icon_right_check.svg";
+      }
+    } else if (answers.isCorrect == 1) {
+      return "assets/svg/icon_right.svg";
+    } else {
+      return "assets/svg/icon_incorrect.svg";
+    }
+  }
+
+  Widget loadType4(List<Answers> answers) {
+    answers.sort((a, b) => a.ordering!.compareTo(b.ordering!));
+    return Row(
+      children: [
+        for (var i = 0; i < answers.length; i++) ...[
+          Padding(
+            padding: const EdgeInsets.only(bottom: 0, left: 0, right: 10),
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color:
+                        getTheRightColorBorderType4(answers[i].isCorrect ?? 0),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                  color: Mytheme.kBackgroundColor),
+              child: Stack(
+                children: [
+                  Image.network(
+                    answers[i].answerFile ?? "",
+                    fit: BoxFit.fill,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: SvgPicture.asset(getIconCheckType4(answers[i].isCorrect ??0))
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Color getTheRightColorBorderType4(int answers) {
+    if (answers == 1) {
+      return Mytheme.color_0xFF30CD60;
+    } else {
+      return Mytheme.kRedColor;
+    }
+  }
+
+  String getIconCheckType4(int answers) {
+    if (answers == 1) {
+      return "assets/svg/check_circle_correct.svg";
+    } else {
+      return "assets/svg/check_wrong.svg";
+    }
   }
 
 }
