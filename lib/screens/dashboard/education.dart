@@ -139,7 +139,7 @@ class _EducationScreenState extends State<EducationScreen> {
                 Text(
                   "Các khái niệm kinh doanh cơ bản",
                   style: TextStyle(
-                    fontSize: 23,
+                    fontSize: 20,
                     color: Mytheme.colorBgButtonLogin,
                     fontWeight: FontWeight.w700,
                     fontFamily: "OpenSans-Bold",
@@ -177,7 +177,7 @@ class _EducationScreenState extends State<EducationScreen> {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(top: 56, left: 28, right: 20),
+          padding: const EdgeInsets.only(top: 56, left: 28, right: 10),
           child: Align(
             alignment: Alignment.centerRight,
             child: SvgPicture.asset(

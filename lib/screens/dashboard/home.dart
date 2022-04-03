@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/models/banner_promotion_model.dart';
@@ -20,6 +21,7 @@ import 'package:step_bank/service/custom_exception.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 
+import '../../models/tool_model.dart';
 import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
@@ -36,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late ProgressDialog pr;
   List<NewsData>? newsList;
   List<BannerPromotionData>? listBanner = [];
+  List<ToolData> _toolList = [];
 
   @override
   void initState() {
@@ -49,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(Duration.zero, () {
         loadNews();
     });
-
+    loadListTool();
   }
 
   @override
@@ -65,6 +68,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 Stack(
                   children: <Widget>[
                     headerLayout(),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 66, right: 20),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: SvgPicture.asset(
+                              "assets/svg/ic_notification.svg",
+                            ),
+                          )
+                      ),
+                    )
                   ],
                 ),
                 toolLayout(),
@@ -120,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Spacer(),
               TextButton(
                   onPressed: () {
-                    // getOtpAgain(phone);
+                    widget.controller?.index = 1;
                   },
                   child: const Text(
                     StringText.text_all_tool,
@@ -135,134 +150,90 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ],
           ),
-          const SizedBox(height: 10),
-          InkWell(
-            onTap: () {
-              print("Container clicked");
-            },
-            child: Container(
-              height: 84,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Image(
-                        image: AssetImage('assets/images/img_khoan_vay.png'),
-                        fit: BoxFit.cover,
-                        width: 52,
+
+          for(var i =0; i < _toolList.length; i++) ...[
+            if(_toolList[i].id == 1 || _toolList[i].id == 5) ...[
+              const SizedBox(height: 10),
+              InkWell(
+                onTap: () {
+                  Get.toNamed('/introductionToolScreen',
+                      arguments: _toolList[i]);
+                },
+                child: Container(
+                  height: 84,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 0, left: 10, right: 0),
-                      child: Text(
-                        "Ước tính khoản vay",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Mytheme.colorTextSubTitle,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                          child: Image.network(
+                            _toolList[i].icon ?? "",
+                            fit: BoxFit.fill,
+                            width: 30,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes != null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                        textAlign: TextAlign.left,
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Image(
-                      image: AssetImage('assets/images/img_arrow_right.png'),
-                      fit: BoxFit.contain,
-                      width: 16,
-                      height: 16,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          InkWell(
-            onTap: () {
-              print("Container clicked");
-            },
-            child: Container(
-              height: 84,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Image(
-                        image: AssetImage('assets/images/img_khoan_vay.png'),
-                        fit: BoxFit.cover,
-                        width: 52,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding:
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding:
                           const EdgeInsets.only(top: 0, left: 10, right: 0),
-                      child: Text(
-                        "Xem danh sách hồ sơ vay vốn",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Mytheme.colorTextSubTitle,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
+                          child: Text(
+                            _toolList[i].name ?? "",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
                         ),
-                        textAlign: TextAlign.left,
                       ),
-                    ),
+                      Expanded(
+                        flex: 1,
+                        child: Image(
+                          image: AssetImage('assets/images/img_arrow_right.png'),
+                          fit: BoxFit.contain,
+                          width: 16,
+                          height: 16,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Image(
-                      image: AssetImage('assets/images/img_arrow_right.png'),
-                      fit: BoxFit.contain,
-                      width: 16,
-                      height: 16,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
+            ],
+          ],
+
         ],
       ),
     );
@@ -475,8 +446,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         flex: 5,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 0, left: 20, right: 10),
+                              top: 13, left: 20, right: 10),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Flexible(
                                   child: Text(
@@ -497,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Align(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        newsList?[i].createdAt ?? "",
+                                        convert(newsList?[i].createdAt ?? ""),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -523,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 103,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/img_bank_home.png"),
+                image: AssetImage("assets/images/img_logo_bank.png"),
                 fit: BoxFit.fill,
               ),
             ),
@@ -537,7 +510,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadNews() async {
-    await pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.newsURL).then((value) async {
       var news = NewsModel.fromJson(value);
       if (news.statusCode == 200) {
@@ -578,6 +550,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return 0;
   }
 
+  String convert(String date) {
+    return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
+  }
+
   loadSharedPrefs() async {
     try {
       var isLogged = await SPref.instance.get("info_login");
@@ -588,4 +564,20 @@ class _HomeScreenState extends State<HomeScreen> {
       print('error caught: $e');
     }
   }
+
+  Future<void> loadListTool() async {
+    APIManager.getAPICallNeedToken(RemoteServices.listToolURL).then(
+            (value) async {
+          pr.hide();
+          var data = ToolModel.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              _toolList = data.data!;
+            });
+          }
+        }, onError: (error) async {
+      Utils.showError(error.toString(), context);
+    });
+  }
+
 }

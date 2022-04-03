@@ -115,67 +115,71 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                           const SizedBox(height: 10),
                           Container(
                             // color: const Color(0xFFEFF0FB),
-                            height: 88,
                             decoration: const BoxDecoration(
                               color: Color(0xFFEFF0FB),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
                             ),
-                            child: Column(
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 9, left: 11, right: 11, bottom: 8),
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      StringText.text_regestion_password_1,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.color_434657,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: 9, left: 11, right: 11, bottom: 8),
+                              child: Column(
+                                children: const [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 0, left: 0, right: 0, bottom: 8),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        StringText.text_regestion_password_1,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Mytheme.color_434657,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 0, left: 44, right: 11, bottom: 0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      StringText.text_regestion_password_2,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.color_434657,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 0, left: 44, right: 11, bottom: 0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        StringText.text_regestion_password_2,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Mytheme.color_434657,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 0, left: 44, right: 11, bottom: 0),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      StringText.text_regestion_password_3,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.color_434657,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 0, left: 44, right: 11, bottom: 0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        StringText.text_regestion_password_3,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Mytheme.color_434657,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
+
                           ),
                           const SizedBox(height: 10),
                           const Align(

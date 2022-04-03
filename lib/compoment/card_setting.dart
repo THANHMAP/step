@@ -49,6 +49,7 @@ class CardSettingWidget extends StatelessWidget {
                   top: 12, left: 16, bottom: 18, right: 26),
               child: SvgPicture.asset(
                 linkUrl.toString(),
+                width: 50,
               )
             ),
             Expanded(

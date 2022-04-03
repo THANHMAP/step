@@ -41,6 +41,7 @@ class _AccountScreenState extends State<AccountScreen> {
   bool _isDisableUsername = true;
   bool _isDisableDob = true;
   String urlActionUsername = "assets/images/ic_edit.png";
+  String urlActionBirthday = "assets/images/ic_edit.png";
   List<UserGroupData>? userGroupData;
 
   // city
@@ -122,6 +123,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               // saveInfoUser()
                               if(_image != null){
                                 saveImage(_image),
+
                               } else {
                                 saveInfoUser()
                               }
@@ -218,9 +220,12 @@ class _AccountScreenState extends State<AccountScreen> {
                         urlActionUsername = "assets/images/ic_delete.png";
                       });
                     } else {
-                      _isDisableUsername = true;
-                      _usernameController.text = user.name.toString();
-                      urlActionUsername = "assets/images/ic_edit.png";
+                      setState(() {
+                        _isDisableUsername = true;
+                        _usernameController.text = user.name.toString();
+                        urlActionUsername = "assets/images/ic_edit.png";
+                      });
+
                     }
                   },
                 ),
@@ -359,6 +364,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 padding: const EdgeInsets.only(
                     top: 12, left: 16, bottom: 13, right: 0),
                 child: TextField(
+                  keyboardType: TextInputType.datetime,
                   readOnly: _isDisableDob,
                   controller: _userBodController,
                   autofocus: true,
@@ -383,7 +389,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 padding:
                     const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
                 child: IconButton(
-                  icon: Image.asset(urlActionUsername),
+                  icon: Image.asset(urlActionBirthday),
                   // tooltip: 'Increase volume by 10',
                   iconSize: 50,
                   onPressed: () {
@@ -391,12 +397,15 @@ class _AccountScreenState extends State<AccountScreen> {
                       setState(() {
                         _isDisableDob = false;
                         _userBodController.text = user.dob.toString();
-                        urlActionUsername = "assets/images/ic_delete.png";
+                        urlActionBirthday = "assets/images/ic_delete.png";
                       });
                     } else {
-                      _isDisableDob = true;
-                      _userBodController.text = user.dob.toString();
-                      urlActionUsername = "assets/images/ic_edit.png";
+                      setState(() {
+                        _isDisableDob = true;
+                        _userBodController.text = user.dob.toString();
+                        urlActionBirthday = "assets/images/ic_edit.png";
+                      });
+
                     }
                   },
                 ),
@@ -1553,6 +1562,7 @@ class _AccountScreenState extends State<AccountScreen> {
     APIManager.uploadImageHTTP(file, RemoteServices.updateAvatarURL).then((value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
+        saveInfoUser();
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
         // saveInfoUser();
