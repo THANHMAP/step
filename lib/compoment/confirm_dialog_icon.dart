@@ -1,26 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants.dart';
 import '../themes.dart';
 
-class ConfirmDialogBox extends StatelessWidget {
+class ConfirmDialogBoxWithIcon extends StatelessWidget {
   // final String? title, descriptions, text;
   final String? title;
-  final String? descriptions;
   final String? textButtonLeft;
   final String? textButtonRight;
   final VoidCallback? onClickedConfirm;
   final VoidCallback? onClickedCancel;
 
-  const ConfirmDialogBox(
+  const ConfirmDialogBoxWithIcon(
       {Key? key,
-      this.title,
-      this.descriptions,
-      this.textButtonLeft,
-      this.textButtonRight,
-      this.onClickedConfirm,
-      this.onClickedCancel})
+        this.title,
+        this.textButtonLeft,
+        this.textButtonRight,
+        this.onClickedConfirm,
+        this.onClickedCancel})
       : super(key: key);
 
   @override
@@ -57,9 +56,17 @@ class ConfirmDialogBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(
+                height: 36,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: SvgPicture.asset("assets/svg/ic_warning.svg"),
+              ),
+              
               Padding(
                 padding:
-                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                EdgeInsets.only(top: 12, left: 10, bottom: 8, right: 10),
                 child: Text(
                   title ?? "",
                   textAlign: TextAlign.center,
@@ -75,22 +82,9 @@ class ConfirmDialogBox extends StatelessWidget {
               // SizedBox(
               //   height: 15,
               // ),
-              Padding(
-                padding: EdgeInsets.only(top: 0, left: 0, bottom: 8, right: 0),
-                child: Text(
-                  descriptions ?? "",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Mytheme.color_44494D,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "OpenSans-Regular",
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
 
               SizedBox(
-                height: 34,
+                height: 24,
               ),
               // Align(
               //   alignment: Alignment.center,
@@ -123,18 +117,18 @@ class ConfirmDialogBox extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Mytheme.colorBgButtonLogin)
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
-                          //     spreadRadius: 1, //spread radius
-                          //     blurRadius: 7, // blur radius
-                          //     offset: Offset(0, 3), // changes position of shadow
-                          //     //first paramerter of offset is left-right
-                          //     //second parameter is top to down
-                          //   ),
-                          //   //you can set more BoxShadow() here
-                          // ],
-                          ),
+                        // boxShadow: [
+                        //   BoxShadow(
+                        //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
+                        //     spreadRadius: 1, //spread radius
+                        //     blurRadius: 7, // blur radius
+                        //     offset: Offset(0, 3), // changes position of shadow
+                        //     //first paramerter of offset is left-right
+                        //     //second parameter is top to down
+                        //   ),
+                        //   //you can set more BoxShadow() here
+                        // ],
+                      ),
                       child: Text(
                         textButtonLeft??"Hủy",
                         style: TextStyle(

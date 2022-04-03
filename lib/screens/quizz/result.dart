@@ -205,11 +205,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
-                                // pr.show();
-                                // Future.delayed(Duration(seconds: 3)).then((value) {
-                                //   pr.hide();
-                                // });
-                                Get.offAndToNamed("/");
+                                Get.back();
                               },
                             )),
                       ),

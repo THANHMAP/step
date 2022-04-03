@@ -47,7 +47,7 @@ class CardEducatonWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 16, left: 20, bottom: 18, right: 16),
-              child:   Image.network(
+              child: Image.network(
                 linkUrl.toString(),
                 fit: BoxFit.fill,
                 width: 50,
@@ -58,14 +58,15 @@ class CardEducatonWidget extends StatelessWidget {
                     child: CircularProgressIndicator(
                       value: loadingProgress.expectedTotalBytes != null
                           ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
+                              loadingProgress.expectedTotalBytes!
                           : null,
                     ),
                   );
                 },
               ),
             ),
-            Padding(
+            Expanded(
+                child: Padding(
               padding: const EdgeInsets.only(
                   top: 16, left: 16, bottom: 18, right: 26),
               child: Column(
@@ -100,7 +101,7 @@ class CardEducatonWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            )),
           ],
         ),
       ),

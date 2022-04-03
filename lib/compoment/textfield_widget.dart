@@ -13,6 +13,7 @@ class TextFieldWidget extends StatelessWidget {
   final VoidCallback? clickSuffixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final bool? enable;
   final List<TextInputFormatter>? inputFormatters;
 
   const TextFieldWidget({
@@ -26,6 +27,7 @@ class TextFieldWidget extends StatelessWidget {
     this.clickSuffixIcon,
     required this.obscureText,
     this.keyboardType,
+    this.enable,
     this.inputFormatters,
   }) : super(key: key);
 
@@ -37,6 +39,7 @@ class TextFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       controller: textController,
       style: Mytheme.textHint,
+      enabled: enable,
       textInputAction: textInputAction,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(

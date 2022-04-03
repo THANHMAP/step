@@ -12,6 +12,7 @@ import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/textfield_widget.dart';
 import 'package:step_bank/models/education_model.dart';
 import 'package:step_bank/models/news_model.dart';
+import 'package:step_bank/models/tool_model.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
@@ -30,7 +31,7 @@ class ToolScreen extends StatefulWidget {
 
 class _ToolScreenState extends State<ToolScreen> {
   late ProgressDialog pr;
-  List<EducationData> _educationList = [];
+  List<ToolData> _toolList = [];
 
   @override
   void initState() {
@@ -41,9 +42,9 @@ class _ToolScreenState extends State<ToolScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    // Future.delayed(Duration.zero, () {
-    //   loadListEducation();
-    // });
+    Future.delayed(Duration.zero, () {
+      loadListTool();
+    });
   }
 
   @override
@@ -80,46 +81,7 @@ class _ToolScreenState extends State<ToolScreen> {
                               top: 20, left: 16, right: 16, bottom: 0),
                           child: Column(
                             children: [
-                              const SizedBox(height: 15),
-                              CardSettingWidget(
-                                title: "Lập ngân sách",
-                                linkUrl: 'assets/svg/ic_lapngansach.svg',
-                                onClicked: () {
-                                },
-                              ),
-
-                              const SizedBox(height: 15),
-                              CardSettingWidget(
-                                title: "Kế hoạch sản xuất kinh doanh",
-                                linkUrl: 'assets/svg/ic_kehoach.svg',
-                                onClicked: () {
-                                },
-                              ),
-
-                              const SizedBox(height: 15),
-                              CardSettingWidget(
-                                title: "Quản lý tiết kiệm",
-                                linkUrl: 'assets/svg/ic_quanlytietkiem.svg',
-                                onClicked: () {
-                                },
-                              ),
-
-                              const SizedBox(height: 15),
-                              CardSettingWidget(
-                                title: "Lịch trả nợ",
-                                linkUrl: 'assets/svg/ic_lichtrano.svg',
-                                onClicked: () {
-                                },
-                              ),
-
-                              const SizedBox(height: 15),
-                              CardSettingWidget(
-                                title: "Danh mục hồ sơ vay vốn",
-                                linkUrl: 'assets/svg/ic_danhmucvayvon.svg',
-                                onClicked: () {
-                                },
-                              ),
-
+                              layoutCourse(),
                             ],
                           ),
                         ),
@@ -144,21 +106,21 @@ class _ToolScreenState extends State<ToolScreen> {
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
-          if (_educationList.isNotEmpty) ...[
+          if (_toolList.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
-                  for (var i = 0; i < _educationList.length; i++) ...[
+                  for (var i = 0; i < _toolList.length; i++) ...[
                     const SizedBox(height: 15),
                     CardEducatonWidget(
-                      title: _educationList[i].name,
+                      title: _toolList[i].name,
                       numberLesson: "",
-                      linkUrl: _educationList[i].icon,
+                      linkUrl: _toolList[i].icon,
                       onClicked: () {
-                        Get.toNamed('/educationTopic',
-                            arguments: _educationList[i]);
+                        Get.toNamed('/introductionToolScreen',
+                            arguments: _toolList[i]);
                       },
                     ),
                   ]
@@ -247,22 +209,19 @@ class _ToolScreenState extends State<ToolScreen> {
     );
   }
 
-  Future<void> loadListEducation() async {
+  Future<void> loadListTool() async {
     await pr.show();
-    var param = jsonEncode(<String, String>{
-      'type': '0',
-    });
-    APIManager.postAPICallNeedToken(RemoteServices.listCourseURL, param).then(
+    APIManager.getAPICallNeedToken(RemoteServices.listToolURL).then(
             (value) async {
-          await pr.hide();
-          var data = EducationModel.fromJson(value);
+              pr.hide();
+          var data = ToolModel.fromJson(value);
           if (data.statusCode == 200) {
             setState(() {
-              _educationList = data.data!;
+              _toolList = data.data!;
             });
           }
         }, onError: (error) async {
-      await pr.hide();
+      pr.hide();
       Utils.showError(error.toString(), context);
     });
   }

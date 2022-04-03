@@ -22,6 +22,13 @@ import 'package:step_bank/screens/setting/setup_account.dart';
 import 'package:step_bank/screens/setting/user_account.dart';
 import 'package:step_bank/screens/splash/splash.dart';
 import 'package:step_bank/screens/test.dart';
+import 'package:step_bank/screens/tool/budget/calculator_budget.dart';
+import 'package:step_bank/screens/tool/budget/edit_budget.dart';
+import 'package:step_bank/screens/tool/introduction_tool.dart';
+import 'package:step_bank/screens/tool/budget/tool_set_budget.dart';
+import 'package:step_bank/screens/tool/loan/add_loan.dart';
+import 'package:step_bank/screens/tool/loan/edit_loan.dart';
+import 'package:step_bank/screens/tool/loan/portfolio_of_loan.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 
 import '../screens/dashboard/education.dart';
@@ -29,6 +36,7 @@ import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
+import '../screens/tool/budget/detail_budget.dart';
 import 'app_router.dart';
 
 class AppPages {
@@ -168,6 +176,46 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.showQuizScreen,
       page: () => const ShowQuizScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.introductionToolScreen,
+      page: () => const IntroductionToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.toolBudgetScreen,
+      page: () => const ToolBudgetScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.detailBudgetScreen,
+      page: () => const DetailBudgetScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.calculatorBudgetScreen,
+      page: () => const CalculatorBudgetScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.portfolioOfLoanScreen,
+      page: () => const PortfolioOfLoanScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.addLoanScreen,
+      page: () => const AddLoanScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editLoanScreen,
+      page: () => const EditLoanScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editBudgetScreen,
+      page: () => const EditBudgetScreen(),
     ),
   ];
 }

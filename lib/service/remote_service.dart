@@ -45,5 +45,13 @@ class RemoteServices {
   static var listExerciseURL = '$baseURL/api/v1/education/list-exercise';
   static var submitQuizURL = '$baseURL/api/v1/education/submit-quizz';
 
+  // tool
+
+  static var listToolURL = '$baseURL/api/v1/tool/list';
+  static var listItemToolURL = '$baseURL/api/v1/tool/list-user';
+  static var storeDataItemToolURL = '$baseURL/api/v1/tool/store-data';
+  static var deleteItemToolURL = '$baseURL/api/v1/tool/delete-my-tool';
+  static var sampleDataURL = '$baseURL/api/v1/tool/data-sample';
+  static var getDetailItemToolURL = '$baseURL/api/v1/tool/detail-tool-calculate';
 
 }

@@ -490,7 +490,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: "OpenSans-Regular",
                                 ),
                                 textAlign: TextAlign.left,
-                              )),
+                              ),
+                              ),
                               const SizedBox(height: 10),
                               Flexible(
                                   child: Align(

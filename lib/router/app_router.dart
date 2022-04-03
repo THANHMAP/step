@@ -32,4 +32,13 @@ class AppRoutes {
   static const String toolScreen ="/toolScreen";
   static const String leaderBoardScreen = "/leaderBoardScreen";
   static const String showQuizScreen = "/showQuizScreen";
+
+  static const String introductionToolScreen = "/introductionToolScreen";
+  static const String toolBudgetScreen = "/toolBudgetScreen";
+  static const String detailBudgetScreen = "/detailBudgetScreen";
+  static const String calculatorBudgetScreen = "/calculatorBudgetScreen";
+  static const String portfolioOfLoanScreen = "/portfolioOfLoanScreen";
+  static const String addLoanScreen = "/addLoanScreen";
+  static const String editLoanScreen = "/editLoanScreen";
+  static const String editBudgetScreen = "/editBudgetScreen";
 }
