@@ -107,61 +107,20 @@ class CardItemToolWidget extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 16, left: 16, bottom: 18, right: 10),
+                        top: 16, left: 8, bottom: 18, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: onClickedView,
-                          child: Container(
-                            width: 59,
-                            height: 31,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.color_0xFFBDE8FF,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 5, left: 12, bottom: 5, right: 12),
-                              child:     Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Xem",
-                                  // textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.color_121212,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "OpenSans-Regular",
-                                  ),
-                                ),
-                              ),
-                            ),
 
-                          ),
-                        ),
-
-                        InkWell(
-                          onTap: onClickedDelete,
-                          child:   Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 16),
+                        Expanded(
+                            child:  InkWell(
+                              onTap: onClickedView,
                               child: Container(
-                                width: 59,
                                 height: 31,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  color: Mytheme.color_0xFFFFCFC9,
+                                  color: Mytheme.color_0xFFBDE8FF,
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
@@ -178,7 +137,7 @@ class CardItemToolWidget extends StatelessWidget {
                                   child:     Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Xóa",
+                                      "Xem",
                                       // textAlign: TextAlign.start,
                                       style: const TextStyle(
                                         fontSize: 16,
@@ -190,8 +149,52 @@ class CardItemToolWidget extends StatelessWidget {
                                   ),
                                 ),
 
-                              )
-                          ),
+                              ),
+                            ),
+                        ),
+
+                        Expanded(
+                            child: InkWell(
+                              onTap: onClickedDelete,
+                              child:   Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16),
+                                  child: Container(
+                                    height: 31,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Mytheme.color_0xFFFFCFC9,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 7,
+                                          offset: const Offset(0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5, left: 0, bottom: 5, right: 0),
+                                      child:     Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Xóa",
+                                          // textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_121212,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                  )
+                              ),
+                            ),
                         ),
 
                       ],

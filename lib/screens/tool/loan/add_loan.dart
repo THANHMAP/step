@@ -732,7 +732,7 @@ class _AddLoanScreenState extends State<AddLoanScreen>
   Future<void> loadDataSampleTool() async {
     await pr.show();
     var param = jsonEncode(<String, String>{
-      'tool_id': data.id.toString() ?? "",
+      'tool_id': data.id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.sampleDataURL, param).then(
         (value) async {

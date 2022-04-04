@@ -301,7 +301,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                   minimumSize: Size(
                                       MediaQuery.of(context).size.width, 44)),
                               child: const Text(
-                                StringText.text_continue,
+                                "Bài trước",
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: Mytheme.color_0xFFA7ABC3,

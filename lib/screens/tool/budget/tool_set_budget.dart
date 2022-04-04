@@ -154,7 +154,6 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
                       date: _listItemToolData[i].createdAt,
                       onClickedDelete: () {
                         showDialogConfig(_listItemToolData[i].id ?? 0, i);
-                        // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
                         Get.toNamed("/editBudgetScreen", arguments: _listItemToolData[i].id);
@@ -185,93 +184,106 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
           //   children: const <Widget>[],
           // ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 56, left: 16, right: 0),
-          child: Container(
-            width: 216,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    data?.name ?? "",
-                    style: TextStyle(
-                      fontSize: 23,
-                      color: Mytheme.colorBgButtonLogin,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "OpenSans-Bold",
-                      // decoration: TextDecoration.underline,
+
+        Row(
+          children: [
+            Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 36, left: 16, right: 0),
+                      child: Container(
+                        width: 216,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                data?.name ?? "",
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Mytheme.colorBgButtonLogin,
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: "OpenSans-Bold",
+                                  // decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            )
+
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                )
+                    Padding(
+                      padding: const EdgeInsets.only(top: 21, left: 16, right: 0),
+                      child: SizedBox(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize: const Size(44, 44)),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: SvgPicture.asset("assets/svg/ic_add.svg"),
+                              ),
 
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 116, left: 16, right: 0),
-          child: SizedBox(
-            width: 200,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    // side: const BorderSide(color: Colors.red)
-                  ),
-                  primary: Mytheme.colorBgButtonLogin,
-                  minimumSize: const Size(44, 44)),
-              child: Row(
-                children: [
-                  Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                    child: SvgPicture.asset("assets/svg/ic_add.svg"),
-                  ),
+                              Expanded(
+                                child:  Text(
+                                  "Lập ngân sách mới",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "OpenSans-Regular",
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
 
-                  Text(
-                    "Lập ngân sách mới",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: "OpenSans-Regular",
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
 
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailBudgetScreen(),
-                  ),
-                ).then((value) {
-                  print(value);
-                  if(value) {
-                    loadListItemTool();
-                  }
-                  // _reload();
-                });
-                // Get.toNamed("/detailBudgetScreen", arguments: data);
-              },
-            ),
-          ),
-        ),
+                            ],
+                          ),
 
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 56, right: 20),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Image.network(
-                  data?.thumbnail ??"",
-                  width: 130,
+                          onPressed: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailBudgetScreen(),
+                              ),
+                            ).then((value) {
+                              print(value);
+                              if(value) {
+                                loadListItemTool();
+                              }
+                              // _reload();
+                            });
+                            // Get.toNamed("/detailBudgetScreen", arguments: data);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              )
-          ),
-        )
-
-
+            ),
+            Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 56, right: 20),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Image.network(
+                          data?.thumbnail ??"",
+                          width: 130,
+                        ),
+                      )
+                  ),
+                ),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -299,7 +311,7 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
   Future<void> deleteItemTool(int id, int position) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
-      'user_tool_id': id.toString() ?? "",
+      'user_tool_id': id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.deleteItemToolURL, param).then(
             (value) async {

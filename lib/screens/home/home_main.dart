@@ -38,7 +38,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
       HomeScreen(controller: _controller),
       ToolScreen(),
       EducationScreen(),
-      ProfileScreen()
+      ProfileScreen(controller: _controller)
     ];
   }
 

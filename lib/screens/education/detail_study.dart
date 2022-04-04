@@ -97,6 +97,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                 },
               ),
               Expanded(
+                flex: 8,
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -158,7 +159,40 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                     ),
                   ),
                 ),
-              )
+              ),
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only( top: 40,
+                      bottom: 20, left: 24, right: 24),
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize: Size(
+                                MediaQuery.of(context).size.width,
+                                44)),
+                        child:  Text(
+                          "Tiếp tục",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          Get.back();
+                        },
+                      )
+                    ],
+                  ),
+
+                ),
+              ),
             ],
           ),
         ));

@@ -50,7 +50,7 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                   ),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 8,
                   child: Container(
                     child: Column(
                       children: [
@@ -92,45 +92,45 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                                 data?.thumbnail ?? ""),
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only( top: 40,
-                                bottom: 20, left: 24, right: 24),
-                            child: Column(
-                              children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                        // side: const BorderSide(color: Colors.red)
-                                      ),
-                                      primary: Mytheme.colorBgButtonLogin,
-                                      minimumSize: Size(
-                                          MediaQuery.of(context).size.width,
-                                          44)),
-                                  child:  Text(
-                                    "Tiếp tục",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: "OpenSans-Regular",
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  onPressed: () {
-                                    if(data?.id == 1) {
-                                      Get.offAndToNamed('/toolBudgetScreen', arguments: data);
-                                    } else if(data?.id == 5) {
-                                      Get.offAndToNamed('/portfolioOfLoanScreen', arguments: data);
-                                    }
-                                  },
-                                )
-                              ],
-                            ),
-
-                          ),
-                        ),
                       ],
                     ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only( top: 40,
+                        bottom: 20, left: 24, right: 24),
+                    child: Column(
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width,
+                                  44)),
+                          child:  Text(
+                            "Tiếp tục",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            if(data?.id == 1) {
+                              Get.offAndToNamed('/toolBudgetScreen', arguments: data);
+                            } else if(data?.id == 5) {
+                              Get.offAndToNamed('/portfolioOfLoanScreen', arguments: data);
+                            }
+                          },
+                        )
+                      ],
+                    ),
+
                   ),
                 ),
               ],

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
@@ -63,6 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
   final TextEditingController textController = new TextEditingController();
   var imagePicker;
   var _image;
+  String _date = "Not set";
 
   @override
   void initState() {
@@ -180,7 +182,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, left: 16, bottom: 13, right: 0),
@@ -359,7 +361,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, left: 16, bottom: 13, right: 0),
@@ -393,20 +395,33 @@ class _AccountScreenState extends State<AccountScreen> {
                   // tooltip: 'Increase volume by 10',
                   iconSize: 50,
                   onPressed: () {
-                    if (_isDisableDob == true) {
-                      setState(() {
-                        _isDisableDob = false;
-                        _userBodController.text = user.dob.toString();
-                        urlActionBirthday = "assets/images/ic_delete.png";
-                      });
-                    } else {
-                      setState(() {
-                        _isDisableDob = true;
-                        _userBodController.text = user.dob.toString();
-                        urlActionBirthday = "assets/images/ic_edit.png";
-                      });
-
-                    }
+                    DatePicker.showDatePicker(context,
+                        theme: DatePickerTheme(
+                          containerHeight: 210.0,
+                        ),
+                        showTitleActions: true,
+                        minTime: DateTime(2000, 1, 1),
+                        maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                          print('confirm $date');
+                          _date = '${date.year} - ${date.month} - ${date.day}';
+                          setState(() {
+                            _userBodController.text = '${date.day} - ${date.month} - ${date.year}';
+                          });
+                        }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                    // if (_isDisableDob == true) {
+                    //   setState(() {
+                    //     _isDisableDob = false;
+                    //     _userBodController.text = user.dob.toString();
+                    //     urlActionBirthday = "assets/images/ic_delete.png";
+                    //   });
+                    // } else {
+                    //   setState(() {
+                    //     _isDisableDob = true;
+                    //     _userBodController.text = user.dob.toString();
+                    //     urlActionBirthday = "assets/images/ic_edit.png";
+                    //   });
+                    //
+                    // }
                   },
                 ),
               ),
@@ -676,7 +691,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           // tooltip: 'Increase volume by 10',
                           iconSize: 0,
                           onPressed: () {
-                            _providerEditModalBottomSheet(context);
+                            _userGroupEditModalBottomSheet(context);
                           },
                         ),
                       ),

@@ -300,7 +300,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
   Future<void> deleteItemTool(int id, int position) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
-      'user_tool_id': id.toString() ?? "",
+      'user_tool_id': id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.deleteItemToolURL, param).then(
             (value) async {

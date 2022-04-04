@@ -364,7 +364,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     onPressed: () {
                                       setState(() {
                                         if (index == contentQuizz.length - 1) {
-                                          textButton = "Hoàn Thành";
+                                          Get.back();
                                           return;
                                         }
                                         index = index + 1;
@@ -384,60 +384,12 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
         ));
   }
 
-  // Color getTheRightColor(bool checkQuestion, Answers answers) {
-  //   if (!checkQuestion) {
-  //     if (answers.isSelect == true) {
-  //       return Mytheme.color_0xFFCCECFB;
-  //     } else {
-  //       return Mytheme.kBackgroundColor;
-  //     }
-  //   } else {
-  //     if (answers.selectIsCorrect == 2) {
-  //       return Mytheme.color_0xFF30CD60;
-  //     } else if (answers.selectIsCorrect == 1) {
-  //       return Mytheme.kRedColor;
-  //     }
-  //   }
-  //   return Mytheme.kBackgroundColor;
-  // }
 
-  // Color getTheRightColorForBg(bool checkQuestion, Answers answers) {
-  //   if (!checkQuestion) {
-  //     if (answers.isSelect == true) {
-  //       return Mytheme.color_0xFFCCECFB;
-  //     } else {
-  //       return Mytheme.kBackgroundColor;
-  //     }
-  //   } else {
-  //     return Mytheme.kBackgroundColor;
-  //   }
-  //   return Mytheme.kBackgroundColor;
-  // }
 
   bool? checkQuestionAnswersed() {
     return false;
   }
 
-  // Color getColorCircle(bool checkQuestion, Answers answers) {
-  //   if (getTheRightColor(checkQuestion, answers) == Mytheme.kRedColor) {
-  //     return Constants.kRedColor;
-  //   } else if (getTheRightColor(checkQuestion, answers) ==
-  //       Mytheme.color_0xFF30CD60) {
-  //     return Constants.kGreenColor;
-  //   }
-  //   return Colors.transparent;
-  //   return Mytheme.kBackgroundColor;
-  // }
-  //
-  // IconData? getTheRightIcon(bool checkQuestion, Answers answers) {
-  //   if (getTheRightColor(checkQuestion, answers) == Mytheme.kRedColor) {
-  //     return Icons.close;
-  //   } else if (getTheRightColor(checkQuestion, answers) ==
-  //       Mytheme.color_0xFF30CD60) {
-  //     return Icons.done;
-  //   }
-  //   return null;
-  // }
 
   Future<void> showQuiz(int id) async {
     await pr.show();

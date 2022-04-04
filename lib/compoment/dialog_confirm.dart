@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../constants.dart';
 import '../themes.dart';
@@ -40,10 +41,10 @@ class ConfirmDialogBox extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(
+              left: 0,
               top: 0,
               right: 0,
               bottom: Constants.padding),
-          margin: EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -57,9 +58,17 @@ class ConfirmDialogBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(
+                height: 36,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: SvgPicture.asset("assets/svg/ic_warning.svg"),
+              ),
+
               Padding(
                 padding:
-                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                    EdgeInsets.only(top: 12, left: 10, bottom: 8, right: 10),
                 child: Text(
                   title ?? "",
                   textAlign: TextAlign.center,
@@ -90,7 +99,7 @@ class ConfirmDialogBox extends StatelessWidget {
               ),
 
               SizedBox(
-                height: 34,
+                height: 24,
               ),
               // Align(
               //   alignment: Alignment.center,
@@ -113,89 +122,83 @@ class ConfirmDialogBox extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  InkWell(
-                    onTap: onClickedCancel,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 44,
-                      width: 135,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                          // boxShadow: [
-                          //   BoxShadow(
-                          //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
-                          //     spreadRadius: 1, //spread radius
-                          //     blurRadius: 7, // blur radius
-                          //     offset: Offset(0, 3), // changes position of shadow
-                          //     //first paramerter of offset is left-right
-                          //     //second parameter is top to down
-                          //   ),
-                          //   //you can set more BoxShadow() here
-                          // ],
+                  Expanded(
+                      child: InkWell(
+                        onTap: onClickedCancel,
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          alignment: Alignment.center,
+                          height: 44,
+                          width: 135,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Mytheme.colorBgButtonLogin)
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Mytheme.colorBgButtonLogin.withOpacity(1), //color of shadow
+                            //     spreadRadius: 1, //spread radius
+                            //     blurRadius: 7, // blur radius
+                            //     offset: Offset(0, 3), // changes position of shadow
+                            //     //first paramerter of offset is left-right
+                            //     //second parameter is top to down
+                            //   ),
+                            //   //you can set more BoxShadow() here
+                            // ],
                           ),
-                      child: Text(
-                        textButtonLeft??"Hủy",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.color_434657,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
+                          child: Text(
+                            textButtonLeft??"Hủy",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.color_434657,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
                         ),
                       ),
-                    ),
                   ),
-                  InkWell(
-                    onTap: onClickedConfirm,
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.all(10),
-                      height: 44,
-                      width: 135,
-                      decoration: BoxDecoration(
-                        color: Mytheme.colorBgButtonLogin,
-                        borderRadius: BorderRadius.circular(8),
-                        // boxShadow: [
-                        //   BoxShadow(
-                        //     color: Colors.grey.withOpacity(0.5), //color of shadow
-                        //     spreadRadius: 1, //spread radius
-                        //     blurRadius: 7, // blur radius
-                        //     offset: Offset(0, 3), // changes position of shadow
-                        //     //first paramerter of offset is left-right
-                        //     //second parameter is top to down
-                        //   ),
-                        //   //you can set more BoxShadow() here
-                        // ],
-                      ),
-                      child: Text(
-                        textButtonRight ?? "Đăng xuất",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.kBackgroundColor,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
+                  Expanded(
+                      child: InkWell(
+                        onTap: onClickedConfirm,
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(10),
+                          height: 44,
+                          width: 135,
+                          decoration: BoxDecoration(
+                            color: Mytheme.colorBgButtonLogin,
+                            borderRadius: BorderRadius.circular(8),
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.grey.withOpacity(0.5), //color of shadow
+                            //     spreadRadius: 1, //spread radius
+                            //     blurRadius: 7, // blur radius
+                            //     offset: Offset(0, 3), // changes position of shadow
+                            //     //first paramerter of offset is left-right
+                            //     //second parameter is top to down
+                            //   ),
+                            //   //you can set more BoxShadow() here
+                            // ],
+                          ),
+                          child: Text(
+                            textButtonRight ?? "Đăng xuất",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.kBackgroundColor,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
                         ),
                       ),
-                    ),
                   ),
+
                 ],
               ),
             ],
           ),
         ),
-        // Positioned(
-        //   left: Constants.padding,
-        //   right: Constants.padding,
-        //   child: CircleAvatar(
-        //     backgroundColor: Colors.transparent,
-        //     radius: Constants.avatarRadius,
-        //     child: ClipRRect(
-        //         borderRadius:
-        //             BorderRadius.all(Radius.circular(Constants.avatarRadius)),
-        //         child: Image.asset("assets/model.jpeg")),
-        //   ),
-        // ),
       ],
     );
   }

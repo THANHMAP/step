@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
@@ -20,8 +21,8 @@ import '../../themes.dart';
 import '../../util.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
+  const ProfileScreen({Key? key, this.controller}) : super(key: key);
+  final PersistentTabController? controller;
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -133,6 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Các công cụ của tôi",
                                 linkUrl: 'assets/svg/ic_tool.svg',
                                 onClicked: () {
+                                  widget.controller?.index = 1;
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -161,14 +163,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 10),
-                              //face
-                              CardSettingWidget(
-                                title: "Kết nối trên MXH",
-                                linkUrl: 'assets/svg/ic_face.svg',
-                                onClicked: () {
-                                },
-                              ),
+                              // const SizedBox(height: 10),
+                              // //face
+                              // CardSettingWidget(
+                              //   title: "Kết nối trên MXH",
+                              //   linkUrl: 'assets/svg/ic_face.svg',
+                              //   onClicked: () {
+                              //   },
+                              // ),
                               const SizedBox(height: 10),
                               //lien he
                               CardSettingWidget(
