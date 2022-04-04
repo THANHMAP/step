@@ -20,12 +20,38 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.105597937164-7pucs2g5301ir3lejg0mi2rlaq3tno3m</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>3169695366684934</string>
+	<key>FacebookClientToken</key>
+	<string>c023d99c09f5edbe8393ac9df03e1aa2</string>
+	<key>FacebookDisplayName</key>
+	<string>Co-opSmart</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This is called Privacy - Camera Usage Description in the visual editor</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This is called Privacy - Photo Library Usage Description in the visual editor</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -48,9 +74,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This is called Privacy - Photo Library Usage Description in the visual editor</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This is called Privacy - Camera Usage Description in the visual editor</string>
 </dict>
 </plist>
