@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
+import 'package:step_bank/models/position_leader_model.dart';
 import '../../compoment/item_leader_board.dart';
+import '../../compoment/item_leader_position_board.dart';
 import '../../models/leader_board_model.dart';
 import '../../service/api_manager.dart';
 import '../../service/remote_service.dart';
@@ -21,6 +23,7 @@ class LeaderBoardScreen extends StatefulWidget {
 class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
   late ProgressDialog pr;
   List<LeaderBoardData> dataLeaderBoard = [];
+  PositionLeaderData? dataPosition;
   @override
   void initState() {
     super.initState();
@@ -33,7 +36,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     Future.delayed(Duration.zero, () {
       loadLeaderBoard();
     });
-
+    getPositionLeaderBoard();
   }
 
   @override
@@ -52,6 +55,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               },
             ),
             Expanded(
+              flex: 8,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 0),
@@ -75,6 +79,32 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 ),
               ),
             ),
+
+            if(dataPosition != null) ...[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ItemLeaderPositionBoardWidget(
+                        name: dataPosition?.name,
+                        numberStt: dataPosition?.position,
+                        avatar: dataPosition?.avatar,
+                        score: dataPosition?.score??0,
+                        onClicked: () {
+
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+
+
           ],
         ),
       ),
@@ -88,6 +118,24 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
       if (data.statusCode == 200) {
         setState(() {
           dataLeaderBoard = data.data!;
+        });
+      } else {
+        Utils.showAlertDialogOneButton(context, value['message'].toString());
+      }
+      await pr.hide();
+    }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+
+  }
+
+  Future<void> getPositionLeaderBoard() async {
+    APIManager.getAPICallNeedToken(RemoteServices.positionLeaderBoardURL).then((value) async {
+      var data = PositionLeaderModel.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          dataPosition = data.data!;
         });
       } else {
         await pr.hide();

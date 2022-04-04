@@ -33,6 +33,7 @@ class RemoteServices {
   static var trackingURL = '$baseURL/api/v1/tracking/behavior';
 
   static var leaderBoardURL = '$baseURL/api/v1/user/leader-board';
+  static var positionLeaderBoardURL = '$baseURL/api/v1/user/position-leader-board';
   static var checkQuizdURL = '$baseURL/api/v1/education/check-user-quizz';
   static var userAnswersdURL = '$baseURL/api/v1/education/user-answers';
 

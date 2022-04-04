@@ -368,6 +368,9 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                           return;
                                         }
                                         index = index + 1;
+                                        if (index == contentQuizz.length - 1) {
+                                          textButton = "Tiếp tục";
+                                        }
                                       });
                                     },
                                   ))
