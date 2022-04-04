@@ -114,36 +114,36 @@ class _NewsScreenState extends State<NewsScreen> {
                   ),
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(10),
-                height: 40,
-                width: 101,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), //color of shadow
-                      spreadRadius: 1, //spread radius
-                      blurRadius: 7, // blur radius
-                      offset: Offset(0, 3), // changes position of shadow
-                      //first paramerter of offset is left-right
-                      //second parameter is top to down
-                    ),
-                    //you can set more BoxShadow() here
-                  ],
-                ),
-                child: Text(
-                  StringText.text_not_read,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Mytheme.color_434657,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "OpenSans-Semibold",
-                  ),
-                ),
-              ),
+              // Container(
+              //   alignment: Alignment.center,
+              //   margin: EdgeInsets.all(10),
+              //   height: 40,
+              //   width: 101,
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.circular(8),
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: Colors.grey.withOpacity(0.5), //color of shadow
+              //         spreadRadius: 1, //spread radius
+              //         blurRadius: 7, // blur radius
+              //         offset: Offset(0, 3), // changes position of shadow
+              //         //first paramerter of offset is left-right
+              //         //second parameter is top to down
+              //       ),
+              //       //you can set more BoxShadow() here
+              //     ],
+              //   ),
+              //   child: Text(
+              //     StringText.text_not_read,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Mytheme.color_434657,
+              //       fontWeight: FontWeight.w600,
+              //       fontFamily: "OpenSans-Semibold",
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           const SizedBox(height: 10),
