@@ -414,7 +414,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     //     _userBodController.text = user.dob.toString();
                     //     urlActionBirthday = "assets/images/ic_delete.png";
                     //   });
-                    // } else {
+                    // } else {1
                     //   setState(() {
                     //     _isDisableDob = true;
                     //     _userBodController.text = user.dob.toString();
@@ -437,7 +437,6 @@ class _AccountScreenState extends State<AccountScreen> {
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
       child: InkWell(
         onTap: () {
-          // _showModal(context);
           _cityEditModalBottomSheet(context);
         },
         child: Container(
@@ -505,7 +504,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             // tooltip: 'Increase volume by 10',
                             iconSize: 0,
                             onPressed: () {
-                              _sexEditModalBottomSheet(context);
+                              _cityEditModalBottomSheet(context);
                             },
                           ),
                         ),
