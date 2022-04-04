@@ -513,9 +513,12 @@ class _HomeScreenState extends State<HomeScreen> {
     APIManager.getAPICallNeedToken(RemoteServices.newsURL).then((value) async {
       var news = NewsModel.fromJson(value);
       if (news.statusCode == 200) {
-        setState(() {
-          newsList = news.data;
-        });
+        if (mounted) {
+          setState(() {
+            newsList = news.data;
+          });
+
+        }
         loadBanner();
       }
     }, onError: (error) async {
@@ -531,9 +534,12 @@ class _HomeScreenState extends State<HomeScreen> {
     APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then((value) async {
       var data = BannerPromotionModel.fromJson(value);
       if (data.statusCode == 200) {
-        setState(() {
-          listBanner = data.data;
-        });
+        if (mounted) {
+          setState(() {
+            listBanner = data.data;
+          });
+        }
+
       }
     }, onError: (error) async {
       Utils.showError(error.toString(), context);
@@ -571,9 +577,12 @@ class _HomeScreenState extends State<HomeScreen> {
           pr.hide();
           var data = ToolModel.fromJson(value);
           if (data.statusCode == 200) {
-            setState(() {
-              _toolList = data.data!;
-            });
+            if (mounted) {
+              setState(() {
+                _toolList = data.data!;
+              });
+            }
+
           }
         }, onError: (error) async {
       Utils.showError(error.toString(), context);

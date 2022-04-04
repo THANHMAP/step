@@ -579,7 +579,7 @@ class _LoginScreenState extends State<LoginScreen> {
     pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
         .then((value) async {
-      // await pr.hide();
+          pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
