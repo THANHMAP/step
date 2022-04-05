@@ -890,6 +890,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
               return Future.value(false);
             },
             child: Dialog(
+              insetPadding: EdgeInsets.all(20),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Constants.padding),
               ),

@@ -428,11 +428,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           text: StringText.text_login,
                           color: Mytheme.colorBgButtonLogin,
                           onClicked: () => doLogin()),
-                      const SizedBox(height: 10),
-                      ButtonWidgetBorder(
-                          text: StringText.text_try,
-                          color: Mytheme.kBackgroundColor,
-                          onClicked: () => {}),
+                      // const SizedBox(height: 10),
+                      // ButtonWidgetBorder(
+                      //     text: StringText.text_try,
+                      //     color: Mytheme.kBackgroundColor,
+                      //     onClicked: () => {}),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

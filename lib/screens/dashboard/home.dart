@@ -493,12 +493,45 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ],
           Container(
-            height: 103,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/img_logo_bank.png"),
-                fit: BoxFit.fill,
-              ),
+            height: 123,
+            margin: const EdgeInsets.only(top: 20.0),
+            child: Column(
+              children: [
+
+                Divider(
+                  color: Colors.black,
+                ),
+
+                Expanded(child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: Image.asset("assets/images/icon_coopbank.png"),
+                      // tooltip: 'Increase volume by 10',
+                      iconSize: 100,
+                      onPressed: () {
+                        Get.toNamed("/coopBankScreen");
+                      },
+                    ),
+                    SizedBox(
+                      width: 60,
+                    ),
+                    IconButton(
+                      icon: Image.asset("assets/images/icon_bank.png"),
+                      // tooltip: 'Increase volume by 10',
+                      iconSize: 80,
+                      onPressed: () {
+                        Get.toNamed("/qTDScreen");
+                      },
+                    ),
+                  ],
+                )),
+
+                Divider(
+                  color: Colors.black,
+                ),
+
+              ],
             ),
             // child: Column(
             //   children: const <Widget>[],

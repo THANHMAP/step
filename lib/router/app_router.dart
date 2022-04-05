@@ -41,4 +41,8 @@ class AppRoutes {
   static const String addLoanScreen = "/addLoanScreen";
   static const String editLoanScreen = "/editLoanScreen";
   static const String editBudgetScreen = "/editBudgetScreen";
+  static const String contactScreen = "/contactScreen";
+  static const String termScreen = "/termScreen";
+  static const String coopBankScreen = "/coopBankScreen";
+  static const String qTDScreen = "/qTDScreen";
 }

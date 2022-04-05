@@ -177,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Liên hệ",
                                 linkUrl: 'assets/svg/ic_lienhe.svg',
                                 onClicked: () {
-
+                                  Get.toNamed('/contactScreen');
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -206,18 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Điều khoản sử dụng",
                                 linkUrl: 'assets/svg/ic_dieukhoan.svg',
                                 onClicked: () {
-                                  // showDialog(
-                                  //     context: context,
-                                  //     builder: (BuildContext context) {
-                                  //       return WillPopScope(
-                                  //           onWillPop: () {
-                                  //             return Future.value(false);
-                                  //           },
-                                  //           child:  NormalDialogBox(
-                                  //               descriptions: StringText.text_register_acc_success,
-                                  //               onClicked: (){}
-                                  //           ));
-                                  //     });
+                                  Get.toNamed('/termScreen');
                                 },
                               ),
                               const SizedBox(height: 10),

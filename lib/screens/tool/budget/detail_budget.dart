@@ -316,7 +316,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                                                     child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
                                                                   ),
                                                                   Text(
-                                                                    "Lập ngân sách mới",
+                                                                    "Thêm thu nhập khác",
                                                                     style: TextStyle(
                                                                         fontSize: 16,
                                                                         fontFamily: "OpenSans-Regular",
@@ -888,6 +888,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                 return Future.value(false);
               },
               child: Dialog(
+                insetPadding: EdgeInsets.all(20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(Constants.padding),
                 ),
@@ -910,6 +911,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
               return Future.value(false);
             },
             child: Dialog(
+              insetPadding: EdgeInsets.all(20),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Constants.padding),
               ),
@@ -926,6 +928,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
   contentBox(context) {
 
     return Stack(
+      alignment: Alignment.center,
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(

@@ -57,20 +57,25 @@ class _FAQScreenState extends State<FAQScreen> {
                       text: StringText.text_faq,
                       onClicked: () => Get.back(),
                     ),
-                    Padding(
-                      padding:
+                    Expanded(
+                      child:  SingleChildScrollView(
+                        child: Padding(
+                          padding:
                           const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < faqData.length; i++) ...[
-                            layoutFAQ(i, faqData[i])
-                          ],
-                        ],
+                          child: Column(
+                            children: [
+                              for (var i = 0; i < faqData.length; i++) ...[
+                                layoutFAQ(i, faqData[i])
+                              ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
+
             ],
           ),
         ));

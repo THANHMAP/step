@@ -15,10 +15,14 @@ import 'package:step_bank/screens/quizz/quizz.dart';
 import 'package:step_bank/screens/quizz/result.dart';
 import 'package:step_bank/screens/quizz/show_quiz.dart';
 import 'package:step_bank/screens/register/register_screen.dart';
+import 'package:step_bank/screens/setting/contact.dart';
+import 'package:step_bank/screens/setting/coop_bank.dart';
 import 'package:step_bank/screens/setting/faq.dart';
 import 'package:step_bank/screens/setting/leader_board.dart';
+import 'package:step_bank/screens/setting/qtd.dart';
 import 'package:step_bank/screens/setting/report_error.dart';
 import 'package:step_bank/screens/setting/setup_account.dart';
+import 'package:step_bank/screens/setting/term.dart';
 import 'package:step_bank/screens/setting/user_account.dart';
 import 'package:step_bank/screens/splash/splash.dart';
 import 'package:step_bank/screens/test.dart';
@@ -216,6 +220,26 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.editBudgetScreen,
       page: () => const EditBudgetScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.contactScreen,
+      page: () => const ContactScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.termScreen,
+      page: () => const TermScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.coopBankScreen,
+      page: () => const CoopBankScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.qTDScreen,
+      page: () => const QTDScreen(),
     ),
   ];
 }

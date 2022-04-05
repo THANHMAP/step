@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
@@ -19,6 +20,7 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import '../../compoment/button_wiget.dart';
+import '../../compoment/dialog_nomal.dart';
 import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
@@ -875,36 +877,38 @@ class _AccountScreenState extends State<AccountScreen> {
                     if (userGroupData != null) ...[
                       for (var i = 0; i < userGroupData!.length; i++) ...[
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              if (!selectedUserGroupList
+                                  .contains(userGroupData![i].id)) {
+                                selectedUserGroupList
+                                    .add(userGroupData![i].id!);
+                              } else {
+                                selectedUserGroupList
+                                    .remove(userGroupData![i].id);
+                              }
+                            });
+
+                            this.setState(() {
+                              selectedUserGroupList;
+                              textUserGroup = _userGroupValue(
+                                  selectedUserGroupList,
+                                  userGroupData!);
+                            });
+                          },
                           child: Container(
                             height: 60,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Checkbox(
-                                  checkColor: Colors.white,
-                                  fillColor: MaterialStateProperty.resolveWith(
-                                      getColor),
-                                  value: selectedUserGroupList
-                                      .contains(userGroupData![i].id),
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      if (value!) {
-                                        selectedUserGroupList
-                                            .add(userGroupData![i].id!);
-                                      } else {
-                                        selectedUserGroupList
-                                            .remove(userGroupData![i].id);
-                                      }
-                                      this.setState(() {
-                                        textUserGroup = _userGroupValue(
-                                            selectedUserGroupList,
-                                            userGroupData!);
-                                      });
-                                    });
-                                  },
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30),
+                                  child: SvgPicture.asset( !selectedUserGroupList.contains(userGroupData![i].id) ?
+                                  "assets/svg/ic_not_check_gray.svg":
+                                  "assets/svg/checkbox_check_correct.svg"),
                                 ),
+
                                 Padding(
                                   padding: const EdgeInsets.only(left: 16),
                                   child: Text(
@@ -1553,6 +1557,20 @@ class _AccountScreenState extends State<AccountScreen> {
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: NormalDialogBox(
+                      descriptions: "Cập nhật thông tin thành công",
+                      onClicked: () {
+                        Navigator.pop(context);
+                      }
+                  ));
+            });
         // Get.offAllNamed("/home");
       }
     }, onError: (error) async {

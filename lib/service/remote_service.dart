@@ -37,6 +37,9 @@ class RemoteServices {
   static var checkQuizdURL = '$baseURL/api/v1/education/check-user-quizz';
   static var userAnswersdURL = '$baseURL/api/v1/education/user-answers';
 
+  static var listContactURL = '$baseURL/api/v1/setting/list-contact';
+
+
 
   // education
 

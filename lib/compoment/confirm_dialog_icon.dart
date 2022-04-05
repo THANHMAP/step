@@ -25,6 +25,7 @@ class ConfirmDialogBoxWithIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: EdgeInsets.all(20),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(Constants.padding),
       ),

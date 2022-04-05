@@ -78,7 +78,7 @@ class _ToolScreenState extends State<ToolScreen> {
                     children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 20, left: 16, right: 16, bottom: 0),
+                              top: 0, left: 0, right: 0, bottom: 0),
                           child: Column(
                             children: [
                               layoutCourse(),
@@ -109,7 +109,7 @@ class _ToolScreenState extends State<ToolScreen> {
           if (_toolList.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
-                  top: 20, left: 16, right: 16, bottom: 0),
+                  top: 16, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
                   for (var i = 0; i < _toolList.length; i++) ...[
