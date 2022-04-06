@@ -40,6 +40,7 @@ class _ContactScreenState extends State<ContactScreen> {
   List<ContactData> _tempListWard = [];
   ContactData? _contactData;
   int currentContactIndex = 0;
+  int currentContactId = 0;
 
   List<String> creditList = ["Ngân hàng", "Quỹ tín dụng"];
   int currentCreditIndex = 1;
@@ -1036,6 +1037,7 @@ class _ContactScreenState extends State<ContactScreen> {
         setState(() {
           Navigator.of(context).pop();
           currentCityIndex = listOfCities[index].id!;
+          currentProviderIndex = 0;
           // getListContact(currentCityIndex.toString());
 
         });
@@ -1086,7 +1088,8 @@ class _ContactScreenState extends State<ContactScreen> {
     return InkWell(
       onTap: () {
         setState(() {
-          currentContactIndex = listOfWards[index].id!;
+          currentContactId = listOfWards[index].id!;
+          currentContactIndex = index;
           selectItem(index);
           Navigator.of(context).pop();
           // getListContact(currentCityIndex.toString());
@@ -1095,7 +1098,7 @@ class _ContactScreenState extends State<ContactScreen> {
       },
       child: Container(
         height: 60,
-        color: currentContactIndex == listOfWards[index].id!
+        color: currentContactId == listOfWards[index].id!
             ? Mytheme.color_DCDEE9
             : Mytheme.kBackgroundColor,
         child: Row(
@@ -1120,7 +1123,7 @@ class _ContactScreenState extends State<ContactScreen> {
             const Spacer(),
             Visibility(
               visible:
-              currentContactIndex == listOfWards[index].id! ? true : false,
+              currentContactId == listOfWards[index].id! ? true : false,
               child: const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Image(
@@ -1167,7 +1170,7 @@ class _ContactScreenState extends State<ContactScreen> {
    selectItem(int index) {
     if(_listContact.isNotEmpty) {
       setState(() {
-        currentContactIndex = _listContact[index].id!;
+        currentContactId = _listContact[index].id!;
         _contactData = _listContact[index];
       });
     }
