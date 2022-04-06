@@ -29,10 +29,12 @@ class _ContactScreenState extends State<ContactScreen> {
   late ProgressDialog pr;
   TextEditingController cityEditingController = TextEditingController();
   TextEditingController wardEditingController = TextEditingController();
+  TextEditingController providerEditingController = TextEditingController();
+
   List<CityData> _tempListCity = [];
   // city
   List<CityData> cityData = [];
-  int currentCityIndex = 1;
+  int currentCityIndex = 0;
   //
   List<ContactData> _listContact = [];
   List<ContactData> _tempListWard = [];
@@ -41,6 +43,11 @@ class _ContactScreenState extends State<ContactScreen> {
 
   List<String> creditList = ["Ngân hàng", "Quỹ tín dụng"];
   int currentCreditIndex = 1;
+
+  // provider
+  int currentProviderIndex = 0;
+  List<Provinces> _providersData = [];
+  List<Provinces> _tempProvidersData = [];
 
   @override
   void initState() {
@@ -81,19 +88,21 @@ class _ContactScreenState extends State<ContactScreen> {
                   color: Mytheme.colorBgMain,
                   child:  Column(
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child:  typeCredit(),
+                      // Align(
+                      //   alignment: Alignment.centerLeft,
+                      //   child:  typeCredit(),
+                      // ),
+                      Expanded(
+                          child: typeCredit()
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: cityUser()
-                          ),
-                          Expanded(
-                              child: wardUser()
-                          )
-                        ],
+                      Expanded(
+                          child: cityUser()
+                      ),
+                      Expanded(
+                          child: districtUser()
+                      ),
+                      Expanded(
+                          child: wardUser()
                       ),
                     if(_contactData != null) ...[
                       Padding(
@@ -121,7 +130,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                 color: Mytheme.colorTextDivider,
                 child: Column(
@@ -264,14 +273,12 @@ class _ContactScreenState extends State<ContactScreen> {
 
   typeCredit() {
     return Padding(
-      padding: const EdgeInsets.only(top: 0, left: 16, right: 24),
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
       child: InkWell(
         onTap: () {
           _creditEditModalBottomSheet(context);
         },
         child: Container(
-          width: 230,
-          height: 60,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -287,15 +294,14 @@ class _ContactScreenState extends State<ContactScreen> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            // crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 12, left: 16, bottom: 18, right: 0),
+                    padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
                     child: Text(
                       getNameCredit(currentCreditIndex),
-                      textAlign: TextAlign.end,
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Mytheme.color_82869E,
@@ -304,18 +310,13 @@ class _ContactScreenState extends State<ContactScreen> {
                       ),
                     )),
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 6, bottom: 0, right: 0),
-                  child: IconButton(
-                    icon: Image.asset("assets/images/ic_arrow_down.png"),
-                    // tooltip: 'Increase volume by 10',
-                    iconSize: 50,
-                    onPressed: () {
-                      _creditEditModalBottomSheet(context);
-                    },
-                  ),
+              SizedBox(
+                child: IconButton(
+                  icon:
+                  Image.asset("assets/images/ic_arrow_down.png"),
+                  onPressed: () {
+                    _creditEditModalBottomSheet(context);
+                  },
                 ),
               ),
             ],
@@ -440,7 +441,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   cityUser() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 16, right: 10),
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
       child: InkWell(
         onTap: () {
           _cityEditModalBottomSheet(context);
@@ -497,7 +498,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   wardUser() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 5, right: 10),
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
       child: InkWell(
         onTap: () {
           _wardEditModalBottomSheet(context);
@@ -549,6 +550,169 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
       ),
     );
+  }
+
+  districtUser() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16),
+      child: InkWell(
+        onTap: () {
+          _providerEditModalBottomSheet(context);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child:  Padding(
+                  padding: const EdgeInsets.only(top: 5, left: 5, right: 5, bottom: 5),
+                  child:  Text(
+                    _nameProvider(currentCityIndex, currentProviderIndex),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Mytheme.color_82869E,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "OpenSans-Regular",
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                child: IconButton(
+                  icon:
+                  Image.asset("assets/images/ic_arrow_down.png"),
+                  onPressed: () {
+                    _providerEditModalBottomSheet(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _providerEditModalBottomSheet(context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.zero,
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.zero,
+              topRight: Radius.circular(10)),
+        ),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setState /*You can rename this!*/) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * .68,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 38,
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: <Widget>[
+                          const Center(
+                            child: Text(
+                              "Chọn Quận / huyện",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Mytheme.color_434657,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-Semibold",
+                                // decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: 40,
+                                child: IconButton(
+                                  icon:
+                                  Image.asset("assets/images/ic_close.png"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        child: TextField(
+                          controller: providerEditingController,
+                          decoration: const InputDecoration(
+                              labelText: "Search",
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                          onChanged: (value) {
+                            setState(() {
+                              _tempProvidersData =
+                                  _buildSearchProviderList(value);
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: SizedBox(
+                        height: 468,
+                        child: Stack(
+                          children: [
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: (_tempProvidersData.isNotEmpty)
+                                  ? _tempProvidersData.length
+                                  : _providersData.length,
+                              itemBuilder: (context, index) {
+                                return (_tempProvidersData.isNotEmpty)
+                                    ? _showBottomSheetProviderWithSearch(
+                                    index, _tempProvidersData)
+                                    : _showBottomSheetProviderWithSearch(
+                                    index, _providersData);
+                                //   ListTile(
+                                //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
+                                // );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        });
   }
 
   void _cityEditModalBottomSheet(context) {
@@ -763,6 +927,58 @@ class _ContactScreenState extends State<ContactScreen> {
         });
   }
 
+  Widget _showBottomSheetProviderWithSearch(
+      int index, List<Provinces> listOfCities) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          Navigator.of(context).pop();
+          currentProviderIndex = int.parse(listOfCities[index].id ?? "0");
+          getListContact(currentProviderIndex.toString());
+
+        });
+      },
+      child: Container(
+        height: 60,
+        color: currentProviderIndex == listOfCities[index].id!
+            ? Mytheme.color_DCDEE9
+            : Mytheme.kBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                listOfCities[index].name.toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Mytheme.color_434657,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "OpenSans-Semibold",
+                  // decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+
+            // di chuyen item tối cuối
+            const Spacer(),
+            Visibility(
+              visible:
+              currentProviderIndex == listOfCities[index].id! ? true : false,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Image(
+                    image: AssetImage('assets/images/img_check.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   List<CityData> _buildSearchCityList(String userSearchTerm) {
     List<CityData> _searchList = [];
 
@@ -787,6 +1003,32 @@ class _ContactScreenState extends State<ContactScreen> {
     return _searchList;
   }
 
+  String _nameProvider(int idCity, int idProvider) {
+    var nameProvider = "Chưa lựa chọn";
+    if (idCity == 0) {
+      return nameProvider;
+    }
+    for (var city in cityData) {
+      if (idCity == city.id) {
+        _providersData = city.provinces!;
+        if (idProvider == 0) {
+          nameProvider = city.provinces![0].name.toString();
+          setState(() {
+            currentProviderIndex = int.parse(city.provinces![0].id ?? "0");
+          });
+
+        }
+        for (var provider in city.provinces!) {
+          if (idProvider == int.parse(provider.id ?? "0")) {
+            nameProvider = provider.name.toString();
+          }
+        }
+      }
+    }
+
+    return nameProvider;
+  }
+
   Widget _showBottomSheetCityWithSearch(
       int index, List<CityData> listOfCities) {
     return InkWell(
@@ -794,7 +1036,7 @@ class _ContactScreenState extends State<ContactScreen> {
         setState(() {
           Navigator.of(context).pop();
           currentCityIndex = listOfCities[index].id!;
-          getListContact(currentCityIndex.toString());
+          // getListContact(currentCityIndex.toString());
 
         });
       },
@@ -918,7 +1160,7 @@ class _ContactScreenState extends State<ContactScreen> {
     var listCitys = CityModel.fromJson(data);
     setState(() {
       cityData = listCitys.data!;
-      getListContact(currentCityIndex.toString());
+      // getListContact(currentCityIndex.toString());
     });
   }
 
@@ -938,6 +1180,17 @@ class _ContactScreenState extends State<ContactScreen> {
     return "Quỹ tín dụng";
   }
 
+  List<Provinces> _buildSearchProviderList(String userSearchTerm) {
+    List<Provinces> _searchList = [];
+
+    for (int i = 0; i < _providersData.length; i++) {
+      String name = _providersData[i].name.toString();
+      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
+        _searchList.add(_providersData[i]);
+      }
+    }
+    return _searchList;
+  }
 
   Future<void> getListContact(String id) async {
     pr.show();
