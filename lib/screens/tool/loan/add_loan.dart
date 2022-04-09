@@ -569,6 +569,7 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                           StoreDataTool storeDataTool = StoreDataTool();
                           storeDataTool.title = _nameLoanController.text;
                           storeDataTool.toolId = data.id;
+                          storeDataTool.type = 1;
                           storeDataTool.dataUsers = dataUsers;
                           print(jsonEncode(storeDataTool));
                           saveItemTool(jsonEncode(storeDataTool));

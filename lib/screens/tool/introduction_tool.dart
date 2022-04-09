@@ -125,6 +125,10 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                               Get.offAndToNamed('/toolBudgetScreen', arguments: data);
                             } else if(data?.id == 5) {
                               Get.offAndToNamed('/portfolioOfLoanScreen', arguments: data);
+                            } else if(data?.id == 4) {
+                              Get.offAndToNamed('/repaymentScheduleScreen', arguments: data);
+                            } else  {
+                              Get.offAndToNamed('/saveToolScreen', arguments: data);
                             }
                           },
                         )

@@ -28,15 +28,16 @@ import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
+import 'detail_repayment.dart';
 
-class PortfolioOfLoanScreen extends StatefulWidget {
-  const PortfolioOfLoanScreen({Key? key}) : super(key: key);
+class RepaymentScheduleScreen extends StatefulWidget {
+  const RepaymentScheduleScreen({Key? key}) : super(key: key);
 
   @override
-  _PortfolioOfLoanScreenState createState() => _PortfolioOfLoanScreenState();
+  _RepaymentScheduleScreenState createState() => _RepaymentScheduleScreenState();
 }
 
-class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with WidgetsBindingObserver  {
+class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with WidgetsBindingObserver  {
   late ProgressDialog pr;
   ToolData? data;
   List<ItemToolData> _listItemToolData = [];
@@ -158,7 +159,8 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/editLoanScreen", arguments: _listItemToolData[i].id)?. then((value) {
+                        Get.toNamed("/editRepaymentScreen", arguments: _listItemToolData[i].id)?.
+                        then((value) {
                           print(value);
                           if(value) {
                             loadListItemTool();
@@ -236,7 +238,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                   ),
 
                   Text(
-                    "Tạo danh mục",
+                    "Tạo lịch mới",
                     style: TextStyle(
                         fontSize: 16,
                         fontFamily: "OpenSans-Regular",
@@ -249,7 +251,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddLoanScreen(),
+                    builder: (context) => DetailRepaymentScreen(),
                   ),
                 ).then((value) {
                   print(value);

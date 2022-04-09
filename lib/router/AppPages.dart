@@ -33,6 +33,13 @@ import 'package:step_bank/screens/tool/budget/tool_set_budget.dart';
 import 'package:step_bank/screens/tool/loan/add_loan.dart';
 import 'package:step_bank/screens/tool/loan/edit_loan.dart';
 import 'package:step_bank/screens/tool/loan/portfolio_of_loan.dart';
+import 'package:step_bank/screens/tool/repayment/detail_repayment.dart';
+import 'package:step_bank/screens/tool/repayment/edit_repayment.dart';
+import 'package:step_bank/screens/tool/repayment/repayment_schedule.dart';
+import 'package:step_bank/screens/tool/save/add_save_tool.dart';
+import 'package:step_bank/screens/tool/save/calculator_save_tool.dart';
+import 'package:step_bank/screens/tool/save/edit_save_tool.dart';
+import 'package:step_bank/screens/tool/save/screen_save.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 
 import '../screens/dashboard/education.dart';
@@ -240,6 +247,41 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.qTDScreen,
       page: () => const QTDScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.saveToolScreen,
+      page: () => const SaveToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.repaymentScheduleScreen,
+      page: () => const RepaymentScheduleScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.detailRepaymentScreen,
+      page: () => const DetailRepaymentScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editRepaymentScreen,
+      page: () => const EditRepaymentScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.calculatorSaveMoneyScreen,
+      page: () => const CalculatorSaveMoneyScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.detailSaveToolScreen,
+      page: () => const DetailSaveToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editSaveToolScreen,
+      page: () => const EditSaveToolScreen(),
     ),
   ];
 }

@@ -16,6 +16,7 @@ import '../../../models/tool/data_sample.dart';
 import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../models/tool/store_data_tool_model.dart';
+import '../../../models/tool/update_data_tool.dart';
 import '../../../models/tool_model.dart';
 import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
@@ -43,6 +44,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
   int typeObj = 1;
   late ToolData data;
   bool updateButton = false;
+  String userId = Get.arguments.toString();
 
   @override
   void initState() {
@@ -57,7 +59,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     Future.delayed(Duration.zero, () {
-      loadDataTool(Get.arguments.toString());
+      loadDataTool(userId);
     });
   }
 
@@ -96,6 +98,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
               },
             ),
             Expanded(
+              flex: 8,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -127,7 +130,6 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                   const SizedBox(height: 10),
                                   SizedBox(
                                     child: TextFieldWidget(
-                                        enable: false,
                                         keyboardType: TextInputType.text,
                                         inputFormatters: <TextInputFormatter>[
                                           FilteringTextInputFormatter
@@ -138,7 +140,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                         hintText: "Viết tên của khoản vay này",
                                         // labelText: "Phone number",
                                         // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                        // suffixIcon: Icons.close,
+                                        suffixIcon: Icons.close,
                                         clickSuffixIcon: () =>
                                             _nameLoanController.clear(),
                                         textController: _nameLoanController),
@@ -149,7 +151,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                             DefaultTabController(
                               length: 2,
                               child: SizedBox(
-                                height: 600.0,
+                                height: 500.0,
                                 child: Column(
                                   children: <Widget>[
                                     TabBar(
@@ -278,7 +280,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                                             InkWell(
                                                                               onTap: () {
                                                                                 setState(() {
-                                                                                  // showDialogConfig(i);
+                                                                                  showDialogConfig(i);
                                                                                 });
                                                                               },
                                                                               child: Align(
@@ -291,7 +293,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                                             ),
                                                                             InkWell(
                                                                               onTap: () {
-                                                                                // showDialogAddItemTool(dataUsers[i].key ?? "", i);
+                                                                                showDialogAddItemTool(dataUsers[i].key ?? "", i);
                                                                               },
                                                                               child: Align(
                                                                                 alignment: Alignment.topRight,
@@ -308,41 +310,41 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                             ),
                                                           ],
                                                         ],
-                                                        // Padding(
-                                                        //   padding:
-                                                        //   const EdgeInsets
-                                                        //       .only(
-                                                        //       top: 10),
-                                                        //   child: InkWell(
-                                                        //     onTap: () async {
-                                                        //       showDialogAddItemTool("", 0);
-                                                        //     },
-                                                        //     child: Row(
-                                                        //       children: [
-                                                        //         Padding(
-                                                        //           padding: const EdgeInsets
-                                                        //               .only(
-                                                        //               right:
-                                                        //               10),
-                                                        //           child: SvgPicture
-                                                        //               .asset(
-                                                        //               "assets/svg/ic_add_blue.svg"),
-                                                        //         ),
-                                                        //         Text(
-                                                        //           "Thêm danh mục",
-                                                        //           style: TextStyle(
-                                                        //               fontSize:
-                                                        //               16,
-                                                        //               fontFamily:
-                                                        //               "OpenSans-Regular",
-                                                        //               fontWeight:
-                                                        //               FontWeight
-                                                        //                   .bold),
-                                                        //         ),
-                                                        //       ],
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              top: 10),
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              showDialogAddItemTool("", 0);
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .only(
+                                                                      right:
+                                                                      10),
+                                                                  child: SvgPicture
+                                                                      .asset(
+                                                                      "assets/svg/ic_add_blue.svg"),
+                                                                ),
+                                                                Text(
+                                                                  "Thêm danh mục",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      16,
+                                                                      fontFamily:
+                                                                      "OpenSans-Regular",
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -425,13 +427,13 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                                         InkWell(
                                                                           onTap:
                                                                               () {
-                                                                            // setState(() {
-                                                                            //   if (dataUsers[i].value == "0") {
-                                                                            //     dataUsers[i].value = "1";
-                                                                            //   } else {
-                                                                            //     dataUsers[i].value = "0";
-                                                                            //   }
-                                                                            // });
+                                                                            setState(() {
+                                                                              if (dataUsers[i].value == "0") {
+                                                                                dataUsers[i].value = "1";
+                                                                              } else {
+                                                                                dataUsers[i].value = "0";
+                                                                              }
+                                                                            });
                                                                           },
                                                                           child: SvgPicture.asset(dataUsers[i].value == "0"
                                                                               ? "assets/svg/ic_checkbox_loan.svg"
@@ -459,7 +461,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                                           children: [
                                                                             InkWell(
                                                                               onTap: () {
-                                                                                // showDialogConfig(i);
+                                                                                showDialogConfig(i);
                                                                               },
                                                                               child: Align(
                                                                                 alignment: Alignment.topRight,
@@ -471,7 +473,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                                             ),
                                                                             InkWell(
                                                                               onTap: () {
-                                                                                // showDialogAddItemTool(dataUsers[i].key ?? "", i);
+                                                                                showDialogAddItemTool(dataUsers[i].key ?? "", i);
                                                                               },
                                                                               child: Align(
                                                                                 alignment: Alignment.topRight,
@@ -488,41 +490,41 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                             ),
                                                           ],
                                                         ],
-                                                        // Padding(
-                                                        //   padding:
-                                                        //   const EdgeInsets
-                                                        //       .only(
-                                                        //       top: 10),
-                                                        //   child: InkWell(
-                                                        //     onTap: () async {
-                                                        //       showDialogAddItemTool("", 0);
-                                                        //     },
-                                                        //     child: Row(
-                                                        //       children: [
-                                                        //         Padding(
-                                                        //           padding: const EdgeInsets
-                                                        //               .only(
-                                                        //               right:
-                                                        //               10),
-                                                        //           child: SvgPicture
-                                                        //               .asset(
-                                                        //               "assets/svg/ic_add_blue.svg"),
-                                                        //         ),
-                                                        //         Text(
-                                                        //           "Thêm danh mục",
-                                                        //           style: TextStyle(
-                                                        //               fontSize:
-                                                        //               16,
-                                                        //               fontFamily:
-                                                        //               "OpenSans-Regular",
-                                                        //               fontWeight:
-                                                        //               FontWeight
-                                                        //                   .bold),
-                                                        //         ),
-                                                        //       ],
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              top: 10),
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              showDialogAddItemTool("", 0);
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets
+                                                                      .only(
+                                                                      right:
+                                                                      10),
+                                                                  child: SvgPicture
+                                                                      .asset(
+                                                                      "assets/svg/ic_add_blue.svg"),
+                                                                ),
+                                                                Text(
+                                                                  "Thêm danh mục",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                      16,
+                                                                      fontFamily:
+                                                                      "OpenSans-Regular",
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
@@ -545,37 +547,46 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                 ),
               ),
             ),
-            // Expanded(
-            //   flex: 1,
-            //   child: Padding(
-            //       padding: const EdgeInsets.only(
-            //           top: 10, bottom: 20, left: 24, right: 24),
-            //       child: ElevatedButton(
-            //         style: ElevatedButton.styleFrom(
-            //             shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(8),
-            //               // side: const BorderSide(color: Colors.red)
-            //             ),
-            //             primary: Mytheme.colorBgButtonLogin,
-            //             minimumSize:
-            //             Size(MediaQuery.of(context).size.width, 44)),
-            //         child: Text(
-            //           "Lưu",
-            //           style: TextStyle(
-            //               fontSize: 16,
-            //               fontFamily: "OpenSans-Regular",
-            //               fontWeight: FontWeight.bold),
-            //         ),
-            //         onPressed: () {
-            //           StoreDataTool storeDataTool = StoreDataTool();
-            //           storeDataTool.title = _nameLoanController.text;
-            //           storeDataTool.toolId = data.id;
-            //           storeDataTool.dataUsers = dataUsers;
-            //           print(jsonEncode(storeDataTool));
-            //           saveItemTool(jsonEncode(storeDataTool));
-            //         },
-            //       )),
-            // ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 24, right: 24),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          // side: const BorderSide(color: Colors.red)
+                        ),
+                        primary: Mytheme.colorBgButtonLogin,
+                        minimumSize:
+                        Size(MediaQuery.of(context).size.width, 44)),
+                    child: Text(
+                      "Lưu",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: "OpenSans-Regular",
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      UpdateDataTool updateDataTool = UpdateDataTool();
+                      updateDataTool.title = _nameLoanController.text;
+                      updateDataTool.userToolId = int.parse(userId);
+                      updateDataTool.type = 1;
+                      List<UpdateDataToolUsers>? listData = [];
+                      for(var i = 0; i<dataUsers.length; i++) {
+                        listData.add(UpdateDataToolUsers(
+                            key: dataUsers[i].key,
+                            type: dataUsers[i].type,
+                            value: dataUsers[i].value
+                        ));
+                      }
+                      updateDataTool.dataUsers = listData;
+                      print(jsonEncode(updateDataTool));
+                      saveItemTool(jsonEncode(updateDataTool));
+                    },
+                  )),
+            ),
           ],
         ),
       ),
@@ -731,6 +742,31 @@ class _EditLoanScreenState extends State<EditLoanScreen>
     );
   }
 
+  showDialogConfig(int position) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: ConfirmDialogBoxWithIcon(
+                title: "Bạn chắc chắn muốn xoá?",
+                textButtonLeft: "Huỷ",
+                textButtonRight: "Tiếp tục",
+                onClickedConfirm: ()  {
+                  setState(() {
+                    dataUsers.removeAt(position);
+                  });
+                  Navigator.pop(context, "");
+                },
+                onClickedCancel: () {
+                  Navigator.pop(context, "");
+                },
+              ));
+        });
+  }
+
   Future<void> loadDataTool(String id) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
@@ -754,7 +790,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
+    APIManager.postAPICallNeedToken(RemoteServices.updateItemToolURL, obj).then(
             (value) async {
           pr.hide();
           if (value['status_code'] == 200) {
@@ -764,32 +800,6 @@ class _EditLoanScreenState extends State<EditLoanScreen>
       pr.hide();
       Utils.showError(error.toString(), context);
     });
-  }
-
-  showDialogConfig(int position) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () {
-                return Future.value(false);
-              },
-              child: ConfirmDialogBoxWithIcon(
-                title: "Bạn chắc chắn muốn xoá?",
-                textButtonLeft: "Huỷ",
-                textButtonRight: "Tiếp tục",
-                onClickedConfirm: ()  {
-                  setState(() {
-                    dataUsers.removeAt(position);
-
-                  });
-                  Navigator.pop(context, "");
-                },
-                onClickedCancel: () {
-                  Navigator.pop(context, "");
-                },
-              ));
-        });
   }
 
 }

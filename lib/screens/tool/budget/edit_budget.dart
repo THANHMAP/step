@@ -12,6 +12,7 @@ import 'package:step_bank/compoment/textfield_widget.dart';
 import '../../../constants.dart';
 import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/store_data_tool_model.dart';
+import '../../../models/tool/update_data_tool.dart';
 import '../../../models/tool_model.dart';
 import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
@@ -44,7 +45,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
   late ToolData data;
   bool showCalculator = true;
   bool showBudget = false;
-
+  String userId = Get.arguments.toString();
   @override
   void initState() {
     super.initState();
@@ -58,7 +59,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
     _tabController = TabController(vsync: this, length: myTabs.length);
     _tabController.addListener(_handleTabSelection);
     Future.delayed(Duration.zero, () {
-      loadDataTool(Get.arguments.toString());
+      loadDataTool(userId);
     });
   }
 
@@ -94,7 +95,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
               text: data.name,
               onClicked: () {
                 if(showCalculator) {
-                  Navigator.of(context).pop(false);
+                  Get.back(result: false);
                 } else {
                   setState(() {
                     showCalculator = true;
@@ -139,7 +140,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                     const SizedBox(height: 10),
                                     SizedBox(
                                       child: TextFieldWidget(
-                                          enable: false,
+                                          enable: true,
                                           keyboardType: TextInputType.text,
                                           inputFormatters: <TextInputFormatter>[
                                             FilteringTextInputFormatter
@@ -150,7 +151,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                           hintText: "Viết tên của ngân sách này",
                                           // labelText: "Phone number",
                                           // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                          // suffixIcon: Icons.close,
+                                          suffixIcon: Icons.close,
                                           clickSuffixIcon: () =>
                                               _nameBudgetController.clear(),
                                           textController: _nameBudgetController),
@@ -229,21 +230,21 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                                 child: Row(
                                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                                   children: [
-                                                                    // InkWell(
-                                                                    //   onTap: () async {
-                                                                    //     setState(() {
-                                                                    //       dataUsers.removeAt(i);
-                                                                    //     });
-                                                                    //   },
-                                                                    //   child: Row(
-                                                                    //     children: [
-                                                                    //       Padding(
-                                                                    //         padding: const EdgeInsets.only(right: 10),
-                                                                    //         child: SvgPicture.asset("assets/svg/ic_delete.svg"),
-                                                                    //       ),
-                                                                    //     ],
-                                                                    //   ),
-                                                                    // ),
+                                                                    InkWell(
+                                                                      onTap: () async {
+                                                                        setState(() {
+                                                                          dataUsers.removeAt(i);
+                                                                        });
+                                                                      },
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.only(right: 10),
+                                                                            child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
                                                                     Expanded(
                                                                       flex:2,
                                                                       child: Container(
@@ -305,29 +306,29 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                             ],
                                                           ],
 
-                                                          // Padding(
-                                                          //   padding: const EdgeInsets.only(top: 10),
-                                                          //   child: InkWell(
-                                                          //     onTap: () async {
-                                                          //       showDialogAddItemTool();
-                                                          //     },
-                                                          //     child: Row(
-                                                          //       children: [
-                                                          //         Padding(
-                                                          //           padding: const EdgeInsets.only(right: 10),
-                                                          //           child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
-                                                          //         ),
-                                                          //         Text(
-                                                          //           "Lập ngân sách mới",
-                                                          //           style: TextStyle(
-                                                          //               fontSize: 16,
-                                                          //               fontFamily: "OpenSans-Regular",
-                                                          //               fontWeight: FontWeight.bold),
-                                                          //         ),
-                                                          //       ],
-                                                          //     ),
-                                                          //   ),
-                                                          // ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(top: 10),
+                                                            child: InkWell(
+                                                              onTap: () async {
+                                                                showDialogAddItemTool();
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.only(right: 10),
+                                                                    child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                                                                  ),
+                                                                  Text(
+                                                                    "Thêm thu nhập khác",
+                                                                    style: TextStyle(
+                                                                        fontSize: 16,
+                                                                        fontFamily: "OpenSans-Regular",
+                                                                        fontWeight: FontWeight.bold),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
                                                           Padding(
                                                               padding: const EdgeInsets.only(
                                                                   top: 20),
@@ -439,21 +440,21 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                               child: Row(
                                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                                 children: [
-                                                                  // InkWell(
-                                                                  //   onTap: () async {
-                                                                  //     setState(() {
-                                                                  //       dataUsers.removeAt(i);
-                                                                  //     });
-                                                                  //   },
-                                                                  //   child: Row(
-                                                                  //     children: [
-                                                                  //       Padding(
-                                                                  //         padding: const EdgeInsets.only(right: 10),
-                                                                  //         child: SvgPicture.asset("assets/svg/ic_delete.svg"),
-                                                                  //       ),
-                                                                  //     ],
-                                                                  //   ),
-                                                                  // ),
+                                                                  InkWell(
+                                                                    onTap: () async {
+                                                                      setState(() {
+                                                                        dataUsers.removeAt(i);
+                                                                      });
+                                                                    },
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: const EdgeInsets.only(right: 10),
+                                                                          child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
                                                                   Expanded(
                                                                     flex:2,
                                                                     child: Container(
@@ -515,29 +516,29 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                           ],
                                                         ],
 
-                                                        // Padding(
-                                                        //   padding: const EdgeInsets.only(top: 10),
-                                                        //   child: InkWell(
-                                                        //     onTap: () async {
-                                                        //       showDialogAddItemTool();
-                                                        //     },
-                                                        //     child: Row(
-                                                        //       children: [
-                                                        //         Padding(
-                                                        //           padding: const EdgeInsets.only(right: 10),
-                                                        //           child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
-                                                        //         ),
-                                                        //         Text(
-                                                        //           "Thêm chi phí khác",
-                                                        //           style: TextStyle(
-                                                        //               fontSize: 16,
-                                                        //               fontFamily: "OpenSans-Regular",
-                                                        //               fontWeight: FontWeight.bold),
-                                                        //         ),
-                                                        //       ],
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 10),
+                                                          child: InkWell(
+                                                            onTap: () async {
+                                                              showDialogAddItemTool();
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding: const EdgeInsets.only(right: 10),
+                                                                  child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                                                                ),
+                                                                Text(
+                                                                  "Thêm chi phí khác",
+                                                                  style: TextStyle(
+                                                                      fontSize: 16,
+                                                                      fontFamily: "OpenSans-Regular",
+                                                                      fontWeight: FontWeight.bold),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
                                                         Padding(
                                                             padding: const EdgeInsets.only(
                                                                 top: 20),
@@ -837,12 +838,22 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                           showCalculator = false;
                           showBudget = true;
                         } else {
-                          StoreDataTool storeDataTool = StoreDataTool();
-                          storeDataTool.title = _nameBudgetController.text;
-                          storeDataTool.toolId = data.id;
-                          storeDataTool.dataUsers = dataUsers;
-                          print(jsonEncode(storeDataTool));
-                          saveItemTool(jsonEncode(storeDataTool));
+                          UpdateDataTool updateDataTool = UpdateDataTool();
+                          updateDataTool.title = _nameBudgetController.text;
+                          updateDataTool.userToolId = int.parse(userId);
+                          updateDataTool.type = 1;
+                          List<UpdateDataToolUsers>? listData = [];
+                          for(var i = 0; i<dataUsers.length; i++) {
+                            listData.add(UpdateDataToolUsers(
+                              key: dataUsers[i].key,
+                              type: dataUsers[i].type,
+                              value: dataUsers[i].value
+                            ));
+                          }
+                          updateDataTool.dataUsers = listData;
+                          print(jsonEncode(updateDataTool));
+                          saveItemTool(jsonEncode(updateDataTool));
+
                         }
                       });
                       // StoreDataTool storeDataTool = StoreDataTool();
@@ -1123,7 +1134,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
+    APIManager.postAPICallNeedToken(RemoteServices.updateItemToolURL, obj).then(
             (value) async {
           pr.hide();
           if (value['status_code'] == 200) {

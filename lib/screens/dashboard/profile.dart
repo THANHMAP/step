@@ -236,7 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 Navigator.pop(context, "");
                                               },
                                             ));
-                                      });
+                                      }
+                                      );
                                 },
                               ),
                               const SizedBox(height: 10),

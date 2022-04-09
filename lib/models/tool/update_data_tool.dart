@@ -1,19 +1,19 @@
-class StoreDataTool {
+class UpdateDataTool {
   String? title;
-  int? toolId;
+  int? userToolId;
   int? type;
-  List<DataUsers>? dataUsers;
+  List<UpdateDataToolUsers>? dataUsers;
 
-  StoreDataTool({this.title, this.toolId, this.type, this.dataUsers});
+  UpdateDataTool({this.title, this.userToolId, this.type, this.dataUsers});
 
-  StoreDataTool.fromJson(Map<String, dynamic> json) {
+  UpdateDataTool.fromJson(Map<String, dynamic> json) {
     title = json['title'];
-    toolId = json['tool_id'];
+    userToolId = json['user_tool_id'];
     type = json['type'];
     if (json['data_users'] != null) {
-      dataUsers = <DataUsers>[];
+      dataUsers = <UpdateDataToolUsers>[];
       json['data_users'].forEach((v) {
-        dataUsers!.add(new DataUsers.fromJson(v));
+        dataUsers!.add(new UpdateDataToolUsers.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class StoreDataTool {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['title'] = this.title;
-    data['tool_id'] = this.toolId;
+    data['user_tool_id'] = this.userToolId;
     data['type'] = this.type;
     if (this.dataUsers != null) {
       data['data_users'] = this.dataUsers!.map((v) => v.toJson()).toList();
@@ -30,14 +30,14 @@ class StoreDataTool {
   }
 }
 
-class DataUsers {
+class UpdateDataToolUsers {
   String? key;
   String? value;
   int? type;
 
-  DataUsers({this.key, this.value, this.type});
+  UpdateDataToolUsers({this.key, this.value, this.type});
 
-  DataUsers.fromJson(Map<String, dynamic> json) {
+  UpdateDataToolUsers.fromJson(Map<String, dynamic> json) {
     key = json['key'];
     value = json['value'];
     type = json['type'];

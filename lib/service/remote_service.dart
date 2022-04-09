@@ -12,8 +12,8 @@ class RemoteServices {
 
   static var client = http.Client();
   // static var baseURL = 'https://co-opsmart.vn';
-  static var baseURL = 'https://staging.co-opsmart.vn';
-  // static var baseURL = "https://internal.co-opsmart.vn";
+  // static var baseURL = 'https://staging.co-opsmart.vn';
+  static var baseURL = "https://internal.co-opsmart.vn";
   static var signInURL = '$baseURL/api/v1/user/login';
   static var validatePhoneURL = '$baseURL/api/v1/user/validate-phone';
   static var getOtpURL = '$baseURL/api/v1/user/get-otp';
@@ -57,5 +57,6 @@ class RemoteServices {
   static var deleteItemToolURL = '$baseURL/api/v1/tool/delete-my-tool';
   static var sampleDataURL = '$baseURL/api/v1/tool/data-sample';
   static var getDetailItemToolURL = '$baseURL/api/v1/tool/detail-tool-calculate';
+  static var updateItemToolURL = '$baseURL/api/v1/tool/update-data-tool';
 
 }

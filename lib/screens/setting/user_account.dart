@@ -410,20 +410,6 @@ class _AccountScreenState extends State<AccountScreen> {
                             _userBodController.text = '${date.day} - ${date.month} - ${date.year}';
                           });
                         }, currentTime: DateTime.now(), locale: LocaleType.vi);
-                    // if (_isDisableDob == true) {
-                    //   setState(() {
-                    //     _isDisableDob = false;
-                    //     _userBodController.text = user.dob.toString();
-                    //     urlActionBirthday = "assets/images/ic_delete.png";
-                    //   });
-                    // } else {1
-                    //   setState(() {
-                    //     _isDisableDob = true;
-                    //     _userBodController.text = user.dob.toString();
-                    //     urlActionBirthday = "assets/images/ic_edit.png";
-                    //   });
-                    //
-                    // }
                   },
                 ),
               ),

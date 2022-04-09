@@ -3,13 +3,25 @@
 
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:step_bank/router/AppPages.dart';
 import 'package:step_bank/router/app_router.dart';
 import 'package:step_bank/screens/test.dart';
 
-void main() {
+Future<void> backgroundHandler(RemoteMessage message) async{
+  print(message.data.toString());
+}
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+  FirebaseMessaging.instance.getToken().then((value) {
+    print("token fcm: $value");
+  });
   runApp(const MyApp());
 }
 

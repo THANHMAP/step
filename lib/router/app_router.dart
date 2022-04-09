@@ -45,4 +45,11 @@ class AppRoutes {
   static const String termScreen = "/termScreen";
   static const String coopBankScreen = "/coopBankScreen";
   static const String qTDScreen = "/qTDScreen";
+  static const String saveToolScreen = "/saveToolScreen";
+  static const String repaymentScheduleScreen = "/repaymentScheduleScreen";
+  static const String detailRepaymentScreen = "/detailRepaymentScreen";
+  static const String editRepaymentScreen = "/editRepaymentScreen";
+  static const String calculatorSaveMoneyScreen = "/calculatorSaveMoneyScreen";
+  static const String detailSaveToolScreen = "/detailSaveToolScreen";
+  static const String editSaveToolScreen = "/editSaveToolScreen";
 }

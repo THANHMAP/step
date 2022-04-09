@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isAuthenticating = false;
   BiometricsData _biometricsData = BiometricsData();
   var platform = "Android";
+  String token = "";
   @override
   void initState() {
     super.initState();
@@ -73,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
     } else if (Platform.isIOS) {
       platform = "IOS";
     }
-
+    FirebaseMessaging.instance.getToken().then((value) {
+      token = value!;
+    });
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -87,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _currentUser = account;
       });
       if (_currentUser != null) {
-        doLoginBySocial(_currentUser!.email, _currentUser!.id, "1", platform, "");
+        doLoginBySocial(_currentUser!.email, _currentUser!.id, "1");
       }
     });
     _googleSignIn.signInSilently();
@@ -223,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final userData = await FacebookAuth.i.getUserData(
         fields: "email,name",
       );
-      doLoginBySocial(userData['email'].toString(), userData['id'].toString(), "2", platform, "");
+      doLoginBySocial(userData['email'].toString(), userData['id'].toString(), "2");
       print(userData['email'].toString());
     }
   }
@@ -526,19 +530,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> doLogin() async {
-    String? phone, password, typeDevice, fcmToken;
+    String? phone, password;
     if (_phoneController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
       await pr.show();
       phone = _phoneController.text;
       password = _passwordController.text;
-      typeDevice = "Android";
-      fcmToken = "test";
       var param = jsonEncode(<String, String>{
         'username': phone,
         'password': password,
-        'device_type': typeDevice,
-        'fcm_token': fcmToken
+        'device_type': platform,
+        'fcm_token': token
       });
       APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
           (value) async {
@@ -568,13 +570,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> doLoginBySocial(String email, String id, String socialType, String platform, String token) async {
+  Future<void> doLoginBySocial(String email, String id, String socialType) async {
     var param = jsonEncode(<String, String>{
       'email': email,
       'social_id': id,
       'social_type': socialType,
       'device_type': platform,
-      'fcm_token': token,
+      'fcm_token': token
     });
     pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
@@ -603,15 +605,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> doLoginWithBiometrics(String phone, String password) async {
-    String? typeDevice, fcmToken;
     await pr.show();
-    typeDevice = "Android";
-    fcmToken = "test";
     var param = jsonEncode(<String, String>{
       'username': phone,
       'password': password,
-      'device_type': typeDevice,
-      'fcm_token': fcmToken
+      'device_type': platform,
+      'fcm_token': token
     });
     APIManager.postAPICallNoNeedToken(RemoteServices.signInURL, param).then(
         (value) async {

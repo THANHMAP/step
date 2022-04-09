@@ -25,18 +25,20 @@ import '../../../compoment/card_education.dart';
 import '../../../compoment/card_item_tool.dart';
 import '../../../compoment/card_setting.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
+import '../../../compoment/dialog_success.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
 
-class PortfolioOfLoanScreen extends StatefulWidget {
-  const PortfolioOfLoanScreen({Key? key}) : super(key: key);
+class SaveToolScreen extends StatefulWidget {
+  const SaveToolScreen({Key? key}) : super(key: key);
 
   @override
-  _PortfolioOfLoanScreenState createState() => _PortfolioOfLoanScreenState();
+  _SaveToolScreenState createState() => _SaveToolScreenState();
 }
 
-class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with WidgetsBindingObserver  {
+class _SaveToolScreenState extends State<SaveToolScreen>
+    with WidgetsBindingObserver {
   late ProgressDialog pr;
   ToolData? data;
   List<ItemToolData> _listItemToolData = [];
@@ -82,8 +84,6 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -109,7 +109,8 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                     children: [
                       headerLayout(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+                        padding:
+                            const EdgeInsets.only(top: 0, left: 0, right: 0),
                         child: Column(
                           children: [
                             Padding(
@@ -158,13 +159,8 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/editLoanScreen", arguments: _listItemToolData[i].id)?. then((value) {
-                          print(value);
-                          if(value) {
-                            loadListItemTool();
-                          }
-                          // _reload();
-                        });
+                        Get.toNamed("/editSaveToolScreen",
+                            arguments: _listItemToolData[i].id);
                       },
                     ),
                   ]
@@ -181,7 +177,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
     return Stack(
       children: <Widget>[
         Container(
-          height: 206,
+          height: 286,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/bg_home.png"),
@@ -193,92 +189,115 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
           // ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 56, left: 16, right: 0),
+          padding: const EdgeInsets.only(top: 0, left: 16, right: 16),
           child: Container(
-            width: 216,
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    data?.name ?? "",
-                    style: TextStyle(
-                      fontSize: 23,
-                      color: Mytheme.colorBgButtonLogin,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: "OpenSans-Bold",
-                      // decoration: TextDecoration.underline,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          data?.name ?? "",
+                          style: TextStyle(
+                            fontSize: 23,
+                            color: Mytheme.colorBgButtonLogin,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "OpenSans-Bold",
+                            // decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 16, right: 10),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Image.network(
+                              data?.thumbnail ?? "",
+                              width: 150,
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
+                      if (value) {
+                        loadListItemTool();
+                      }
+                    });
+                  },
+                  child: Container(
+                      margin: EdgeInsets.all(10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Mytheme.colorBgButtonLogin)
+                      ),
+                      child: Padding(
+                        padding:
+                        const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                        child: Text(
+                          "Tính lãi tiết kiệm",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Mytheme.color_434657,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "OpenSans-Semibold",
+                          ),
+                        ),
+                      )
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+                  child: SizedBox(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            // side: const BorderSide(color: Colors.red)
+                          ),
+                          primary: Mytheme.colorBgButtonLogin,
+                          minimumSize: const Size(44, 44)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: SvgPicture.asset("assets/svg/ic_add.svg"),
+                          ),
+                          Text(
+                            "Lập kế hoạch tiết kiệm",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      onPressed: () async {
+                        Get.toNamed("/detailSaveToolScreen")?.then((value) {
+                          if (value) {
+                            loadListItemTool();
+                          }
+                        });
+                      },
                     ),
                   ),
-                )
-
+                ),
               ],
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 126, left: 16, right: 0),
-          child: SizedBox(
-            width: 170,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    // side: const BorderSide(color: Colors.red)
-                  ),
-                  primary: Mytheme.colorBgButtonLogin,
-                  minimumSize: const Size(44, 44)),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: SvgPicture.asset("assets/svg/ic_add.svg"),
-                  ),
-
-                  Text(
-                    "Tạo danh mục",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: "OpenSans-Regular",
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-
-              onPressed: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddLoanScreen(),
-                  ),
-                ).then((value) {
-                  print(value);
-                  if(value) {
-                    loadListItemTool();
-                  }
-                  // _reload();
-                });
-                // Get.toNamed("/detailBudgetScreen", arguments: data);
-              },
-            ),
-          ),
-        ),
-
-        Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-              padding: const EdgeInsets.only(top: 36, right: 10),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Image.network(
-                  data?.thumbnail ??"",
-                  width: 180,
-                ),
-              )
-          ),
-        )
-
-
       ],
     );
   }
@@ -289,15 +308,15 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
       'tool_id': data?.id.toString() ?? "",
     });
     APIManager.postAPICallNeedToken(RemoteServices.listItemToolURL, param).then(
-            (value) async {
-          pr.hide();
-          var data = ItemTool.fromJson(value);
-          if (data.statusCode == 200) {
-            setState(() {
-              _listItemToolData = data.data!;
-            });
-          }
-        }, onError: (error) async {
+        (value) async {
+      pr.hide();
+      var data = ItemTool.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          _listItemToolData = data.data!;
+        });
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -308,15 +327,15 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
     var param = jsonEncode(<String, String>{
       'user_tool_id': id.toString(),
     });
-    APIManager.postAPICallNeedToken(RemoteServices.deleteItemToolURL, param).then(
-            (value) async {
-          pr.hide();
-          if (value['status_code'] == 200) {
-            setState(() {
-              _listItemToolData.removeAt(position);
-            });
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.deleteItemToolURL, param)
+        .then((value) async {
+      pr.hide();
+      if (value['status_code'] == 200) {
+        setState(() {
+          _listItemToolData.removeAt(position);
+        });
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -334,7 +353,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                 title: "Bạn chắc chắn muốn xoá?",
                 textButtonLeft: "Huỷ",
                 textButtonRight: "Tiếp tục",
-                onClickedConfirm: ()  {
+                onClickedConfirm: () {
                   Navigator.pop(context, "");
                   deleteItemTool(id, position);
                 },
@@ -344,5 +363,7 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
               ));
         });
   }
+
+
 
 }

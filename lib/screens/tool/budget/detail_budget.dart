@@ -838,6 +838,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                           StoreDataTool storeDataTool = StoreDataTool();
                           storeDataTool.title = _nameBudgetController.text;
                           storeDataTool.toolId = data.id;
+                          storeDataTool.type = 1;
                           storeDataTool.dataUsers = dataUsers;
                           print(jsonEncode(storeDataTool));
                           saveItemTool(jsonEncode(storeDataTool));

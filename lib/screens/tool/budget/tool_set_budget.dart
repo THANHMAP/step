@@ -156,7 +156,13 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
                         showDialogConfig(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/editBudgetScreen", arguments: _listItemToolData[i].id);
+                        Get.toNamed("/editBudgetScreen", arguments: _listItemToolData[i].id)?. then((value) {
+                          print(value);
+                          if(value) {
+                            loadListItemTool();
+                          }
+                          // _reload();
+                        });
                       },
                     ),
                   ]
