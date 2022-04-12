@@ -227,8 +227,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               descriptions:
                                                   "Đăng xuất khỏi tài khoản này?",
                                               onClickedConfirm: () async {
-                                                await SPref.instance
-                                                    .set("token", "");
+                                                await SPref.instance.set("token", "");
+                                                await SPref.instance.set("info_login", "");
                                                 Get.offAllNamed("/login"
                                                     "");
                                               },
