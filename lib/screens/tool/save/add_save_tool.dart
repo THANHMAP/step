@@ -35,7 +35,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
   TextEditingController _nameSaveController = TextEditingController();
   TextEditingController _moneyWantSaveController = TextEditingController();
   TextEditingController _numberHasController = TextEditingController();
-  TextEditingController _numberDayController = TextEditingController();
+  TextEditingController _numberWeekController = TextEditingController();
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
   late ToolData data;
@@ -438,7 +438,35 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                       ),
                                     ),
                                   ),
-                                  repaymentCycle(),
+                                  TextField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    obscureText: false,
+                                    controller: _numberWeekController,
+                                    enabled: true,
+                                    textInputAction: TextInputAction.done,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration(
+                                        fillColor: const Color(0xFFEFF0FB), filled: true,
+                                        hintText: "Nhập số tuần",
+                                        hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                        // labelText: labelText,
+
+                                        suffixIcon: IconButton(
+                                            onPressed: (){},
+                                            icon: SvgPicture.asset("assets/svg/ic_week.svg")
+                                        ),
+                                        enabledBorder:  OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                            borderRadius: BorderRadius.circular(14)),
+
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                            borderRadius: BorderRadius.circular(14))),
+
+                                  ),
 
 
                                   const SizedBox(height: 20),
@@ -498,11 +526,17 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
 
                                           InkWell(
                                             onTap: () {
-                                              // Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
-                                              //   if (value) {
-                                              //     loadListItemTool();
-                                              //   }
-                                              // });
+                                              var stringDateStart = dateFirst.split("/");
+                                              var stringDateEnd = dateEnd.split("/");
+                                              final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+                                              final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+                                              final differenceDay = daysBetween(dayStart, dayEnd);
+                                              var calculatorWeek = int.parse(_numberWeekController.text)*7;
+                                              var numberSaver = differenceDay / calculatorWeek ;
+                                              var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+                                              setState(() {
+                                                moneySave = result.round();
+                                              });
                                             },
                                             child: Container(
                                                 margin: EdgeInsets.all(10),
@@ -626,8 +660,8 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                       //tần suất tiet kiem
                       dataUsers.add(DataUsers(
                         key: "repayment_cycle",
-                        value: _listRepaymentCycle[currentRepaymentCycleIndex],
-                        type: currentRepaymentCycleIndex,
+                        value: _numberWeekController.text,
+                        type: 5,
                       ));
                       //
                       storeDataTool.dataUsers = dataUsers;
@@ -845,6 +879,12 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
       pr.hide();
       Utils.showError(error.toString(), context);
     });
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
   }
 
   showDialogSuccess(){

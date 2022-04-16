@@ -54,6 +54,7 @@ class Mytheme {
   static const color_0xFFBDE8FF = Color(0xFFBDE8FF);
   static const color_0xFFFFCFC9 = Color(0xFFFFCFC9);
   static const color_0xFFE6E8F1 = Color(0xFFE6E8F1);
+  static const color_0xFFA9B0D1 = Color(0xFFA9B0D1);
 
   static final light = ThemeData(
     brightness: Brightness.light,

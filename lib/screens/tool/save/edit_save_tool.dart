@@ -36,7 +36,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
   TextEditingController _nameSaveController = TextEditingController();
   TextEditingController _moneyWantSaveController = TextEditingController();
   TextEditingController _numberHasController = TextEditingController();
-  TextEditingController _numberDayController = TextEditingController();
+  TextEditingController _numberWeekController = TextEditingController();
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
   late ToolData data;
@@ -440,7 +440,35 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                                       ),
                                     ),
                                   ),
-                                  repaymentCycle(),
+                                  TextField(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    obscureText: false,
+                                    controller: _numberWeekController,
+                                    enabled: true,
+                                    textInputAction: TextInputAction.done,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration(
+                                        fillColor: const Color(0xFFEFF0FB), filled: true,
+                                        hintText: "Nhập số tuần",
+                                        hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                        // labelText: labelText,
+
+                                        suffixIcon: IconButton(
+                                            onPressed: (){},
+                                            icon: SvgPicture.asset("assets/svg/ic_week.svg")
+                                        ),
+                                        enabledBorder:  OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                            borderRadius: BorderRadius.circular(14)),
+
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                            borderRadius: BorderRadius.circular(14))),
+
+                                  ),
 
 
                                   const SizedBox(height: 20),
@@ -843,7 +871,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                 if(dataUsers[i].key == "money_want_save"){
                   _moneyWantSaveController.text = formNum(dataUsers[i].value.toString());
                 } else if(dataUsers[i].key == "repayment_cycle"){
-                  currentRepaymentCycleIndex = dataUsers[i].type!;
+                  _numberWeekController.text = dataUsers[i].value!;
                 } else if(dataUsers[i].key == "money_has"){
                   _numberHasController.text = formNum(dataUsers[i].value.toString());
                 } else if(dataUsers[i].key == "day_start"){

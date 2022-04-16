@@ -31,6 +31,7 @@ class RemoteServices {
   static var updateAvatarURL = '$baseURL/api/v1/user/update-avatar';
   static var listBannerPromotionURL = '$baseURL/api/v1/setting/list-banner-promotion';
   static var trackingURL = '$baseURL/api/v1/tracking/behavior';
+  static var validatePasswordUserURL = '$baseURL/api/v1/user/validate-password';
 
   static var leaderBoardURL = '$baseURL/api/v1/user/leader-board';
   static var positionLeaderBoardURL = '$baseURL/api/v1/user/position-leader-board';
@@ -58,5 +59,7 @@ class RemoteServices {
   static var sampleDataURL = '$baseURL/api/v1/tool/data-sample';
   static var getDetailItemToolURL = '$baseURL/api/v1/tool/detail-tool-calculate';
   static var updateItemToolURL = '$baseURL/api/v1/tool/update-data-tool';
+  static var listWithDrawToolURL = '$baseURL/api/v1/tool/list-with-draw';
+
 
 }

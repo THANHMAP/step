@@ -159,8 +159,8 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/editSaveToolScreen",
-                            arguments: _listItemToolData[i].id);
+                        Get.toNamed("/manageSaveToolScreen",
+                            arguments: _listItemToolData[i]);
                       },
                     ),
                   ]

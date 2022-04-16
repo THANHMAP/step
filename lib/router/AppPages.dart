@@ -48,6 +48,8 @@ import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/tool/budget/detail_budget.dart';
+import '../screens/tool/save/manage_save.dart';
+import '../screens/updatepassword/update_new_pass.dart';
 import 'app_router.dart';
 
 class AppPages {
@@ -282,6 +284,16 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.editSaveToolScreen,
       page: () => const EditSaveToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.updateNewPassWordScreen,
+      page: () => const UpdateNewPassWordScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.manageSaveToolScreen,
+      page: () => const ManageSaveToolScreen(),
     ),
   ];
 }

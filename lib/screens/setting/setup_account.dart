@@ -110,7 +110,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 30, bottom: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +123,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     const SizedBox(height: 10),
                     emailUser(),
                     const SizedBox(height: 10),
-                    switchFinger(),
+                    // switchFinger(),
                     const SizedBox(height: 5),
                     Padding(
                       padding: EdgeInsets.only(
@@ -230,10 +230,10 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Expanded(
-                flex: 2,
+                flex: 1,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                      EdgeInsets.only(top: 12, left: 16, bottom: 5, right: 0),
                   child: Text(
                     "Điện thoại",
                     textAlign: TextAlign.start,
@@ -247,10 +247,10 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 12, left: 16, bottom: 18, right: 10),
+                        top: 12, left: 10, bottom: 18, right: 10),
                     child: Text(
                       user.phone.toString(),
                       textAlign: TextAlign.end,

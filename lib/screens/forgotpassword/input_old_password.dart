@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,8 @@ import 'package:step_bank/strings.dart';
 
 import '../../compoment/appbar_wiget.dart';
 import '../../compoment/textfield_widget.dart';
+import '../../service/api_manager.dart';
+import '../../service/remote_service.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -115,8 +119,11 @@ class _InputOldPassWordScreenState extends State<InputOldPassWordScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
-                        // doUpdate();
-                        // Get.toNamed('/otp');
+                        if(_passwordController.text.isNotEmpty) {
+                          validatePassword(_passwordController.text);
+                        } else {
+
+                        }
                       },
                     )),
               ),
@@ -125,5 +132,21 @@ class _InputOldPassWordScreenState extends State<InputOldPassWordScreen> {
         ));
   }
 
+  Future<void> validatePassword(String password) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'password': password,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, param).then(
+            (value) async {
+          pr.hide();
+          if (value['status_code'] == 200) {
+            Get.offAndToNamed("/updateNewPassWordScreen");
+          }
+        }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
 
 }
