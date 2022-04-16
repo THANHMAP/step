@@ -402,7 +402,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           containerHeight: 210.0,
                         ),
                         showTitleActions: true,
-                        minTime: DateTime(2000, 1, 1),
+                        minTime: DateTime(1930, 1, 1),
                         maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
                           print('confirm $date');
                           _date = '${date.year} - ${date.month} - ${date.day}';
@@ -1313,7 +1313,12 @@ class _AccountScreenState extends State<AccountScreen> {
         currentSexIndex = user.gender ?? 0;
         currentCityIndex = user.cityId ?? 0;
         currentWardIndex = user.provinceId ?? 0;
-        _userBodController.text = user.dob.toString();
+        if(!user.dob.toString().isNotEmpty) {
+          _userBodController.text = "Thêm thông tin";
+        } else {
+          _userBodController.text = user.dob.toString();
+        }
+
         _usernameController.text = user.name.toString();
         user.userGroup?.forEach((element) {
           selectedUserGroupList.add(int.parse(element.id.toString()));
