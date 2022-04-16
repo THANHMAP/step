@@ -528,11 +528,17 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
 
                                           InkWell(
                                             onTap: () {
-                                              // Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
-                                              //   if (value) {
-                                              //     loadListItemTool();
-                                              //   }
-                                              // });
+                                              var stringDateStart = dateFirst.split("/");
+                                              var stringDateEnd = dateEnd.split("/");
+                                              final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+                                              final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+                                              final differenceDay = daysBetween(dayStart, dayEnd);
+                                              var calculatorWeek = int.parse(_numberWeekController.text)*7;
+                                              var numberSaver = differenceDay / calculatorWeek ;
+                                              var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+                                              setState(() {
+                                                moneySave = result.round();
+                                              });
                                             },
                                             child: Container(
                                                 margin: EdgeInsets.all(10),
@@ -633,8 +639,8 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                       //tần suất tiet kiem
                       listData.add(UpdateDataToolUsers(
                         key: "repayment_cycle",
-                        value: _listRepaymentCycle[currentRepaymentCycleIndex],
-                        type: currentRepaymentCycleIndex,
+                        value: _numberWeekController.text,
+                        type: 5,
                       ));
                       //
                       updateDataTool.dataUsers = listData;
@@ -888,5 +894,10 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
     });
   }
 
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
 
 }

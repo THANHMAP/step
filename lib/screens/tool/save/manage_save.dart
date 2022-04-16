@@ -50,7 +50,16 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
   TextEditingController _moneyController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
   List<DataUsers> dataUsers = [];
-
+  bool selectItem = true;
+  List<DataManage> dataManage = [];
+  String moneySaveTarget = "0";
+  String moneyHasSave = "0";
+  String moneyHasSaveRoot = "0";
+  String presentShow = "";
+  String dayEnd = "";
+  double present = 0;
+  var totalMonth = 0;
+  bool validate = false;
   @override
   void initState() {
     super.initState();
@@ -123,14 +132,14 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                           animation: true,
                           animationDuration: 1200,
                           lineWidth: 15.0,
-                          percent: 0.5,
+                          percent: present,
                           center: Container(
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                 Text(
-                                  "40%",
+                                  presentShow,
                                   style: TextStyle(
                                     fontSize: 36,
                                     color: Mytheme.colorBgButtonLogin,
@@ -139,7 +148,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                   ),
                                 ),
                                 Text(
-                                  "40.000.000 VND",
+                                  "${formNum(moneyHasSave)} VNĐ",
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Mytheme.colorTextSubTitle,
@@ -155,7 +164,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Mục tiêu đến: 31/12/2022",
+                        "Mục tiêu đến: $dayEnd",
                         style: TextStyle(
                           fontSize: 16,
                           color: Mytheme.colorTextSubTitle,
@@ -193,7 +202,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                       ),
                                     ),
                                     Text(
-                                      "100.000.000 VND",
+                                      formNum(moneySaveTarget),
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Mytheme.colorBgButtonLogin,
@@ -223,7 +232,8 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Mục tiêu tiết kiệm",
+                                      "Còn lại",
+                                      textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: Mytheme.colorTextSubTitle,
@@ -232,7 +242,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                       ),
                                     ),
                                     Text(
-                                      "100.000.000 VND",
+                                      "${formNum((int.parse(moneySaveTarget)-int.parse(moneyHasSave)).toString())} VNĐ",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Mytheme.colorBgButtonLogin,
@@ -246,7 +256,124 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                             ),
                           )
                         ],
-                      )
+                      ),
+                      SizedBox(height: 10),
+
+                      for(var i = 0; i < dataManage.length; i++) ...[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 16.0, right: 0.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      "assets/svg/ic_calender.svg"),
+                                  SizedBox(width: 5,),
+                                  Text(
+                                    dataManage[i].name ?? "",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorTextSubTitle,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "OpenSans-Regular",
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding:
+                              const EdgeInsets.only(right: 16),
+                              child:  Text(
+                                "${formNum(calculatorTotalMonth(dataManage[i].itemList!))} VNĐ",
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorBgButtonLogin,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        for(var po = 0; po < dataManage[i].itemList!.length; po++)...[
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 16.0, right: 16.0, top: 10, bottom: 10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Mytheme.color_DCDEE9,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      dataManage[i].itemList![po].deposit == "1" ? "Thu nhập" : "Rút ra",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      convert(dataManage[i].itemList![po].createdAt ?? "").replaceAll("-", "/"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+
+                          ),
+                        ],
+
+                      ],
+
+
+
+
                     ],
                   ),
                 ),
@@ -256,27 +383,33 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
               flex: 2,
               child: Column(
                 children: [
-                  Container(
-                      margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          border:
-                              Border.all(color: Mytheme.colorBgButtonLogin)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, left: 16, right: 16),
-                        child: Text(
-                          "Sửa",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Mytheme.color_434657,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-Semibold",
+                  InkWell(
+                    onTap: () {
+                      Get.offAndToNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border:
+                            Border.all(color: Mytheme.colorBgButtonLogin)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 10, left: 16, right: 16),
+                          child: Text(
+                            "Sửa",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.color_434657,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
                           ),
-                        ),
-                      )),
+                        )),
+                  ),
+
                   Padding(
                       padding: const EdgeInsets.only(
                           top: 10, bottom: 10, left: 16, right: 16),
@@ -297,6 +430,11 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                               fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
+                          selectItem = true;
+                          validate = false;
+                          _moneyController.clear();
+                          _noteController.clear();
+                          dates = formatDate(int.parse(DateTime.now().day.toString()), int.parse(DateTime.now().month.toString()), int.parse(DateTime.now().year.toString()));
                           _sexEditModalBottomSheet(context);
                         },
                       )),
@@ -307,6 +445,10 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
         ),
       ),
     );
+  }
+
+  String convert(String date) {
+    return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
   }
 
   void _sexEditModalBottomSheet(context) {
@@ -332,7 +474,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                     right: 16,
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .73,
+                  height: MediaQuery.of(context).size.height * .63,
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -359,69 +501,104 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(left: 0.0, right: 16.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Mytheme.kBackgroundColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                      color: Mytheme.color_0xFFA9B0D1)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 16, left: 12, right: 12, bottom: 16),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        "assets/svg/ic_radio_no_select.svg"),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      "Gửi vào",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectItem = true;
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 0.0, right: 16.0),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: selectItem
+                                        ? Mytheme.color_0xFFCCECFB
+                                        : Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: !selectItem
+                                        ? Border.all(
+                                            color: Mytheme.kBackgroundColor)
+                                        : null,
+                                  boxShadow: selectItem? null : [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 16, left: 12, right: 12, bottom: 16),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Thu nhập",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: selectItem
+                                              ? Mytheme.color_0xFF2655A6
+                                              : Mytheme.color_82869E,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-SemiBold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(left: 0.0, right: 0.0),
-                              decoration: BoxDecoration(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectItem = false;
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 0.0, right: 0.0),
+                                decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  color: Mytheme.kBackgroundColor,
+                                  color: !selectItem ? Mytheme.color_0xFFCCECFB: Mytheme.kBackgroundColor,
                                   borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(
-                                      color: Mytheme.color_0xFFA9B0D1)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 16, left: 12, right: 12, bottom: 16),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                        "assets/svg/ic_radio_no_select.svg"),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      "Rút ra",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
+                                  border: !selectItem ? null : Border.all(color: Mytheme.kBackgroundColor) ,
+                                  boxShadow: !selectItem? null : [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 16, left: 12, right: 12, bottom: 16),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Rút ra",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: !selectItem ? Mytheme.color_0xFF2655A6 : Mytheme.color_82869E,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-SemiBold",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -434,7 +611,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Ngày kết thúc",
+                          "Ngày",
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontSize: 16,
@@ -504,8 +681,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                       print('confirm $date');
                                       // _date = '${date.year} - ${date.month} - ${date.day}';
                                       setState(() {
-                                        dates =
-                                            '${date.day}/${date.month}/${date.year}';
+                                        dates = formatDate(int.parse(date.day.toString()), int.parse(date.month.toString()), int.parse(date.year.toString()));
                                       });
                                     },
                                         currentTime: DateTime.now(),
@@ -544,6 +720,15 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
                             fillColor: const Color(0xFFEFF0FB),
+                            focusedErrorBorder: OutlineInputBorder(
+                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(8)),
+                            errorBorder: validate ? OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red, width: 1),
+                                borderRadius: BorderRadius.circular(8)) : OutlineInputBorder(
+                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(8)),
+                            errorText: validate ? "Tiền rút ra không được lớn hơn tiền đang có" : "",
                             filled: true,
                             hintText: "Nhập số tiền",
                             hintStyle:
@@ -612,6 +797,53 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                 // borderSide: const BorderSide(color: Colors.green, width: 1.7),
                                 borderRadius: BorderRadius.circular(8))),
                       ),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              top: 40, bottom: 10, left: 0, right: 0),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  // side: const BorderSide(color: Colors.red)
+                                ),
+                                primary: Mytheme.colorBgButtonLogin,
+                                minimumSize: Size(
+                                    MediaQuery.of(context).size.width, 44)),
+                            child: Text(
+                              "Lưu thay đổi",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "OpenSans-Regular",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+
+
+
+                              var text = "";
+                              if(selectItem) {
+                                text = "1"; // thu nhap
+                              } else {
+                                text = "2";
+                                if(int.parse(_moneyController.text.replaceAll(",", "")) > int.parse(moneyHasSave)) {
+                                  setState(() {
+                                    validate = true;
+                                  });
+
+                                  return;
+                                }// rút ra
+                              }
+                              Navigator.of(context).pop();
+                              addDataDrawTool(
+                                  _itemToolData?.id.toString() ?? "0",
+                                  "1",
+                                  _moneyController.text.replaceAll(",", ""),
+                                  text,
+                                  dates,
+                                  _noteController.text.toString()
+                              );
+                            },
+                          )),
                     ],
                   ),
                 ),
@@ -639,6 +871,16 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
       if (data.statusCode == 200) {
         setState(() {
           dataUsers = data.data!.dataUsers!;
+          for(var i =0; i< dataUsers.length; i++) {
+            if(dataUsers[i].key == "money_want_save"){
+              moneySaveTarget = dataUsers[i].value.toString();
+            } else if(dataUsers[i].key == "money_has"){
+              moneyHasSave = dataUsers[i].value.toString();
+              moneyHasSaveRoot = dataUsers[i].value.toString();
+            }else if(dataUsers[i].key == "day_end"){
+              dayEnd = dataUsers[i].value.toString();
+            }
+          }
         });
         loadDataDrawTool(id);
       }
@@ -658,35 +900,122 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
       pr.hide();
       int statusCode = value['status_code'];
       if (statusCode == 200) {
-
         final parsedJson = value['data'];
         print(parsedJson);
+        dataManage.clear();
 
-        List<DataManage> dataManage = [];
         Map mapValue = value;
-        mapValue['data'].forEach((key, value) {
-          List<ItemManage> itemManage = [];
-          if(value != null && !value.isBlank) {
-            value.forEach((item) {
-              itemManage.add(ItemManage.fromJson(item));
-            });
-            dataManage.add(DataManage(name: key, itemList: itemManage));
+        var data = mapValue['data'].toString();
+
+        if (data != "[]") {
+          mapValue['data'].forEach((key, value) {
+            List<ItemManage> itemManage = [];
+            if (value != null && value.toString() != "[]") {
+              value.forEach((item) {
+                itemManage.add(ItemManage.fromJson(item));
+              });
+              dataManage.add(DataManage(name: key, itemList: itemManage));
+            }
+          });
+        }
+
+        setState(() {
+          dataManage;
+          totalMonth = 0;
+          for(var i = 0; i < dataManage.length; i++) {
+            if(dataManage[i].itemList != null && dataManage[i].itemList!.isNotEmpty) {
+              for(var ii = 0; ii < dataManage[i].itemList!.length; ii++) {
+                if(dataManage[i].itemList![ii].deposit == "1") {
+                  totalMonth = totalMonth + int.parse(dataManage[i].itemList![ii].withdraw.toString());
+                } else if(dataManage[i].itemList![ii].deposit == "2") {
+                  totalMonth = totalMonth - int.parse(dataManage[i].itemList![ii].withdraw.toString());
+                }
+              }
+            }
+          }
+          moneyHasSave = (int.parse(moneyHasSaveRoot) + totalMonth).toString();
+          if(int.parse(moneyHasSave)/ int.parse(moneySaveTarget) > 1) {
+            present = 1;
+          } else {
+            present = int.parse(moneyHasSave)/ int.parse(moneySaveTarget);
+          }
+          if(dataUsers.isNotEmpty) {
+            presentShow = "${(int.parse(moneyHasSave)/int.parse(moneySaveTarget)*100).round().toString()}%";
           }
         });
 
         print(dataManage);
-
       }
     }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
   }
+
+  String formatDate(int day, int month, int year) {
+    var tempDay = day.toString();
+    var tempMonth = month.toString();
+    var tempYear = year.toString();
+    if(day < 10) {
+      tempDay = "0$day";
+    }
+    if(month < 10) {
+      tempMonth = "0$month";
+    }
+
+    return '$tempDay/$tempMonth/$tempYear';
+
+  }
+
+  Future<void> addDataDrawTool(String user_tool_id, String type,
+      String withdraw, String deposit, String date, String note) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+    "user_tool_id": user_tool_id,
+    "type":type,
+    "withdraw":withdraw,
+    "deposit": deposit,
+    "date":date.replaceAll("/", "-"),
+    "note":note
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.storeWithDrawToolURL, param)
+        .then((value) async {
+      pr.hide();
+      int statusCode = value['status_code'];
+      if (statusCode == 200) {
+        loadDataDrawTool(user_tool_id);
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  String calculatorTotalMonth(List<ItemManage> itemList) {
+    var total = 0;
+    if(itemList.isNotEmpty) {
+      for(var i=0; i<itemList.length; i++) {
+        total = total + int.parse(itemList[i].withdraw.toString());
+      }
+      totalMonth = totalMonth + total;
+      return total.toString();
+    }
+    return "0";
+  }
+
+  String calculatorPresent() {
+    if(dataUsers.isNotEmpty) {
+      return "${(int.parse(moneyHasSave)/int.parse(moneySaveTarget)*100).round().toString()}%";
+    }
+   return "0";
+  }
+
 }
 
 class DataManage {
   final String? name;
   final List<ItemManage>? itemList;
+
   DataManage({this.name, this.itemList});
 }
 

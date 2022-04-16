@@ -60,6 +60,7 @@ class RemoteServices {
   static var getDetailItemToolURL = '$baseURL/api/v1/tool/detail-tool-calculate';
   static var updateItemToolURL = '$baseURL/api/v1/tool/update-data-tool';
   static var listWithDrawToolURL = '$baseURL/api/v1/tool/list-with-draw';
+  static var storeWithDrawToolURL = '$baseURL/api/v1/tool/store-with-draw';
 
 
 }
