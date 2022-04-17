@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -20,11 +23,14 @@ import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/custom_exception.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
+import 'package:weather/weather.dart';
 
 import '../../models/tool_model.dart';
 import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
+
+enum AppState { NOT_DOWNLOADED, DOWNLOADING, FINISHED_DOWNLOADING }
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, this.controller}) : super(key: key);
@@ -34,15 +40,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const String _kLocationServicesDisabledMessage =
+      'Location services are disabled.';
+  static const String _kPermissionDeniedMessage = 'Permission denied.';
+  static const String _kPermissionDeniedForeverMessage =
+      'Permission denied forever.';
+  static const String _kPermissionGrantedMessage = 'Permission granted.';
   int _index = 0;
   late ProgressDialog pr;
   List<NewsData>? newsList;
   List<BannerPromotionData>? listBanner = [];
   List<ToolData> _toolList = [];
+  String key = '856822fd8e22db5e1ba48c0e7d69844a';
+  late WeatherFactory ws;
+  List<Weather> _data = [];
+  final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
+
+  String imageHeader = "assets/images/img_header_home.png";
+  String textNhietDo = "34";
+  String statusWeather = "Trời nắng";
+  Color textColorNhietDo = Mytheme.kBackgroundColor;
+
 
   @override
   void initState() {
     super.initState();
+    ws = new WeatherFactory(key);
     Utils.portraitModeOnly();
     pr = ProgressDialog(
       context,
@@ -52,7 +75,128 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(Duration.zero, () {
         loadNews();
     });
+    _getCurrentPosition();
     loadListTool();
+  }
+
+  Future<bool> _handlePermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await _geolocatorPlatform.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      // _updatePositionList(
+      //   _PositionItemType.log,
+      //   _kLocationServicesDisabledMessage,
+      // );
+      Utils.showError(_kLocationServicesDisabledMessage, context);
+
+      return false;
+    }
+
+    permission = await _geolocatorPlatform.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await _geolocatorPlatform.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        // _updatePositionList(
+        //   _PositionItemType.log,
+        //   _kPermissionDeniedMessage,
+        // );
+
+        Utils.showError(_kPermissionDeniedMessage, context);
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      // _updatePositionList(
+      //   _PositionItemType.log,
+      //   _kPermissionDeniedForeverMessage,
+      // );
+      Utils.showError(_kPermissionDeniedForeverMessage, context);
+      return false;
+    }
+
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    // _updatePositionList(
+    //   _PositionItemType.log,
+    //   _kPermissionGrantedMessage,
+    // );
+    return true;
+  }
+//
+  void statusWeatherFunction() {
+    setState(() {
+      if(_data.isNotEmpty) {
+        var status = _data[0].weatherConditionCode ?? 0;
+        if(status >= 801 && status <= 804) {
+          statusWeather = "Trời nhiều mây";
+          imageHeader = "assets/images/img_header_cloud.png";
+          textColorNhietDo = Mytheme.color_0xFF002766;
+          // cloud
+
+        } else if(status == 801 || status == 800) {
+          statusWeather = "Trời nắng";
+          imageHeader = "assets/images/img_header_home.png";
+          textColorNhietDo = Mytheme.kBackgroundColor;
+          // sun
+        } else {
+          statusWeather = "Trời mưa";
+          imageHeader = "assets/images/img_header_rain.png";
+          textColorNhietDo = Mytheme.color_0xFF002766;
+          // rain
+        }
+      } else {
+        statusWeather = "Trời nắng";
+        imageHeader = "assets/images/img_header_home.png";
+        textColorNhietDo = Mytheme.kBackgroundColor;
+      }
+    });
+
+}
+
+
+
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handlePermission();
+
+    if (!hasPermission) {
+      return;
+    }
+
+    final position = await _geolocatorPlatform.getCurrentPosition();
+    queryWeather(position.latitude, position.longitude);
+    print(position);
+  }
+
+
+
+  void queryWeather(double lat, double long) async {
+    /// Removes keyboard
+    FocusScope.of(context).requestFocus(FocusNode());
+
+    // setState(() {
+    //   _state = AppState.DOWNLOADING;
+    // });
+
+    Weather weather = await ws.currentWeatherByLocation(lat, long);
+    setState(() {
+      _data = [weather];
+      statusWeatherFunction();
+      print(_data);
+      // _state = AppState.FINISHED_DOWNLOADING;
+    });
   }
 
   @override
@@ -79,7 +223,69 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           )
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 60, left: 33),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                                padding: const EdgeInsets.only(bottom: 27, right: 0),
+                                child: SvgPicture.asset(
+                                  "assets/svg/ic_logo_notext.svg", width: 70,
+                                ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                 _data.isNotEmpty ? _data[0].tempMax!.celsius!.round().toString() : "34",
+                                style: GoogleFonts.manrope(
+                                    fontSize: 36,
+                                    fontWeight: FontWeight.w300, color: textColorNhietDo
+                                )
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child:  Text(
+                                    "0",
+                                      style: GoogleFonts.manrope(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w300, color: textColorNhietDo
+                                      ),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                "C",
+                                  style: GoogleFonts.manrope(
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w300, color: textColorNhietDo
+                                  ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15, left: 7),
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child:  Text(
+                                    statusWeather,
+                                    style: GoogleFonts.manrope(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w300, color: textColorNhietDo
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     )
+
                   ],
                 ),
                 toolLayout(),
@@ -100,9 +306,9 @@ class _HomeScreenState extends State<HomeScreen> {
   headerLayout() {
     return Container(
       height: 236,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/img_header_home.png"),
+          image: AssetImage(imageHeader),
           fit: BoxFit.cover,
         ),
       ),

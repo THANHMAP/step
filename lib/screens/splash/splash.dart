@@ -77,7 +77,9 @@ class _SplashPageState extends State<SplashPage> {
               fit: BoxFit.fill,
             ),
           ),
-          child: null /* add child content here */,
+          child: Center(
+            child: SvgPicture.asset("assets/svg/ic_logo.svg"),
+          ), /* add child content here */
         ),
       ),
     );

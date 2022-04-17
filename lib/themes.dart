@@ -18,6 +18,7 @@ class Mytheme {
   static const TextStyle textSubTitle = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w600, fontFamily: "OpenSans-Semibold", color: colorTextSubTitle);
 
+
   static const TextStyle textHint = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w600, fontFamily: "OpenSans-Regular", color: colorTextSubTitle);
 
@@ -56,6 +57,7 @@ class Mytheme {
   static const color_0xFFE6E8F1 = Color(0xFFE6E8F1);
   static const color_0xFFA9B0D1 = Color(0xFFA9B0D1);
   static const color_0xFF2655A6 = Color(0xFF2655A6);
+  static const color_0xFF002766 = Color(0xFF002766);
 
   static final light = ThemeData(
     brightness: Brightness.light,

@@ -123,7 +123,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     const SizedBox(height: 10),
                     emailUser(),
                     const SizedBox(height: 10),
-                    // switchFinger(),
+                    switchFinger(),
                     const SizedBox(height: 5),
                     Padding(
                       padding: EdgeInsets.only(
@@ -455,7 +455,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          height: 50,
+          height: 60,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
