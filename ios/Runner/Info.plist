@@ -56,8 +56,12 @@
 	<string>This is called Privacy - Camera Usage Description in the visual editor</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs location access when opened to use the app&apos;s weather display</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs location access when opened to use the app&apos;s weather display</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This is called Privacy - Photo Library Usage Description in the visual editor</string>
+	<string>Description Use Photo Gallery for the purpose of choosing your avatar picture</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

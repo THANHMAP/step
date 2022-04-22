@@ -444,33 +444,36 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(StringText.text_login_different),
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon: Image.asset("assets/images/icon_google.png"),
-                            // tooltip: 'Increase volume by 10',
-                            iconSize: 50,
-                            onPressed: () {
-                              _handleSignIn();
-                            },
-                          ),
-                          const Image(
-                            image: AssetImage('assets/images/img_col.png'),
-                            fit: BoxFit.fill,
-                            width: 2,
-                          ),
-                          IconButton(
-                            icon: Image.asset("assets/images/icon_face.png"),
-                            // tooltip: 'Increase volume by 10',
-                            iconSize: 50,
-                            onPressed: () {
-                              _loginFacebook();
-                            },
-                          ),
-                        ],
-                      ),
+                      if(Platform.isAndroid)...[
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Image.asset("assets/images/icon_google.png"),
+                              // tooltip: 'Increase volume by 10',
+                              iconSize: 50,
+                              onPressed: () {
+                                _handleSignIn();
+                              },
+                            ),
+                            const Image(
+                              image: AssetImage('assets/images/img_col.png'),
+                              fit: BoxFit.fill,
+                              width: 2,
+                            ),
+                            IconButton(
+                              icon: Image.asset("assets/images/icon_face.png"),
+                              // tooltip: 'Increase volume by 10',
+                              iconSize: 50,
+                              onPressed: () {
+                                _loginFacebook();
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
