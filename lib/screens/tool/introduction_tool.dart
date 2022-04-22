@@ -123,6 +123,8 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                           onPressed: () {
                             if(data?.id == 1) {
                               Get.offAndToNamed('/toolBudgetScreen', arguments: data);
+                            } else if(data?.id == 2) {
+                              Get.offAndToNamed('/planeBusinessToolScreen', arguments: data);
                             } else if(data?.id == 5) {
                               Get.offAndToNamed('/portfolioOfLoanScreen', arguments: data);
                             } else if(data?.id == 4) {

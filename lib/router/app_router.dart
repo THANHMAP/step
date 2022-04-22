@@ -54,4 +54,5 @@ class AppRoutes {
   static const String editSaveToolScreen = "/editSaveToolScreen";
   static const String updateNewPassWordScreen = "/updateNewPassWordScreen";
   static const String manageSaveToolScreen = "/manageSaveToolScreen";
+  static const String planeBusinessToolScreen = "/planeBusinessToolScreen";
 }

@@ -48,6 +48,7 @@ import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/tool/budget/detail_budget.dart';
+import '../screens/tool/plan_business/main_plan_business.dart';
 import '../screens/tool/save/manage_save.dart';
 import '../screens/updatepassword/update_new_pass.dart';
 import 'app_router.dart';
@@ -294,6 +295,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.manageSaveToolScreen,
       page: () => const ManageSaveToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.planeBusinessToolScreen,
+      page: () => const PlaneBusinessToolScreen(),
     ),
   ];
 }
