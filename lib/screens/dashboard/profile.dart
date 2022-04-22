@@ -11,6 +11,7 @@ import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/card_setting.dart';
 import 'package:step_bank/compoment/dialog_confirm.dart';
 import 'package:step_bank/compoment/textfield_widget.dart';
+import 'package:step_bank/models/MedalModel.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
@@ -29,6 +30,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   late ProgressDialog pr;
+  List<MedalData> listMedal = [];
 
   @override
   void initState() {
@@ -39,6 +41,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
+    Future.delayed(Duration.zero, () {
+      loadMedal();
+    });
+
   }
 
   @override
@@ -65,6 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        headerLayout(),
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10, left: 15, right: 15),
@@ -253,4 +260,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ));
   }
+
+  headerLayout() {
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: 190,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bg_home.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          // child: Column(
+          //   children: const <Widget>[],
+          // ),
+        ),
+        Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for(var i = 0; i < listMedal.length; i++)...[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 0, left: 10, right: 10),
+                  child: Image.network(
+                      listMedal[i].image ?? ""),
+                ),
+              ],
+
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> loadMedal() async {
+    await pr.show();
+
+    APIManager.getAPICallNeedToken(RemoteServices.userMedalsURL).then(
+            (value) async {
+          await pr.hide();
+          var data = MedalModel.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              listMedal = data.data!;
+            });
+          }
+        }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
 }

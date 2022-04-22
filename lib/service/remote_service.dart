@@ -27,6 +27,9 @@ class RemoteServices {
   static var updateUserURL = '$baseURL/api/v1/user/update-info';
   static var loginSocialURL = '$baseURL/api/v1/user/login-social';
   static var reportErrorURL = '$baseURL/api/v1/setting/store-comment-error-app';
+  static var userMedalsURL = '$baseURL/api/v1/user/user-medals';
+
+
   static var faqURL = '$baseURL/api/v1/setting/list-faqs';
   static var updateAvatarURL = '$baseURL/api/v1/user/update-avatar';
   static var listBannerPromotionURL = '$baseURL/api/v1/setting/list-banner-promotion';
