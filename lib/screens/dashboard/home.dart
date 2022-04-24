@@ -811,7 +811,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadListTool() async {
-    APIManager.getAPICallNeedToken(RemoteServices.listToolURL).then(
+    var param = jsonEncode(<String, String>{
+      'my_tool': "false",
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, param).then(
             (value) async {
           pr.hide();
           var data = ToolModel.fromJson(value);

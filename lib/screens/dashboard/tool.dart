@@ -211,7 +211,10 @@ class _ToolScreenState extends State<ToolScreen> {
 
   Future<void> loadListTool() async {
     await pr.show();
-    APIManager.getAPICallNeedToken(RemoteServices.listToolURL).then(
+    var param = jsonEncode(<String, String>{
+      'my_tool': "true",
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, "").then(
             (value) async {
               pr.hide();
           var data = ToolModel.fromJson(value);

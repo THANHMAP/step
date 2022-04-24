@@ -159,8 +159,14 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/manageSaveToolScreen",
-                            arguments: _listItemToolData[i]);
+                        if(_listItemToolData[i].type == 1) {
+                          Get.toNamed("/editPlaneBusinessToolScreen",
+                              arguments: _listItemToolData[i]);
+                        } else {
+                          Get.toNamed("/editAgriculturalProductionPlanToolScreen",
+                              arguments: _listItemToolData[i]);
+                        }
+
                       },
                     ),
                   ]
@@ -226,7 +232,7 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                 ),
                 InkWell(
                   onTap: () {
-                    Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
+                    Get.toNamed("/addPlaneBusinessToolScreen")?.then((value) {
                       if (value) {
                         loadListItemTool();
                       }
@@ -269,7 +275,7 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
 
                 InkWell(
                   onTap: () {
-                    Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
+                    Get.toNamed("/addAgriculturalProductionPlanToolScreen")?.then((value) {
                       if (value) {
                         loadListItemTool();
                       }

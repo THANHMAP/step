@@ -32,11 +32,8 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
   TextEditingController _nameBudgetController = TextEditingController();
   TextEditingController _thuNhapController = TextEditingController();
   TextEditingController _soTienController = TextEditingController();
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'Thu nhập'),
-    Tab(text: 'Chi phí'),
-  ];
-  late TabController _tabController;
+
+
   List<DataUsers> dataUsers = [];
   var formatter = NumberFormat('#,##,000');
   int typeObj = 1;
@@ -46,6 +43,8 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
   bool showCalculator = true;
   bool showBudget = false;
   String userId = Get.arguments.toString();
+  bool selectDefault = true;
+
   @override
   void initState() {
     super.initState();
@@ -56,8 +55,6 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    _tabController = TabController(vsync: this, length: myTabs.length);
-    _tabController.addListener(_handleTabSelection);
     Future.delayed(Duration.zero, () {
       loadDataTool(userId);
     });
@@ -65,22 +62,11 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
 
   @override
   void dispose() {
-    _tabController.dispose();
+
     super.dispose();
   }
 
-  void _handleTabSelection() {
-    if (_tabController.indexIsChanging) {
-      switch (_tabController.index) {
-        case 0:
-          typeObj = 1;
-          break;
-        case 1:
-          typeObj = 2;
-          break;
-      }
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +107,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.only(top: 30, left: 24, right: 24),
+                                const EdgeInsets.only(top: 30, left: 24, right: 24, bottom: 24),
                                 child: Column(
                                   children: [
                                     const Align(
@@ -159,457 +145,496 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                   ],
                                 ),
                               ),
-                              DefaultTabController(
-                                length: 2,
-                                child: SizedBox(
-                                  height: 500.0,
-                                  child: Column(
-                                    children: <Widget>[
-                                      TabBar(
-                                        controller: _tabController,
-                                        labelColor: Mytheme.color_active,
-                                        unselectedLabelColor: Colors.grey,
-                                        labelStyle: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selectDefault = true;
+                                          typeObj = 1;
+                                        });
+                                      },
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Thu nhập",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: selectDefault
+                                                ? Mytheme.colorBgButtonLogin
+                                                : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
                                         ),
-                                        tabs: myTabs,
                                       ),
-                                      Expanded(
-                                        child: TabBarView(
-                                          controller: _tabController,
-                                          children: <Widget>[
-                                            Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              child: SingleChildScrollView(
-                                                child: Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only( bottom: 30, top: 10, left: 16, right: 16),
-                                                      child: Column(
-                                                        children: [
-                                                          Align(
-                                                            alignment: Alignment.centerLeft,
-                                                            child: Text(
-                                                              "Hãy nhập nguồn thu của bạn. Bạn có thể điều chỉnh các nguồn thu này nếu cần",
-                                                              textAlign: TextAlign.left,
-                                                              style: const TextStyle(
-                                                                fontSize: 12,
-                                                                color: Mytheme.color_82869E,
-                                                                fontWeight: FontWeight.w400,
-                                                                fontFamily:
-                                                                "OpenSans-Regular",
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 20,
-                                                          ),
-                                                          Align(
-                                                            alignment: Alignment.centerRight,
-                                                            child: Text(
-                                                              "Đơn vị: VND",
-                                                              textAlign: TextAlign.left,
-                                                              style: const TextStyle(
-                                                                fontSize: 14,
-                                                                color: Mytheme.color_82869E,
-                                                                fontWeight: FontWeight.w400,
-                                                                fontFamily:
-                                                                "OpenSans-Regular",
-                                                              ),
-                                                            ),
-                                                          ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selectDefault = false;
+                                          typeObj = 2;
+                                        });
+                                      },
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Chi phí",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: !selectDefault
+                                                ? Mytheme.colorBgButtonLogin
+                                                : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: selectDefault
+                                              ? Mytheme.colorBgButtonLogin
+                                              : Mytheme.color_82869E,
+                                        )),
+                                  ),
+                                  Expanded(
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: !selectDefault
+                                              ? Mytheme.colorBgButtonLogin
+                                              : Mytheme.color_82869E,
+                                        )),
+                                  )
+                                ],
+                              ),
 
-                                                          for(var i=0; i< dataUsers.length; i++) ... [
-                                                            if(dataUsers[i].type == 1)...[
-                                                              Padding(
-                                                                padding: const EdgeInsets.only(top: 10),
-                                                                child: Row(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      onTap: () async {
-                                                                        setState(() {
-                                                                          dataUsers.removeAt(i);
-                                                                        });
-                                                                      },
-                                                                      child: Row(
-                                                                        children: [
-                                                                          Padding(
-                                                                            padding: const EdgeInsets.only(right: 10),
-                                                                            child: SvgPicture.asset("assets/svg/ic_delete.svg"),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      flex:2,
-                                                                      child: Container(
-                                                                        margin: const EdgeInsets.only(right: 10.0),
-                                                                        height: 44,
-                                                                        decoration: BoxDecoration(
-                                                                          shape: BoxShape.rectangle,
-                                                                          color: Mytheme.colorTextDivider,
-                                                                          borderRadius: BorderRadius.circular(8),
-                                                                        ),
-                                                                        child: Padding(
-                                                                          padding: const EdgeInsets.all(10),
-                                                                          child: Align(
-                                                                            alignment: Alignment.centerLeft,
-                                                                            child: Text(
-                                                                              dataUsers[i].key ?? "",
-                                                                              textAlign: TextAlign.left,
-                                                                              style: const TextStyle(
-                                                                                fontSize: 16,
-                                                                                color: Mytheme.colorTextSubTitle,
-                                                                                fontWeight: FontWeight.w400,
-                                                                                fontFamily:
-                                                                                "OpenSans-Regular",
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
+                              Visibility(
+                                visible: selectDefault ? true : false,
+                                child:  Padding(
+                                  padding: const EdgeInsets.only( bottom: 30, top: 10, left: 16, right: 16),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Hãy nhập nguồn thu của bạn. Bạn có thể điều chỉnh các nguồn thu này nếu cần",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                            "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Đơn vị: VND",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                            "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
 
-                                                                      ),),
-                                                                    Expanded(child: Container(
-                                                                      height: 44,
-                                                                      decoration: BoxDecoration(
-                                                                        shape: BoxShape.rectangle,
-                                                                        color: Mytheme.colorTextDivider,
-                                                                        borderRadius: BorderRadius.circular(8),
-                                                                      ),
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.all(10),
-                                                                        child: Align(
-                                                                          alignment: Alignment.centerRight,
-                                                                          child: Text(
-                                                                            formatter.format(int.parse(dataUsers[i].value ?? "0")),
-                                                                            textAlign: TextAlign.left,
-                                                                            style: const TextStyle(
-                                                                              fontSize: 16,
-                                                                              color: Mytheme.colorTextSubTitle,
-                                                                              fontWeight: FontWeight.w400,
-                                                                              fontFamily:
-                                                                              "OpenSans-Regular",
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-                                                                    ),)
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ],
-
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(top: 10),
-                                                            child: InkWell(
-                                                              onTap: () async {
-                                                                showDialogAddItemTool();
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets.only(right: 10),
-                                                                    child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
-                                                                  ),
-                                                                  Text(
-                                                                    "Thêm thu nhập khác",
-                                                                    style: TextStyle(
-                                                                        fontSize: 16,
-                                                                        fontFamily: "OpenSans-Regular",
-                                                                        fontWeight: FontWeight.bold),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
+                                      for(var i=0; i< dataUsers.length; i++) ... [
+                                        if(dataUsers[i].type == 1)...[
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      dataUsers.removeAt(i);
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(right: 10),
+                                                        child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex:2,
+                                                  child: Container(
+                                                    margin: const EdgeInsets.only(right: 10.0),
+                                                    height: 44,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.rectangle,
+                                                      color: Mytheme.colorTextDivider,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Text(
+                                                          dataUsers[i].key ?? "",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 16,
+                                                            color: Mytheme.colorTextSubTitle,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily:
+                                                            "OpenSans-Regular",
                                                           ),
-                                                          Padding(
-                                                              padding: const EdgeInsets.only(
-                                                                  top: 20),
-                                                              child: Container(
-                                                                height: 108,
-                                                                decoration: BoxDecoration(
-                                                                  shape: BoxShape.rectangle,
-                                                                  color: Colors.white,
-                                                                  borderRadius: BorderRadius.circular(8),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Colors.grey.withOpacity(0.5),
-                                                                      spreadRadius: 1,
-                                                                      blurRadius: 7,
-                                                                      offset: const Offset(0, 3), // changes position of shadow
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                child: Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                  children: [
-                                                                    Align(
-                                                                      alignment: Alignment.center,
-                                                                      child: Text(
-                                                                        "Tổng thu nhập",
-                                                                        textAlign: TextAlign.left,
-                                                                        style: const TextStyle(
-                                                                          fontSize: 16,
-                                                                          color: Mytheme.color_82869E,
-                                                                          fontWeight: FontWeight.w400,
-                                                                          fontFamily:
-                                                                          "OpenSans-Regular",
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                      height: 10,
-                                                                    ),
-                                                                    Align(
-                                                                      alignment: Alignment.center,
-                                                                      child: Text(
-                                                                        calculatorTotalType1(),
-                                                                        textAlign: TextAlign.left,
-                                                                        style: const TextStyle(
-                                                                          fontSize: 24,
-                                                                          color: Mytheme.colorBgButtonLogin,
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontFamily:
-                                                                          "OpenSans-SemiBold",
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              )
-                                                          )
-                                                        ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
 
-                                            ),
-                                            Container(
-                                              child: Column(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        top: 10, left: 16, right: 16),
-                                                    child: Column(
-                                                      children:   [
-                                                        Align(
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Text(
-                                                            "Hãy nhập các chi phí của bạn. Bạn có thể điều chỉnh các chi phí này nếu cần",
-                                                            textAlign: TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 12,
-                                                              color: Mytheme.color_82869E,
-                                                              fontWeight: FontWeight.w400,
-                                                              fontFamily:
-                                                              "OpenSans-Regular",
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20,
-                                                        ),
-                                                        Align(
-                                                          alignment: Alignment.centerRight,
-                                                          child: Text(
-                                                            "Đơn vị: VND",
-                                                            textAlign: TextAlign.left,
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: Mytheme.color_82869E,
-                                                              fontWeight: FontWeight.w400,
-                                                              fontFamily:
-                                                              "OpenSans-Regular",
-                                                            ),
-                                                          ),
-                                                        ),
-
-                                                        for(var i=0; i< dataUsers.length; i++) ... [
-                                                          if(dataUsers[i].type == 2)...[
-                                                            Padding(
-                                                              padding: const EdgeInsets.only(top: 10),
-                                                              child: Row(
-                                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                                children: [
-                                                                  InkWell(
-                                                                    onTap: () async {
-                                                                      setState(() {
-                                                                        dataUsers.removeAt(i);
-                                                                      });
-                                                                    },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.only(right: 10),
-                                                                          child: SvgPicture.asset("assets/svg/ic_delete.svg"),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    flex:2,
-                                                                    child: Container(
-                                                                      margin: const EdgeInsets.only(right: 10.0),
-                                                                      height: 44,
-                                                                      decoration: BoxDecoration(
-                                                                        shape: BoxShape.rectangle,
-                                                                        color: Mytheme.colorTextDivider,
-                                                                        borderRadius: BorderRadius.circular(8),
-                                                                      ),
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.all(10),
-                                                                        child: Align(
-                                                                          alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                                                            dataUsers[i].key ?? "",
-                                                                            textAlign: TextAlign.left,
-                                                                            style: const TextStyle(
-                                                                              fontSize: 16,
-                                                                              color: Mytheme.colorTextSubTitle,
-                                                                              fontWeight: FontWeight.w400,
-                                                                              fontFamily:
-                                                                              "OpenSans-Regular",
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-                                                                    ),),
-                                                                  Expanded(child: Container(
-                                                                    height: 44,
-                                                                    decoration: BoxDecoration(
-                                                                      shape: BoxShape.rectangle,
-                                                                      color: Mytheme.colorTextDivider,
-                                                                      borderRadius: BorderRadius.circular(8),
-                                                                    ),
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.all(10),
-                                                                      child: Align(
-                                                                        alignment: Alignment.centerRight,
-                                                                        child: Text(
-                                                                          formatter.format(int.parse(dataUsers[i].value ?? "0")),
-                                                                          textAlign: TextAlign.left,
-                                                                          style: const TextStyle(
-                                                                            fontSize: 16,
-                                                                            color: Mytheme.colorTextSubTitle,
-                                                                            fontWeight: FontWeight.w400,
-                                                                            fontFamily:
-                                                                            "OpenSans-Regular",
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-
-                                                                  ),)
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ],
-
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(top: 10),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              showDialogAddItemTool();
-                                                            },
-                                                            child: Row(
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsets.only(right: 10),
-                                                                  child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
-                                                                ),
-                                                                Text(
-                                                                  "Thêm chi phí khác",
-                                                                  style: TextStyle(
-                                                                      fontSize: 16,
-                                                                      fontFamily: "OpenSans-Regular",
-                                                                      fontWeight: FontWeight.bold),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                top: 20),
-                                                            child: Container(
-                                                              height: 108,
-                                                              decoration: BoxDecoration(
-                                                                shape: BoxShape.rectangle,
-                                                                color: Colors.white,
-                                                                borderRadius: BorderRadius.circular(8),
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                    color: Colors.grey.withOpacity(0.5),
-                                                                    spreadRadius: 1,
-                                                                    blurRadius: 7,
-                                                                    offset: const Offset(0, 3), // changes position of shadow
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                children: [
-                                                                  Align(
-                                                                    alignment: Alignment.center,
-                                                                    child: Text(
-                                                                      "Tổng chi phí",
-                                                                      textAlign: TextAlign.left,
-                                                                      style: const TextStyle(
-                                                                        fontSize: 16,
-                                                                        color: Mytheme.color_82869E,
-                                                                        fontWeight: FontWeight.w400,
-                                                                        fontFamily:
-                                                                        "OpenSans-Regular",
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 10,
-                                                                  ),
-                                                                  Align(
-                                                                    alignment: Alignment.center,
-                                                                    child: Text(
-                                                                      calculatorTotalType2(),
-                                                                      textAlign: TextAlign.left,
-                                                                      style: const TextStyle(
-                                                                        fontSize: 24,
-                                                                        color: Mytheme.colorBgButtonLogin,
-                                                                        fontWeight: FontWeight.w600,
-                                                                        fontFamily:
-                                                                        "OpenSans-SemiBold",
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            )
-                                                        )
-
-                                                      ],
-                                                    ),
-
+                                                  ),),
+                                                Expanded(child: Container(
+                                                  height: 44,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    color: Mytheme.colorTextDivider,
+                                                    borderRadius: BorderRadius.circular(8),
                                                   ),
-                                                ],
-                                              ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(10),
+                                                    child: Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: Text(
+                                                        formatter.format(int.parse(dataUsers[i].value ?? "0")),
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily:
+                                                          "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                ),)
+                                              ],
                                             ),
-                                          ],
+                                          ),
+                                        ],
+                                      ],
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            showDialogAddItemTool();
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 10),
+                                                child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                                              ),
+                                              Text(
+                                                "Thêm thu nhập khác",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontFamily: "OpenSans-Regular",
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20),
+                                          child: Container(
+                                            height: 108,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 7,
+                                                  offset: const Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "Tổng thu nhập",
+                                                    textAlign: TextAlign.left,
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Mytheme.color_82869E,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily:
+                                                      "OpenSans-Regular",
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    calculatorTotalType1(),
+                                                    textAlign: TextAlign.left,
+                                                    style: const TextStyle(
+                                                      fontSize: 24,
+                                                      color: Mytheme.colorBgButtonLogin,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily:
+                                                      "OpenSans-SemiBold",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                      )
                                     ],
                                   ),
-                                ),
-                              ),
+                                ),),
+                              Visibility(
+                                visible: !selectDefault ? true : false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, left: 16, right: 16),
+                                  child: Column(
+                                    children:   [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Hãy nhập các chi phí của bạn. Bạn có thể điều chỉnh các chi phí này nếu cần",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                            "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Đơn vị: VND",
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                            "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+
+                                      for(var i=0; i< dataUsers.length; i++) ... [
+                                        if(dataUsers[i].type == 2)...[
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () async {
+                                                    setState(() {
+                                                      dataUsers.removeAt(i);
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(right: 10),
+                                                        child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex:2,
+                                                  child: Container(
+                                                    margin: const EdgeInsets.only(right: 10.0),
+                                                    height: 44,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.rectangle,
+                                                      color: Mytheme.colorTextDivider,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Text(
+                                                          dataUsers[i].key ?? "",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 16,
+                                                            color: Mytheme.colorTextSubTitle,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily:
+                                                            "OpenSans-Regular",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                  ),),
+                                                Expanded(child: Container(
+                                                  height: 44,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    color: Mytheme.colorTextDivider,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(10),
+                                                    child: Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: Text(
+                                                        formatter.format(int.parse(dataUsers[i].value ?? "0")),
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily:
+                                                          "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                ),)
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            showDialogAddItemTool();
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 10),
+                                                child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                                              ),
+                                              Text(
+                                                "Thêm chi phí khác",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontFamily: "OpenSans-Regular",
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 20),
+                                          child: Container(
+                                            height: 108,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 7,
+                                                  offset: const Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "Tổng chi phí",
+                                                    textAlign: TextAlign.left,
+                                                    style: const TextStyle(
+                                                      fontSize: 16,
+                                                      color: Mytheme.color_82869E,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily:
+                                                      "OpenSans-Regular",
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    calculatorTotalType2(),
+                                                    textAlign: TextAlign.left,
+                                                    style: const TextStyle(
+                                                      fontSize: 24,
+                                                      color: Mytheme.colorBgButtonLogin,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily:
+                                                      "OpenSans-SemiBold",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                      )
+
+                                    ],
+                                  ),
+
+                                ),)
                             ],
                           ),
                         ),

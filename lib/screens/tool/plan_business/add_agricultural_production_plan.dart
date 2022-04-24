@@ -23,30 +23,25 @@ import '../../../service/remote_service.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
 
-class AddPlaneBusinessToolScreen extends StatefulWidget {
-  const AddPlaneBusinessToolScreen({Key? key}) : super(key: key);
+class AddAgriculturalProductionPlanToolScreen extends StatefulWidget {
+  const AddAgriculturalProductionPlanToolScreen({Key? key}) : super(key: key);
 
   @override
-  _AddPlaneBusinessToolScreenState createState() => _AddPlaneBusinessToolScreenState();
+  _AddAgriculturalProductionPlanToolScreenState createState() => _AddAgriculturalProductionPlanToolScreenState();
 }
 
-class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
+class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgriculturalProductionPlanToolScreen>
     with SingleTickerProviderStateMixin {
   TextEditingController _namePlantBusinessController = TextEditingController();
   TextEditingController _whoAreYouController = TextEditingController();
-  TextEditingController _idealPlanBusinessController = TextEditingController();
-  TextEditingController _whatBusinessController = TextEditingController();
+  TextEditingController _trongCayNuoiConGiController = TextEditingController();
 
-  TextEditingController _khachHangCuaBanController = TextEditingController();
-  TextEditingController _doiThuCanhTranhController = TextEditingController();
-  TextEditingController _theManhCanhTranhController = TextEditingController();
+  TextEditingController _nhaCungCapDichVuController = TextEditingController();
+  TextEditingController _nguonNhanCongController = TextEditingController();
 
-  TextEditingController _cachTiepThiSanPhamController = TextEditingController();
+  TextEditingController _banChoAiController = TextEditingController();
+  TextEditingController _banNhuTheNaoController = TextEditingController();
 
-  TextEditingController _lietKeNhiemVuController = TextEditingController();
-  TextEditingController _lietKeNguonLucController = TextEditingController();
-
-  TextEditingController _nameBudgetController = TextEditingController();
   TextEditingController _thuNhapController = TextEditingController();
   TextEditingController _soTienController = TextEditingController();
 
@@ -55,7 +50,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
   List<DataUsers> dataUsers = [];
   ScrollController scrollController = ScrollController();
   int indexPlan = 0;
-  String imgHeader = "assets/svg/img_plan_business_1.svg";
+  String imgHeader = "assets/svg/img_plan_agricultural_1.svg";
   bool selectDefault = true;
   int typeObj = 1;
   late ToolData data;
@@ -107,7 +102,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         body: Column(
           children: <Widget>[
             AppbarWidget(
-              text: "Kế hoạch kinh doanh",
+              text: "Kế hoạch sản xuất nông nghiệp",
               onClicked: () {
                 Navigator.of(context).pop(false);
               },
@@ -116,7 +111,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Padding(
-                  padding: EdgeInsets.only(
+                  padding:  EdgeInsets.only(
                       top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
@@ -138,8 +133,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                       children: [
 
                                         Visibility(
-                                            visible: indexPlan == 0 ? true : false,
-                                            child:  layouIndex1(),
+                                          visible: indexPlan == 0 ? true : false,
+                                          child:  layouIndex1(),
                                         ),
                                         Visibility(
                                           visible: indexPlan == 1 ? true : false,
@@ -152,10 +147,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                         Visibility(
                                           visible: indexPlan == 3 ? true : false,
                                           child:  layouIndex4(),
-                                        ),
-                                        Visibility(
-                                          visible: indexPlan == 4 ? true : false,
-                                          child:  layouIndex5(),
                                         ),
 
                                         Container(
@@ -205,17 +196,17 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                     minimumSize:
                                                     Size(MediaQuery.of(context).size.width, 44)),
                                                 child: Text(
-                                                  indexPlan == 4 ? "Lưu" :"Tiếp tục",
+                                                  indexPlan == 3 ? "Lưu" :"Tiếp tục",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       fontFamily: "OpenSans-Regular",
                                                       fontWeight: FontWeight.bold),
                                                 ),
                                                 onPressed: () {
-                                                  if(indexPlan < 4) {
+                                                  if(indexPlan < 3) {
                                                     setState(() {
                                                       indexPlan = indexPlan + 1;
-                                                      imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
                                                     });
                                                     scrollController.animateTo( //go to top of scroll
                                                         0,  //scroll offset to go
@@ -223,11 +214,10 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                         curve:Curves.fastOutSlowIn //scroll type
                                                     );
                                                   } else {
-
                                                     StoreDataTool storeDataTool = StoreDataTool();
                                                     storeDataTool.title = _namePlantBusinessController.text;
                                                     storeDataTool.toolId = data.id;
-                                                    storeDataTool.type = 1; // 1 plan business
+                                                    storeDataTool.type = 2; // 2 plan business
 
                                                     //bạn là ai
                                                     dataUsers.add(DataUsers(
@@ -236,65 +226,42 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                       type: 0,
                                                     ));
 
-                                                    //ý tương kinh doanh
+                                                    //trong cay nuoi con gi
                                                     dataUsers.add(DataUsers(
-                                                      key: "y_tuong_kinh_doanh",
-                                                      value: _idealPlanBusinessController.text,
+                                                      key: "trong_cay_nuoi_gi",
+                                                      value: _trongCayNuoiConGiController.text,
                                                       type: 0,
                                                     ));
 
-                                                    //kinh doanh cái gì
+                                                    //nha cung cap dich vu
                                                     dataUsers.add(DataUsers(
-                                                      key: "kinh_doanh_cai_gi",
-                                                      value: _whatBusinessController.text,
+                                                      key: "nha_cung_cap_dich_vu",
+                                                      value: _nhaCungCapDichVuController.text,
                                                       type: 0,
                                                     ));
 
-                                                    //Khách hàng của bạn là ai
+                                                    //nguon nhan cong
                                                     dataUsers.add(DataUsers(
-                                                      key: "khach_hang_cua_ban",
-                                                      value: _khachHangCuaBanController.text,
+                                                      key: "nguon_nhan_cong",
+                                                      value: _nguonNhanCongController.text,
                                                       type: 0,
                                                     ));
 
-                                                    //Đối thủ cạnh tranh
+                                                    //ban cho ai
                                                     dataUsers.add(DataUsers(
-                                                      key: "doi_thu_canh_tranh",
-                                                      value: _doiThuCanhTranhController.text,
+                                                      key: "ban_cho_ai",
+                                                      value: _banChoAiController.text,
                                                       type: 0,
                                                     ));
 
-                                                    //Thế mạnh cạnh tranh
+                                                    //ban nhu the nào
                                                     dataUsers.add(DataUsers(
-                                                      key: "the_manh_canh_tranh",
-                                                      value: _theManhCanhTranhController.text,
+                                                      key: "ban_nhu_the_nao",
+                                                      value: _banNhuTheNaoController.text,
                                                       type: 0,
                                                     ));
-
-                                                    //Kế hoạch bán hàng
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ke_hoach_ban_hang",
-                                                      value: _cachTiepThiSanPhamController.text,
-                                                      type: 0,
-                                                    ));
-
-                                                    //nhiệm vụ thuc hien
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nhiem_vu_thuc_hien",
-                                                      value: _lietKeNhiemVuController.text,
-                                                      type: 0,
-                                                    ));
-
-                                                    //nguồn lực
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nguon_luc",
-                                                      value: _lietKeNguonLucController.text,
-                                                      type: 0,
-                                                    ));
-
                                                     storeDataTool.dataUsers = dataUsers;
                                                     saveItemTool(jsonEncode(storeDataTool));
-
                                                   }
 
                                                 },
@@ -305,8 +272,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                       ],
                                     ),
                                   ),
-
-
                                   //
 
                                 ],
@@ -336,7 +301,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Tên hoạt động sản xuất kinh doanh",
+            "Tên hoạt động sản xuất nông nghiệp",
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: 16,
@@ -359,7 +324,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               hintText: "Tên hoạt động sản xuất kinh doanh",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              suffixIcon: Icons.close,
+              // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
                   _namePlantBusinessController.clear(),
               textController: _namePlantBusinessController),
@@ -399,25 +364,17 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   _whoAreYouController.clear(),
               textController: _whoAreYouController),
         ),
-        const Align(
+        const SizedBox(height: 10),
+        Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Mytheme.color_82869E,
-              fontWeight: FontWeight.w400,
-              fontFamily: "OpenSans-Regular",
-            ),
-          ),
+          child: SvgPicture.asset("assets/svg/diem_manh.svg"),
         ),
 
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Ý tưởng kinh doanh",
+            "Bạn trồng cây/nuôi con gì",
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: 16,
@@ -439,54 +396,20 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
-              hintText: "Ý tưởng kinh doanh của bạn là",
+              hintText: "Sản phẩm dự kiến sản xuất của bạn là",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
-                  _idealPlanBusinessController.clear(),
-              textController: _idealPlanBusinessController),
+                  _trongCayNuoiConGiController.clear(),
+              textController: _trongCayNuoiConGiController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/svg_hint_text_plan.svg"),
+          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg"),
         ),
 
-        const SizedBox(height: 10),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Bạn kinh doanh cái gì ?",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Mytheme.colorTextSubTitle,
-              fontWeight: FontWeight.w600,
-              fontFamily: "OpenSans-SemiBold",
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          height: 5 * 24.0,
-          child: TextFieldWidget(
-              maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              hintText: "Miêu tả sản phẩm hoặc dịch vụ",
-              // labelText: "Phone number",
-              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _whatBusinessController.clear(),
-              textController: _whatBusinessController),
-        ),
       ],
     );
   }
@@ -497,7 +420,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Khách hàng của bạn là ai",
+            "Những nhà cung cấp dịch  vụ của bạn?",
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: 16,
@@ -509,9 +432,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
         const SizedBox(height: 10),
         Container(
-          height: 3 * 24.0,
+          height: 5 * 24.0,
           child: TextFieldWidget(
-              maxLines: 3,
+              maxLines: 6,
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter
@@ -519,25 +442,25 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
-              hintText: "Miêu tả khách hàng",
+              hintText: "Nhà cung cấp dịch vụ của bạn là",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
-                  _khachHangCuaBanController.clear(),
-              textController: _khachHangCuaBanController),
+                  _nhaCungCapDichVuController.clear(),
+              textController: _nhaCungCapDichVuController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg"),
+          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg"),
         ),
 
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Đối thủ cạnh tranh",
+            "Nguồn nhân công",
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: 16,
@@ -549,9 +472,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
         const SizedBox(height: 10),
         Container(
-          height: 4 * 24.0,
+          height: 5 * 24.0,
           child: TextFieldWidget(
-              maxLines: 4,
+              maxLines: 6,
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter
@@ -559,59 +482,18 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
-              hintText: "Đối thủ cạnh tranh của bạn là",
+              hintText: "Nguồn nhân công của bạn",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
-                  _doiThuCanhTranhController.clear(),
-              textController: _doiThuCanhTranhController),
-        ),
-
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg"),
-        ),
-
-        const SizedBox(height: 10),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Thế mạnh cạnh tranh",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Mytheme.colorTextSubTitle,
-              fontWeight: FontWeight.w600,
-              fontFamily: "OpenSans-SemiBold",
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          height: 4 * 24.0,
-          child: TextFieldWidget(
-              maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              hintText: "Thế mạnh cạnh tranh của bạn là",
-              // labelText: "Phone number",
-              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _theManhCanhTranhController.clear(),
-              textController: _theManhCanhTranhController),
+                  _nguonNhanCongController.clear(),
+              textController: _nguonNhanCongController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg"),
+          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg"),
         ),
 
       ],
@@ -624,7 +506,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Kế hoạch bán hàng",
+            "Bạn bán hàng đi đâu và cho ai",
             textAlign: TextAlign.left,
             style: const TextStyle(
               fontSize: 16,
@@ -636,9 +518,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
         const SizedBox(height: 10),
         Container(
-          height: 4 * 24.0,
+          height: 5 * 24.0,
           child: TextFieldWidget(
-              maxLines: 4,
+              maxLines: 6,
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter
@@ -646,110 +528,65 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
-              hintText: "Cách tiếp thị sản phẩm",
+              hintText: "Khách hàng và địa điểm của bạn",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
-                  _cachTiepThiSanPhamController.clear(),
-              textController: _cachTiepThiSanPhamController),
+                  _banChoAiController.clear(),
+              textController: _banChoAiController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nhiem_vu.svg"),
+          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg"),
+        ),
+
+
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Bán hàng như thế nào",
+            textAlign: TextAlign.left,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Mytheme.colorTextSubTitle,
+              fontWeight: FontWeight.w600,
+              fontFamily: "OpenSans-SemiBold",
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          height: 5 * 24.0,
+          child: TextFieldWidget(
+              maxLines: 6,
+              keyboardType: TextInputType.text,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter
+                    .singleLineFormatter
+              ],
+              textInputAction: TextInputAction.done,
+              obscureText: false,
+              hintText: "Cách thức bán hàng",
+              // labelText: "Phone number",
+              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+              // suffixIcon: Icons.close,
+              clickSuffixIcon: () =>
+                  _banNhuTheNaoController.clear(),
+              textController: _banNhuTheNaoController),
+        ),
+        const SizedBox(height: 10),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg"),
         ),
       ],
     );
   }
+
 
   layouIndex4() {
-    return Column(
-      children: [
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Chỉ ra các nhiệm vụ cần thực hiện và phân công người chịu trách nhiệm",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Mytheme.colorTextSubTitle,
-              fontWeight: FontWeight.w600,
-              fontFamily: "OpenSans-SemiBold",
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          height: 4 * 24.0,
-          child: TextFieldWidget(
-              maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              hintText: "Liệt kê các nhiệm vụ và người chịu trách nhiệm cho công việc đó",
-              // labelText: "Phone number",
-              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _lietKeNhiemVuController.clear(),
-              textController: _lietKeNhiemVuController),
-        ),
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg"),
-        ),
-
-        const SizedBox(height: 10),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Xác định các nguồn lực cần thiết cho hoạt động kinh doanh",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Mytheme.colorTextSubTitle,
-              fontWeight: FontWeight.w600,
-              fontFamily: "OpenSans-SemiBold",
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          height: 4 * 24.0,
-          child: TextFieldWidget(
-              maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
-              obscureText: false,
-              hintText: "Liệt kê các nguồn lực",
-              // labelText: "Phone number",
-              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _lietKeNguonLucController.clear(),
-              textController: _lietKeNguonLucController),
-        ),
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg"),
-        ),
-
-      ],
-    );
-  }
-
-  layouIndex5() {
     return Column(
       children: [
         Row(
@@ -810,20 +647,20 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           children: [
             Expanded(
               child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
                     color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
+                  )
               ),
             ),
             Expanded(
               child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
                     color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
+                  )
               ),
             )
           ],
@@ -839,7 +676,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Xác định các nguồn thu của động sản xuất kinh doanh. Bạn có thể tham khảo các loại thu nhập được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh của mình",
+                    "Xác định các nguồn thu hoạt động sản xuất kinh doanh. Bạn có thể tham khảo các loại thu nhập được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh của mình",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontSize: 12,
@@ -1045,7 +882,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Xác định các loại chi phí ban đầu. Bạn có thể tham khảo các loại chi phí được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh.",
+                    "Xác định các loại chi phí ban đầu. Bạn có thể tham khảo các loại chi phí được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất nông nghiệp",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontSize: 12,
@@ -1300,7 +1137,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                 return Future.value(false);
               },
               child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công kế hoạch SXKD của mình!",
+                title: "Chúc mừng bạn đã tạo thành công kế hoạch SXNN của mình!",
                 descriptions:
                 "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần.",
                 textButton: "Tiếp tục",

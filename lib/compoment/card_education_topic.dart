@@ -67,7 +67,7 @@ class CardEducationTopicWidget extends StatelessWidget {
               flex: 4,
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 16, left: 0, bottom: 18, right: 0),
+                    top: 16, left: 0, bottom: 18, right: 6),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

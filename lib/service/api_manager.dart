@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -26,7 +27,9 @@ class APIManager {
           'Content-Type': 'application/json',
         },
         body: param,
-      );
+      ).timeout(const Duration(seconds: 15),onTimeout : () {
+        throw TimeoutException('The connection has timed out, Please try again!');
+      });
       responseJson = _response(response);
       if (kDebugMode) {
         print(responseJson);
@@ -50,7 +53,9 @@ class APIManager {
           'Authorization': 'Bearer $token',
         },
         body: param,
-      );
+      ).timeout(const Duration(seconds: 15),onTimeout : () {
+        throw TimeoutException('The connection has timed out, Please try again!');
+      });
       responseJson = _response(response);
       if (kDebugMode) {
         print(responseJson);
@@ -72,7 +77,9 @@ class APIManager {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-      );
+      ).timeout(const Duration(seconds: 15),onTimeout : () {
+        throw TimeoutException('The connection has timed out, Please try again!');
+      });
       responseJson = _response(response);
       if (kDebugMode) {
         print(responseJson);

@@ -140,6 +140,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                       Get.toNamed('/educationTopicDetail', arguments: _lessonList[i]);
                                     },
                                   ),
+                                  const SizedBox(height: 10),
                                 ]
                               ],
                             ),

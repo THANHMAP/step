@@ -48,6 +48,10 @@ import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/tool/budget/detail_budget.dart';
+import '../screens/tool/plan_business/add_agricultural_production_plan.dart';
+import '../screens/tool/plan_business/add_plan_business.dart';
+import '../screens/tool/plan_business/edit_agricultural_production_plan.dart';
+import '../screens/tool/plan_business/edit_plan_business.dart';
 import '../screens/tool/plan_business/main_plan_business.dart';
 import '../screens/tool/save/manage_save.dart';
 import '../screens/updatepassword/update_new_pass.dart';
@@ -300,6 +304,26 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.planeBusinessToolScreen,
       page: () => const PlaneBusinessToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.addPlaneBusinessToolScreen,
+      page: () => const AddPlaneBusinessToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.addAgriculturalProductionPlanToolScreen,
+      page: () => const AddAgriculturalProductionPlanToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editPlaneBusinessToolScreen,
+      page: () => const EditPlaneBusinessToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editAgriculturalProductionPlanToolScreen,
+      page: () => const EditAgriculturalProductionPlanToolScreen(),
     ),
   ];
 }

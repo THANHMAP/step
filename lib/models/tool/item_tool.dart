@@ -34,14 +34,16 @@ class ItemToolData {
   int? id;
   int? toolId;
   String? name;
+  int? type;
   String? createdAt;
 
-  ItemToolData({this.id, this.toolId, this.name, this.createdAt});
+  ItemToolData({this.id, this.toolId, this.name, this.type, this.createdAt});
 
   ItemToolData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     toolId = json['tool_id'];
     name = json['name'];
+    type = json['type'];
     createdAt = json['createdAt'];
   }
 
@@ -50,6 +52,7 @@ class ItemToolData {
     data['id'] = this.id;
     data['tool_id'] = this.toolId;
     data['name'] = this.name;
+    data['type'] = this.type;
     data['createdAt'] = this.createdAt;
     return data;
   }

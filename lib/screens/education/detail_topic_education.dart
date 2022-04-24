@@ -103,7 +103,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                       ),
                       Padding(
                         padding:
-                            const EdgeInsets.only(top: 30, left: 0, right: 0),
+                            const EdgeInsets.only(top: 10, left: 0, right: 0),
                         child: Column(
                           children: [
                             Padding(

@@ -55,4 +55,8 @@ class AppRoutes {
   static const String updateNewPassWordScreen = "/updateNewPassWordScreen";
   static const String manageSaveToolScreen = "/manageSaveToolScreen";
   static const String planeBusinessToolScreen = "/planeBusinessToolScreen";
+  static const String addPlaneBusinessToolScreen = "/addPlaneBusinessToolScreen";
+  static const String addAgriculturalProductionPlanToolScreen = "/addAgriculturalProductionPlanToolScreen";
+  static const String editPlaneBusinessToolScreen = "/editPlaneBusinessToolScreen";
+  static const String editAgriculturalProductionPlanToolScreen = "/editAgriculturalProductionPlanToolScreen";
 }

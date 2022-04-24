@@ -15,22 +15,24 @@ import '../../../compoment/dialog_confirm.dart';
 import '../../../compoment/dialog_success.dart';
 import '../../../constants.dart';
 import '../../../models/tool/data_sample.dart';
+import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../models/tool/store_data_tool_model.dart';
+import '../../../models/tool/update_data_tool.dart';
 import '../../../models/tool_model.dart';
 import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
 
-class AddPlaneBusinessToolScreen extends StatefulWidget {
-  const AddPlaneBusinessToolScreen({Key? key}) : super(key: key);
+class EditPlaneBusinessToolScreen extends StatefulWidget {
+  const EditPlaneBusinessToolScreen({Key? key}) : super(key: key);
 
   @override
-  _AddPlaneBusinessToolScreenState createState() => _AddPlaneBusinessToolScreenState();
+  _EditPlaneBusinessToolScreenState createState() => _EditPlaneBusinessToolScreenState();
 }
 
-class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
+class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScreen>
     with SingleTickerProviderStateMixin {
   TextEditingController _namePlantBusinessController = TextEditingController();
   TextEditingController _whoAreYouController = TextEditingController();
@@ -59,11 +61,13 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
   bool selectDefault = true;
   int typeObj = 1;
   late ToolData data;
+  ItemToolData? _itemToolData;
 
   @override
   void initState() {
     super.initState();
     data = Constants.toolData!;
+    _itemToolData = Get.arguments;
     scrollController.addListener(() { //scroll listener
       double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
 
@@ -87,7 +91,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
     Utils.portraitModeOnly();
 
     Future.delayed(Duration.zero, () {
-      // loadDataSampleTool();
+      loadDataTool(_itemToolData?.id.toString() ?? "0");
     });
   }
 
@@ -138,8 +142,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                       children: [
 
                                         Visibility(
-                                            visible: indexPlan == 0 ? true : false,
-                                            child:  layouIndex1(),
+                                          visible: indexPlan == 0 ? true : false,
+                                          child:  layouIndex1(),
                                         ),
                                         Visibility(
                                           visible: indexPlan == 1 ? true : false,
@@ -224,77 +228,86 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                     );
                                                   } else {
 
-                                                    StoreDataTool storeDataTool = StoreDataTool();
-                                                    storeDataTool.title = _namePlantBusinessController.text;
-                                                    storeDataTool.toolId = data.id;
-                                                    storeDataTool.type = 1; // 1 plan business
+                                                    UpdateDataTool updateDataTool = UpdateDataTool();
+                                                    updateDataTool.title = _namePlantBusinessController.text;
+                                                    updateDataTool.userToolId = _itemToolData?.id;
+                                                    updateDataTool.type = 1; // 1 plan business
 
+                                                    List<UpdateDataToolUsers>? listData = [];
                                                     //bạn là ai
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "ban_la_ai",
                                                       value: _whoAreYouController.text,
                                                       type: 0,
                                                     ));
 
                                                     //ý tương kinh doanh
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "y_tuong_kinh_doanh",
                                                       value: _idealPlanBusinessController.text,
                                                       type: 0,
                                                     ));
 
                                                     //kinh doanh cái gì
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "kinh_doanh_cai_gi",
                                                       value: _whatBusinessController.text,
                                                       type: 0,
                                                     ));
 
                                                     //Khách hàng của bạn là ai
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "khach_hang_cua_ban",
                                                       value: _khachHangCuaBanController.text,
                                                       type: 0,
                                                     ));
 
                                                     //Đối thủ cạnh tranh
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "doi_thu_canh_tranh",
                                                       value: _doiThuCanhTranhController.text,
                                                       type: 0,
                                                     ));
 
                                                     //Thế mạnh cạnh tranh
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "the_manh_canh_tranh",
                                                       value: _theManhCanhTranhController.text,
                                                       type: 0,
                                                     ));
 
                                                     //Kế hoạch bán hàng
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "ke_hoach_ban_hang",
                                                       value: _cachTiepThiSanPhamController.text,
                                                       type: 0,
                                                     ));
 
                                                     //nhiệm vụ thuc hien
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "nhiem_vu_thuc_hien",
                                                       value: _lietKeNhiemVuController.text,
                                                       type: 0,
                                                     ));
 
                                                     //nguồn lực
-                                                    dataUsers.add(DataUsers(
+                                                    listData.add(UpdateDataToolUsers(
                                                       key: "nguon_luc",
                                                       value: _lietKeNguonLucController.text,
                                                       type: 0,
                                                     ));
 
-                                                    storeDataTool.dataUsers = dataUsers;
-                                                    saveItemTool(jsonEncode(storeDataTool));
-
+                                                    for(var i = 0; i<dataUsers.length; i++) {
+                                                      if(dataUsers[i].type == 1 || dataUsers[i].type == 2) {
+                                                        listData.add(UpdateDataToolUsers(
+                                                            key: dataUsers[i].key,
+                                                            type: dataUsers[i].type,
+                                                            value: dataUsers[i].value
+                                                        ));
+                                                      }
+                                                    }
+                                                    updateDataTool.dataUsers = listData;
+                                                    saveItemTool(jsonEncode(updateDataTool));
                                                   }
 
                                                 },
@@ -359,7 +372,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               hintText: "Tên hoạt động sản xuất kinh doanh",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-              suffixIcon: Icons.close,
+              // suffixIcon: Icons.close,
               clickSuffixIcon: () =>
                   _namePlantBusinessController.clear(),
               textController: _namePlantBusinessController),
@@ -810,20 +823,20 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           children: [
             Expanded(
               child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
                     color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
+                  )
               ),
             ),
             Expanded(
               child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
                     color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
+                  )
               ),
             )
           ],
@@ -1273,7 +1286,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
+    APIManager.postAPICallNeedToken(RemoteServices.updateItemToolURL, obj).then(
             (value) async {
           pr.hide();
           if (value['status_code'] == 200) {
@@ -1300,7 +1313,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                 return Future.value(false);
               },
               child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công kế hoạch SXKD của mình!",
+                title: "Chúc mừng bạn đã cập nhật thành công kế hoạch SXKD của mình!",
                 descriptions:
                 "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần.",
                 textButton: "Tiếp tục",
@@ -1477,6 +1490,48 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
       ],
     );
+  }
+
+  Future<void> loadDataTool(String id) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'user_tool_id': id,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.getDetailItemToolURL, param).then(
+            (value) async {
+          pr.hide();
+          var data = DetailTool.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              dataUsers = data.data!.dataUsers!;
+              _namePlantBusinessController.text = data.data!.name!;
+              for(var i =0; i< dataUsers.length; i++) {
+                if(dataUsers[i].key == "ban_la_ai"){
+                  _whoAreYouController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "y_tuong_kinh_doanh"){
+                  _idealPlanBusinessController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "kinh_doanh_cai_gi"){
+                  _whatBusinessController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "khach_hang_cua_ban"){
+                  _khachHangCuaBanController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "doi_thu_canh_tranh"){
+                  _doiThuCanhTranhController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "the_manh_canh_tranh"){
+                  _theManhCanhTranhController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "ke_hoach_ban_hang"){
+                  _cachTiepThiSanPhamController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "nhiem_vu_thuc_hien"){
+                  _lietKeNhiemVuController.text = dataUsers[i].value.toString();
+                } else if(dataUsers[i].key == "nguon_luc"){
+                  _lietKeNguonLucController.text = dataUsers[i].value.toString();
+                }
+              }
+            });
+          }
+        }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
   }
 
 }

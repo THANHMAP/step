@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
@@ -246,59 +247,15 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Stack(
-                  children: <Widget>[
-                    Container(
-                      height: 236,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/bg_top_login.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      // child: Column(
-                      //   children: const <Widget>[],
-                      // ),
+                Container(
+                  height: 246,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/head_login.png"),
+                      fit: BoxFit.cover,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Container(
-                        height: 216,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image:
-                                AssetImage("assets/images/img_top_login.png"),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        // child: Column(
-                        //   children: const <Widget>[],
-                        // ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 86, left: 28),
-                      child: Container(
-                        width: 76,
-                        height: 30,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image:
-                                AssetImage("assets/images/img_logo_text.png"),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        // child: Column(
-                        //   children: const <Widget>[],
-                        // ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-
-                // Text("WELCOME", style: Mytheme.textLogin),
-                // Text("Please login to continue", style: Mytheme.textLoginSmall),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
                   child: Column(
@@ -316,6 +273,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         height: 46,
                         child: TextFieldWidget(
+                            textAlign: true,
+                            maxLines: 1,
                             keyboardType: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.digitsOnly
@@ -349,9 +308,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: SizedBox(
                                     height: 46,
                                     child: TextFieldWidget(
+                                        textAlign: true,
+                                        maxLines: 1,
                                         obscureText: isPasswordVisible,
                                         hintText:
-                                            StringText.text_password_input,
+                                        StringText.text_password_input,
                                         // labelText: 'Password',
                                         // prefixIcon:
                                         // const Icon(Icons.person, color: Colors.grey),
@@ -362,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         clickSuffixIcon: () {
                                           setState(() {
                                             isPasswordVisible =
-                                                !isPasswordVisible;
+                                            !isPasswordVisible;
                                           });
                                         },
                                         textController: _passwordController),
@@ -509,7 +470,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.bottomCenter,
                         child: Image(
                           image:
-                              AssetImage('assets/images/img_line_horizone.png'),
+                          AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -524,6 +485,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+
               ],
             ),
           ),

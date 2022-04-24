@@ -14,6 +14,8 @@ class TextFieldWidget extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final bool? enable;
+  final bool? textAlign;
+  final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
 
   const TextFieldWidget({
@@ -28,12 +30,15 @@ class TextFieldWidget extends StatelessWidget {
     required this.obscureText,
     this.keyboardType,
     this.enable,
+    this.textAlign,
+    this.maxLines,
     this.inputFormatters,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: maxLines,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       obscureText: obscureText,
@@ -41,7 +46,7 @@ class TextFieldWidget extends StatelessWidget {
       style: Mytheme.textHint,
       enabled: enable,
       textInputAction: textInputAction,
-      textAlignVertical: TextAlignVertical.center,
+      textAlignVertical: textAlign == true ? TextAlignVertical.center : TextAlignVertical.top,
       decoration: InputDecoration(
           fillColor: const Color(0xFFEFF0FB), filled: true,
           hintText: hintText,
