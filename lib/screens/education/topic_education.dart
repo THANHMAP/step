@@ -19,6 +19,7 @@ import 'package:step_bank/strings.dart';
 import '../../compoment/card_education.dart';
 import '../../compoment/card_education_topic.dart';
 import '../../compoment/card_setting.dart';
+import '../../constants.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -137,7 +138,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                     onClicked: () {
                                       trackingLesson(_lessonList[i].id ?? 0);
                                       _lessonList[i].nameCourse = _educationData.name;
-                                      Get.toNamed('/educationTopicDetail', arguments: _lessonList[i]);
+                                      Get.toNamed('/educationTopicDetail', arguments: i);
                                     },
                                   ),
                                   const SizedBox(height: 10),
@@ -192,6 +193,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
       if (data.statusCode == 200) {
         setState(() {
           _lessonList = data.data!;
+          Constants.lessonListTemp = _lessonList;
         });
       }
     }, onError: (error) async {

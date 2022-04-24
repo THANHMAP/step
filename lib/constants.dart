@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
+import 'models/lesson_model.dart';
 import 'models/result.dart';
 import 'models/study_model.dart';
 import 'models/tool_model.dart';
@@ -12,6 +13,7 @@ class Constants{
   static const double avatarRadius =45;
   static List<ContentQuizz>? questionsGlobals = null;
   static ToolData? toolData;
+  static List<LessonData>? lessonListTemp;
 
   static const Color kSecondaryColor = Color(0xFF8B94BC);
   static const Color kGreenColor = Color(0xFF6AC259);
