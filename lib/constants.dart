@@ -14,6 +14,7 @@ class Constants{
   static List<ContentQuizz>? questionsGlobals = null;
   static ToolData? toolData;
   static List<LessonData>? lessonListTemp;
+  static String nameCourseTemp = "";
 
   static const Color kSecondaryColor = Color(0xFF8B94BC);
   static const Color kGreenColor = Color(0xFF6AC259);

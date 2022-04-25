@@ -26,6 +26,7 @@ import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../compoment/card_content_topic.dart';
+import '../../constants.dart';
 import '../../models/study_model.dart';
 import '../../themes.dart';
 import '../../util.dart';
@@ -122,7 +123,7 @@ class _VideoScreenState extends State<VideoScreen> {
         appBar: AppBar(
           backgroundColor: Mytheme.colorBgButtonLogin,
           title: Text(
-            _studyData.nameCourse.toString(),
+            Constants.nameCourseTemp,
             style: const TextStyle(
               fontSize: 20,
               color: Colors.white,

@@ -51,7 +51,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
           body: Column(
             children: <Widget>[
               AppbarWidget(
-                text: studyData.nameCourse,
+                text: Constants.nameCourseTemp,
                 onClicked: () {
                   Navigator.of(context).pop(true);
                 },

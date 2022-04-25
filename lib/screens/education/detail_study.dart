@@ -25,6 +25,7 @@ import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../compoment/card_content_topic.dart';
+import '../../constants.dart';
 import '../../models/exercise_model.dart';
 import '../../models/study_model.dart';
 import '../../themes.dart';
@@ -43,7 +44,7 @@ class DetailEducationLessonScreen extends StatefulWidget {
 
 class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   late ProgressDialog pr;
-  final StudyData _studyData = Get.arguments;
+  StudyData _studyData = StudyData();
   late CarouselSlider carouselSlider = CarouselSlider();
   int activePage = 0;
   late PageController _pageController;
@@ -62,7 +63,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   @override
   void initState() {
     super.initState();
-
+    _studyData = Get.arguments;
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -91,7 +92,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           body: Column(
             children: <Widget>[
               AppbarWidget(
-                text: _studyData.nameCourse,
+                text: Constants.nameCourseTemp,
                 onClicked: () {
                   Navigator.of(context).pop(false);
                 },

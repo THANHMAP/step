@@ -78,7 +78,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AppbarWidget(
-                        text: _lessonData?.nameCourse ?? "",
+                        text: Constants.nameCourseTemp,
                         onClicked: () => Get.back(),
                       ),
                       Padding(
@@ -235,10 +235,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                                   _studyData[
                                                   i]);
                                             } else {
-                                              _studyData[i]
-                                                  .nameCourse =
-                                                  _lessonData
-                                                      ?.nameCourse;
+                                              _studyData[i].nameCourse = _lessonData?.nameCourse;
                                               Get.toNamed(
                                                   '/detailEducationScreen',
                                                   arguments:

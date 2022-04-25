@@ -38,6 +38,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
   @override
   void initState() {
     super.initState();
+    Constants.nameCourseTemp = _educationData.name ?? "";
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,

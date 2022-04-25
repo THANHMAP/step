@@ -31,14 +31,15 @@ class HomeQuizScreen extends StatefulWidget {
 }
 
 class _HomeQuizScreenState extends State<HomeQuizScreen> {
-  final StudyData _studyData = Get.arguments;
-  List<ContentQuizz> contentQuizz = [] ;
+  StudyData _studyData = StudyData();
+  List<ContentQuizz> contentQuizz = [];
   bool isFinish = false;
   late ProgressDialog pr;
   String textButton = "Bắt đầu";
   @override
   void initState() {
     super.initState();
+    _studyData = Get.arguments;
     Utils.portraitModeOnly();
     pr = ProgressDialog(
       context,
@@ -49,7 +50,6 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
     Future.delayed(Duration.zero, () {
       checkQuiz();
     });
-
   }
 
   @override
@@ -73,7 +73,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                     flex: 2,
                     child: Container(
                       child: AppbarWidget(
-                        text: _studyData.nameCourse,
+                        text: Constants.nameCourseTemp,
                         onClicked: () => Get.back(),
                       ),
                     ),
@@ -96,8 +96,7 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                bottom: 10, left: 44, right: 44),
+                            padding: const EdgeInsets.only(bottom: 10, left: 44, right: 44),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text(
@@ -111,74 +110,61 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
                               ),
                             ),
                           ),
-
                           Expanded(
                             flex: 3,
                             child: Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 20, left: 24, right: 24),
-                              child: Image.asset(
-                                  "assets/images/img_home_quiz.png"),
+                              padding: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+                              child: Image.asset("assets/images/img_home_quiz.png"),
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 20, left: 24, right: 24),
-                                child: Column(
-                                  children: [
-                                    Visibility(
-                                      maintainSize: true,
-                                      maintainAnimation: true,
-                                      maintainState: true,
-                                      visible: isFinish,
-                                      child: ElevatedButton(
+                              padding: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+                              child: Column(
+                                children: [
+                                  Visibility(
+                                    maintainSize: true,
+                                    maintainAnimation: true,
+                                    maintainState: true,
+                                    visible: isFinish,
+                                    child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(8),
                                             // side: const BorderSide(color: Colors.red)
                                           ),
                                           primary: Mytheme.colorBgButtonLogin,
-                                          minimumSize: Size(
-                                              MediaQuery.of(context).size.width,
-                                              44)),
+                                          minimumSize: Size(MediaQuery.of(context).size.width, 44)),
                                       child: const Text(
                                         "Xem lại kết quả",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: "OpenSans-Regular",
-                                            fontWeight: FontWeight.bold),
+                                        style:
+                                            TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                                       ),
                                       onPressed: () {
                                         Get.offAndToNamed('/showQuizScreen', arguments: _studyData);
                                       },
-                                    ),),
-                                    const SizedBox(height: 7),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            // side: const BorderSide(color: Colors.red)
-                                          ),
-                                          primary: Mytheme.colorBgButtonLogin,
-                                          minimumSize: Size(
-                                              MediaQuery.of(context).size.width,
-                                              44)),
-                                      child:  Text(
-                                        textButton,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: "OpenSans-Regular",
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      onPressed: () {
-                                        Get.offAndToNamed('/quizCustomScreen', arguments: _studyData);
-                                      },
-                                    )
-                                  ],
-                                ),
-
+                                    ),
+                                  ),
+                                  const SizedBox(height: 7),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                          // side: const BorderSide(color: Colors.red)
+                                        ),
+                                        primary: Mytheme.colorBgButtonLogin,
+                                        minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                                    child: Text(
+                                      textButton,
+                                      style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
+                                    ),
+                                    onPressed: () {
+                                      Get.offAndToNamed('/quizCustomScreen', arguments: _studyData);
+                                    },
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -197,14 +183,12 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
     var param = jsonEncode(<String, String>{
       'study_part_id': _studyData.id.toString(),
     });
-    APIManager.postAPICallNeedToken(
-        RemoteServices.checkQuizdURL, param)
-        .then((value) async {
+    APIManager.postAPICallNeedToken(RemoteServices.checkQuizdURL, param).then((value) async {
       await pr.hide();
       if (value["status_code"] == 200) {
         setState(() {
           isFinish = value["data"]["is_finish"];
-          if(isFinish) {
+          if (isFinish) {
             textButton = "Làm lại";
           } else {
             textButton = "Bắt đầu";
@@ -216,5 +200,4 @@ class _HomeQuizScreenState extends State<HomeQuizScreen> {
       Utils.showError(error.toString(), context);
     });
   }
-
 }
