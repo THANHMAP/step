@@ -23,6 +23,7 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 import '../../compoment/card_content_topic.dart';
 import '../../constants.dart';
@@ -231,7 +232,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
             width: double.infinity,
             height: 300,
             // the most important part of this example
-            child: WebView(
+            child: WebViewPlus(
+              key: UniqueKey(),
               initialUrl: _studyData.fileScorm.toString(),
               // Enable Javascript on WebView
               javascriptMode: JavascriptMode.unrestricted,
