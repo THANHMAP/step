@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_macos_webview/flutter_macos_webview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
@@ -53,6 +53,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   List<String> fileSlideShare = [];
   String progressString = '0%';
   var progressValue = 0.0;
+  InAppWebViewController? webViewController;
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -61,7 +62,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     }
     return result;
   }
-
+  final ChromeSafariBrowser browser = new ChromeSafariBrowser();
   @override
   void initState() {
     super.initState();
@@ -76,33 +77,14 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     if (_studyData.fileSlideShare != null) {
       fileSlideShare = _studyData.fileSlideShare!;
     }
+
+    WidgetsFlutterBinding.ensureInitialized();
+
+    if (Platform.isAndroid) {
+      AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+    }
+
   }
-
-  Future<void> _onOpenPressed(PresentationStyle presentationStyle) async {
-    final webview = FlutterMacOSWebView(
-      onOpen: () => print('Opened'),
-      onClose: () => print('Closed'),
-      onPageStarted: (url) => print('Page started: $url'),
-      onPageFinished: (url) => print('Page finished: $url'),
-      onWebResourceError: (err) {
-        print(
-          'Error: ${err.errorCode}, ${err.errorType}, ${err.domain}, ${err.description}',
-        );
-      },
-    );
-
-    await webview.open(
-      url: 'https://internal.co-opsmart.vn/scorm/13',
-      presentationStyle: presentationStyle,
-      size: Size(400.0, 400.0),
-      userAgent:
-      'Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
-    );
-
-    // await Future.delayed(Duration(seconds: 5));
-    // await webview.close();
-  }
-
 
   @override
   void dispose() {
@@ -210,8 +192,13 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                               fontFamily: "OpenSans-Regular",
                               fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () {
-                          _onOpenPressed(PresentationStyle.modal);
+                        onPressed: () async {
+                          await browser.open(
+                              url: Uri.parse("https://internal.co-opsmart.vn/scorm/13"),
+                              options: ChromeSafariBrowserClassOptions(
+                                  android: AndroidChromeCustomTabsOptions(
+                                      shareState: CustomTabsShareState.SHARE_STATE_OFF),
+                                  ios: IOSSafariOptions(barCollapsingEnabled: true)));
                         },
                       )
                     ],
