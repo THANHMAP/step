@@ -34,8 +34,7 @@ import '../../util.dart';
 import 'detail_topic_education.dart';
 
 class DetailEducationLessonScreen extends StatefulWidget {
-  const DetailEducationLessonScreen({Key? key, this.exerciseData})
-      : super(key: key);
+  const DetailEducationLessonScreen({Key? key, this.exerciseData}) : super(key: key);
 
   final List<ExerciseData>? exerciseData;
 
@@ -102,8 +101,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                 flex: 8,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 15, right: 15, bottom: 70),
+                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -116,7 +114,6 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                         if (_studyData.type == 1) ...[
                           typeText(),
                         ],
-
                         Container(
                           margin: const EdgeInsets.only(left: 20.0),
                           child: Column(
@@ -133,17 +130,13 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                                   ),
                                 ),
                               ),
-                              Divider(
-                                  color: Colors.black
-                              ),
+                              Divider(color: Colors.black),
                             ],
                           ),
                         ),
-
                         for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 16, right: 16, bottom: 12),
+                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
                             child: CardContentTopicWidget(
                               title: _studyData.exerciseData![i].name,
                               type: 1,
@@ -165,8 +158,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only( top: 40,
-                      bottom: 20, left: 24, right: 24),
+                  padding: const EdgeInsets.only(top: 40, bottom: 20, left: 24, right: 24),
                   child: Column(
                     children: [
                       ElevatedButton(
@@ -176,15 +168,10 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                               // side: const BorderSide(color: Colors.red)
                             ),
                             primary: Mytheme.colorBgButtonLogin,
-                            minimumSize: Size(
-                                MediaQuery.of(context).size.width,
-                                44)),
-                        child:  Text(
+                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                        child: Text(
                           "Tiếp tục",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "OpenSans-Regular",
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
                           Get.back();
@@ -192,7 +179,6 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                       )
                     ],
                   ),
-
                 ),
               ),
             ],
@@ -229,15 +215,18 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           ),
         ),
         SizedBox(
-            width: double.infinity,
-            height: 300,
-            // the most important part of this example
-            child: WebViewPlus(
-              key: UniqueKey(),
-              initialUrl: _studyData.fileScorm.toString(),
-              // Enable Javascript on WebView
-              javascriptMode: JavascriptMode.unrestricted,
-            )),
+          width: double.infinity,
+          height: 300,
+          // the most important part of this example
+          child: EasyWebView(
+            src: _studyData.fileScorm.toString(),
+            isHtml: false, // Use Html syntax
+            isMarkdown: false, // Use markdown syntax
+            convertToWidgets: false, // Try to convert to flutter widgets
+            // width: 100,
+            // height: 100,
+          ),
+        ),
         const SizedBox(height: 10),
       ]),
     );
@@ -355,9 +344,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubic,
       margin: EdgeInsets.all(margin),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(images[pagePosition].toString()))),
+      decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(images[pagePosition].toString()))),
     );
   }
 
@@ -381,21 +368,17 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   }
 
   goToPrevious() {
-    _pageController.previousPage(
-        duration: Duration(milliseconds: 300), curve: Curves.ease);
+    _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   goToNext() {
-    _pageController.nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.decelerate);
+    _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 
-  Future<void> downloadFile(
-      String url, String fileName, String extension) async {
+  Future<void> downloadFile(String url, String fileName, String extension) async {
     var dio = new Dio();
     var dir = await getExternalStorageDirectory();
-    var knockDir =
-    await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    var knockDir = await new Directory('${dir?.path}/AZAR').create(recursive: true);
     print("Hello checking the file in Externaal Sorage");
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
@@ -421,19 +404,18 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       } else {
         print("Downloading file");
         openDialog();
-        await dio.download(url, '${knockDir.path}/$fileName.$extension',
-            onReceiveProgress: (rec, total) {
-              if (mounted) {
-                setState(() {
-                  progressValue = (rec / total);
-                  progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
-                  myDialogState.setState(() {
-                    myDialogState.progressData = progressString;
-                    myDialogState.progressValue = progressValue;
-                  });
-                });
-              }
+        await dio.download(url, '${knockDir.path}/$fileName.$extension', onReceiveProgress: (rec, total) {
+          if (mounted) {
+            setState(() {
+              progressValue = (rec / total);
+              progressString = ((rec / total) * 100).toStringAsFixed(0) + "%";
+              myDialogState.setState(() {
+                myDialogState.progressData = progressString;
+                myDialogState.progressValue = progressValue;
+              });
             });
+          }
+        });
         if (mounted) {
           setState(() {
             print('${knockDir.path}');

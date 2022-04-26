@@ -66,6 +66,7 @@ dependencies:
   weather: ^2.0.1
   geolocator: ^8.2.0
   webview_flutter_plus: ^0.3.0+2
+  easy_web_view: ^1.6.0
 
 dev_dependencies:
   flutter_test:

@@ -30,8 +30,7 @@ class DetailEducationScreen extends StatefulWidget {
   _DetailEducationScreenState createState() => _DetailEducationScreenState();
 }
 
-class _DetailEducationScreenState extends State<DetailEducationScreen>
-    with SingleTickerProviderStateMixin {
+class _DetailEducationScreenState extends State<DetailEducationScreen> with SingleTickerProviderStateMixin {
   late ProgressDialog pr;
   LessonData? _lessonData;
   List<StudyData> _studyData = [];
@@ -57,10 +56,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
 
   @override
   void dispose() {
-
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +79,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                         onClicked: () => Get.back(),
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 10, left: 0, right: 0),
+                        padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
                         child: Column(
                           children: [
                             Padding(
@@ -102,10 +98,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                   const SizedBox(height: 10),
                                   CachedNetworkImage(
                                     imageUrl: _lessonData?.thumbnail.toString() ?? "",
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
+                                    placeholder: (context, url) => const CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
                                 ],
                               ),
@@ -127,9 +121,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: selectDefault
-                                              ? Mytheme.colorBgButtonLogin
-                                              : Mytheme.color_82869E,
+                                          color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: "OpenSans-SemiBold",
                                         ),
@@ -151,9 +143,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: !selectDefault
-                                              ? Mytheme.colorBgButtonLogin
-                                              : Mytheme.color_82869E,
+                                          color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: "OpenSans-SemiBold",
                                         ),
@@ -171,9 +161,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                       alignment: Alignment.center,
                                       child: Divider(
                                         thickness: 2,
-                                        color: selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
+                                        color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
                                       )),
                                 ),
                                 Expanded(
@@ -181,66 +169,34 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                       alignment: Alignment.center,
                                       child: Divider(
                                         thickness: 2,
-                                        color: !selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
+                                        color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
                                       )),
                                 )
                               ],
                             ),
-
                             Visibility(
                               visible: selectDefault ? true : false,
                               child: Column(
                                 children: [
-                                  if (_studyData
-                                      .isNotEmpty) ...[
-                                    for (var i = 0;
-                                    i < _studyData.length;
-                                    i++) ...[
+                                  if (_studyData.isNotEmpty) ...[
+                                    for (var i = 0; i < _studyData.length; i++) ...[
                                       Padding(
-                                        padding:
-                                        const EdgeInsets
-                                            .only(
-                                            top: 10,
-                                            left: 16,
-                                            right: 16,
-                                            bottom: 12),
-                                        child:
-                                        CardContentTopicWidget(
-                                          title: _studyData[i]
-                                              .name,
-                                          type: _studyData[i]
-                                              .type,
+                                        padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                                        child: CardContentTopicWidget(
+                                          title: _studyData[i].name,
+                                          type: _studyData[i].type,
                                           hideImageRight: true,
                                           onClicked: () {
-                                            trackingLesson(_studyData[i].id??0);
+                                            trackingLesson(_studyData[i].id ?? 0);
                                             _studyData[i].nameCourse = _lessonData?.nameCourse;
                                             _studyData[i].exerciseData = _exerciseData;
-                                            if (_studyData[i]
-                                                .type ==
-                                                5) {
-                                              Get.toNamed(
-                                                  '/homeQuizScreen',
-                                                  arguments:
-                                                  _studyData[
-                                                  i]);
-                                            } else if (_studyData[
-                                            i]
-                                                .type ==
-                                                2) {
-                                              Get.toNamed(
-                                                  '/videoScreen',
-                                                  arguments:
-                                                  _studyData[
-                                                  i]);
+                                            if (_studyData[i].type == 5) {
+                                              Get.toNamed('/homeQuizScreen', arguments: _studyData[i]);
+                                            } else if (_studyData[i].type == 2) {
+                                              Get.toNamed('/videoScreen', arguments: _studyData[i]);
                                             } else {
                                               _studyData[i].nameCourse = _lessonData?.nameCourse;
-                                              Get.toNamed(
-                                                  '/detailEducationScreen',
-                                                  arguments:
-                                                  _studyData[
-                                                  i]);
+                                              Get.toNamed('/detailEducationScreen', arguments: _studyData[i]);
                                             }
                                           },
                                         ),
@@ -248,46 +204,31 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                     ],
                                   ]
                                 ],
-                              ),),
+                              ),
+                            ),
                             Visibility(
                               visible: !selectDefault ? true : false,
                               child: Column(
                                 children: [
-                                  if (_exerciseData
-                                      .isNotEmpty) ...[
-                                    for (var i = 0;
-                                    i <
-                                        _exerciseData
-                                            .length;
-                                    i++) ...[
+                                  if (_exerciseData.isNotEmpty) ...[
+                                    for (var i = 0; i < _exerciseData.length; i++) ...[
                                       Padding(
-                                        padding:
-                                        const EdgeInsets
-                                            .only(
-                                            top: 10,
-                                            left: 16,
-                                            right: 16,
-                                            bottom: 12),
-                                        child:
-                                        CardContentTopicWidget(
-                                          title:
-                                          _exerciseData[i]
-                                              .name,
+                                        padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                                        child: CardContentTopicWidget(
+                                          title: _exerciseData[i].name,
                                           type: 1,
                                           hideImageRight: false,
                                           onClicked: () async {
                                             downloadFile(
-                                                _exerciseData[i].fileExercise ?? "",
-                                                _exerciseData[i].name.toString(),
-                                                "mp4");
+                                                _exerciseData[i].fileExercise ?? "", _exerciseData[i].name.toString(), "mp4");
                                           },
                                         ),
                                       ),
                                     ],
                                   ]
                                 ],
-                              ),),
-
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -300,8 +241,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                 child: Container(
                   color: Mytheme.kBackgroundColor,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 0, left: 24, right: 24),
+                    padding: const EdgeInsets.only(bottom: 0, left: 24, right: 24),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -314,10 +254,9 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                     borderRadius: BorderRadius.circular(8),
                                     // side: const BorderSide(color: Colors.red)
                                   ),
-                                  primary: index == 0 ? Mytheme.colorTextDivider: Mytheme.colorBgButtonLogin,
-                                  minimumSize: Size(
-                                      MediaQuery.of(context).size.width, 44)),
-                              child:  Text(
+                                  primary: index == 0 ? Mytheme.colorTextDivider : Mytheme.colorBgButtonLogin,
+                                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                              child: Text(
                                 "Bài trước",
                                 style: TextStyle(
                                     fontSize: 16,
@@ -347,20 +286,22 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
                                     borderRadius: BorderRadius.circular(8),
                                     // side: const BorderSide(color: Colors.red)
                                   ),
-                                  primary: index == Constants.lessonListTemp!.length - 1 ? Mytheme.colorTextDivider : Mytheme.colorBgButtonLogin,
-                                  minimumSize: Size(
-                                      MediaQuery.of(context).size.width, 44)),
-                              child:  Text(
+                                  primary: index == Constants.lessonListTemp!.length - 1
+                                      ? Mytheme.colorTextDivider
+                                      : Mytheme.colorBgButtonLogin,
+                                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                              child: Text(
                                 StringText.text_next_lesson,
                                 style: TextStyle(
                                     fontSize: 16,
-                                    color: index == Constants.lessonListTemp!.length - 1  ? Mytheme.color_0xFFA7ABC3 : Mytheme.kBackgroundColor,
+                                    color: index == Constants.lessonListTemp!.length - 1
+                                        ? Mytheme.color_0xFFA7ABC3
+                                        : Mytheme.kBackgroundColor,
                                     fontFamily: "OpenSans-Regular",
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
-                                if(index == Constants.lessonListTemp!.length - 1) {
-
+                                if (index == Constants.lessonListTemp!.length - 1) {
                                 } else {
                                   index = index + 1;
                                   _lessonData = Constants.lessonListTemp![index];
@@ -383,8 +324,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
     var param = jsonEncode(<String, String>{
       'lesson_id': _lessonData?.id.toString() ?? "",
     });
-    APIManager.postAPICallNeedToken(RemoteServices.listStudyURL, param).then(
-        (value) async {
+    APIManager.postAPICallNeedToken(RemoteServices.listStudyURL, param).then((value) async {
       var data = StudyModel.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
@@ -393,22 +333,19 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
         loadListExercise();
       }
     }, onError: (error) async {
-
       Utils.showError(error.toString(), context);
     });
     await pr.hide();
   }
 
   Future<void> loadListExercise() async {
-    if(!pr.isShowing()) {
+    if (!pr.isShowing()) {
       await pr.show();
     }
     var param = jsonEncode(<String, String>{
       'lesson_id': _lessonData?.id.toString() ?? "",
     });
-    APIManager.postAPICallNeedToken(RemoteServices.listExerciseURL, param).then(
-        (value) async {
-
+    APIManager.postAPICallNeedToken(RemoteServices.listExerciseURL, param).then((value) async {
       var data = ExerciseModel.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
@@ -421,12 +358,10 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
     await pr.hide();
   }
 
-  Future<void> downloadFile(
-      String url, String fileName, String extension) async {
+  Future<void> downloadFile(String url, String fileName, String extension) async {
     var dio = new Dio();
     var dir = await getExternalStorageDirectory();
-    var knockDir =
-        await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    var knockDir = await new Directory('${dir?.path}/AZAR').create(recursive: true);
     print("Hello checking the file in Externaal Sorage");
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
@@ -452,8 +387,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
       } else {
         print("Downloading file");
         openDialog();
-        await dio.download(url, '${knockDir.path}/$fileName.$extension',
-            onReceiveProgress: (rec, total) {
+        await dio.download(url, '${knockDir.path}/$fileName.$extension', onReceiveProgress: (rec, total) {
           if (mounted) {
             setState(() {
               progressValue = (rec / total);
@@ -490,12 +424,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen>
     var param = jsonEncode(<String, String>{
       'study_part_id': id.toString(),
     });
-    APIManager.postAPICallNeedToken(RemoteServices.trackingURL, param).then(
-            (value) async {
-        }, onError: (error) async {
-    });
+    APIManager.postAPICallNeedToken(RemoteServices.trackingURL, param).then((value) async {}, onError: (error) async {});
   }
-
 }
 
 _MyDialogState myDialogState = _MyDialogState();
