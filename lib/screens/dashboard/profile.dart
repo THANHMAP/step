@@ -74,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         headerLayout(),
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 10, left: 15, right: 15),
+                              top: 18, left: 15, right: 15),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: const [
                                   Text(
-                                    "Tổng quát",
+                                    "Của tôi",
                                     style: TextStyle(
                                       fontSize: 18,
                                       color: Mytheme.colorBgButtonLogin,
@@ -111,28 +111,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 linkUrl: 'assets/svg/ic_rank.svg',
                                 onClicked: () {
                                   Get.toNamed('/leaderBoardScreen');
-                                  // showDialog(
-                                  //     context: context,
-                                  //     builder: (BuildContext context) {
-                                  //       return WillPopScope(
-                                  //           onWillPop: () {
-                                  //             return Future.value(false);
-                                  //           },
-                                  //           child: ConfirmDialogBox(
-                                  //             title: "Thoát đăng nhập",
-                                  //             descriptions:
-                                  //                 "Đăng xuất khỏi tài khoản này?",
-                                  //             onClickedConfirm: () async {
-                                  //               await SPref.instance
-                                  //                   .set("token", "");
-                                  //               Get.offAllNamed("/login"
-                                  //                   "");
-                                  //             },
-                                  //             onClickedCancel: () {
-                                  //               Navigator.pop(context, "");
-                                  //             },
-                                  //           ));
-                                  //     });
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -141,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 title: "Các công cụ của tôi",
                                 linkUrl: 'assets/svg/ic_tool.svg',
                                 onClicked: () {
-                                  widget.controller?.index = 1;
+                                  Get.toNamed('/myToolScreen');
                                 },
                               ),
                               const SizedBox(height: 10),
@@ -284,8 +262,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(
                       top: 10, bottom: 0, left: 10, right: 10),
-                  child: Image.network(
-                      listMedal[i].image ?? ""),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.network(
+                          listMedal[i].image ?? ""),
+                      Text(
+                        listMedal[i].name ?? "",
+                        style:  TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.colorBgButtonLogin,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "OpenSans-Semi Bold",
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+
                 ),
               ],
 

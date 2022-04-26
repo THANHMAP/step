@@ -47,6 +47,7 @@ import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
+import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
 import '../screens/tool/plan_business/add_agricultural_production_plan.dart';
 import '../screens/tool/plan_business/add_plan_business.dart';
@@ -324,6 +325,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.editAgriculturalProductionPlanToolScreen,
       page: () => const EditAgriculturalProductionPlanToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.myToolScreen,
+      page: () => const MyToolScreen(),
     ),
   ];
 }
