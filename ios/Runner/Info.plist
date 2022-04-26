@@ -52,6 +52,11 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>This is called Privacy - Camera Usage Description in the visual editor</string>
 	<key>NSFaceIDUsageDescription</key>
@@ -62,11 +67,6 @@
 	<string>This app needs location access when opened to use the app's weather display</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Description Use Photo Gallery for the purpose of choosing your avatar picture</string>
-    <key>NSAppTransportSecurity</key>
-      <dict>
-        <key>NSAllowsArbitraryLoads</key> <true/>
-      </dict>
-    <key>io.flutter.embedded_views_preview</key> <true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -89,5 +89,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>io.flutter.embedded_views_preview</key>
+	<string>YES</string>
 </dict>
 </plist>

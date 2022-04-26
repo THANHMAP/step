@@ -73,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
       loadNews();
     });
     _getCurrentPosition();
-    loadListTool();
   }
 
   Future<bool> _handlePermission() async {
@@ -744,6 +743,7 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             listBanner = data.data;
           });
+          loadListTool();
         }
       }
     }, onError: (error) async {
