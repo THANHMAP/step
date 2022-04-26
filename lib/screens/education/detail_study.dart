@@ -4,10 +4,10 @@ import 'dart:io';
 import 'dart:io' as io;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_macos_webview/flutter_macos_webview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:open_file/open_file.dart';
@@ -35,7 +35,8 @@ import '../../util.dart';
 import 'detail_topic_education.dart';
 
 class DetailEducationLessonScreen extends StatefulWidget {
-  const DetailEducationLessonScreen({Key? key, this.exerciseData}) : super(key: key);
+  const DetailEducationLessonScreen({Key? key, this.exerciseData})
+      : super(key: key);
 
   final List<ExerciseData>? exerciseData;
 
@@ -77,6 +78,32 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     }
   }
 
+  Future<void> _onOpenPressed(PresentationStyle presentationStyle) async {
+    final webview = FlutterMacOSWebView(
+      onOpen: () => print('Opened'),
+      onClose: () => print('Closed'),
+      onPageStarted: (url) => print('Page started: $url'),
+      onPageFinished: (url) => print('Page finished: $url'),
+      onWebResourceError: (err) {
+        print(
+          'Error: ${err.errorCode}, ${err.errorType}, ${err.domain}, ${err.description}',
+        );
+      },
+    );
+
+    await webview.open(
+      url: 'https://internal.co-opsmart.vn/scorm/13',
+      presentationStyle: presentationStyle,
+      size: Size(400.0, 400.0),
+      userAgent:
+      'Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
+    );
+
+    // await Future.delayed(Duration(seconds: 5));
+    // await webview.close();
+  }
+
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -102,7 +129,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                 flex: 8,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 15, right: 15, bottom: 70),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -135,9 +163,12 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                             ],
                           ),
                         ),
-                        for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
+                        for (var i = 0;
+                            i < _studyData.exerciseData!.length;
+                            i++) ...[
                           Padding(
-                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 16, right: 16, bottom: 12),
                             child: CardContentTopicWidget(
                               title: _studyData.exerciseData![i].name,
                               type: 1,
@@ -159,7 +190,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 20, left: 24, right: 24),
+                  padding: const EdgeInsets.only(
+                      top: 40, bottom: 20, left: 24, right: 24),
                   child: Column(
                     children: [
                       ElevatedButton(
@@ -169,13 +201,17 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                               // side: const BorderSide(color: Colors.red)
                             ),
                             primary: Mytheme.colorBgButtonLogin,
-                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                            minimumSize:
+                                Size(MediaQuery.of(context).size.width, 44)),
                         child: Text(
                           "Tiếp tục",
-                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
-                          Get.back();
+                          _onOpenPressed(PresentationStyle.modal);
                         },
                       )
                     ],
@@ -216,17 +252,15 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           ),
         ),
         SizedBox(
-          width: double.infinity,
-          height: 300,
-          // the most important part of this example
-          child: EasyWebView(
-            src: _studyData.fileScorm.toString(),
-            isMarkdown: false, // Use markdown syntax
-            convertToWidgets: false, // Try to convert to flutter widgets
-            // width: 100,
-            // height: 100,
-          ),
-        ),
+            width: double.infinity,
+            height: 300,
+            // the most important part of this example
+            child: WebViewPlus(
+              key: UniqueKey(),
+              initialUrl: _studyData.fileScorm.toString(),
+              // Enable Javascript on WebView
+              javascriptMode: JavascriptMode.unrestricted,
+            )),
         const SizedBox(height: 10),
       ]),
     );
@@ -344,7 +378,9 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       duration: Duration(milliseconds: 500),
       curve: Curves.easeInOutCubic,
       margin: EdgeInsets.all(margin),
-      decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(images[pagePosition].toString()))),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(images[pagePosition].toString()))),
     );
   }
 
@@ -368,17 +404,21 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   }
 
   goToPrevious() {
-    _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
+    _pageController.previousPage(
+        duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   goToNext() {
-    _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.decelerate);
+    _pageController.nextPage(
+        duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 
-  Future<void> downloadFile(String url, String fileName, String extension) async {
+  Future<void> downloadFile(
+      String url, String fileName, String extension) async {
     var dio = new Dio();
     var dir = await getExternalStorageDirectory();
-    var knockDir = await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    var knockDir =
+        await new Directory('${dir?.path}/AZAR').create(recursive: true);
     print("Hello checking the file in Externaal Sorage");
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
@@ -404,7 +444,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       } else {
         print("Downloading file");
         openDialog();
-        await dio.download(url, '${knockDir.path}/$fileName.$extension', onReceiveProgress: (rec, total) {
+        await dio.download(url, '${knockDir.path}/$fileName.$extension',
+            onReceiveProgress: (rec, total) {
           if (mounted) {
             setState(() {
               progressValue = (rec / total);
