@@ -40,69 +40,71 @@ class CardEducatonWidget extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 16, left: 20, bottom: 18, right: 16),
-              child: Image.network(
-                linkUrl.toString(),
-                fit: BoxFit.fill,
-                width: 50,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Center(
-                    child: CircularProgressIndicator(
-                      value: loadingProgress.expectedTotalBytes != null
-                          ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                          : null,
-                    ),
-                  );
-                },
-              ),
-            ),
-            Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16, left: 20, bottom: 18, right: 20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
                 child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 16, left: 16, bottom: 18, right: 26),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      title ?? "",
-                      // textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Mytheme.colorBgButtonLogin,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "OpenSans-Regular",
-                      ),
-                    ),
+                  padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
+                  child: Image.network(
+                    linkUrl.toString(),
+                    fit: BoxFit.cover,
+                    width: 1,
+                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      numberLesson ?? "",
-                      // textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Mytheme.colorBgButtonLogin,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "OpenSans-Regular",
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-            )),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          title ?? "",
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Mytheme.colorBgButtonLogin,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          numberLesson ?? "",
+                          // textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Mytheme.colorBgButtonLogin,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

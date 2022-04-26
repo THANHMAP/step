@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:io' as io;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -220,7 +221,6 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           // the most important part of this example
           child: EasyWebView(
             src: _studyData.fileScorm.toString(),
-            isHtml: false, // Use Html syntax
             isMarkdown: false, // Use markdown syntax
             convertToWidgets: false, // Try to convert to flutter widgets
             // width: 100,

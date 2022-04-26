@@ -40,11 +40,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const String _kLocationServicesDisabledMessage =
-      'Location services are disabled.';
+  static const String _kLocationServicesDisabledMessage = 'Location services are disabled.';
   static const String _kPermissionDeniedMessage = 'Permission denied.';
-  static const String _kPermissionDeniedForeverMessage =
-      'Permission denied forever.';
+  static const String _kPermissionDeniedForeverMessage = 'Permission denied forever.';
   static const String _kPermissionGrantedMessage = 'Permission granted.';
   int _index = 0;
   late ProgressDialog pr;
@@ -61,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String statusWeather = "Trời nắng";
   Color textColorNhietDo = Mytheme.kBackgroundColor;
 
-
   @override
   void initState() {
     super.initState();
@@ -73,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isDismissible: false,
     );
     Future.delayed(Duration.zero, () {
-        loadNews();
+      loadNews();
     });
     _getCurrentPosition();
     loadListTool();
@@ -135,18 +132,19 @@ class _HomeScreenState extends State<HomeScreen> {
     // );
     return true;
   }
+
 //
   void statusWeatherFunction() {
     setState(() {
-      if(_data.isNotEmpty) {
+      if (_data.isNotEmpty) {
         var status = _data[0].weatherConditionCode ?? 0;
-        if(status >= 801 && status <= 804) {
+        if (status >= 801 && status <= 804) {
           statusWeather = "Trời nhiều mây";
           imageHeader = "assets/images/img_header_cloud.png";
           textColorNhietDo = Mytheme.color_0xFF002766;
           // cloud
 
-        } else if(status == 801 || status == 800) {
+        } else if (status == 801 || status == 800) {
           statusWeather = "Trời nắng";
           imageHeader = "assets/images/img_header_home.png";
           textColorNhietDo = Mytheme.kBackgroundColor;
@@ -163,10 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
         textColorNhietDo = Mytheme.kBackgroundColor;
       }
     });
-
-}
-
-
+  }
 
   Future<void> _getCurrentPosition() async {
     final hasPermission = await _handlePermission();
@@ -179,8 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
     queryWeather(position.latitude, position.longitude);
     print(position);
   }
-
-
 
   void queryWeather(double lat, double long) async {
     /// Removes keyboard
@@ -221,8 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: SvgPicture.asset(
                               "assets/svg/ic_notification.svg",
                             ),
-                          )
-                      ),
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 60, left: 33),
@@ -232,51 +224,40 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
-                                padding: const EdgeInsets.only(bottom: 27, right: 0),
-                                child: SvgPicture.asset(
-                                  "assets/svg/ic_logo_notext.svg", width: 70,
-                                ),
+                              padding: const EdgeInsets.only(bottom: 27, right: 0),
+                              child: SvgPicture.asset(
+                                "assets/svg/ic_logo_notext.svg",
+                                width: 70,
+                              ),
                             ),
                           ),
                           Row(
                             children: [
-                              Text(
-                                 _data.isNotEmpty ? _data[0].tempMax!.celsius!.round().toString() : "34",
-                                style: GoogleFonts.manrope(
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w300, color: textColorNhietDo
-                                )
-                              ),
+                              Text(_data.isNotEmpty ? _data[0].tempMax!.celsius!.round().toString() : "34",
+                                  style: GoogleFonts.manrope(fontSize: 36, fontWeight: FontWeight.w300, color: textColorNhietDo)),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 8),
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child:  Text(
+                                  child: Text(
                                     "0",
-                                      style: GoogleFonts.manrope(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w300, color: textColorNhietDo
-                                      ),
+                                    style:
+                                        GoogleFonts.manrope(fontSize: 26, fontWeight: FontWeight.w300, color: textColorNhietDo),
                                   ),
                                 ),
                               ),
                               Text(
                                 "C",
-                                  style: GoogleFonts.manrope(
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w300, color: textColorNhietDo
-                                  ),
+                                style: GoogleFonts.manrope(fontSize: 36, fontWeight: FontWeight.w300, color: textColorNhietDo),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 15, left: 7),
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child:  Text(
+                                  child: Text(
                                     statusWeather,
-                                    style: GoogleFonts.manrope(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w300, color: textColorNhietDo
-                                    ),
+                                    style:
+                                        GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w300, color: textColorNhietDo),
                                   ),
                                 ),
                               ),
@@ -285,7 +266,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     )
-
                   ],
                 ),
                 toolLayout(),
@@ -306,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
   headerLayout() {
     return Container(
       height: 236,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(imageHeader),
           fit: BoxFit.cover,
@@ -356,14 +336,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ],
           ),
-
-          for(var i =0; i < _toolList.length; i++) ...[
-            if(_toolList[i].id == 1 || _toolList[i].id == 5) ...[
+          for (var i = 0; i < _toolList.length; i++) ...[
+            if (_toolList[i].id == 1 || _toolList[i].id == 5) ...[
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.toNamed('/introductionToolScreen',
-                      arguments: _toolList[i]);
+                  Get.toNamed('/introductionToolScreen', arguments: _toolList[i]);
                 },
                 child: Container(
                   height: 84,
@@ -392,14 +370,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             _toolList[i].icon ?? "",
                             fit: BoxFit.fill,
                             width: 30,
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
+                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
                               return Center(
                                 child: CircularProgressIndicator(
                                   value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
+                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
                                       : null,
                                 ),
                               );
@@ -410,8 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 3,
                         child: Padding(
-                          padding:
-                          const EdgeInsets.only(top: 0, left: 10, right: 0),
+                          padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
                           child: Text(
                             _toolList[i].name ?? "",
                             style: TextStyle(
@@ -439,7 +414,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ],
-
         ],
       ),
     );
@@ -449,8 +423,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: () {
         widget.controller?.index = 2;
-        },
-      child:  Container(
+      },
+      child: Container(
         height: 123,
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -463,7 +437,6 @@ class _HomeScreenState extends State<HomeScreen> {
         // ),
       ),
     );
-
   }
 
   viewPager() {
@@ -475,85 +448,83 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: (int index) => setState(() => _index = index),
         itemBuilder: (_, i) {
           return Transform.scale(
-            scale: i == _index ? 1 : 0.9,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Container(
-                height: 140.0,
-                width: double.infinity,
-                color: Colors.blue,
-                child: Image.network(
-                  listBanner![i].thumbnail.toString(),
-                  fit: BoxFit.none,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
+              scale: i == _index ? 1 : 0.9,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Container(
+                  height: 140.0,
+                  width: double.infinity,
+                  color: Colors.blue,
+                  child: Image.network(
+                    listBanner![i].thumbnail.toString(),
+                    fit: BoxFit.none,
+                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            )
+              )
 
-            // new Container(
-            //   height: 300.0,
-            //   color: Colors.transparent,
-            //   child: new Container(
-            //       decoration: new BoxDecoration(
-            //           color: Colors.green,
-            //           borderRadius: new BorderRadius.only(
-            //             topLeft: const Radius.circular(40.0),
-            //             topRight: const Radius.circular(40.0),
-            //           )
-            //       ),
-            //       child: Image.network(
-            //         listBanner![i].thumbnail.toString(),
-            //         fit: BoxFit.none,
-            //         loadingBuilder: (BuildContext context, Widget child,
-            //             ImageChunkEvent? loadingProgress) {
-            //           if (loadingProgress == null) return child;
-            //           return Center(
-            //             child: CircularProgressIndicator(
-            //               value: loadingProgress.expectedTotalBytes != null
-            //                   ? loadingProgress.cumulativeBytesLoaded /
-            //                   loadingProgress.expectedTotalBytes!
-            //                   : null,
-            //             ),
-            //           );
-            //         },
-            //       ),
-            //   ),
-            // ),
-            // Card(
-            //   elevation: 6,
-            //   shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(20)),
-            //   child: Center(
-            //     child: Image.network(
-            //       listBanner![i].thumbnail.toString(),
-            //       fit: BoxFit.none,
-            //       loadingBuilder: (BuildContext context, Widget child,
-            //           ImageChunkEvent? loadingProgress) {
-            //         if (loadingProgress == null) return child;
-            //         return Center(
-            //           child: CircularProgressIndicator(
-            //             value: loadingProgress.expectedTotalBytes != null
-            //                 ? loadingProgress.cumulativeBytesLoaded /
-            //                 loadingProgress.expectedTotalBytes!
-            //                 : null,
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // ),
-          );
+              // new Container(
+              //   height: 300.0,
+              //   color: Colors.transparent,
+              //   child: new Container(
+              //       decoration: new BoxDecoration(
+              //           color: Colors.green,
+              //           borderRadius: new BorderRadius.only(
+              //             topLeft: const Radius.circular(40.0),
+              //             topRight: const Radius.circular(40.0),
+              //           )
+              //       ),
+              //       child: Image.network(
+              //         listBanner![i].thumbnail.toString(),
+              //         fit: BoxFit.none,
+              //         loadingBuilder: (BuildContext context, Widget child,
+              //             ImageChunkEvent? loadingProgress) {
+              //           if (loadingProgress == null) return child;
+              //           return Center(
+              //             child: CircularProgressIndicator(
+              //               value: loadingProgress.expectedTotalBytes != null
+              //                   ? loadingProgress.cumulativeBytesLoaded /
+              //                   loadingProgress.expectedTotalBytes!
+              //                   : null,
+              //             ),
+              //           );
+              //         },
+              //       ),
+              //   ),
+              // ),
+              // Card(
+              //   elevation: 6,
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(20)),
+              //   child: Center(
+              //     child: Image.network(
+              //       listBanner![i].thumbnail.toString(),
+              //       fit: BoxFit.none,
+              //       loadingBuilder: (BuildContext context, Widget child,
+              //           ImageChunkEvent? loadingProgress) {
+              //         if (loadingProgress == null) return child;
+              //         return Center(
+              //           child: CircularProgressIndicator(
+              //             value: loadingProgress.expectedTotalBytes != null
+              //                 ? loadingProgress.cumulativeBytesLoaded /
+              //                 loadingProgress.expectedTotalBytes!
+              //                 : null,
+              //           ),
+              //         );
+              //       },
+              //     ),
+              //   ),
+              // ),
+              );
         },
       ),
     );
@@ -586,8 +557,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       screen: NewsScreen(),
                       withNavBar: true,
-                      pageTransitionAnimation:
-                          PageTransitionAnimation.cupertino,
+                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
                     );
                     // Get.toNamed('/news');
                     // getOtpAgain(phone);
@@ -651,25 +621,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 5,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 13, left: 20, right: 10),
+                          padding: const EdgeInsets.only(top: 13, left: 20, right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Flexible(
-                                  child: Text(
-                                newsList?[i].name ?? "",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
+                                child: Text(
+                                  newsList?[i].name ?? "",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                  ),
+                                  textAlign: TextAlign.left,
                                 ),
-                                textAlign: TextAlign.left,
-                              ),
                               ),
                               const SizedBox(height: 10),
                               Flexible(
@@ -703,12 +672,11 @@ class _HomeScreenState extends State<HomeScreen> {
             margin: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: [
-
                 Divider(
                   color: Colors.black,
                 ),
-
-                Expanded(child:  Row(
+                Expanded(
+                    child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
@@ -719,6 +687,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Get.toNamed("/coopBankScreen");
                       },
                     ),
+                    // ignore: prefer_const_constructors
                     SizedBox(
                       width: 60,
                     ),
@@ -732,11 +701,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 )),
-
+                // ignore: prefer_const_constructors
                 Divider(
                   color: Colors.black,
                 ),
-
               ],
             ),
             // child: Column(
@@ -756,7 +724,6 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             newsList = news.data;
           });
-
         }
         loadBanner();
       }
@@ -767,7 +734,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadBanner() async {
-    if(!pr.isShowing()) {
+    if (!pr.isShowing()) {
       await pr.show();
     }
     APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then((value) async {
@@ -778,7 +745,6 @@ class _HomeScreenState extends State<HomeScreen> {
             listBanner = data.data;
           });
         }
-
       }
     }, onError: (error) async {
       Utils.showError(error.toString(), context);
@@ -814,21 +780,18 @@ class _HomeScreenState extends State<HomeScreen> {
     var param = jsonEncode(<String, String>{
       'my_tool': "false",
     });
-    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, param).then(
-            (value) async {
-          pr.hide();
-          var data = ToolModel.fromJson(value);
-          if (data.statusCode == 200) {
-            if (mounted) {
-              setState(() {
-                _toolList = data.data!;
-              });
-            }
-
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, "").then((value) async {
+      pr.hide();
+      var data = ToolModel.fromJson(value);
+      if (data.statusCode == 200) {
+        if (mounted) {
+          setState(() {
+            _toolList = data.data!;
+          });
+        }
+      }
+    }, onError: (error) async {
       Utils.showError(error.toString(), context);
     });
   }
-
 }

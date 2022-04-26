@@ -37,7 +37,9 @@ class _FAQScreenState extends State<FAQScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    loadFAQ();
+    Future.delayed(Duration.zero, () {
+      loadFAQ();
+    });
   }
 
   @override
@@ -58,15 +60,12 @@ class _FAQScreenState extends State<FAQScreen> {
                       onClicked: () => Get.back(),
                     ),
                     Expanded(
-                      child:  SingleChildScrollView(
+                      child: SingleChildScrollView(
                         child: Padding(
-                          padding:
-                          const EdgeInsets.only(top: 30, left: 24, right: 24),
+                          padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
                           child: Column(
                             children: [
-                              for (var i = 0; i < faqData.length; i++) ...[
-                                layoutFAQ(i, faqData[i])
-                              ],
+                              for (var i = 0; i < faqData.length; i++) ...[layoutFAQ(i, faqData[i])],
                             ],
                           ),
                         ),
@@ -75,7 +74,6 @@ class _FAQScreenState extends State<FAQScreen> {
                   ],
                 ),
               ),
-
             ],
           ),
         ));
@@ -111,9 +109,7 @@ class _FAQScreenState extends State<FAQScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
-                    color: faqData.collapsed == false
-                        ? Colors.white
-                        : Mytheme.color_0xFFCCECFB,
+                    color: faqData.collapsed == false ? Colors.white : Mytheme.color_0xFFCCECFB,
                     // borderRadius: BorderRadius.circular(8),
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(8),
@@ -127,8 +123,7 @@ class _FAQScreenState extends State<FAQScreen> {
                       Expanded(
                         flex: 4,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                              top: 12, left: 16, bottom: 18, right: 0),
+                          padding: EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                           child: Text(
                             faqData.question.toString(),
                             textAlign: TextAlign.start,
@@ -144,11 +139,9 @@ class _FAQScreenState extends State<FAQScreen> {
                       Expanded(
                         flex: 1,
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, left: 6, bottom: 0, right: 0),
+                          padding: const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
                           child: IconButton(
-                            icon:
-                            Image.asset("assets/images/ic_arrow_down.png"),
+                            icon: Image.asset("assets/images/ic_arrow_down.png"),
                             // tooltip: 'Increase volume by 10',
                             iconSize: 50,
                             onPressed: () {
@@ -167,11 +160,10 @@ class _FAQScreenState extends State<FAQScreen> {
               Visibility(
                   visible: faqData.collapsed ?? false,
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 12, left: 16, bottom: 18, right: 16),
+                    padding: EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 16),
                     child: Text(
                       faqData.answer.toString(),
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: 16,
                         color: Mytheme.colorBgButtonLogin,
@@ -200,7 +192,6 @@ class _FAQScreenState extends State<FAQScreen> {
       ),
     );
   }
-
 
   Future<void> loadFAQ() async {
     await pr.show();
