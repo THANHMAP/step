@@ -46,13 +46,13 @@ class CardEducatonWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
+              Padding(
+                padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
+                child: Container(
+                  width: 80,
                   child: Image.network(
                     linkUrl.toString(),
-                    fit: BoxFit.cover,
-                    width: 1,
+                    fit: BoxFit.fill,
                     loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) return child;
                       return Center(
@@ -65,10 +65,11 @@ class CardEducatonWidget extends StatelessWidget {
                     },
                   ),
                 ),
+
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
+                  padding: const EdgeInsets.only(top: 18, left: 24, bottom: 0, right: 7),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
