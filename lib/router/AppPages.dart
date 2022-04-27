@@ -45,6 +45,7 @@ import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 import '../screens/dashboard/education.dart';
 import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
+import '../screens/education/scorm_video.dart';
 import '../screens/education/topic_education.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/setting/my_tool.dart';
@@ -330,6 +331,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.myToolScreen,
       page: () => const MyToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.scromVideoScreen,
+      page: () => const ScromVideoScreen(),
     ),
   ];
 }

@@ -60,4 +60,5 @@ class AppRoutes {
   static const String editPlaneBusinessToolScreen = "/editPlaneBusinessToolScreen";
   static const String editAgriculturalProductionPlanToolScreen = "/editAgriculturalProductionPlanToolScreen";
   static const String myToolScreen = "/myToolScreen";
+  static const String scromVideoScreen = "/scromVideoScreen";
 }

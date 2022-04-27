@@ -194,6 +194,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                               Get.toNamed('/homeQuizScreen', arguments: _studyData[i]);
                                             } else if (_studyData[i].type == 2) {
                                               Get.toNamed('/videoScreen', arguments: _studyData[i]);
+                                            } else if (_studyData[i].type == 4) {
+                                              Get.toNamed('/scromVideoScreen', arguments: _studyData[i].fileScorm);
                                             } else {
                                               _studyData[i].nameCourse = _lessonData?.nameCourse;
                                               Get.toNamed('/detailEducationScreen', arguments: _studyData[i]);
