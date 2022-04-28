@@ -77,7 +77,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
         body: Column(
           children: <Widget>[
             AppbarWidget(
-              text: data.name,
+              text: "Lập kế hoạch tiết kiệm",
               onClicked: () {
                 Navigator.of(context).pop(false);
               },
@@ -531,6 +531,10 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                               final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
                                               final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
                                               final differenceDay = daysBetween(dayStart, dayEnd);
+                                              if(differenceDay <= 0) {
+                                                Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+                                                return;
+                                              }
                                               var calculatorWeek = int.parse(_numberWeekController.text)*7;
                                               var numberSaver = differenceDay / calculatorWeek ;
                                               var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
@@ -624,6 +628,15 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
+                      var stringDateStart = dateFirst.split("/");
+                      var stringDateEnd = dateEnd.split("/");
+                      final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+                      final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+                      final differenceDay = daysBetween(dayStart, dayEnd);
+                      if(differenceDay <= 0) {
+                        Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+                        return;
+                      }
                       // showDialogSuccess();
                       StoreDataTool storeDataTool = StoreDataTool();
                       storeDataTool.title = _nameSaveController.text;

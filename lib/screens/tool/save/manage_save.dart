@@ -327,7 +327,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      dataManage[i].itemList![po].deposit == "1" ? "Thu nhập" : "Rút ra",
+                                      dataManage[i].itemList![po].deposit == "1" ? "Gửi vào" : "Rút ra",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Mytheme.colorTextSubTitle,
@@ -474,7 +474,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                     right: 16,
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .63,
+                  height: MediaQuery.of(context).size.height * .67,
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -539,7 +539,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Thu nhập",
+                                        "Gửi vào",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: selectItem
@@ -799,7 +799,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                       ),
                       Padding(
                           padding: const EdgeInsets.only(
-                              top: 40, bottom: 10, left: 0, right: 0),
+                              top: 40, bottom: 0, left: 0, right: 0),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -995,7 +995,11 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
     var total = 0;
     if(itemList.isNotEmpty) {
       for(var i=0; i<itemList.length; i++) {
-        total = total + int.parse(itemList[i].withdraw.toString());
+        if(itemList[i].deposit == "1") {
+          total = total + int.parse(itemList[i].withdraw.toString());
+        } else {
+          total = total - int.parse(itemList[i].withdraw.toString());
+        }
       }
       totalMonth = totalMonth + total;
       return total.toString();

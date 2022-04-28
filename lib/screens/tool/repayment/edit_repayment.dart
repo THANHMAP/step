@@ -40,7 +40,20 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
   late ToolData data;
-  List<String> _listRepaymentCycle = ["2 tháng", "4 tháng", "6 tháng", "8 tháng", "12 tháng"];
+  List<String> _listRepaymentCycle = [
+    "1 tháng",
+    "2 tháng",
+    "3 tháng",
+    "4 tháng",
+    "5 tháng",
+    "6 tháng",
+    "7 tháng",
+    "8 tháng",
+    "9 tháng",
+    "10 tháng",
+    "11 tháng",
+    "12 tháng"
+  ];
   int currentRepaymentCycleIndex = 0;
   String dateFirst = "";
   final minDate = DateTime.now();
@@ -605,62 +618,65 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                         ],
                       ),
                     ),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < _listRepaymentCycle.length; i++) ...[
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  currentRepaymentCycleIndex = i;
-                                  this.setState(() {
-                                    // user.gender = currentSexIndex;
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            for (var i = 0; i < _listRepaymentCycle.length; i++) ...[
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentRepaymentCycleIndex = i;
+                                    this.setState(() {
+                                      // user.gender = currentSexIndex;
+                                    });
                                   });
-                                });
-                              },
-                              child: Container(
-                                height: 60,
-                                color: currentRepaymentCycleIndex == i
-                                    ? Mytheme.color_DCDEE9
-                                    : Mytheme.kBackgroundColor,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: Text(
-                                        _listRepaymentCycle[i],
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-Semibold",
-                                          // decoration: TextDecoration.underline,
+                                },
+                                child: Container(
+                                  height: 60,
+                                  color: currentRepaymentCycleIndex == i
+                                      ? Mytheme.color_DCDEE9
+                                      : Mytheme.kBackgroundColor,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 16),
+                                        child: Text(
+                                          _listRepaymentCycle[i],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_434657,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-Semibold",
+                                            // decoration: TextDecoration.underline,
+                                          ),
                                         ),
                                       ),
-                                    ),
 
-                                    // di chuyen item tối cuối
-                                    const Spacer(),
-                                    Visibility(
-                                      visible: currentRepaymentCycleIndex == i ? true : false,
-                                      child: const Padding(
-                                        padding: EdgeInsets.only(right: 16),
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/images/img_check.png'),
-                                            fit: BoxFit.fill),
+                                      // di chuyen item tối cuối
+                                      const Spacer(),
+                                      Visibility(
+                                        visible: currentRepaymentCycleIndex == i ? true : false,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(right: 16),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/img_check.png'),
+                                              fit: BoxFit.fill),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
-                        ],
+                        ),
                       ),
-                    )
+                    ),
+
 
                   ],
                 ),

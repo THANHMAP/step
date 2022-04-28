@@ -119,7 +119,7 @@ class _EducationScreenState extends State<EducationScreen> {
     return Stack(
       children: <Widget>[
         Container(
-          height: 236,
+          height: 200,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/bg_home.png"),
@@ -130,63 +130,71 @@ class _EducationScreenState extends State<EducationScreen> {
           //   children: const <Widget>[],
           // ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 56, left: 28, right: 0),
-          child: Container(
-            width: 216,
-            child: Column(
-              children: [
-                Text(
-                  "Các khái niệm kinh doanh cơ bản",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Mytheme.colorBgButtonLogin,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "OpenSans-Bold",
-                    // decoration: TextDecoration.underline,
+        Container(
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 36, left: 28, right: 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Các khái niệm kinh doanh cơ bản",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Mytheme.colorBgButtonLogin,
+                            fontWeight: FontWeight.w700,
+                            fontFamily: "OpenSans-Bold",
+                            // decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: 130,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  // side: const BorderSide(color: Colors.red)
+                                ),
+                                primary: Mytheme.colorBgButtonLogin,
+                                minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                            child: const Text(
+                              "Xem thêm",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "OpenSans-Regular",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              Get.toNamed("/courseScreen");
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 136, left: 28, right: 0),
-          child: SizedBox(
-            width: 130,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    // side: const BorderSide(color: Colors.red)
-                  ),
-                  primary: Mytheme.colorBgButtonLogin,
-                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-              child: const Text(
-                "Xem thêm",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: "OpenSans-Regular",
-                    fontWeight: FontWeight.bold),
               ),
-              onPressed: () {
-                Get.toNamed("/courseScreen");
-              },
-            ),
+              Expanded(
+                flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 56, left:0, right: 10),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: SvgPicture.asset(
+                          'assets/svg/ic_eduction_home.svg',
+                          allowDrawingOutsideViewBox: true,
+                        ),
+                      )
+                  ),
+              ),
+            ],
           ),
         ),
-
-        Padding(
-          padding: const EdgeInsets.only(top: 56, left: 28, right: 10),
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: SvgPicture.asset(
-              'assets/svg/ic_eduction_home.svg',
-              allowDrawingOutsideViewBox: true,
-            ),
-          )
-        ),
-
       ],
     );
   }

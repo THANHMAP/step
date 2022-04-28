@@ -39,10 +39,25 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
   late ToolData data;
-  List<String> _listRepaymentCycle = ["2 tháng", "4 tháng", "6 tháng", "8 tháng", "12 tháng"];
+  List<String> _listRepaymentCycle = [
+    "1 tháng",
+    "2 tháng",
+    "3 tháng",
+    "4 tháng",
+    "5 tháng",
+    "6 tháng",
+    "7 tháng",
+    "8 tháng",
+    "9 tháng",
+    "10 tháng",
+    "11 tháng",
+    "12 tháng"
+  ];
   int currentRepaymentCycleIndex = 0;
   String dateFirst = "";
   final minDate = DateTime.now();
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +69,22 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
     );
     Utils.portraitModeOnly();
 
+    scrollController.addListener(() { //scroll listener
+      double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+
+      // if(scrollController.offset > showoffset){
+      //   showbtn = true;
+      //   setState(() {
+      //     //update state
+      //   });
+      // }else{
+      //   showbtn = false;
+      //   setState(() {
+      //     //update state
+      //   });
+      // }
+    });
+
     Future.delayed(Duration.zero, () {
       // loadDataSampleTool();
     });
@@ -64,9 +95,10 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -83,328 +115,397 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
             Expanded(
               flex: 8,
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 70),
+                controller: scrollController,
+                child:  Container(
+                  padding: EdgeInsets.only(
+                      top: 30,
+                      left: 24,
+                      right: 24,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
-                      Container(
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0, left: 0, right: 0),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, left: 24, right: 24),
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Lịch trả nợ món vay mới",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  SizedBox(
-                                    child: TextFieldWidget(
-                                        keyboardType: TextInputType.text,
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter
-                                              .singleLineFormatter
-                                        ],
-                                        textInputAction: TextInputAction.done,
-                                        obscureText: false,
-                                        hintText: "Lịch trả nợ món vay mới",
-                                        // labelText: "Phone number",
-                                        // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                        suffixIcon: Icons.close,
-                                        clickSuffixIcon: () =>
-                                            _nameRepaymentController.clear(),
-                                        textController: _nameRepaymentController),
-                                  ),
-                                  //
-                                  const SizedBox(height: 10),
-                                  //
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số tiền bạn phải thanh toán mỗi kỳ",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextField(
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: <TextInputFormatter>[
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                  obscureText: false,
-                                  controller: _moneyPaymentController,
-                                  enabled: true,
-                                  textInputAction: TextInputAction.done,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  decoration: InputDecoration(
-                                      fillColor: const Color(0xFFEFF0FB), filled: true,
-                                      hintText: "Nhập số tiền",
-                                      hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                      // labelText: labelText,
-
-                                      suffixIcon: IconButton(
-                                        onPressed: (){},
-                                        icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
-                                      ),
-                                      enabledBorder:  OutlineInputBorder(
-                                          borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                          borderRadius: BorderRadius.circular(14)),
-
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                          borderRadius: BorderRadius.circular(14))),
-                                  onChanged: (value) {
-                                      value = '${formNum(
-                                        value.replaceAll(',', ''),
-                                      )}';
-                                      _moneyPaymentController.value = TextEditingValue(
-                                        text: value,
-                                        selection: TextSelection.collapsed(
-                                          offset: value.length,
-                                        ),
-                                      );
-                                    },
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Lịch trả nợ món vay mới",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorTextSubTitle,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
                                 ),
-                                  //
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Chu kỳ trả nợ",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  repaymentCycle(),
-
-                                  //
-                                  const SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                          child: Column(
-                                            children: [
-                                              const Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Số lần trả nợ",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.colorTextSubTitle,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-SemiBold",
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              SizedBox(
-                                                child: TextFieldWidget(
-                                                    keyboardType: TextInputType.number,
-                                                    inputFormatters: <TextInputFormatter>[
-                                                      FilteringTextInputFormatter
-                                                          .digitsOnly
-                                                    ],
-                                                    textInputAction: TextInputAction.done,
-                                                    obscureText: false,
-                                                    hintText: "Số lần",
-                                                    // labelText: "Phone number",
-                                                    // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                                    suffixIcon: Icons.close,
-                                                    clickSuffixIcon: () =>
-                                                        _numberPaymentController.clear(),
-                                                    textController: _numberPaymentController),
-                                              ),
-                                            ],
-                                          )
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            children: [
-                                              const Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Ngày trả nợ đầu tiên",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.colorTextSubTitle,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-SemiBold",
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  color: Mytheme.colorTextDivider,
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey.withOpacity(0.5),
-                                                      spreadRadius: 1,
-                                                      blurRadius: 7,
-                                                      offset: const Offset(0, 3), // changes position of shadow
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Expanded(
-                                                      flex: 3,
-                                                      child: Padding(
-                                                        padding:
-                                                        EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-                                                        child: Text(
-                                                          dateFirst,
-                                                          textAlign: TextAlign.start,
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            color: Mytheme.colorBgButtonLogin,
-                                                            fontWeight: FontWeight.w600,
-                                                            fontFamily: "OpenSans-Semibold",
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      flex: 1,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(
-                                                            top: 0, left: 6, bottom: 0, right: 0),
-                                                        child: IconButton(
-                                                          icon: SvgPicture.asset("assets/svg/ic_calender.svg"),
-                                                          // tooltip: 'Increase volume by 10',
-                                                          iconSize: 50,
-                                                          onPressed: () {
-                                                            DatePicker.showDatePicker(context,
-                                                                theme: DatePickerTheme(
-                                                                  containerHeight: 210.0,
-                                                                ),
-                                                                showTitleActions: true,
-                                                                minTime: DateTime(2022, 1, 1),
-                                                                maxTime: DateTime(2030, 12, 31), onConfirm: (date) {
-                                                                  print('confirm $date');
-                                                                  // _date = '${date.year} - ${date.month} - ${date.day}';
-                                                                  setState(() {
-                                                                    dateFirst = '${date.day}/${date.month}/${date.year}';
-                                                                  });
-                                                                }, currentTime: DateTime.now(), locale: LocaleType.vi);
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                      )
-                                    ],
-                                  ),
-//
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số ngày nhận thông báo trước hẹn",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    obscureText: false,
-                                    controller: _numberDayController,
-                                    enabled: true,
-                                    textInputAction: TextInputAction.done,
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: InputDecoration(
-                                        fillColor: const Color(0xFFEFF0FB), filled: true,
-                                        hintText: "Nhập số ngày",
-                                        hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                        // labelText: labelText,
-
-                                        suffixIcon: IconButton(
-                                            onPressed: (){},
-                                            icon: SvgPicture.asset("assets/svg/ic_day.svg")
-                                        ),
-                                        enabledBorder:  OutlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                            borderRadius: BorderRadius.circular(14)),
-
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                            borderRadius: BorderRadius.circular(14))),
-                                  ),
-
-                                  const SizedBox(height: 10),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: Mytheme.color_DCDEE9,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 10, bottom: 10, left: 12, right: 12),
-                                      child: Text(
-                                        "Lưu ý: Bạn chỉ được sửa thông tin trước ngày nhắc nợ đầu tiên ",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              child: TextFieldWidget(
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter
+                                        .singleLineFormatter
+                                  ],
+                                  textInputAction: TextInputAction.done,
+                                  obscureText: false,
+                                  hintText: "Lịch trả nợ món vay mới",
+                                  // labelText: "Phone number",
+                                  // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                  suffixIcon: Icons.close,
+                                  clickSuffixIcon: () =>
+                                      _nameRepaymentController.clear(),
+                                  textController:
+                                  _nameRepaymentController),
+                            ),
+                            //
+                            const SizedBox(height: 10),
+                            //
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Số tiền bạn phải thanh toán mỗi kỳ",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorTextSubTitle,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextField(
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              obscureText: false,
+                              controller: _moneyPaymentController,
+                              enabled: true,
+                              textInputAction: TextInputAction.done,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                  fillColor: const Color(0xFFEFF0FB),
+                                  filled: true,
+                                  hintText: "Nhập số tiền",
+                                  hintStyle: const TextStyle(
+                                      color: Color(0xFFA7ABC3)),
+                                  // labelText: labelText,
 
+                                  suffixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: SvgPicture.asset(
+                                          "assets/svg/ic_vnd.svg")),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius:
+                                      BorderRadius.circular(14)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.green,
+                                          width: 1.7),
+                                      borderRadius:
+                                      BorderRadius.circular(14))),
+                              onChanged: (value) {
+                                value = '${formNum(
+                                  value.replaceAll(',', ''),
+                                )}';
+                                _moneyPaymentController.value =
+                                    TextEditingValue(
+                                      text: value,
+                                      selection: TextSelection.collapsed(
+                                        offset: value.length,
+                                      ),
+                                    );
+                              },
+                            ),
+                            //
+                            const SizedBox(height: 10),
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Chu kỳ trả nợ",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorTextSubTitle,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            repaymentCycle(),
+
+                            //
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      children: [
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Số lần trả nợ",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme
+                                                  .colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily:
+                                              "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          child: TextFieldWidget(
+                                              keyboardType:
+                                              TextInputType.number,
+                                              inputFormatters: <
+                                                  TextInputFormatter>[
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly
+                                              ],
+                                              textInputAction:
+                                              TextInputAction.done,
+                                              obscureText: false,
+                                              hintText: "Số lần",
+                                              // labelText: "Phone number",
+                                              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                              suffixIcon: Icons.close,
+                                              clickSuffixIcon: () =>
+                                                  _numberPaymentController
+                                                      .clear(),
+                                              textController:
+                                              _numberPaymentController),
+                                        ),
+                                      ],
+                                    )),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                    flex: 3,
+                                    child: Column(
+                                      children: [
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Ngày trả nợ đầu tiên",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme
+                                                  .colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily:
+                                              "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            color:
+                                            Mytheme.colorTextDivider,
+                                            borderRadius:
+                                            BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey
+                                                    .withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 7,
+                                                offset: const Offset(0,
+                                                    3), // changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                flex: 3,
+                                                child: Padding(
+                                                  padding:
+                                                  EdgeInsets.only(
+                                                      top: 12,
+                                                      left: 16,
+                                                      bottom: 18,
+                                                      right: 0),
+                                                  child: Text(
+                                                    dateFirst,
+                                                    textAlign:
+                                                    TextAlign.start,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Mytheme
+                                                          .colorBgButtonLogin,
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      fontFamily:
+                                                      "OpenSans-Semibold",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Padding(
+                                                  padding:
+                                                  const EdgeInsets
+                                                      .only(
+                                                      top: 0,
+                                                      left: 6,
+                                                      bottom: 0,
+                                                      right: 0),
+                                                  child: IconButton(
+                                                    icon: SvgPicture.asset(
+                                                        "assets/svg/ic_calender.svg"),
+                                                    // tooltip: 'Increase volume by 10',
+                                                    iconSize: 50,
+                                                    onPressed: () {
+                                                      DatePicker.showDatePicker(
+                                                          context,
+                                                          theme:
+                                                          DatePickerTheme(
+                                                            containerHeight:
+                                                            210.0,
+                                                          ),
+                                                          showTitleActions:
+                                                          true,
+                                                          minTime:
+                                                          DateTime(
+                                                              2022,
+                                                              1,
+                                                              1),
+                                                          maxTime:
+                                                          DateTime(
+                                                              2030,
+                                                              12,
+                                                              31),
+                                                          onConfirm:
+                                                              (date) {
+                                                            print(
+                                                                'confirm $date');
+                                                            // _date = '${date.year} - ${date.month} - ${date.day}';
+                                                            setState(() {
+                                                              dateFirst =
+                                                              '${date.day}/${date.month}/${date.year}';
+                                                            });
+                                                          },
+                                                          currentTime:
+                                                          DateTime
+                                                              .now(),
+                                                          locale:
+                                                          LocaleType
+                                                              .vi);
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ))
+                              ],
+                            ),
+//
+                            const SizedBox(height: 10),
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Số ngày nhận thông báo trước hẹn",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorTextSubTitle,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextField(
+                              onTap: () {
+                                scrollController.animateTo( //go to top of scroll
+                                    scrollController.position.maxScrollExtent,  //scroll offset to go
+                                    duration: Duration(milliseconds: 500), //duration of scroll
+                                    curve:Curves.fastOutSlowIn //scroll type
+                                );
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              obscureText: false,
+                              controller: _numberDayController,
+                              enabled: true,
+                              textInputAction: TextInputAction.done,
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: InputDecoration(
+                                  fillColor: const Color(0xFFEFF0FB),
+                                  filled: true,
+                                  hintText: "Nhập số ngày",
+                                  hintStyle: const TextStyle(
+                                      color: Color(0xFFA7ABC3)),
+                                  // labelText: labelText,
+
+                                  suffixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: SvgPicture.asset(
+                                          "assets/svg/ic_day.svg")),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.grey, width: 1),
+                                      borderRadius:
+                                      BorderRadius.circular(14)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.green,
+                                          width: 1.7),
+                                      borderRadius:
+                                      BorderRadius.circular(14))),
+                            ),
+
+                            const SizedBox(height: 10),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.color_DCDEE9,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10,
+                                    bottom: 10,
+                                    left: 12,
+                                    right: 12),
+                                child: Text(
+                                  "Lưu ý: Bạn chỉ được sửa thông tin trước ngày nhắc nợ đầu tiên ",
+                                  textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Mytheme.color_82869E,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -426,7 +527,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                         ),
                         primary: Mytheme.colorBgButtonLogin,
                         minimumSize:
-                        Size(MediaQuery.of(context).size.width, 44)),
+                            Size(MediaQuery.of(context).size.width, 44)),
                     child: Text(
                       "Lưu",
                       style: TextStyle(
@@ -450,7 +551,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                       dataUsers.add(DataUsers(
                         key: "repayment_cycle",
                         value: _listRepaymentCycle[currentRepaymentCycleIndex],
-                        type: 2,
+                        type: currentRepaymentCycleIndex,
                       ));
 
                       //số lần trả nợ
@@ -486,7 +587,6 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
     );
   }
 
-
   repaymentCycle() {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
@@ -512,11 +612,11 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
             mainAxisAlignment: MainAxisAlignment.start,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-               Expanded(
+              Expanded(
                 flex: 3,
                 child: Padding(
                   padding:
-                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     getNameRepayment(currentRepaymentCycleIndex),
                     textAlign: TextAlign.start,
@@ -539,7 +639,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                     // tooltip: 'Increase volume by 10',
                     iconSize: 50,
                     onPressed: () {
-                      // _sexEditModalBottomSheet(context);
+                      _repaymentCycleEditModalBottomSheet(context);
                     },
                   ),
                 ),
@@ -593,7 +693,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                 width: 40,
                                 child: IconButton(
                                   icon:
-                                  Image.asset("assets/images/ic_close.png"),
+                                      Image.asset("assets/images/ic_close.png"),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -602,10 +702,13 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                         ],
                       ),
                     ),
-                    SingleChildScrollView(
+                    Expanded(
+                      child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            for (var i = 0; i < _listRepaymentCycle.length; i++) ...[
+                            for (var i = 0;
+                                i < _listRepaymentCycle.length;
+                                i++) ...[
                               InkWell(
                                 onTap: () {
                                   setState(() {
@@ -622,10 +725,12 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                       : Mytheme.kBackgroundColor,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 16),
+                                        padding:
+                                            const EdgeInsets.only(left: 16),
                                         child: Text(
                                           _listRepaymentCycle[i],
                                           style: const TextStyle(
@@ -641,7 +746,9 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                       // di chuyen item tối cuối
                                       const Spacer(),
                                       Visibility(
-                                        visible: currentRepaymentCycleIndex == i ? true : false,
+                                        visible: currentRepaymentCycleIndex == i
+                                            ? true
+                                            : false,
                                         child: const Padding(
                                           padding: EdgeInsets.only(right: 16),
                                           child: Image(
@@ -657,8 +764,8 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                             ],
                           ],
                         ),
-                    )
-
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -679,19 +786,19 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
-            (value) async {
-          pr.hide();
-          if (value['status_code'] == 200) {
-            showDialogSuccess();
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj)
+        .then((value) async {
+      pr.hide();
+      if (value['status_code'] == 200) {
+        showDialogSuccess();
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
   }
 
-  showDialogSuccess(){
+  showDialogSuccess() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -702,15 +809,13 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
               child: SuccessDialogBox(
                 title: "Chúc mừng bạn đã tạo thành công Lịch trả nợ",
                 descriptions:
-                "Lưu ý: Bạn chỉ được sửa thông tin trước ngày nhắc nợ đầu tiên ",
+                    "Lưu ý: Bạn chỉ được sửa thông tin trước ngày nhắc nợ đầu tiên ",
                 textButton: "Tiếp tục",
                 onClickedConfirm: () {
                   Get.back(result: true);
                   Get.back(result: true);
                 },
               ));
-        }
-    );
+        });
   }
-
 }

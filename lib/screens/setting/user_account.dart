@@ -381,7 +381,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   decoration: InputDecoration.collapsed(
                     border: InputBorder.none,
-                    hintText: user.dob ?? "Thêm thông tin",
+                    hintText: user.dob ?? "Ngày sinh",
                   ),
                   maxLines: 1,
                 ),

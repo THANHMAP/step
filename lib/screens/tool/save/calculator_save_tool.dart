@@ -71,7 +71,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
         body: Column(
           children: <Widget>[
             AppbarWidget(
-              text: data.name,
+              text: "Tính lãi tiết kiệm",
               onClicked: () {
                 Navigator.of(context).pop(false);
               },
@@ -312,7 +312,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                         Row(
                                                           children: [
                                                             Expanded(
-                                                              flex: 1,
+                                                              flex: 2,
                                                               child: Align(
                                                                 alignment: Alignment.centerLeft,
                                                                 child: Text(
@@ -355,7 +355,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                         Row(
                                                           children: [
                                                             Expanded(
-                                                              flex: 1,
+                                                              flex: 2,
                                                               child:  Align(
                                                                 alignment: Alignment.centerLeft,
                                                                 child: Text(

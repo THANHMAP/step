@@ -41,7 +41,7 @@ class CardEducatonWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 16, left: 20, bottom: 18, right: 20),
+          padding: const EdgeInsets.only(top: 10, left: 20, bottom: 10, right: 20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +49,7 @@ class CardEducatonWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 0, left: 0, bottom: 0, right: 0),
                 child: Container(
-                  width: 80,
+                  width: 60,
                   child: Image.network(
                     linkUrl.toString(),
                     fit: BoxFit.fill,

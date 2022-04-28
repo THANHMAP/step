@@ -66,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
   BiometricsData _biometricsData = BiometricsData();
   var platform = "Android";
   String token = "";
+
   @override
   void initState() {
     super.initState();
@@ -228,7 +229,8 @@ class _LoginScreenState extends State<LoginScreen> {
       final userData = await FacebookAuth.i.getUserData(
         fields: "email,name",
       );
-      doLoginBySocial(userData['email'].toString(), userData['id'].toString(), "2");
+      doLoginBySocial(
+          userData['email'].toString(), userData['id'].toString(), "2");
       print(userData['email'].toString());
     }
   }
@@ -271,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
-                        height: 46,
+                        height: 56,
                         child: TextFieldWidget(
                             textAlign: true,
                             maxLines: 1,
@@ -306,13 +308,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: SizedBox(
-                                    height: 46,
+                                    height: 56,
                                     child: TextFieldWidget(
                                         textAlign: true,
                                         maxLines: 1,
                                         obscureText: isPasswordVisible,
                                         hintText:
-                                        StringText.text_password_input,
+                                            StringText.text_password_input,
                                         // labelText: 'Password',
                                         // prefixIcon:
                                         // const Icon(Icons.person, color: Colors.grey),
@@ -323,7 +325,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         clickSuffixIcon: () {
                                           setState(() {
                                             isPasswordVisible =
-                                            !isPasswordVisible;
+                                                !isPasswordVisible;
                                           });
                                         },
                                         textController: _passwordController),
@@ -405,13 +407,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(StringText.text_login_different),
                         ],
                       ),
-                      if(Platform.isAndroid)...[
+                      if (Platform.isAndroid) ...[
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              icon: Image.asset("assets/images/icon_google.png"),
+                              icon:
+                                  Image.asset("assets/images/icon_google.png"),
                               // tooltip: 'Increase volume by 10',
                               iconSize: 50,
                               onPressed: () {
@@ -470,7 +473,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.bottomCenter,
                         child: Image(
                           image:
-                          AssetImage('assets/images/img_line_horizone.png'),
+                              AssetImage('assets/images/img_line_horizone.png'),
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -485,7 +488,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -535,7 +537,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> doLoginBySocial(String email, String id, String socialType) async {
+  Future<void> doLoginBySocial(
+      String email, String id, String socialType) async {
     var param = jsonEncode(<String, String>{
       'email': email,
       'social_id': id,
@@ -546,7 +549,7 @@ class _LoginScreenState extends State<LoginScreen> {
     pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
         .then((value) async {
-          pr.hide();
+      pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
