@@ -65,6 +65,8 @@
 	<string>This app needs location access when opened to use the app's weather display</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs location access when opened to use the app's weather display</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Need microphone access for uploading videos or bug</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Description Use Photo Gallery for the purpose of choosing your avatar picture</string>
 	<key>UIBackgroundModes</key>
@@ -91,7 +93,5 @@
 	<true/>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
-	<key>NSMicrophoneUsageDescription</key>
-    <string>Need microphone access for uploading videos or bug</string>
 </dict>
 </plist>
