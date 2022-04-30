@@ -52,16 +52,20 @@ class NewsDetailScreen extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(
-                                newsData!.name!.toString(),
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-Semibold",
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child:  Text(
+                                  newsData!.name!.toString(),
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                  ),
+                                  textAlign: TextAlign.left,
                                 ),
-                                textAlign: TextAlign.left,
                               ),
+
                               const SizedBox(height: 10),
                               Align(
                                   alignment: Alignment.topLeft,
@@ -85,7 +89,6 @@ class NewsDetailScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          height: 220,
                           child: Image.network(
                             newsData?.thumbnail ?? "",
                             fit: BoxFit.cover,

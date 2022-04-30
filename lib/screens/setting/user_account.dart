@@ -403,13 +403,16 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         showTitleActions: true,
                         minTime: DateTime(1930, 1, 1),
-                        maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                        maxTime: DateTime(2022, 12, 31),
+                        onConfirm: (date) {
                           print('confirm $date');
                           _date = '${date.year} - ${date.month} - ${date.day}';
                           setState(() {
                             _userBodController.text = '${date.day} - ${date.month} - ${date.year}';
                           });
-                        }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                        },
+                        currentTime: DateTime.now(),
+                        locale: LocaleType.vi);
                   },
                 ),
               ),

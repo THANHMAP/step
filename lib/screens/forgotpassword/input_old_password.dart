@@ -71,8 +71,10 @@ class _InputOldPassWordScreenState extends State<InputOldPassWordScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 46,
+                            height: 56,
                             child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
                                 obscureText: isPasswordVisible,
                                 hintText: "Nhập mật khẩu",
                                 // labelText: 'Password',

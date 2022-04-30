@@ -35,14 +35,18 @@ enum AppState { NOT_DOWNLOADED, DOWNLOADING, FINISHED_DOWNLOADING }
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, this.controller}) : super(key: key);
   final PersistentTabController? controller;
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const String _kLocationServicesDisabledMessage = 'Location services are disabled.';
-  static const String _kPermissionDeniedMessage = 'Permission denied.';
-  static const String _kPermissionDeniedForeverMessage = 'Permission denied forever.';
+  static const String _kLocationServicesDisabledMessage =
+      'Chức năng lấy vị trí hiện tại đang bị khóa. Vui lòng mở lại để sử dụng đươc chức năng này';
+  static const String _kPermissionDeniedMessage =
+      'Chức năng hiển thị thời tiết cần bạn cho phép lấy vị trí hiện. Vui lòng vào phần cài đặt điện thoại để mở';
+  static const String _kPermissionDeniedForeverMessage =
+      'Chức năng hiển thị thời tiết cần bạn cho phép lấy vị trí hiện. Vui lòng vào phần cài đặt điện thoại để mở.';
   static const String _kPermissionGrantedMessage = 'Permission granted.';
   int _index = 0;
   late ProgressDialog pr;
@@ -58,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String textNhietDo = "34";
   String statusWeather = "Trời nắng";
   Color textColorNhietDo = Mytheme.kBackgroundColor;
+  bool statusPermission = false;
 
   @override
   void initState() {
@@ -166,8 +171,15 @@ class _HomeScreenState extends State<HomeScreen> {
     final hasPermission = await _handlePermission();
 
     if (!hasPermission) {
+      setState(() {
+        statusPermission = false;
+      });
       return;
     }
+
+    setState(() {
+      statusPermission = true;
+    });
 
     final position = await _geolocatorPlatform.getCurrentPosition();
     queryWeather(position.latitude, position.longitude);
@@ -223,45 +235,90 @@ class _HomeScreenState extends State<HomeScreen> {
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 27, right: 0),
+                              padding:
+                                  const EdgeInsets.only(bottom: 27, right: 0),
                               child: SvgPicture.asset(
                                 "assets/svg/ic_logo_notext.svg",
                                 width: 70,
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(_data.isNotEmpty ? _data[0].tempMax!.celsius!.round().toString() : "34",
-                                  style: GoogleFonts.manrope(fontSize: 36, fontWeight: FontWeight.w300, color: textColorNhietDo)),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
+                          Visibility(
+                              visible: !statusPermission,
+                              child: InkWell(
+                                onTap: () {
+                                  _getCurrentPosition();
+                                },
                                 child: Align(
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "0",
-                                    style:
-                                        GoogleFonts.manrope(fontSize: 26, fontWeight: FontWeight.w300, color: textColorNhietDo),
+                                    "Tải lại",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 26,
+                                      color: Mytheme.kBackgroundColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-Semibold",
+                                    ),
                                   ),
                                 ),
                               ),
-                              Text(
-                                "C",
-                                style: GoogleFonts.manrope(fontSize: 36, fontWeight: FontWeight.w300, color: textColorNhietDo),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15, left: 7),
-                                child: Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    statusWeather,
-                                    style:
-                                        GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w300, color: textColorNhietDo),
+
+                          ),
+
+                          Visibility(
+                            visible: statusPermission,
+                            child: Row(
+                              children: [
+                                Text(
+                                    _data.isNotEmpty
+                                        ? _data[0]
+                                            .tempMax!
+                                            .celsius!
+                                            .round()
+                                            .toString()
+                                        : "34",
+                                    style: GoogleFonts.manrope(
+                                        fontSize: 36,
+                                        fontWeight: FontWeight.w300,
+                                        color: textColorNhietDo)),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Text(
+                                      "0",
+                                      style: GoogleFonts.manrope(
+                                          fontSize: 26,
+                                          fontWeight: FontWeight.w300,
+                                          color: textColorNhietDo),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
+                                Text(
+                                  "C",
+                                  style: GoogleFonts.manrope(
+                                      fontSize: 36,
+                                      fontWeight: FontWeight.w300,
+                                      color: textColorNhietDo),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 15, left: 7),
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Text(
+                                      statusWeather,
+                                      style: GoogleFonts.manrope(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w300,
+                                          color: textColorNhietDo),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     )
@@ -340,7 +397,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.toNamed('/introductionToolScreen', arguments: _toolList[i]);
+                  Get.toNamed('/introductionToolScreen',
+                      arguments: _toolList[i]);
                 },
                 child: Container(
                   height: 84,
@@ -364,17 +422,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 1,
                         child: Container(
-                          margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                          margin:
+                              const EdgeInsets.only(left: 10.0, right: 10.0),
                           child: Image.network(
                             _toolList[i].icon ?? "",
                             fit: BoxFit.fill,
                             width: 30,
-                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
                               return Center(
                                 child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
                                       : null,
                                 ),
                               );
@@ -385,7 +447,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 3,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
+                          padding:
+                              const EdgeInsets.only(top: 0, left: 10, right: 0),
                           child: Text(
                             _toolList[i].name ?? "",
                             style: TextStyle(
@@ -401,7 +464,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 1,
                         child: Image(
-                          image: AssetImage('assets/images/img_arrow_right.png'),
+                          image:
+                              AssetImage('assets/images/img_arrow_right.png'),
                           fit: BoxFit.contain,
                           width: 16,
                           height: 16,
@@ -427,7 +491,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 123,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/img_bg_hoctap.png"),
+            image: AssetImage("assets/images/banner_hoc_tap.png"),
             fit: BoxFit.fill,
           ),
         ),
@@ -450,25 +514,33 @@ class _HomeScreenState extends State<HomeScreen> {
               scale: i == _index ? 1 : 0.9,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
-                child: Container(
-                  height: 140.0,
-                  width: double.infinity,
-                  color: Colors.blue,
-                  child: Image.network(
-                    listBanner![i].thumbnail.toString(),
-                    fit: BoxFit.none,
-                    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed("/webViewScreen", arguments: listBanner![_index]);
+                  },
+                  child: Container(
+                    height: 140.0,
+                    width: double.infinity,
+                    color: Colors.blue,
+                    child: Image.network(
+                      listBanner![i].thumbnail.toString(),
+                      fit: BoxFit.none,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
+
               )
 
               // new Container(
@@ -556,7 +628,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       screen: NewsScreen(),
                       withNavBar: true,
-                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino,
                     );
                     // Get.toNamed('/news');
                     // getOtpAgain(phone);
@@ -620,7 +693,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Expanded(
                         flex: 5,
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 13, left: 20, right: 10),
+                          padding: const EdgeInsets.only(
+                              top: 13, left: 20, right: 10),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -736,7 +810,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (!pr.isShowing()) {
       await pr.show();
     }
-    APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then((value) async {
+    APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then(
+        (value) async {
       var data = BannerPromotionModel.fromJson(value);
       if (data.statusCode == 200) {
         if (mounted) {
@@ -780,7 +855,8 @@ class _HomeScreenState extends State<HomeScreen> {
     var param = jsonEncode(<String, String>{
       'my_tool': "false",
     });
-    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, "").then((value) async {
+    APIManager.postAPICallNeedToken(RemoteServices.listToolURL, "").then(
+        (value) async {
       pr.hide();
       var data = ToolModel.fromJson(value);
       if (data.statusCode == 200) {

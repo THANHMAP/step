@@ -57,6 +57,7 @@ import '../screens/tool/plan_business/edit_plan_business.dart';
 import '../screens/tool/plan_business/main_plan_business.dart';
 import '../screens/tool/save/manage_save.dart';
 import '../screens/updatepassword/update_new_pass.dart';
+import '../screens/web_view/web_view.dart';
 import 'app_router.dart';
 
 class AppPages {
@@ -336,6 +337,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.scromVideoScreen,
       page: () => const ScromVideoScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.webViewScreen,
+      page: () => const WebViewScreen(),
     ),
   ];
 }

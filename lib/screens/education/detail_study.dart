@@ -182,12 +182,13 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                           "Tiếp tục",
                           style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () async {
-                          await browser.open(
-                              url: Uri.parse("https://internal.co-opsmart.vn/scorm/13"),
-                              options: ChromeSafariBrowserClassOptions(
-                                  android: AndroidChromeCustomTabsOptions(shareState: CustomTabsShareState.SHARE_STATE_OFF),
-                                  ios: IOSSafariOptions(barCollapsingEnabled: true)));
+                        onPressed: ()  {
+                          Get.back();
+                          // await browser.open(
+                          //     url: Uri.parse("https://internal.co-opsmart.vn/scorm/13"),
+                          //     options: ChromeSafariBrowserClassOptions(
+                          //         android: AndroidChromeCustomTabsOptions(shareState: CustomTabsShareState.SHARE_STATE_OFF),
+                          //         ios: IOSSafariOptions(barCollapsingEnabled: true)));
                         },
                       )
                     ],
@@ -266,7 +267,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 300,
+          height: 400,
           child: PageView.builder(
               itemCount: fileSlideShare.length,
               pageSnapping: true,
