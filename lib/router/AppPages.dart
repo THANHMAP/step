@@ -47,6 +47,9 @@ import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/scorm_video.dart';
 import '../screens/education/topic_education.dart';
+import '../screens/notification/notification.dart';
+import '../screens/notification/notification_new.dart';
+import '../screens/notification/notification_schedule_tool.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
@@ -342,6 +345,21 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.webViewScreen,
       page: () => const WebViewScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.notificationScreen,
+      page: () => const NotificationScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.notificationRepaymentScreen,
+      page: () => const NotificationRepaymentScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.notificationNewScreen,
+      page: () => const NotificationNewScreen(),
     ),
   ];
 }

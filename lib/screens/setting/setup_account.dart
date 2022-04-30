@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:local_auth/local_auth.dart';
@@ -29,8 +31,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   late ProgressDialog pr;
   late UserData user = UserData();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController =
-      TextEditingController(text: '123456789');
+  final TextEditingController _passwordController = TextEditingController(text: '123456789');
   bool _isDisableEmail = true;
   String urlActionUsername = "assets/images/ic_edit.png";
   bool _switchValue = false;
@@ -49,11 +50,12 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    _emailController.text = user.email.toString();
+
     loadSharedPrefs();
     _checkBiometrics();
     _getAvailableBiometrics();
     loadCheckBiometrics();
+    _emailController.text = user.email.toString();
   }
 
   Future<void> _checkBiometrics() async {
@@ -344,7 +346,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   // tooltip: 'Increase volume by 10',
                   iconSize: 50,
                   onPressed: () {
-                    Get.toNamed('/inputAccountAgain',  arguments: user.phone);
+                    Get.toNamed('/inputAccountAgain', arguments: user.phone);
                   },
                 ),
               ),
@@ -455,7 +457,6 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       child: InkWell(
         onTap: () {},
         child: Container(
-          height: 60,
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -471,21 +472,25 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Expanded(
+              Expanded(
                 flex: 2,
                 child: Padding(
                   padding:
                       EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-                  child: Text(
-                    "Đăng nhập vân tay",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Mytheme.colorBgButtonLogin,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "OpenSans-Semibold",
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Đăng nhập vân tay",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Mytheme.colorBgButtonLogin,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "OpenSans-Semibold",
+                      ),
                     ),
                   ),
                 ),
@@ -493,36 +498,31 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 16, bottom: 18, right: 10),
-                  child: MergeSemantics(
-                    child: ListTile(
-                      title: Text('Lights'),
-                      trailing: CupertinoSwitch(
-                        activeColor: Mytheme.color_active,
-                        value: _switchValue,
-                        onChanged: (bool value) {
-                          if (!value) {
-                            showDialogConfig();
-                          } else {
-                            setState(() {
-                              _switchValue = value;
-                              if (_isFingerprint && _canCheckBiometrics) {
-                                saveBiometrics(_switchValue);
-                              } else {
-                                Utils.showAlertDialogOneButton(context,
-                                    "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
-                              }
-                            });
-                          }
-                        },
-                      ),
+                  padding: const EdgeInsets.only(top: 10, left: 16, bottom: 18, right: 10),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
                       onTap: () {
-                        setState(() {
-                          _switchValue = !_switchValue;
-                        });
+                        if (_switchValue) {
+                          showDialogConfig();
+                        } else {
+                          setState(() {
+                            if (_isFingerprint && _canCheckBiometrics) {
+                              saveBiometrics(_switchValue);
+                            } else {
+                              Utils.showAlertDialogOneButton(context,
+                                  "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
+                            }
+                          });
+                        }
                       },
+                      child: Image.asset(
+                        !_switchValue ? "assets/images/ic_switch_off.png": "assets/images/ic_switch_on.png",
+                        width: 60,
+                        height: 44,
+                      ),
                     ),
+
                   ),
                 ),
               ),
@@ -539,6 +539,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       var response = json.decode(isLogged.toString());
       setState(() {
         user = UserData.fromJson(response);
+        _emailController.text = user.email.toString();
       });
       print(response);
     } on FetchDataException catch (e) {
@@ -587,6 +588,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   }
 
   Future<void> saveBiometrics(bool active) async {
+    _switchValue = true;
     _biometricsData.isActivated = active;
     await SPref.instance.set("biometrics", json.encode(_biometricsData));
   }

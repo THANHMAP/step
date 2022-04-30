@@ -22,6 +22,7 @@ class RemoteServices {
   static var updatePasswordURL = '$baseURL/api/v1/user/update-password';
   static var forgotPasswordURL = '$baseURL/api/v1/user/forgot-password';
   static var newsURL = '$baseURL/api/v1/new/list';
+  static var newDetailURL = '$baseURL/api/v1/new/detail';
   static var listUserGroupURL = '$baseURL/api/v1/setting/list-user-group';
   static var listCityURL = '$baseURL/api/v1/setting/list-cities';
   static var updateUserURL = '$baseURL/api/v1/user/update-info';
@@ -64,6 +65,8 @@ class RemoteServices {
   static var updateItemToolURL = '$baseURL/api/v1/tool/update-data-tool';
   static var listWithDrawToolURL = '$baseURL/api/v1/tool/list-with-draw';
   static var storeWithDrawToolURL = '$baseURL/api/v1/tool/store-with-draw';
+
+  static var listNotificationURL = '$baseURL/api/v1/setting/list-notification';
 
 
 }

@@ -13,6 +13,7 @@ import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
 
+import '../../shared/SPref.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -30,7 +31,7 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
   bool isPasswordVisible = true;
   bool isPasswordConfirmVisible = true;
   String title = "";
-  String textButton = "";
+  String textButton = "Đổi mật khẩu";
   String phone = "";
   int typeScreen = 0;
   late ProgressDialog pr;
@@ -94,8 +95,10 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 46,
+                            height: 56,
                             child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
                                 obscureText: isPasswordVisible,
                                 hintText: StringText.text_password_input,
                                 // labelText: 'Password',
@@ -192,8 +195,10 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 46,
+                            height: 56,
                             child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
                                 obscureText: isPasswordConfirmVisible,
                                 hintText: StringText.text_password_input_again,
                                 // labelText: 'Password',
@@ -239,7 +244,7 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
-                        doUpdate();
+                        updatePassword();
                         // Get.toNamed('/otp');
                       },
                     )),
@@ -302,13 +307,12 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
       password = _passwordController.text;
       passwordConfirm = _passwordConfirmController.text;
       var param = jsonEncode(<String, String>{
-        'phone': phone,
         'password': password,
         'password_confirm': passwordConfirm
       });
       if (password == passwordConfirm) {
-        APIManager.postAPICallNoNeedToken(
-            RemoteServices.forgotPasswordURL, param)
+        APIManager.postAPICallNeedToken(
+            RemoteServices.updatePasswordURL, param)
             .then((value) async {
           await pr.hide();
           showDialog(
@@ -350,6 +354,10 @@ class _UpdateNewPassWordScreenState extends State<UpdateNewPassWordScreen> {
   }
 
   Future<void> switchToLogin() async {
+    await SPref.instance.set("token", "");
+    await SPref.instance.set("info_login", "");
+    Get.offAllNamed("/login"
+        "");
     Get.offAllNamed("/login");
   }
 

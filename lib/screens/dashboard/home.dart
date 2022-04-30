@@ -216,17 +216,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 Stack(
                   children: <Widget>[
                     headerLayout(),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                          padding: const EdgeInsets.only(top: 66, right: 20),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: SvgPicture.asset(
-                              "assets/svg/ic_notification.svg",
-                            ),
-                          )),
+                    InkWell(
+                      onTap: () {
+                        Get.toNamed("/notificationScreen");
+                      },
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                            padding: const EdgeInsets.only(top: 66, right: 20),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: SvgPicture.asset(
+                                "assets/svg/ic_notification.svg",
+                              ),
+                            )),
+                      ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.only(top: 60, left: 33),
                       child: Column(

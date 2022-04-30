@@ -62,4 +62,7 @@ class AppRoutes {
   static const String myToolScreen = "/myToolScreen";
   static const String scromVideoScreen = "/scromVideoScreen";
   static const String webViewScreen = "/webViewScreen";
+  static const String notificationScreen = "/notificationScreen";
+  static const String notificationRepaymentScreen = "/notificationRepaymentScreen";
+  static const String notificationNewScreen = "/notificationNewScreen";
 }

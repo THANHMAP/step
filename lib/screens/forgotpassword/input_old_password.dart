@@ -139,7 +139,7 @@ class _InputOldPassWordScreenState extends State<InputOldPassWordScreen> {
     var param = jsonEncode(<String, String>{
       'password': password,
     });
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, param).then(
+    APIManager.postAPICallNeedToken(RemoteServices.validatePasswordUserURL, param).then(
             (value) async {
           pr.hide();
           if (value['status_code'] == 200) {
