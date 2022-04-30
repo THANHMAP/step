@@ -92,7 +92,6 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
                 },
               ),
               Expanded(
-                flex: 9,
                 child: InAppWebView(
                   key: webViewKey,
                   initialUrlRequest:
@@ -160,36 +159,36 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
                   },
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 10, left: 24, right: 24),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              // side: const BorderSide(color: Colors.red)
-                            ),
-                            primary: Mytheme.colorBgButtonLogin,
-                            minimumSize:
-                                Size(MediaQuery.of(context).size.width, 44)),
-                        child: Text(
-                          "Tiếp tục",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "OpenSans-Regular",
-                              fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: (){
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(
+              //         top: 10, bottom: 10, left: 24, right: 24),
+              //     child: Column(
+              //       children: [
+              //         ElevatedButton(
+              //           style: ElevatedButton.styleFrom(
+              //               shape: RoundedRectangleBorder(
+              //                 borderRadius: BorderRadius.circular(8),
+              //                 // side: const BorderSide(color: Colors.red)
+              //               ),
+              //               primary: Mytheme.colorBgButtonLogin,
+              //               minimumSize:
+              //                   Size(MediaQuery.of(context).size.width, 44)),
+              //           child: Text(
+              //             "Tiếp tục",
+              //             style: TextStyle(
+              //                 fontSize: 16,
+              //                 fontFamily: "OpenSans-Regular",
+              //                 fontWeight: FontWeight.bold),
+              //           ),
+              //           onPressed: (){
+              //           },
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ));
