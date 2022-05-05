@@ -504,17 +504,41 @@ class GalleryWidget extends StatefulWidget {
 class _GalleryWidgetState extends State<GalleryWidget> {
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: PhotoViewGallery.builder(
-            pageController: widget.pageController,
-            itemCount: widget.urlImages.length,
-            builder: (context, index) {
-              final urlImage = widget.urlImages[index];
-              return PhotoViewGalleryPageOptions(
-                  imageProvider: NetworkImage(urlImage),
-                  minScale: PhotoViewComputedScale.contained,
-                  maxScale: PhotoViewComputedScale.contained * 4,
-              );
-            }
+        body: Stack(
+          children: [
+            PhotoViewGallery.builder(
+                pageController: widget.pageController,
+                itemCount: widget.urlImages.length,
+                builder: (context, index) {
+                  final urlImage = widget.urlImages[index];
+                  return PhotoViewGalleryPageOptions(
+                    imageProvider: NetworkImage(urlImage),
+                    minScale: PhotoViewComputedScale.contained,
+                    maxScale: PhotoViewComputedScale.contained * 4,
+                  );
+                }
+            ),
+            Container(
+              height: 80,
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Align(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 66, left: 20),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: SvgPicture.asset(
+                          "assets/svg/ic_back.svg",
+                        ),
+                      )),
+                ),
+              ),
+            )
+
+          ],
         ),
+
       );
 }
