@@ -508,7 +508,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                         } else {
                           setState(() {
                             if (_isFingerprint && _canCheckBiometrics) {
-                              saveBiometrics(_switchValue);
+                              saveBiometrics(true);
                             } else {
                               Utils.showAlertDialogOneButton(context,
                                   "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
