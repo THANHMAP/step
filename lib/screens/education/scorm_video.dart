@@ -1,6 +1,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -48,7 +49,12 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    Utils.portraitModeOnly();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
     WidgetsFlutterBinding.ensureInitialized();
 
     if (Platform.isAndroid) {

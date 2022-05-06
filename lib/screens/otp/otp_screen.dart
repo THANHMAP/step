@@ -234,9 +234,9 @@ class _OtpScreenState extends State<OtpScreen> {
         await pr.hide();
         if (value['status_code'] == 200) {
           if (typeScreen == 0) {
-            Get.toNamed('/updatePassword', arguments: "register:$phone");
+            Get.offAndToNamed('/updatePassword', arguments: "register:$phone");
           } else {
-            Get.toNamed('/updatePassword', arguments: "forgot:$phone");
+            Get.offAndToNamed('/updatePassword', arguments: "forgot:$phone");
           }
         } else {
           Utils.showAlertDialogOneButton(context, value['message'].toString());

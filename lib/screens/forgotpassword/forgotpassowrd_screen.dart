@@ -152,7 +152,7 @@ class _ForgotPassWordScreenState extends State<ForgotPassWordScreen> {
         .then((value) async {
       await pr.hide();
       if (value['status_code'] == 200) {
-        Get.toNamed('/otp', arguments: "forgot:$phone");
+        Get.offAndToNamed('/otp', arguments: "forgot:$phone");
       } else {
         Utils.showAlertDialogOneButton(context, value['message'].toString());
       }

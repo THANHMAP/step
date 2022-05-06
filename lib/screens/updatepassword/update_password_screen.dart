@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
@@ -94,8 +95,10 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 46,
+                            height: 56,
                             child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
                                 obscureText: isPasswordVisible,
                                 hintText: StringText.text_password_input,
                                 // labelText: 'Password',
@@ -113,73 +116,9 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                                 textController: _passwordController),
                           ),
                           const SizedBox(height: 10),
-                          Container(
-                            // color: const Color(0xFFEFF0FB),
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFEFF0FB),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8)),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: 9, left: 11, right: 11, bottom: 8),
-                              child: Column(
-                                children: const [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 0, left: 0, right: 0, bottom: 8),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        StringText.text_regestion_password_1,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 0, left: 44, right: 11, bottom: 0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        StringText.text_regestion_password_2,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 0, left: 44, right: 11, bottom: 0),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        StringText.text_regestion_password_3,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SvgPicture.asset("assets/svg/text_goi_u_pass.svg"),
                           ),
                           const SizedBox(height: 10),
                           const Align(
@@ -192,8 +131,10 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                           ),
                           const SizedBox(height: 10),
                           SizedBox(
-                            height: 46,
+                            height: 56,
                             child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
                                 obscureText: isPasswordConfirmVisible,
                                 hintText: StringText.text_password_input_again,
                                 // labelText: 'Password',
