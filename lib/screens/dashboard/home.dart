@@ -527,10 +527,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     height: 140.0,
                     width: double.infinity,
-                    color: Colors.blue,
                     child: Image.network(
                       listBanner![i].thumbnail.toString(),
-                      fit: BoxFit.none,
+                      fit: BoxFit.fill,
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) return child;

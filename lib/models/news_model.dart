@@ -36,6 +36,7 @@ class NewsData {
   String? description;
   String? content;
   String? thumbnail;
+  String? linkDetail;
   String? createdAt;
 
   NewsData(
@@ -44,6 +45,7 @@ class NewsData {
         this.description,
         this.content,
         this.thumbnail,
+        this.linkDetail,
         this.createdAt});
 
   NewsData.fromJson(Map<String, dynamic> json) {
@@ -52,6 +54,7 @@ class NewsData {
     description = json['description'];
     content = json['content'];
     thumbnail = json['thumbnail'];
+    linkDetail = json['link_detail'];
     createdAt = json['createdAt'];
   }
 
@@ -62,6 +65,7 @@ class NewsData {
     data['description'] = this.description;
     data['content'] = this.content;
     data['thumbnail'] = this.thumbnail;
+    data['link_detail'] = this.linkDetail;
     data['createdAt'] = this.createdAt;
     return data;
   }

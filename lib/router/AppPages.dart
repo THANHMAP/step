@@ -47,12 +47,17 @@ import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/scorm_video.dart';
 import '../screens/education/topic_education.dart';
+import '../screens/news/web_view_news.dart';
 import '../screens/notification/notification.dart';
 import '../screens/notification/notification_new.dart';
 import '../screens/notification/notification_schedule_tool.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
+import '../screens/tool/loan_calculation/edit_loan_calculation.dart';
+import '../screens/tool/loan_calculation/loan_calculation.dart';
+import '../screens/tool/loan_calculation/main_loan_caculation.dart';
+import '../screens/tool/loan_calculation/view_loan_calculation.dart';
 import '../screens/tool/plan_business/add_agricultural_production_plan.dart';
 import '../screens/tool/plan_business/add_plan_business.dart';
 import '../screens/tool/plan_business/edit_agricultural_production_plan.dart';
@@ -360,6 +365,31 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.notificationNewScreen,
       page: () => const NotificationNewScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.mainLoanCalculatorToolScreen,
+      page: () => const MainLoanCalculatorToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.calculatorLoanToolScreen,
+      page: () => const CalculatorLoanToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.viewCalculatorLoanToolScreen,
+      page: () => const ViewCalculatorLoanToolScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.webViewNewsScreen,
+      page: () => const WebViewNewsScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.editCalculatorLoanToolScreen,
+      page: () => const EditCalculatorLoanToolScreen(),
     ),
   ];
 }

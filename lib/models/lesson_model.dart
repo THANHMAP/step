@@ -2,7 +2,7 @@ class LessonModel {
   bool? statusError;
   int? statusCode;
   String? message;
-  List<LessonData>? data;
+  List<DataLessonModel>? data;
 
   LessonModel({this.statusError, this.statusCode, this.message, this.data});
 
@@ -11,9 +11,9 @@ class LessonModel {
     statusCode = json['status_code'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <LessonData>[];
+      data = <DataLessonModel>[];
       json['data'].forEach((v) {
-        data!.add(new LessonData.fromJson(v));
+        data!.add(new DataLessonModel.fromJson(v));
       });
     }
   }
@@ -30,7 +30,41 @@ class LessonModel {
   }
 }
 
-class LessonData {
+class DataLessonModel {
+  int? id;
+  String? name;
+  List<DataLesson>? dataLesson;
+  String? createdAt;
+  bool? collapsed;
+
+  DataLessonModel({this.id, this.name, this.dataLesson, this.createdAt, this.collapsed});
+
+  DataLessonModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    if (json['dataLesson'] != null) {
+      dataLesson = <DataLesson>[];
+      json['dataLesson'].forEach((v) {
+        dataLesson!.add(new DataLesson.fromJson(v));
+      });
+    }
+    createdAt = json['createdAt'];
+    collapsed = false;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    if (this.dataLesson != null) {
+      data['dataLesson'] = this.dataLesson!.map((v) => v.toJson()).toList();
+    }
+    data['createdAt'] = this.createdAt;
+    return data;
+  }
+}
+
+class DataLesson {
   int? id;
   String? name;
   String? thumbnail;
@@ -38,19 +72,19 @@ class LessonData {
   int? totalPart;
   String? content;
   String? createdAt;
-  String? nameCourse;
 
-  LessonData(
+
+  DataLesson(
       {this.id,
-      this.name,
-      this.thumbnail,
-      this.numberFinish,
-      this.totalPart,
-      this.content,
-      this.createdAt,
-      this.nameCourse});
+        this.name,
+        this.thumbnail,
+        this.numberFinish,
+        this.totalPart,
+        this.content,
+        this.createdAt
+        });
 
-  LessonData.fromJson(Map<String, dynamic> json) {
+  DataLesson.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     thumbnail = json['thumbnail'];
@@ -58,6 +92,7 @@ class LessonData {
     totalPart = json['total_part'];
     content = json['content'];
     createdAt = json['createdAt'];
+
   }
 
   Map<String, dynamic> toJson() {

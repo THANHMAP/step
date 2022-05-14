@@ -13,7 +13,7 @@ class Constants{
   static const double avatarRadius =45;
   static List<ContentQuizz>? questionsGlobals = null;
   static ToolData? toolData;
-  static List<LessonData>? lessonListTemp;
+  static List<DataLesson>? lessonListTemp;
   static String nameCourseTemp = "";
 
   static const Color kSecondaryColor = Color(0xFF8B94BC);

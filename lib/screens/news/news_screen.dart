@@ -10,6 +10,7 @@ import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/textfield_widget.dart';
 import 'package:step_bank/models/news_model.dart';
+import 'package:step_bank/screens/news/web_view_news.dart';
 import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
@@ -154,7 +155,7 @@ class _NewsScreenState extends State<NewsScreen> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    screen: NewsDetailScreen(newsData: newsList![i]),
+                    screen: WebViewNewsScreen(url: newsList![i].linkDetail),
                     withNavBar: true,
                     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );

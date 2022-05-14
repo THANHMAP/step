@@ -65,4 +65,9 @@ class AppRoutes {
   static const String notificationScreen = "/notificationScreen";
   static const String notificationRepaymentScreen = "/notificationRepaymentScreen";
   static const String notificationNewScreen = "/notificationNewScreen";
+  static const String mainLoanCalculatorToolScreen = "/mainLoanCalculatorToolScreen";
+  static const String calculatorLoanToolScreen = "/calculatorLoanToolScreen";
+  static const String viewCalculatorLoanToolScreen = "/viewCalculatorLoanToolScreen";
+  static const String webViewNewsScreen= "/webViewNewsScreen";
+  static const String editCalculatorLoanToolScreen = "/editCalculatorLoanToolScreen";
 }

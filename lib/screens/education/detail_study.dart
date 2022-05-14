@@ -15,7 +15,6 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 
-
 import '../../compoment/card_content_topic.dart';
 import '../../constants.dart';
 import '../../models/exercise_model.dart';
@@ -25,8 +24,7 @@ import '../../util.dart';
 import 'detail_topic_education.dart';
 
 class DetailEducationLessonScreen extends StatefulWidget {
-  const DetailEducationLessonScreen({Key? key, this.exerciseData})
-      : super(key: key);
+  const DetailEducationLessonScreen({Key? key, this.exerciseData}) : super(key: key);
 
   final List<ExerciseData>? exerciseData;
 
@@ -102,8 +100,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                 flex: 8,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 15, right: 15, bottom: 70),
+                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -137,12 +134,9 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                             ],
                           ),
                         ),
-                        for (var i = 0;
-                            i < _studyData.exerciseData!.length;
-                            i++) ...[
+                        for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 16, right: 16, bottom: 12),
+                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
                             child: CardContentTopicWidget(
                               title: _studyData.exerciseData![i].name,
                               type: 1,
@@ -164,8 +158,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
               Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 40, bottom: 20, left: 24, right: 24),
+                  padding: const EdgeInsets.only(top: 40, bottom: 20, left: 24, right: 24),
                   child: Column(
                     children: [
                       ElevatedButton(
@@ -175,14 +168,10 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                               // side: const BorderSide(color: Colors.red)
                             ),
                             primary: Mytheme.colorBgButtonLogin,
-                            minimumSize:
-                                Size(MediaQuery.of(context).size.width, 44)),
+                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
                         child: Text(
                           "Tiếp tục",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "OpenSans-Regular",
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
                           Get.back();
@@ -370,8 +359,8 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
 
   void openGallery(int position) => Navigator.of(context).push(MaterialPageRoute(
         builder: (_) => GalleryWidget(
-            urlImages: fileSlideShare,
-            index: position,
+          urlImages: fileSlideShare,
+          index: position,
         ),
       ));
 
@@ -383,14 +372,12 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
         duration: Duration(milliseconds: 500),
         curve: Curves.easeInOutCubic,
         margin: EdgeInsets.all(margin),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(images[pagePosition].toString()))),
+        decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(images[pagePosition].toString()))),
       ),
       onTap: () {
         openGallery(pagePosition);
       },
-    ) ;
+    );
   }
 
   imageAnimation(PageController animation, images, pagePosition) {
@@ -413,21 +400,17 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
   }
 
   goToPrevious() {
-    _pageController.previousPage(
-        duration: Duration(milliseconds: 300), curve: Curves.ease);
+    _pageController.previousPage(duration: Duration(milliseconds: 300), curve: Curves.ease);
   }
 
   goToNext() {
-    _pageController.nextPage(
-        duration: Duration(milliseconds: 300), curve: Curves.decelerate);
+    _pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 
-  Future<void> downloadFile(
-      String url, String fileName, String extension) async {
+  Future<void> downloadFile(String url, String fileName, String extension) async {
     var dio = new Dio();
     var dir = await getExternalStorageDirectory();
-    var knockDir =
-        await new Directory('${dir?.path}/AZAR').create(recursive: true);
+    var knockDir = await new Directory('${dir?.path}/AZAR').create(recursive: true);
     print("Hello checking the file in Externaal Sorage");
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
@@ -453,8 +436,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
       } else {
         print("Downloading file");
         openDialog();
-        await dio.download(url, '${knockDir.path}/$fileName.$extension',
-            onReceiveProgress: (rec, total) {
+        await dio.download(url, '${knockDir.path}/$fileName.$extension', onReceiveProgress: (rec, total) {
           if (mounted) {
             setState(() {
               progressValue = (rec / total);
@@ -516,8 +498,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                     minScale: PhotoViewComputedScale.contained,
                     maxScale: PhotoViewComputedScale.contained * 4,
                   );
-                }
-            ),
+                }),
             Container(
               height: 80,
               child: InkWell(
@@ -536,9 +517,7 @@ class _GalleryWidgetState extends State<GalleryWidget> {
                 ),
               ),
             )
-
           ],
         ),
-
       );
 }

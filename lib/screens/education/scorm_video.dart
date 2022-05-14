@@ -94,6 +94,7 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
               AppbarWidget(
                 text: Constants.nameCourseTemp,
                 onClicked: () {
+                  Utils.portraitModeOnly();
                   Navigator.of(context).pop(false);
                 },
               ),

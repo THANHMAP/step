@@ -20,6 +20,7 @@ import '../../compoment/card_education.dart';
 import '../../compoment/card_education_topic.dart';
 import '../../compoment/card_setting.dart';
 import '../../constants.dart';
+import '../../models/course_detail_model.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -32,7 +33,7 @@ class TopicEducationScreen extends StatefulWidget {
 
 class _TopicEducationScreenState extends State<TopicEducationScreen> {
   late ProgressDialog pr;
-  List<LessonData> _lessonList = [];
+  List<DataLessonModel> _lessonList = [];
   final EducationData _educationData = Get.arguments;
 
   @override
@@ -60,7 +61,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
           body: Column(
             children: <Widget>[
               AppbarWidget(
-                text: "Chủ đề học tập",
+                text: _educationData.name,
                 onClicked: () {
                   Navigator.of(context).pop(false);
                 },
@@ -69,7 +70,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 20, left: 16, right: 16, bottom: 0),
+                        top: 0, left: 16, right: 16, bottom: 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -78,49 +79,49 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, left: 0, bottom: 0, right: 26),
-                              child:  Image.network(
-                                _educationData.icon.toString(),
-                                fit: BoxFit.fill,
-                                width: 50,
-                                loadingBuilder: (BuildContext context, Widget child,
-                                    ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toDouble()
-                                          : null,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 16, left: 0, bottom: 18, right: 0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      _educationData.name.toString(),
-                                      // textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Mytheme.colorBgButtonLogin,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       top: 16, left: 0, bottom: 0, right: 26),
+                            //   child:  Image.network(
+                            //     _educationData.icon.toString(),
+                            //     fit: BoxFit.fill,
+                            //     width: 50,
+                            //     loadingBuilder: (BuildContext context, Widget child,
+                            //         ImageChunkEvent? loadingProgress) {
+                            //       if (loadingProgress == null) return child;
+                            //       return Center(
+                            //         child: CircularProgressIndicator(
+                            //           value: loadingProgress.expectedTotalBytes != null
+                            //               ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toDouble()
+                            //               : null,
+                            //         ),
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       top: 16, left: 0, bottom: 18, right: 0),
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.start,
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Align(
+                            //         alignment: Alignment.centerLeft,
+                            //         child: Text(
+                            //           _educationData.name.toString(),
+                            //           // textAlign: TextAlign.start,
+                            //           style: const TextStyle(
+                            //             fontSize: 20,
+                            //             color: Mytheme.colorBgButtonLogin,
+                            //             fontWeight: FontWeight.w400,
+                            //             fontFamily: "OpenSans-Regular",
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                         const SizedBox(height: 10),
@@ -130,20 +131,23 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                 top: 20, left: 0, right: 0, bottom: 0),
                             child: Column(
                               children: [
-                                for (var i = 0; i < _lessonList.length; i++) ...[
-                                  CardEducationTopicWidget(
-                                    title: _lessonList[i].name,
-                                    numberLesson: numberLesson(i+1),
-                                    finish: _lessonList[i].numberFinish ?? 0,
-                                    total: _lessonList[i].totalPart ?? 0,
-                                    onClicked: () {
-                                      trackingLesson(_lessonList[i].id ?? 0);
-                                      _lessonList[i].nameCourse = _educationData.name;
-                                      Get.toNamed('/educationTopicDetail', arguments: i);
-                                    },
-                                  ),
-                                  const SizedBox(height: 10),
-                                ]
+                            for (var i = 0; i < _lessonList.length; i++) ...[
+                                  layoutTest(_lessonList[i])
+                              ],
+                                // for (var i = 0; i < _lessonList.length; i++) ...[
+                                //   CardEducationTopicWidget(
+                                //     title: _lessonList[i].name,
+                                //     numberLesson: numberLesson(i+1),
+                                //     finish: _lessonList[i].numberFinish ?? 0,
+                                //     total: _lessonList[i].totalPart ?? 0,
+                                //     onClicked: () {
+                                //       trackingLesson(_lessonList[i].id ?? 0);
+                                //       _lessonList[i].nameCourse = _educationData.name;
+                                //       Get.toNamed('/educationTopicDetail', arguments: i);
+                                //     },
+                                //   ),
+                                //   const SizedBox(height: 10),
+                                // ]
                               ],
                             ),
                           ),
@@ -194,7 +198,6 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
       if (data.statusCode == 200) {
         setState(() {
           _lessonList = data.data!;
-          Constants.lessonListTemp = _lessonList;
         });
       }
     }, onError: (error) async {
@@ -211,6 +214,135 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
             (value) async {
         }, onError: (error) async {
     });
+  }
+
+  layoutTest(DataLessonModel dataLessonModel) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 16),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    dataLessonModel.collapsed = !dataLessonModel.collapsed!;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: dataLessonModel.collapsed == false
+                        ? Colors.white
+                        : Mytheme.color_0xFFCCECFB,
+                    // borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 12, left: 16, bottom: 18, right: 0),
+                          child: Text(
+                            dataLessonModel.name.toString(),
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorBgButtonLogin,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 6, bottom: 0, right: 0),
+                          child: IconButton(
+                            icon:
+                            Image.asset("assets/images/ic_arrow_down.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              setState(() {
+                                dataLessonModel.collapsed = !dataLessonModel.collapsed!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Visibility(
+                  visible: dataLessonModel.collapsed ?? false,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 12, left: 10, bottom: 18, right: 10),
+                    child: Column(
+                      children: [
+                        for (var i = 0; i < dataLessonModel.dataLesson!.length; i++) ...[
+                          CardEducationTopicWidget(
+                            title: dataLessonModel.dataLesson?[i].name,
+                            numberLesson: numberLesson(i+1),
+                            finish: dataLessonModel.dataLesson?[i].numberFinish ?? 0,
+                            total: dataLessonModel.dataLesson?[i].totalPart ?? 0,
+                            onClicked: () {
+                              Constants.lessonListTemp = dataLessonModel.dataLesson;
+                              trackingLesson(dataLessonModel.dataLesson?[i].id ?? 0);
+                              // _lessonList[i].nameCourse = _educationData.name;
+                              Get.toNamed('/educationTopicDetail', arguments: i);
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                        ]
+                      ],
+                    ),
+                  ))
+
+              // Expanded(
+              //   flex: 1,
+              //   child: Text(
+              //     faqData.description.toString(),
+              //     textAlign: TextAlign.start,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Mytheme.colorBgButtonLogin,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: "OpenSans-Regular",
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
 }

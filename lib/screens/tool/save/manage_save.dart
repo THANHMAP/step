@@ -964,7 +964,6 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
     }
 
     return '$tempDay/$tempMonth/$tempYear';
-
   }
 
   Future<void> addDataDrawTool(String user_tool_id, String type,

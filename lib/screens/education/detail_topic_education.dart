@@ -32,7 +32,7 @@ class DetailEducationScreen extends StatefulWidget {
 
 class _DetailEducationScreenState extends State<DetailEducationScreen> with SingleTickerProviderStateMixin {
   late ProgressDialog pr;
-  LessonData? _lessonData;
+  DataLesson? _lessonData;
   List<StudyData> _studyData = [];
   List<ExerciseData> _exerciseData = [];
   String progressString = '0%';
@@ -68,16 +68,16 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
           backgroundColor: Mytheme.colorBgMain,
           body: Column(
             children: <Widget>[
+              AppbarWidget(
+                text: Constants.nameCourseTemp,
+                onClicked: () => Get.back(),
+              ),
               Expanded(
                 flex: 11,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      AppbarWidget(
-                        text: Constants.nameCourseTemp,
-                        onClicked: () => Get.back(),
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
                         child: Column(
@@ -97,7 +97,8 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                   ),
                                   const SizedBox(height: 10),
                                   CachedNetworkImage(
-                                    imageUrl: _lessonData?.thumbnail.toString() ?? "",
+                                    // imageUrl: _lessonData?.thumbnail.toString() ?? "",
+                                    imageUrl:  "",
                                     placeholder: (context, url) => const CircularProgressIndicator(),
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
@@ -188,16 +189,16 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                           hideImageRight: true,
                                           onClicked: () {
                                             trackingLesson(_studyData[i].id ?? 0);
-                                            _studyData[i].nameCourse = _lessonData?.nameCourse;
+                                            // _studyData[i].nameCourse = _lessonData?.nameCourse;
                                             _studyData[i].exerciseData = _exerciseData;
                                             if (_studyData[i].type == 5) {
                                               Get.toNamed('/homeQuizScreen', arguments: _studyData[i]);
-                                            } else if (_studyData[i].type == 2) {
+                                            } else if (_studyData[i].type == 2 || _studyData[i].type == 6) {
                                               Get.toNamed('/videoScreen', arguments: _studyData[i]);
                                             } else if (_studyData[i].type == 4) {
                                               Get.toNamed('/scromVideoScreen', arguments: _studyData[i].fileScorm);
                                             } else {
-                                              _studyData[i].nameCourse = _lessonData?.nameCourse;
+                                              // _studyData[i].nameCourse = _lessonData?.nameCourse;
                                               Get.toNamed('/detailEducationScreen', arguments: _studyData[i]);
                                             }
                                           },

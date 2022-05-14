@@ -41,10 +41,10 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
           ),
             child: Column(
               children: <Widget>[
-                Expanded(
+                const Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                         bottom: 20, left: 24, right: 24),
                     child: null,
                   ),
@@ -113,7 +113,7 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width,
                                   44)),
-                          child:  Text(
+                          child:  const Text(
                             "Tiếp tục",
                             style: TextStyle(
                                 fontSize: 16,
@@ -125,11 +125,16 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                               Get.offAndToNamed('/toolBudgetScreen', arguments: data);
                             } else if(data?.id == 2) {
                               Get.offAndToNamed('/planeBusinessToolScreen', arguments: data);
+                            } else if(data?.id == 3) {
+                              Get.offAndToNamed('/saveToolScreen', arguments: data);
                             } else if(data?.id == 5) {
                               Get.offAndToNamed('/portfolioOfLoanScreen', arguments: data);
                             } else if(data?.id == 4) {
                               Get.offAndToNamed('/repaymentScheduleScreen', arguments: data);
-                            } else  {
+                            } else if(data?.id == 6) {
+                              Get.offAndToNamed('/mainLoanCalculatorToolScreen', arguments: data);
+                            }
+                            else  {
                               Get.offAndToNamed('/saveToolScreen', arguments: data);
                             }
                           },
