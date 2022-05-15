@@ -70,4 +70,7 @@ class AppRoutes {
   static const String viewCalculatorLoanToolScreen = "/viewCalculatorLoanToolScreen";
   static const String webViewNewsScreen= "/webViewNewsScreen";
   static const String editCalculatorLoanToolScreen = "/editCalculatorLoanToolScreen";
+  static const String mainFlowMoneyScreen = "/mainFlowMoneyScreen";
+  static const String addFlowMoneyScreen = "/addFlowMoneyScreen";
+  static const String viewFlowMoneyScreen = "/viewFlowMoneyScreen";
 }

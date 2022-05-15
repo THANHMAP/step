@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -132,7 +133,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                             child: Column(
                               children: [
                             for (var i = 0; i < _lessonList.length; i++) ...[
-                                  layoutTest(_lessonList[i])
+                                  layoutTest(_lessonList[i], i)
                               ],
                                 // for (var i = 0; i < _lessonList.length; i++) ...[
                                 //   CardEducationTopicWidget(
@@ -198,6 +199,9 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
       if (data.statusCode == 200) {
         setState(() {
           _lessonList = data.data!;
+          if(_lessonList.isNotEmpty) {
+            _lessonList[0].collapsed = true;
+          }
         });
       }
     }, onError: (error) async {
@@ -216,7 +220,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
     });
   }
 
-  layoutTest(DataLessonModel dataLessonModel) {
+  layoutTest(DataLessonModel dataLessonModel, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 16),
       child: InkWell(
@@ -240,7 +244,12 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
               InkWell(
                 onTap: () {
                   setState(() {
-                    dataLessonModel.collapsed = !dataLessonModel.collapsed!;
+                    if(dataLessonModel.collapsed == true) {
+                      dataLessonModel.collapsed = false;
+                    } else {
+                      dataLessonModel.collapsed = !dataLessonModel.collapsed!;
+                    }
+
                   });
                 },
                 child: Container(

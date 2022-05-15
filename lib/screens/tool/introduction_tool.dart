@@ -135,7 +135,7 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                               Get.offAndToNamed('/mainLoanCalculatorToolScreen', arguments: data);
                             }
                             else  {
-                              Get.offAndToNamed('/saveToolScreen', arguments: data);
+                              Get.offAndToNamed('/mainFlowMoneyScreen', arguments: data);
                             }
                           },
                         )
