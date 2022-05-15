@@ -29,6 +29,7 @@ import '../../models/tool_model.dart';
 import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
+import '../news/web_view_news.dart';
 
 enum AppState { NOT_DOWNLOADED, DOWNLOADING, FINISHED_DOWNLOADING }
 
@@ -659,7 +660,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   pushNewScreen(
                     context,
-                    screen: NewsDetailScreen(newsData: newsList![i]),
+                    screen: WebViewNewsScreen(url: newsList![i].linkDetail),
                     withNavBar: true,
                     pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );

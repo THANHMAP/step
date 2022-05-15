@@ -39,8 +39,10 @@ class AppbarWidget extends StatelessWidget {
                   child: Text(
                     text!,
                     textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.w600,
                       fontFamily: "OpenSans-Semibold",
