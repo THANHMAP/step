@@ -141,7 +141,7 @@ class _EducationScreenState extends State<EducationScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Các khái niệm kinh doanh cơ bản",
+                          "Các khái niệm cơ bản",
                           style: TextStyle(
                             fontSize: 20,
                             color: Mytheme.colorBgButtonLogin,

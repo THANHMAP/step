@@ -15,6 +15,7 @@ class Constants{
   static ToolData? toolData;
   static List<DataLesson>? lessonListTemp;
   static String nameCourseTemp = "";
+  static bool selectDefault = true;
 
   static const Color kSecondaryColor = Color(0xFF8B94BC);
   static const Color kGreenColor = Color(0xFF6AC259);

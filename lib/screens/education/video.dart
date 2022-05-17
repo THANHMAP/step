@@ -88,6 +88,7 @@ class _VideoScreenState extends State<VideoScreen> {
       showOptions: false,
       autoPlay: true,
       looping: false,
+      allowFullScreen: false,
 
       // Try playing around with some of these other options:
 
@@ -98,9 +99,9 @@ class _VideoScreenState extends State<VideoScreen> {
       //   backgroundColor: Colors.grey,
       //   bufferedColor: Colors.lightGreen,
       // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
+      placeholder: Container(
+        color: Colors.grey,
+      ),
       // autoInitialize: true,
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -47,6 +48,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   late ProgressDialog pr;
   ItemToolData? _itemToolData;
   String dates = "";
+  String danhMuc = "";
   TextEditingController _moneyController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
   List<DataUsers> dataUsers = [];
@@ -220,7 +222,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                           child:  Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
-                                              "${formNum(moneyTienRa.toString())} vnd",
+                                              "${formNum(moneyTienRa.toString())} VND",
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
                                                 fontSize: 16,
@@ -274,11 +276,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        // Get.toNamed("/calculatorSaveMoneyScreen")?.then((value) {
-                                        //   if (value) {
-                                        //     loadListItemTool();
-                                        //   }
-                                        // });
+                                        Get.toNamed("/reportFlowMoneyScreen", arguments: _itemToolData?.id.toString() ?? "0");
                                       },
                                       child: Container(
                                           margin: EdgeInsets.all(10),
@@ -383,7 +381,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      dataManage[i].itemList![po].deposit == "1" ? "Thu nhập" : "Chi tiêu",
+                                      dataManage[i].itemList![po].note?? "",
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Mytheme.colorTextSubTitle,
@@ -408,7 +406,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      dataManage[i].itemList![po].deposit == "1"? "+ ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}" : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                                      dataManage[i].itemList![po].type == 1? "+ ${formNum(dataManage[i].itemList![po].deposit ?? "0")}" : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
                                       textAlign: TextAlign.end,
                                       style: TextStyle(
                                         fontSize: 16,
@@ -820,7 +818,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Ghi chú",
+                          "Danh mục",
                           textAlign: TextAlign.left,
                           style: const TextStyle(
                             fontSize: 16,
@@ -831,27 +829,82 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                         ),
                       ),
                       const SizedBox(height: 10),
-                      TextField(
-                        keyboardType: TextInputType.multiline,
-                        minLines: 1,
-                        //Normal textInputField will be displayed
-                        maxLines: 5,
-                        // when user presses enter it will adapt to it
-                        controller: _noteController,
-                        textInputAction: TextInputAction.done,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                            fillColor: const Color(0xFFEFF0FB),
-                            filled: true,
-                            hintText: "Ghi chú về số tiền",
-                            hintStyle:
-                            const TextStyle(color: Color(0xFFA7ABC3)),
-                            enabledBorder: OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(8)),
-                            focusedBorder: OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                borderRadius: BorderRadius.circular(8))),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Mytheme.colorTextDivider,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 12, left: 16, bottom: 18, right: 0),
+                                child: Text(
+                                  _fruitNames[_selectedFruit],
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorBgButtonLogin,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 0, left: 6, bottom: 0, right: 0),
+                                child: IconButton(
+                                  icon: SvgPicture.asset(
+                                      "assets/svg/arow_down.svg"),
+                                  // tooltip: 'Increase volume by 10',
+                                  iconSize: 50,
+                                  onPressed: () {
+                                    _showDialog(
+                                      CupertinoPicker(
+                                        magnification: 1.22,
+                                        squeeze: 1.2,
+                                        useMagnifier: true,
+                                        itemExtent: _kItemExtent,
+                                        // This is called when selected item is changed.
+                                        onSelectedItemChanged: (int selectedItem) {
+                                          setState(() {
+                                            _selectedFruit = selectedItem;
+                                          });
+                                        },
+                                        children:
+                                        List<Widget>.generate(_fruitNames.length, (int index) {
+                                          return Center(
+                                            child: Text(
+                                              _fruitNames[index],
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                           padding: const EdgeInsets.only(
@@ -875,27 +928,30 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                             onPressed: () {
 
                               var text = "";
+                              Navigator.of(context).pop();
                               if(selectItem) {
                                 text = "1"; // thu nhap
+                                addDataDrawTool(
+                                    _itemToolData?.id.toString() ?? "0",
+                                    text,
+                                    "0",
+                                    _moneyController.text.replaceAll(",", ""),
+                                    dates,
+                                    _fruitNames[_selectedFruit]
+                                );
                               } else {
                                 text = "2";
-                                // if(int.parse(_moneyController.text.replaceAll(",", "")) > int.parse(moneyHasSave)) {
-                                //   setState(() {
-                                //     validate = true;
-                                //   });
-                                //
-                                //   return;
-                                // }// rút ra
+                                addDataDrawTool(
+                                    _itemToolData?.id.toString() ?? "0",
+                                    text,
+                                    _moneyController.text.replaceAll(",", ""),
+                                    "0",
+                                    dates,
+                                    _fruitNames[_selectedFruit]
+                                );
                               }
-                              Navigator.of(context).pop();
-                              addDataDrawTool(
-                                  _itemToolData?.id.toString() ?? "0",
-                                  "1",
-                                  _moneyController.text.replaceAll(",", ""),
-                                  text,
-                                  dates,
-                                  _noteController.text.toString()
-                              );
+
+
                             },
                           )),
                     ],
@@ -906,6 +962,50 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
           });
         });
   }
+
+  int _selectedFruit = 0;
+
+  static const double _kItemExtent = 32.0;
+  static const List<String> _fruitNames = <String>[
+    'Gửi tiết kiệm',
+    'Ăn uống',
+    'Bảo hiểm',
+    'Chi phí đi lại',
+    'Đầu tư',
+    'Hóa đơn tiện ích',
+    'Gia đình',
+    'Giáo dục',
+    'Giải trí',
+    'Quần áo, mua sắm',
+    'Thuế',
+    'Y tế/Sức khỏe',
+    'Chi phí khác',
+    'Du lịch',
+    'Kinh doanh',
+    'Thuê nhà',
+  ];
+
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) => Container(
+          height: 216,
+          padding: const EdgeInsets.only(top: 6.0),
+          // The Bottom margin is provided to align the popup above the system navigation bar.
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          // Provide a background color for the popup.
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+          // Use a SafeArea widget to avoid system overlaps.
+          child: SafeArea(
+            top: false,
+            child: child,
+          ),
+        ));
+  }
+
+
 
   String formNum(String s) {
     return NumberFormat.decimalPattern().format(
@@ -975,10 +1075,10 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
           for(var i = 0; i < dataManage.length; i++) {
             if(dataManage[i].itemList != null && dataManage[i].itemList!.isNotEmpty) {
               for(var ii = 0; ii < dataManage[i].itemList!.length; ii++) {
-                if(dataManage[i].itemList![ii].deposit == "1") {
-                  moneyHasSave = moneyHasSave + int.parse(dataManage[i].itemList![ii].withdraw.toString());
-                  totalMonth = totalMonth + int.parse(dataManage[i].itemList![ii].withdraw.toString());
-                } else if(dataManage[i].itemList![ii].deposit == "2") {
+                if(dataManage[i].itemList![ii].type == 1) {
+                  moneyHasSave = moneyHasSave + int.parse(dataManage[i].itemList![ii].deposit.toString());
+                  totalMonth = totalMonth + int.parse(dataManage[i].itemList![ii].deposit.toString());
+                } else {
                   moneyTienRa = moneyTienRa + int.parse(dataManage[i].itemList![ii].withdraw.toString());
                   totalMonth = totalMonth - int.parse(dataManage[i].itemList![ii].withdraw.toString());
                 }
@@ -1045,8 +1145,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     var total = 0;
     if(itemList.isNotEmpty) {
       for(var i=0; i<itemList.length; i++) {
-        if(itemList[i].deposit == "1") {
-          total = total + int.parse(itemList[i].withdraw.toString());
+        if(itemList[i].type == 1) {
+          total = total + int.parse(itemList[i].deposit.toString());
         } else {
           total = total - int.parse(itemList[i].withdraw.toString());
         }
@@ -1082,6 +1182,7 @@ class ItemManage {
   String? date;
   String? dateGroupMonth;
   String? createdAt;
+  String? note;
 
   ItemManage(
       {this.id,
@@ -1091,7 +1192,8 @@ class ItemManage {
         this.type,
         this.date,
         this.dateGroupMonth,
-        this.createdAt});
+        this.createdAt,
+        this.note});
 
   ItemManage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -1102,6 +1204,7 @@ class ItemManage {
     date = json['date'];
     dateGroupMonth = json['date_group_month'];
     createdAt = json['createdAt'];
+    note = json['note'];
   }
 
   Map<String, dynamic> toJson() {
@@ -1114,6 +1217,7 @@ class ItemManage {
     data['date'] = this.date;
     data['date_group_month'] = this.dateGroupMonth;
     data['createdAt'] = this.createdAt;
+    data['note'] = this.note;
     return data;
   }
 }

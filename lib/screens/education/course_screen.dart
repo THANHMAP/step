@@ -57,7 +57,7 @@ class _CourseScreenState extends State<CourseScreen> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     AppbarWidget(
-                      text: "Các khái niệm kinh doanh cơ bản",
+                      text: "Các khái niệm cơ bản",
                       onClicked: () => Get.back(),
                     ),
                     Expanded(
@@ -229,7 +229,7 @@ class _CourseScreenState extends State<CourseScreen> {
                         top: 12, left: 16, bottom: 18, right: 16),
                     child: Text(
                       faqData.description.toString(),
-                      textAlign: TextAlign.start,
+                      textAlign: TextAlign.justify,
                       style: TextStyle(
                         fontSize: 16,
                         color: Mytheme.colorBgButtonLogin,

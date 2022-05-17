@@ -43,6 +43,7 @@ import 'package:step_bank/screens/tool/save/screen_save.dart';
 import 'package:step_bank/screens/updatepassword/update_password_screen.dart';
 
 import '../screens/dashboard/education.dart';
+import '../screens/education/audio.dart';
 import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/scorm_video.dart';
@@ -55,7 +56,9 @@ import '../screens/quizz/quiz_custom.dart';
 import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
 import '../screens/tool/flow_money/add_flow_money.dart';
+import '../screens/tool/flow_money/detail_report.dart';
 import '../screens/tool/flow_money/main_flow_money.dart';
+import '../screens/tool/flow_money/report.dart';
 import '../screens/tool/flow_money/view_flow_money.dart';
 import '../screens/tool/loan_calculation/edit_loan_calculation.dart';
 import '../screens/tool/loan_calculation/loan_calculation.dart';
@@ -408,6 +411,21 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.viewFlowMoneyScreen,
       page: () => const ViewFlowMoneyScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.reportFlowMoneyScreen,
+      page: () => const ReportFlowMoneyScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.detailReportFlowMoneyScreen,
+      page: () => const DetailReportFlowMoneyScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.audioScreen,
+      page: () => const AudioScreen(),
     ),
   ];
 }

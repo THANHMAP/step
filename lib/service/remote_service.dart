@@ -68,5 +68,8 @@ class RemoteServices {
 
   static var listNotificationURL = '$baseURL/api/v1/setting/list-notification';
 
+  static var reportDataDrawToolURL = '$baseURL/api/v1/tool/report-with-draw';
+  static var reportDetailDataDrawToolURL = '$baseURL/api/v1/tool/report-detail-with-draw';
+
 
 }

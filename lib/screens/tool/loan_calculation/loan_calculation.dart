@@ -53,7 +53,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
   List<DataCalculator> listLaiPhang = [];
   var tongLaiGiamDan = 0;
   var tongLaiPhang = 0;
-
+  String currentDate = "";
 
   @override
   void initState() {
@@ -1175,13 +1175,12 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                         setState(() {
                           displayCalculation = true;
                         });
+                        currentDate = dateFirst;
                         calculatorLaiDuNoGiamDan();
+                        currentDate = dateFirst;
                         calculatorLaiPhang();
                         return;
                       }
-
-
-
 
                     },
                   )),
@@ -1458,19 +1457,20 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
     );
   }
 
-  String showDay(int index){
-    var dates = dateFirst.split("/");
+  String showDay(){
+    var dates = currentDate.split("/");
     var month = int.parse(dates[1]);
     var year = int.parse(dates[2]);
-    month = month + index;
+    month = month + 1;
     if(month > 12) {
       month = month - 12;
       year = year + 1;
     }
+    currentDate = "${dates[0]}/${month}/${year}";
+    print(currentDate);
     return "${dates[0]}/${month}/${year}";
   }
   var noGocTrathangtruoc;
-
 
   void calculatorLaiDuNoGiamDan() {
     bool thangLaiDauTien = false;
@@ -1488,7 +1488,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
     for (int i = 0; i < soThangVay; i++) {
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
-      dataCalculator.date = showDay(i+1);
+      dataCalculator.date = showDay();
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc
@@ -1537,7 +1537,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
     for (int i = 0; i < soThangVay; i++) {
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
-      dataCalculator.date = showDay(i+1);
+      dataCalculator.date = showDay();
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc

@@ -1,10 +1,11 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../../compoment/appbar_wiget.dart';
@@ -27,10 +28,12 @@ class _ReportScreenState extends State<ReportScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   late ProgressDialog pr;
-
+  var _image;
+  var imagePicker;
   @override
   void initState() {
     super.initState();
+    imagePicker = new ImagePicker();
     Utils.portraitModeOnly();
     pr = ProgressDialog(
       context,
@@ -117,6 +120,8 @@ class _ReportScreenState extends State<ReportScreen> {
                                     _contentController.clear(),
                                 textController: _contentController),
                           ),
+                          const SizedBox(height: 10),
+                          loadImage(),
                         ],
                       ),
                     ),
@@ -154,41 +159,131 @@ class _ReportScreenState extends State<ReportScreen> {
         ));
   }
 
+  Widget loadImage() {
+    return Stack(
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: _image != null
+              ? Image.file(
+            _image,
+            fit: BoxFit.fill,
+            height: 125.0,
+            width: 125.0,
+          )
+              : Image.asset(
+            "assets/images/no_image.png",
+            fit: BoxFit.fill,
+            height: 125.0,
+            width: 125.0,
+          ),
+        ),
+
+        Padding(
+          padding:
+          const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
+          child: InkWell(
+            onTap: () async {
+              XFile image = await imagePicker.pickImage(
+                  source: ImageSource.gallery,
+                  imageQuality: 50,
+                  preferredCameraDevice: CameraDevice.front);
+              setState(() {
+                _image = File(image.path);
+              });
+            },
+            child: Container(
+              height: 44,
+              width: 44,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/ic_camera.png"),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Future<void> sendReport() async {
     String? titleError, contentError;
     if (_nameController.text.isNotEmpty && _contentController.text.isNotEmpty) {
       titleError = _nameController.text;
       contentError = _contentController.text;
-      var param = jsonEncode(<String, String>{'name': titleError, 'content': contentError,});
-      await pr.show();
-      APIManager.postAPICallNeedToken(RemoteServices.reportErrorURL, param)
-          .then((value) async {
-        if (value['status_code'] == 200) {
-          await pr.hide();
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return WillPopScope(
-                    onWillPop: () {
-                      return Future.value(false);
-                    },
-                    child:  NormalDialogBox(
-                        descriptions: StringText.text_report_success,
-                        onClicked: () {
+      if(_image != null) {
+        saveImageWithFile(_image, titleError, contentError);
+      } else {
+        var param = jsonEncode(<String, String>{'name': titleError, 'content': contentError,});
+        await pr.show();
+        APIManager.postAPICallNeedToken(RemoteServices.reportErrorURL, param)
+            .then((value) async {
+          if (value['status_code'] == 200) {
+            await pr.hide();
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return WillPopScope(
+                      onWillPop: () {
+                        return Future.value(false);
+                      },
+                      child:  NormalDialogBox(
+                          descriptions: StringText.text_report_success,
+                          onClicked: () {
                             Get.back();
-                        }
-                    ));
-              });
-        } else {
+                          }
+                      ));
+                });
+          } else {
+            await pr.hide();
+            Utils.showAlertDialogOneButton(context, value['message'].toString());
+          }
+        }, onError: (error) async {
           await pr.hide();
-          Utils.showAlertDialogOneButton(context, value['message'].toString());
-        }
-      }, onError: (error) async {
-        await pr.hide();
-        Utils.showError(error.toString(), context);
-      });
+          Utils.showError(error.toString(), context);
+        });
+      }
+
     } else {
       Utils.showAlertDialogOneButton(context, "Vui lòng điền dây dủ thông tin");
     }
   }
+
+
+  Future<void> saveImageWithFile(File file, name, nd) async {
+    await pr.show();
+    APIManager.uploadImageHTTPWithParam(file, name, nd, RemoteServices.reportErrorURL).then((value) async {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return WillPopScope(
+                onWillPop: () {
+                  return Future.value(false);
+                },
+                child:  NormalDialogBox(
+                    descriptions: StringText.text_report_success,
+                    onClicked: () {
+                      Get.back();
+                      Get.back();
+                    }
+                ));
+          });
+    }, onError: (error) async {
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error);
+      }
+    });
+    await pr.hide();
+  }
+
 }

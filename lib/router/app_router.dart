@@ -73,4 +73,7 @@ class AppRoutes {
   static const String mainFlowMoneyScreen = "/mainFlowMoneyScreen";
   static const String addFlowMoneyScreen = "/addFlowMoneyScreen";
   static const String viewFlowMoneyScreen = "/viewFlowMoneyScreen";
+  static const String reportFlowMoneyScreen = "/reportFlowMoneyScreen";
+  static const String detailReportFlowMoneyScreen = "/detailReportFlowMoneyScreen";
+  static const String audioScreen= "/audioScreen";
 }

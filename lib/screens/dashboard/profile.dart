@@ -71,7 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        headerLayout(),
+                        if(listMedal.isNotEmpty)...[
+                          headerLayout(),
+                        ],
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 18, left: 15, right: 15),

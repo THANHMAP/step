@@ -112,6 +112,30 @@ class APIManager {
     return responseJson;
   }
 
+  static Future<dynamic> uploadImageHTTPWithParam(File file, String name, String nd, String url) async {
+    print("Calling uploadImageHTTP: $url");
+    var responseJson;
+    var token = await SPref.instance.get("token");
+    Map<String, String> headers = {'Authorization': 'Bearer $token'};
+    try {
+      var request =
+      http.MultipartRequest('POST', Uri.parse(url));
+      request.headers.addAll(headers);
+      request.fields['name'] = name;
+      request.fields['content'] = nd;
+      request.files.add(await http.MultipartFile.fromPath('avatar', file.path));
+      var response = await http.Response.fromStream(await request.send());
+
+      responseJson = _response(response);
+      if (kDebugMode) {
+        print(responseJson);
+      }
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
   static dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:

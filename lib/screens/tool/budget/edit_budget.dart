@@ -35,7 +35,6 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
 
 
   List<DataUsers> dataUsers = [];
-  var formatter = NumberFormat('#,##,000');
   int typeObj = 1;
   int totalType1 = 0;
   int totalType2 = 0;
@@ -327,7 +326,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                     child: Align(
                                                       alignment: Alignment.centerRight,
                                                       child: Text(
-                                                        formatter.format(int.parse(dataUsers[i].value ?? "0")),
+                                                        formNum(dataUsers[i].value ?? "0"),
                                                         textAlign: TextAlign.left,
                                                         style: const TextStyle(
                                                           fontSize: 16,
@@ -531,7 +530,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                     child: Align(
                                                       alignment: Alignment.centerRight,
                                                       child: Text(
-                                                        formatter.format(int.parse(dataUsers[i].value ?? "0")),
+                                                        formNum(dataUsers[i].value ?? "0"),
                                                         textAlign: TextAlign.left,
                                                         style: const TextStyle(
                                                           fontSize: 16,
@@ -994,7 +993,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Thu nhập',
+                        labelText: typeObj == 1 ? 'Thu nhập':'Chi phí',
                       ),
                       onChanged: (value) {
 
