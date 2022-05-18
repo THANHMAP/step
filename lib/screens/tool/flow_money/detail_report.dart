@@ -144,7 +144,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                               child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Chi tieu",
+                                  "Chi tiêu",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -269,6 +269,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
 
                               for(int i = 0; i < listItemTienVao.length; i++)...[
                                 Container(
+                                  margin: EdgeInsets.only(bottom: 10),
                                   height: 50,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,

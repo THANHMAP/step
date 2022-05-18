@@ -97,8 +97,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                   ),
                                   const SizedBox(height: 10),
                                   CachedNetworkImage(
-                                    // imageUrl: _lessonData?.thumbnail.toString() ?? "",
-                                    imageUrl:  "",
+                                    imageUrl: _lessonData?.thumbnail.toString() ?? "",
                                     placeholder: (context, url) => const CircularProgressIndicator(),
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
                                   ),
