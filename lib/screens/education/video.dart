@@ -88,7 +88,7 @@ class _VideoScreenState extends State<VideoScreen> {
       showOptions: false,
       autoPlay: true,
       looping: false,
-      allowFullScreen: false,
+      allowFullScreen: true,
 
       // Try playing around with some of these other options:
 

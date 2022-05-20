@@ -397,12 +397,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Mô tả về bạn",
               // labelText: "Phone number",
@@ -445,12 +445,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Ý tưởng kinh doanh của bạn là",
               // labelText: "Phone number",
@@ -485,12 +485,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Miêu tả sản phẩm hoặc dịch vụ",
               // labelText: "Phone number",
@@ -525,12 +525,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 3 * 24.0,
           child: TextFieldWidget(
               maxLines: 3,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Miêu tả khách hàng",
               // labelText: "Phone number",
@@ -565,12 +565,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Đối thủ cạnh tranh của bạn là",
               // labelText: "Phone number",
@@ -606,12 +606,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Thế mạnh cạnh tranh của bạn là",
               // labelText: "Phone number",
@@ -652,12 +652,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Cách tiếp thị sản phẩm",
               // labelText: "Phone number",
@@ -697,12 +697,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Liệt kê các nhiệm vụ và người chịu trách nhiệm cho công việc đó",
               // labelText: "Phone number",
@@ -737,12 +737,12 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Liệt kê các nguồn lực",
               // labelText: "Phone number",

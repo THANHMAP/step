@@ -281,7 +281,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  flex:2,
+                                                  flex:3,
                                                   child: Container(
                                                     margin: const EdgeInsets.only(right: 10.0),
                                                     height: 44,
@@ -309,7 +309,9 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                                     ),
 
                                                   ),),
-                                                Expanded(child: Container(
+                                                Expanded(
+                                                  flex:2,
+                                                  child: Container(
                                                   height: 44,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.rectangle,
@@ -513,7 +515,9 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                                     ),
 
                                                   ),),
-                                                Expanded(child: Container(
+                                                Expanded(
+                                                  flex:2,
+                                                  child: Container(
                                                   height: 44,
                                                   decoration: BoxDecoration(
                                                     shape: BoxShape.rectangle,

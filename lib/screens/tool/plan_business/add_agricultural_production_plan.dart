@@ -349,12 +349,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Mô tả về bạn",
               // labelText: "Phone number",
@@ -389,12 +389,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Sản phẩm dự kiến sản xuất của bạn là",
               // labelText: "Phone number",
@@ -435,12 +435,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Nhà cung cấp dịch vụ của bạn là",
               // labelText: "Phone number",
@@ -475,12 +475,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Nguồn nhân công của bạn",
               // labelText: "Phone number",
@@ -521,12 +521,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Khách hàng và địa điểm của bạn",
               // labelText: "Phone number",
@@ -561,12 +561,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Cách thức bán hàng",
               // labelText: "Phone number",
@@ -1041,7 +1041,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Tổng thu nhập",
+                              "Tổng chi phí ban đầu",
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 16,

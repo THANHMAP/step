@@ -384,12 +384,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Mô tả về bạn",
               // labelText: "Phone number",
@@ -432,12 +428,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Ý tưởng kinh doanh của bạn là",
               // labelText: "Phone number",
@@ -472,12 +468,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 5 * 24.0,
           child: TextFieldWidget(
               maxLines: 6,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Miêu tả sản phẩm hoặc dịch vụ",
               // labelText: "Phone number",
@@ -512,12 +508,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 3 * 24.0,
           child: TextFieldWidget(
               maxLines: 3,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Miêu tả khách hàng",
               // labelText: "Phone number",
@@ -552,12 +548,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Đối thủ cạnh tranh của bạn là",
               // labelText: "Phone number",
@@ -593,12 +589,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Thế mạnh cạnh tranh của bạn là",
               // labelText: "Phone number",
@@ -639,12 +635,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Cách tiếp thị sản phẩm",
               // labelText: "Phone number",
@@ -684,12 +680,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Liệt kê các nhiệm vụ và người chịu trách nhiệm cho công việc đó",
               // labelText: "Phone number",
@@ -724,12 +720,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           height: 4 * 24.0,
           child: TextFieldWidget(
               maxLines: 4,
-              keyboardType: TextInputType.text,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
-              ],
-              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.multiline,
+              // inputFormatters: <TextInputFormatter>[
+              //   FilteringTextInputFormatter
+              //       .singleLineFormatter
+              // ],
+              textInputAction: TextInputAction.newline,
               obscureText: false,
               hintText: "Liệt kê các nguồn lực",
               // labelText: "Phone number",
@@ -1204,7 +1200,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              "Tổng thu nhập",
+                              "Tổng chi phí ban đầu",
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 16,

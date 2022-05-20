@@ -119,8 +119,26 @@ class _MyToolScreenState extends State<MyToolScreen> {
                       numberLesson: "",
                       linkUrl: _toolList[i].icon,
                       onClicked: () {
-                        Get.toNamed('/introductionToolScreen',
-                            arguments: _toolList[i]);
+                        var data = _toolList[i];
+                        if(data.id == 1) {
+                          Get.toNamed('/toolBudgetScreen', arguments: data);
+                        } else if(data.id == 2) {
+                          Get.toNamed('/planeBusinessToolScreen', arguments: data);
+                        } else if(data.id == 3) {
+                          Get.toNamed('/saveToolScreen', arguments: data);
+                        } else if(data.id == 5) {
+                          Get.toNamed('/portfolioOfLoanScreen', arguments: data);
+                        } else if(data.id == 4) {
+                          Get.toNamed('/repaymentScheduleScreen', arguments: data);
+                        } else if(data.id == 6) {
+                          Get.toNamed('/mainLoanCalculatorToolScreen', arguments: data);
+                        }
+                        else  {
+                          Get.toNamed('/mainFlowMoneyScreen', arguments: data);
+                        }
+
+                        // Get.toNamed('/introductionToolScreen',
+                        //     arguments: _toolList[i]);
                       },
                     ),
                   ]

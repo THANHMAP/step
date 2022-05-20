@@ -77,7 +77,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
         body: Column(
           children: <Widget>[
             AppbarWidget(
-              text: "kế hoạch tiết kiệm",
+              text: "Kế hoạch tiết kiệm",
               onClicked: () {
                 Navigator.of(context).pop(false);
               },

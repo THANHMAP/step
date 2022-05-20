@@ -56,77 +56,81 @@ class _ReportScreenState extends State<ReportScreen> {
             children: <Widget>[
               Expanded(
                 flex: 9,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: StringText.text_report_title,
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Tên lỗi",
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            child: TextFieldWidget(
-                                keyboardType: TextInputType.text,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter
-                                      .singleLineFormatter
-                                ],
-                                textInputAction: TextInputAction.next,
-                                obscureText: false,
-                                hintText: "Tên lỗi",
-                                // labelText: "Phone number",
-                                // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                suffixIcon: Icons.close,
-                                clickSuffixIcon: () => _nameController.clear(),
-                                textController: _nameController),
-                          ),
-                          const SizedBox(height: 30),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Nội dung",
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            child: TextFieldWidget(
-                                keyboardType: TextInputType.text,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter
-                                      .singleLineFormatter
-                                ],
-                                textInputAction: TextInputAction.done,
-                                obscureText: false,
-                                hintText: "Nội dung lỗi",
-                                // labelText: "Phone number",
-                                // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                suffixIcon: Icons.close,
-                                clickSuffixIcon: () =>
-                                    _contentController.clear(),
-                                textController: _contentController),
-                          ),
-                          const SizedBox(height: 10),
-                          loadImage(),
-                        ],
+                child: SingleChildScrollView(
+                  child:  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      AppbarWidget(
+                        text: StringText.text_report_title,
+                        onClicked: () => Get.back(),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(top: 30, left: 24, right: 24),
+                        child: Column(
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Tên lỗi",
+                                textAlign: TextAlign.left,
+                                style: Mytheme.textSubTitle,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              child: TextFieldWidget(
+                                  keyboardType: TextInputType.text,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter
+                                        .singleLineFormatter
+                                  ],
+                                  textInputAction: TextInputAction.next,
+                                  obscureText: false,
+                                  hintText: "Tên lỗi",
+                                  // labelText: "Phone number",
+                                  // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                  suffixIcon: Icons.close,
+                                  clickSuffixIcon: () => _nameController.clear(),
+                                  textController: _nameController),
+                            ),
+                            const SizedBox(height: 30),
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Nội dung",
+                                textAlign: TextAlign.left,
+                                style: Mytheme.textSubTitle,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            SizedBox(
+                              child: TextFieldWidget(
+                                  keyboardType: TextInputType.multiline,
+                                  // inputFormatters: <TextInputFormatter>[
+                                  //   FilteringTextInputFormatter
+                                  //       .singleLineFormatter
+                                  // ],
+                                  textInputAction: TextInputAction.newline,
+                                  obscureText: false,
+                                  hintText: "Nội dung lỗi",
+                                  // labelText: "Phone number",
+                                  // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                  suffixIcon: Icons.close,
+                                  clickSuffixIcon: () =>
+                                      _contentController.clear(),
+                                  textController: _contentController),
+                            ),
+                            const SizedBox(height: 10),
+                            loadImage(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+
               ),
               Expanded(
                 flex: 1,
