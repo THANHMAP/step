@@ -667,7 +667,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Get.toNamed('/newsDetail', arguments: newsList![i]);
                 },
                 child: Container(
-                  height: 106,
+                  height: 116,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Colors.white,

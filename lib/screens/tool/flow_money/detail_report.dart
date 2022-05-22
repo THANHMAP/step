@@ -38,7 +38,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
   late ProgressDialog pr;
   bool selectDefault = true;
   List<DetailReportData> detailReportData = [];
-  static const List<String> _fruitNames = <String>[
+  static const List<String> cashOut = <String>[
     'Gửi tiết kiệm',
     'Ăn uống',
     'Bảo hiểm',
@@ -56,6 +56,19 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
     'Kinh doanh',
     'Thuê nhà',
   ];
+
+  static const List<String> cashIn = <String>[
+    'Lương làm thuê',
+    'Lương vợ/chồng',
+    'Thu nhập tiền cho thuê',
+    'Tiền thưởng',
+    'Tiền lãi/gốc tiết kiệm',
+    'Các khoản chuyển tiền được nhận',
+    'Bán đồ cũ',
+    'Các nguồn thu nhập khác',
+  ];
+
+
   var sumTienVao = 0;
   var sumTienRa = 0;
   List<Item> listItemTienVao = [];
@@ -270,7 +283,6 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                               for(int i = 0; i < listItemTienVao.length; i++)...[
                                 Container(
                                   margin: EdgeInsets.only(bottom: 10),
-                                  height: 50,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     color: Mytheme.colorTextDivider,
@@ -313,7 +325,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                               top: 12, left: 16, bottom: 18, right: 0),
                                           child: Text(
                                             listItemTienVao[i].name ?? "",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: Mytheme.colorBgButtonLogin,
@@ -433,7 +445,6 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
 
                               for(int i = 0; i < listItemTienRa.length; i++)...[
                                 Container(
-                                  height: 50,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     color: Mytheme.colorTextDivider,
@@ -476,7 +487,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                               top: 12, left: 16, bottom: 18, right: 0),
                                           child: Text(
                                             listItemTienRa[i].name ?? "",
-                                            textAlign: TextAlign.center,
+                                            textAlign: TextAlign.start,
                                             style: TextStyle(
                                               fontSize: 16,
                                               color: Mytheme.colorBgButtonLogin,
@@ -531,8 +542,8 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
     for(int i = 0; i < detailReportData.length; i++) {
       sumTienVao = sumTienVao + int.parse(detailReportData[i].deposit ?? "0");
     }
-    for(int i = 0; i < _fruitNames.length; i++) {
-      var name = _fruitNames[i];
+    for(int i = 0; i < cashIn.length; i++) {
+      var name = cashIn[i];
       var total = 0;
       for(int ii = 0; ii < detailReportData.length; ii++) {
           if(name == detailReportData[ii].note) {
@@ -551,8 +562,8 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
     for(int i = 0; i < detailReportData.length; i++) {
       sumTienRa = sumTienRa + int.parse(detailReportData[i].withDraw ?? "0");
     }
-    for(int i = 0; i < _fruitNames.length; i++) {
-      var name = _fruitNames[i];
+    for(int i = 0; i < cashOut.length; i++) {
+      var name = cashOut[i];
       var total = 0;
       for(int ii = 0; ii < detailReportData.length; ii++) {
         if(name == detailReportData[ii].note) {

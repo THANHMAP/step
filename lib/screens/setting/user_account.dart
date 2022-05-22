@@ -1193,13 +1193,13 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
           ] else ...[
             Container(
-                width: 116.0,
-                height: 116.0,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(user.avatar.toString())))),
+              width: 125.0,
+              height: 125.0,
+              child: CircleAvatar(
+                backgroundImage:
+                NetworkImage(user.avatar.toString()),
+              ),
+            ),
           ],
 
           Padding(

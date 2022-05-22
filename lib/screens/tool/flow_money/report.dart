@@ -55,6 +55,28 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
   ];
 
   List<String> _listYeah = [
+    "Năm 2000",
+    "Năm 2001",
+    "Năm 2002",
+    "Năm 2003",
+    "Năm 2004",
+    "Năm 2005",
+    "Năm 2006",
+    "Năm 2007",
+    "Năm 2008",
+    "Năm 2009",
+    "Năm 2010",
+    "Năm 2011",
+    "Năm 2012",
+    "Năm 2013",
+    "Năm 2014",
+    "Năm 2015",
+    "Năm 2016",
+    "Năm 2017",
+    "Năm 2018",
+    "Năm 2019",
+    "Năm 2020",
+    "Năm 2021",
     "Năm 2022",
     "Năm 2023",
     "Năm 2024",
@@ -76,6 +98,12 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
     setState(() {
       currentRepaymentCycleIndex = month - 1;
     });
+    var year = DateTime.now().year;
+    for(int i = 0; i < _listYeah.length; i++) {
+      if(_listYeah[i].contains(year.toString())) {
+        currentYear = i;
+      }
+    }
 
     pr = ProgressDialog(
       context,
@@ -425,13 +453,13 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
             data: reportData!,
             colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
             fillColorFn: (_, __) =>
-            charts.MaterialPalette.blue.shadeDefault.lighter,
+            charts.MaterialPalette.blue.shadeDefault,
           ),
           new charts.Series<ReportChartData, String>(
             id: 'TienRa',
             measureFn: (ReportChartData sales, _) => sales.totalWithDraw,
             data: reportData!,
-            colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+            colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
             domainFn: (ReportChartData sales, _) =>
             "${sales.startDate}\n-${sales.endDate}",
           ),
@@ -468,13 +496,13 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
             data: monthdata!,
             colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
             fillColorFn: (_, __) =>
-            charts.MaterialPalette.blue.shadeDefault.lighter,
+            charts.MaterialPalette.blue.shadeDefault,
           ),
           new charts.Series<MonthChartData, String>(
             id: 'TienRa',
             measureFn: (MonthChartData sales, _) => sales.totalWithDraw,
             data: monthdata!,
-            colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
+            colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
             domainFn: (MonthChartData sales, _) => "${sales.month}",
           ),
         ];

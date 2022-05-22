@@ -195,6 +195,7 @@ class _MainLoanCalculatorToolScreenState extends State<MainLoanCalculatorToolScr
               Row(
                 children: [
                   Expanded(
+                    flex:1,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
@@ -228,13 +229,14 @@ class _MainLoanCalculatorToolScreenState extends State<MainLoanCalculatorToolScr
                                       padding: const EdgeInsets.only(right: 10),
                                       child: SvgPicture.asset("assets/svg/ic_add.svg"),
                                     ),
-                                    const Text(
+                                    Expanded(child:  Text(
                                       "Tạo khoản vay mới",
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontFamily: "OpenSans-Regular",
                                           fontWeight: FontWeight.bold),
-                                    ),
+                                    ),),
+
                                   ],
                                 ),
                                 onPressed: () async {
@@ -252,7 +254,9 @@ class _MainLoanCalculatorToolScreenState extends State<MainLoanCalculatorToolScr
 
                     ),
                   ),
-                  Align(
+                  Expanded(
+                    flex: 1,
+                    child:  Align(
                     alignment: Alignment.center,
                     child: Padding(
                         padding: const EdgeInsets.only(top: 16, right: 10),
@@ -263,7 +267,8 @@ class _MainLoanCalculatorToolScreenState extends State<MainLoanCalculatorToolScr
                             width: 150,
                           ),
                         )),
-                  ),
+                  ),),
+
                 ],
               ),
             ],

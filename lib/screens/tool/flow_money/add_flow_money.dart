@@ -122,7 +122,7 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
                                         ],
                                         textInputAction: TextInputAction.done,
                                         obscureText: false,
-                                        hintText: "Nhập mục tiêu",
+                                        hintText: "Nhập tên sổ ghi chép",
                                         // labelText: "Phone number",
                                         // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
                                         suffixIcon: Icons.close,
@@ -186,60 +186,60 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
                                   //   },
                                   // ),
                                   //
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số tiền bạn đang có",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: <TextInputFormatter>[
-                                      FilteringTextInputFormatter.digitsOnly
-                                    ],
-                                    obscureText: false,
-                                    controller: _numberHasController,
-                                    enabled: true,
-                                    textInputAction: TextInputAction.done,
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: InputDecoration(
-                                        fillColor: const Color(0xFFEFF0FB), filled: true,
-                                        hintText: "Nhập số tiền",
-                                        hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                        // labelText: labelText,
-
-                                        suffixIcon: IconButton(
-                                            onPressed: (){},
-                                            icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
-                                        ),
-                                        enabledBorder:  OutlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                            borderRadius: BorderRadius.circular(14)),
-
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                            borderRadius: BorderRadius.circular(14))),
-                                    onChanged: (value) {
-                                      value = '${formNum(
-                                        value.replaceAll(',', ''),
-                                      )}';
-                                      _numberHasController.value = TextEditingValue(
-                                        text: value,
-                                        selection: TextSelection.collapsed(
-                                          offset: value.length,
-                                        ),
-                                      );
-                                    },
-                                  ),
+                                  // const SizedBox(height: 10),
+                                  // const Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: Text(
+                                  //     "Số tiền bạn đang có",
+                                  //     textAlign: TextAlign.left,
+                                  //     style: const TextStyle(
+                                  //       fontSize: 16,
+                                  //       color: Mytheme.colorTextSubTitle,
+                                  //       fontWeight: FontWeight.w600,
+                                  //       fontFamily: "OpenSans-SemiBold",
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // const SizedBox(height: 10),
+                                  // TextField(
+                                  //   keyboardType: TextInputType.number,
+                                  //   inputFormatters: <TextInputFormatter>[
+                                  //     FilteringTextInputFormatter.digitsOnly
+                                  //   ],
+                                  //   obscureText: false,
+                                  //   controller: _numberHasController,
+                                  //   enabled: true,
+                                  //   textInputAction: TextInputAction.done,
+                                  //   textAlignVertical: TextAlignVertical.center,
+                                  //   decoration: InputDecoration(
+                                  //       fillColor: const Color(0xFFEFF0FB), filled: true,
+                                  //       hintText: "Nhập số tiền",
+                                  //       hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                  //       // labelText: labelText,
+                                  //
+                                  //       suffixIcon: IconButton(
+                                  //           onPressed: (){},
+                                  //           icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
+                                  //       ),
+                                  //       enabledBorder:  OutlineInputBorder(
+                                  //           borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  //           borderRadius: BorderRadius.circular(14)),
+                                  //
+                                  //       focusedBorder: OutlineInputBorder(
+                                  //           borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                  //           borderRadius: BorderRadius.circular(14))),
+                                  //   onChanged: (value) {
+                                  //     value = '${formNum(
+                                  //       value.replaceAll(',', ''),
+                                  //     )}';
+                                  //     _numberHasController.value = TextEditingValue(
+                                  //       text: value,
+                                  //       selection: TextSelection.collapsed(
+                                  //         offset: value.length,
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  // ),
 
                                   //
 //                                   const SizedBox(height: 10),
@@ -644,7 +644,8 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
                       //so tien bạn có
                       dataUsers.add(DataUsers(
                         key: "money_has",
-                        value: _numberHasController.text.replaceAll(',', ''),
+                        // value: _numberHasController.text.replaceAll(',', ''),
+                        value: "0",
                         type: 2,
                       ));
                       //

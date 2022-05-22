@@ -161,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               const SizedBox(height: 10),
                               //lien he
                               CardSettingWidget(
-                                title: "Liên hệ",
+                                title: "Địa chỉ giao dịch",
                                 linkUrl: 'assets/svg/ic_lienhe.svg',
                                 onClicked: () {
                                   Get.toNamed('/contactScreen');

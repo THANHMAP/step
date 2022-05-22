@@ -536,8 +536,10 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                                 return;
                                               }
                                               var calculatorWeek = int.parse(_numberWeekController.text)*7;
-                                              var numberSaver = differenceDay / calculatorWeek ;
-                                              var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+                                              var solantietkiem = (differenceDay/calculatorWeek).round();
+                                              var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
+                                              var result = (soTienCanTietKiem/solantietkiem).round();
+                                              // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
                                               setState(() {
                                                 moneySave = result.round();
                                               });

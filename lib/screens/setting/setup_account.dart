@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -12,11 +13,16 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../compoment/appbar_wiget.dart';
+import '../../compoment/button_wiget.dart';
 import '../../compoment/dialog_confirm.dart';
+import '../../compoment/dialog_nomal.dart';
 import '../../models/biometrics_model.dart';
 import '../../models/login_model.dart';
+import '../../service/api_manager.dart';
 import '../../service/custom_exception.dart';
+import '../../service/remote_service.dart';
 import '../../shared/SPref.dart';
+import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -40,6 +46,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   final LocalAuthentication auth = LocalAuthentication();
   bool _canCheckBiometrics = false;
   bool _isFingerprint = false;
+  bool showButtonSave = false;
 
   @override
   void initState() {
@@ -112,7 +119,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
             Expanded(
                 child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(top: 30, bottom: 20),
+                padding:  EdgeInsets.only(top: 30, bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -141,6 +148,29 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                         ),
                       ),
                     ),
+
+                    Visibility(
+                      visible: showButtonSave,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 12, left: 20, bottom: 18, right: 20),
+                        child: ButtonWidget(
+                            text: StringText.text_save,
+                            color: Mytheme.colorBgButtonLogin,
+                            onClicked: () => {
+                              // saveInfoUser()
+                              // if(_image != null){
+                              //   saveImage(_image),
+                              //
+                              // } else {
+                                saveInfoUser()
+                              // }
+                            }),
+                      ),
+                    )
+
+
+
                   ],
                 ),
               ),
@@ -160,11 +190,12 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
           Container(
               width: 125.0,
               height: 125.0,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(user.avatar.toString())))),
+             child: CircleAvatar(
+               backgroundImage:
+               NetworkImage(user.avatar.toString()),
+             ),
+          ),
+
           Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
@@ -186,12 +217,11 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
         Container(
             width: 125.0,
             height: 125.0,
-            decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("assets/images/no_image.png"),
-                ))),
+          child: const CircleAvatar(
+            backgroundImage:
+            AssetImage("assets/images/no_image.png"),
+          ),
+        ),
         Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Text(
@@ -416,6 +446,16 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     border: InputBorder.none,
                     hintText: user.email ?? "Thêm thông tin",
                   ),
+                  onChanged: (value) {
+                    setState(() {
+                      if(value != user.email) {
+                        showButtonSave = true;
+                      } else {
+                        showButtonSave = false;
+                      }
+                    });
+
+                  },
                   maxLines: 1,
                 ),
               ),
@@ -592,4 +632,56 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     _biometricsData.isActivated = active;
     await SPref.instance.set("biometrics", json.encode(_biometricsData));
   }
+
+  Future<void> saveInfoUser() async {
+    if(!pr.isShowing())
+      await pr.show();
+    user.email = _emailController.text.toString();
+    var param = jsonEncode(<String, String>{
+      'email': _emailController.text.toString()
+
+    });
+
+    APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
+            (value) async {
+
+          var loginModel = LoginModel.fromJson(value);
+          if (loginModel.statusCode == 200) {
+            await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+            await SPref.instance.set("info_login", json.encode(loginModel.data));
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return WillPopScope(
+                      onWillPop: () {
+                        return Future.value(false);
+                      },
+                      child: NormalDialogBox(
+                          descriptions: "Cập nhật thông tin thành công",
+                          onClicked: () {
+                            Navigator.pop(context);
+                            setState(() {
+                              showButtonSave = false;
+                            });
+                          }
+                      ));
+                });
+            // Get.offAllNamed("/home");
+          }
+        }, onError: (error) async {
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error);
+      }
+    });
+    await pr.hide();
+  }
+
 }

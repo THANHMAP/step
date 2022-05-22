@@ -103,7 +103,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
               flex: 8,
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 70),
+                  padding:  EdgeInsets.only(top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -1254,7 +1254,8 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                         ),
                       ),
                       Text(
-                        dataCalculator.noGocConLai ?? "0",
+                        // dataCalculator.noGocConLai ?? "0",
+                        dataCalculator.tongTienPhaiTra ?? "0",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 16,
@@ -1467,7 +1468,6 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       year = year + 1;
     }
     currentDate = "${dates[0]}/${month}/${year}";
-    print(currentDate);
     return "${dates[0]}/${month}/${year}";
   }
   var noGocTrathangtruoc;
@@ -1482,8 +1482,8 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
     var soTienGoc = int.parse(_moneyLoanRootController.text.replaceAll(",", ""));
     var soLanTraGoc = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienGocController.text);
     var soLanTraLai = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienLaiController.text);
-    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100)/12;
-
+    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100);
+    // var phanTramLaiHangThang = int.parse(_tyLeLaiXuatController.text);
     var noGocConLai = soTienGoc;
     for (int i = 0; i < soThangVay; i++) {
       DataCalculator dataCalculator = DataCalculator();
@@ -1504,13 +1504,14 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       if(number % soThangTraLai == 0) {
         if(!thangLaiDauTien) {
           thangLaiDauTien = true;
-          lai = (soTienGoc * phanTramLaiHangThang * soThangTraLai).round();
+          lai = ((soTienGoc * phanTramLaiHangThang) / soLanTraLai).round();
           dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
         } else {
-          lai = (noGocConLai * phanTramLaiHangThang * soThangTraLai).round();
+          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
           dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
         }
       }
+      print(formNum(lai.toString()));
       tongLaiGiamDan = tongLaiGiamDan + lai;
       var tongPhaiTra = noGocHangThang + lai;
       dataCalculator.tongTienPhaiTra = formNum(tongPhaiTra.toString()) + " vnđ";

@@ -48,6 +48,8 @@ class _AudioScreenState extends State<AudioScreen> {
   bool isPlaying = false;
   String currentTime = "0:00:00";
   String completeTime = "0:00:00";
+  Duration _duration = new Duration();
+  Duration _position = new Duration();
 
   @override
   void initState() {
@@ -57,18 +59,39 @@ class _AudioScreenState extends State<AudioScreen> {
     player.onAudioPositionChanged.listen((Duration duration) {
       setState(() {
         currentTime = duration.toString().split(".")[0];
+        _position = duration;
       });
     });
 
     player.onDurationChanged.listen((Duration duration) {
       setState(() {
         completeTime = duration.toString().split(".")[0];
+        _duration = duration;
       });
     });
+
+
     Future.delayed(Duration.zero, () {
       playaudio();
     });
 
+  }
+
+  Widget slider() {
+    return Slider(
+        value: _position.inSeconds.toDouble(),
+        min: 0.0,
+        max: _duration.inSeconds.toDouble(),
+        onChanged: (double value) {
+          setState(() {
+            seekToSecond(value.toInt());
+            value = value;
+          });});
+  }
+
+  void seekToSecond(int second){
+    Duration newDuration = Duration(seconds: second);
+    player.seek(newDuration);
   }
 
   @override
@@ -111,7 +134,6 @@ class _AudioScreenState extends State<AudioScreen> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(top: 50),
-                          width: 240,
                           height: 50,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -164,6 +186,8 @@ class _AudioScreenState extends State<AudioScreen> {
                                 completeTime,
                                 style: TextStyle(fontWeight: FontWeight.w300),
                               ),
+                              Expanded(child: slider())
+                              ,
                             ],
                           ),
                         ),
