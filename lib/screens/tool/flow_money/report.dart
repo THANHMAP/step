@@ -445,7 +445,7 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
     if(reportData.isNotEmpty) {
       List<charts.Series<ReportChartData, String>> _createSampleData() {
         return [
-          new charts.Series<ReportChartData, String>(
+          charts.Series<ReportChartData, String>(
             id: 'TienVao',
             domainFn: (ReportChartData sales, _) =>
             "${sales.startDate}\n-${sales.endDate}",
@@ -455,9 +455,9 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
             fillColorFn: (_, __) =>
             charts.MaterialPalette.blue.shadeDefault,
           ),
-          new charts.Series<ReportChartData, String>(
+          charts.Series<ReportChartData, String>(
             id: 'TienRa',
-            measureFn: (ReportChartData sales, _) => sales.totalWithDraw,
+            measureFn: (ReportChartData sales, _) => -sales.totalWithDraw!,
             data: reportData!,
             colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
             domainFn: (ReportChartData sales, _) =>
@@ -489,7 +489,7 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
     if(monthdata.isNotEmpty) {
       List<charts.Series<MonthChartData, String>> _createSampleData() {
         return [
-          new charts.Series<MonthChartData, String>(
+          charts.Series<MonthChartData, String>(
             id: 'TienVao',
             domainFn: (MonthChartData sales, _) => "${sales.month}",
             measureFn: (MonthChartData sales, _) => sales.totalDeposit,
@@ -498,9 +498,9 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
             fillColorFn: (_, __) =>
             charts.MaterialPalette.blue.shadeDefault,
           ),
-          new charts.Series<MonthChartData, String>(
+          charts.Series<MonthChartData, String>(
             id: 'TienRa',
-            measureFn: (MonthChartData sales, _) => sales.totalWithDraw,
+            measureFn: (MonthChartData sales, _) => -sales.totalWithDraw!,
             data: monthdata!,
             colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
             domainFn: (MonthChartData sales, _) => "${sales.month}",

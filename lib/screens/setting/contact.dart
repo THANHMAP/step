@@ -378,8 +378,10 @@ class _ContactScreenState extends State<ContactScreen> {
                             this.setState(() {
                               currentCreditIndex;
                               getNameCredit(currentCreditIndex);
-                              // getListContact(currentCityIndex.toString());
-                            });
+                              getListContact(currentProviderIndex.toString(),
+                                  _providersData[currentProviderIndex].id ?? "0");
+                            }
+                            );
                           });
                         },
                         child: Container(

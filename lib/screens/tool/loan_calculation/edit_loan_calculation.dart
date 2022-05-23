@@ -56,7 +56,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
   var tongLaiGiamDan = 0;
   var tongLaiPhang = 0;
   ItemToolData? itemToolData;
-
+  String currentDate = "";
 
   @override
   void initState() {
@@ -1177,7 +1177,10 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                         setState(() {
                           displayCalculation = true;
                         });
+
+                        currentDate = dateFirst;
                         calculatorLaiDuNoGiamDan();
+                        currentDate = dateFirst;
                         calculatorLaiPhang();
                         return;
                       }
@@ -1460,17 +1463,19 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
     );
   }
 
-  String showDay(int index){
-    var dates = dateFirst.split("/");
+  String showDay(){
+    var dates = currentDate.split("/");
     var month = int.parse(dates[1]);
     var year = int.parse(dates[2]);
-    month = month + index;
+    month = month + 1;
     if(month > 12) {
       month = month - 12;
       year = year + 1;
     }
+    currentDate = "${dates[0]}/${month}/${year}";
     return "${dates[0]}/${month}/${year}";
   }
+
   var noGocTrathangtruoc;
 
 
@@ -1484,17 +1489,30 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
     var soTienGoc = int.parse(_moneyLoanRootController.text.replaceAll(",", ""));
     var soLanTraGoc = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienGocController.text);
     var soLanTraLai = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienLaiController.text);
-    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100)/12;
-
+    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100);
+    // var phanTramLaiHangThang = int.parse(_tyLeLaiXuatController.text);
     var noGocConLai = soTienGoc;
     for (int i = 0; i < soThangVay; i++) {
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
-      dataCalculator.date = showDay(i+1);
+      dataCalculator.date = showDay();
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc
       var number = i+1;
+
+
+      if(number % soThangTraLai == 0) {
+        if(!thangLaiDauTien) {
+          thangLaiDauTien = true;
+          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
+        } else {
+          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
+        }
+      }
+
       if(number % soThangTraGoc == 0) {
         noGocConLai = (noGocConLai - (soTienGoc/soLanTraGoc).round());
         noGocHangThang = (soTienGoc/soLanTraGoc).round();
@@ -1502,17 +1520,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
       }
 
       if (noGocConLai < 0) noGocConLai = 0;
-
-      if(number % soThangTraLai == 0) {
-        if(!thangLaiDauTien) {
-          thangLaiDauTien = true;
-          lai = (soTienGoc * phanTramLaiHangThang * soThangTraLai).round();
-          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
-        } else {
-          lai = (noGocConLai * phanTramLaiHangThang * soThangTraLai).round();
-          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
-        }
-      }
+      print(formNum(lai.toString()));
       tongLaiGiamDan = tongLaiGiamDan + lai;
       var tongPhaiTra = noGocHangThang + lai;
       dataCalculator.tongTienPhaiTra = formNum(tongPhaiTra.toString()) + " vnđ";
@@ -1539,7 +1547,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
     for (int i = 0; i < soThangVay; i++) {
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
-      dataCalculator.date = showDay(i+1);
+      dataCalculator.date = showDay();
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc
@@ -1624,6 +1632,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                   _kyHanVayController.text = dataUsers[i].value.toString();
                 } else if(dataUsers[i].key == "ngay_vay"){
                   dateFirst = dataUsers[i].value.toString();
+                  currentDate = dateFirst;
                 } else if(dataUsers[i].key == "phan_ky_tien_goc"){
                   _numberMonthTienGocController.text = dataUsers[i].value.toString();
                 } else if(dataUsers[i].key == "phan_ky_tien_lai"){

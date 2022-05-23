@@ -1493,6 +1493,19 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       var noGocHangThang = 0;
       // tinh trả nợ gốc
       var number = i+1;
+
+
+      if(number % soThangTraLai == 0) {
+        if(!thangLaiDauTien) {
+          thangLaiDauTien = true;
+          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
+        } else {
+          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
+        }
+      }
+
       if(number % soThangTraGoc == 0) {
         noGocConLai = (noGocConLai - (soTienGoc/soLanTraGoc).round());
         noGocHangThang = (soTienGoc/soLanTraGoc).round();
@@ -1500,17 +1513,6 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       }
 
       if (noGocConLai < 0) noGocConLai = 0;
-
-      if(number % soThangTraLai == 0) {
-        if(!thangLaiDauTien) {
-          thangLaiDauTien = true;
-          lai = ((soTienGoc * phanTramLaiHangThang) / soLanTraLai).round();
-          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
-        } else {
-          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
-          dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
-        }
-      }
       print(formNum(lai.toString()));
       tongLaiGiamDan = tongLaiGiamDan + lai;
       var tongPhaiTra = noGocHangThang + lai;
