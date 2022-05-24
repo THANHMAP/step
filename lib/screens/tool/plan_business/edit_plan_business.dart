@@ -773,7 +773,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                 onTap: (){
                   setState(() {
                     selectDefault = true;
-                    typeObj = 1;
+                    typeObj = 2;
                   });
                 },
                 child: Align(
@@ -797,7 +797,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                 onTap: () {
                   setState(() {
                     selectDefault = false;
-                    typeObj = 2;
+                    typeObj = 1;
                   });
                 },
                 child: Align(
@@ -882,7 +882,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                 ),
 
                 for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 2)...[
+                  if(dataUsers[i].type == 1)...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -1028,7 +1028,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              calculatorTotalType2(),
+                              calculatorTotalType1(),
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 24,
@@ -1088,7 +1088,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                 ),
 
                 for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 1)...[
+                  if(dataUsers[i].type == 2)...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -1234,7 +1234,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              calculatorTotalType1(),
+                              calculatorTotalType2(),
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 24,

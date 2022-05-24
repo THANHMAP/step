@@ -82,7 +82,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
     Utils.portraitModeOnly();
 
     Future.delayed(Duration.zero, () {
-      // loadDataSampleTool();
+      loadDataSampleTool();
     });
   }
 
@@ -597,7 +597,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                 onTap: (){
                   setState(() {
                     selectDefault = true;
-                    typeObj = 1;
+                    typeObj = 2;
                   });
                 },
                 child: Align(
@@ -621,7 +621,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                 onTap: () {
                   setState(() {
                     selectDefault = false;
-                    typeObj = 2;
+                    typeObj = 1;
                   });
                 },
                 child: Align(
@@ -706,7 +706,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                 ),
 
                 for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 2)...[
+                  if(dataUsers[i].type == 1)...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -852,7 +852,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              calculatorTotalType2(),
+                              calculatorTotalType1(),
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 24,
@@ -912,7 +912,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                 ),
 
                 for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 1)...[
+                  if(dataUsers[i].type == 2)...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -1058,7 +1058,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              calculatorTotalType1(),
+                              calculatorTotalType2(),
                               textAlign: TextAlign.left,
                               style: const TextStyle(
                                 fontSize: 24,
@@ -1314,6 +1314,29 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
         ),
       ],
     );
+  }
+
+  Future<void> loadDataSampleTool() async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'tool_id': data.id.toString(),
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.sampleDataURL, param).then(
+            (value) async {
+          pr.hide();
+          var data = DataSampleTool.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              for (var i = 0; i < data.data!.length; i++) {
+                dataUsers.add(DataUsers(
+                    key: data.data![i].name, value: "0", type: data.data![i].type));
+              }
+            });
+          }
+        }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
   }
 
 }

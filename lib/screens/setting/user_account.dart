@@ -6,9 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker_theme.dart';
+
+// import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
+import 'package:flutter_holo_date_picker/widget/date_picker_widget.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 import 'package:step_bank/models/city_model.dart';
@@ -124,14 +130,14 @@ class _AccountScreenState extends State<AccountScreen> {
                             text: StringText.text_save,
                             color: Mytheme.colorBgButtonLogin,
                             onClicked: () => {
-                              // saveInfoUser()
-                              if(_image != null){
-                                saveImage(_image),
-
-                              } else {
-                                saveInfoUser()
-                              }
-                            }),
+                                  // saveInfoUser()
+                                  if (_image != null)
+                                    {
+                                      saveImage(_image),
+                                    }
+                                  else
+                                    {saveInfoUser()}
+                                }),
                       ),
                     ],
                   ),
@@ -229,7 +235,6 @@ class _AccountScreenState extends State<AccountScreen> {
                         _usernameController.text = user.name.toString();
                         urlActionUsername = "assets/images/ic_edit.png";
                       });
-
                     }
                   },
                 ),
@@ -327,101 +332,134 @@ class _AccountScreenState extends State<AccountScreen> {
   birthUser() {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.rectangle,
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 7,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding:
-                    EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-                child: Text(
-                  "Sinh nhật",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Mytheme.colorBgButtonLogin,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "OpenSans-Semibold",
+      child: InkWell(
+        onTap: () async {
+          showDatePicker();
+        },
+        child:  Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding:
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  child: Text(
+                    "Ngày sinh",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Mytheme.colorBgButtonLogin,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Semibold",
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 3,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 12, left: 16, bottom: 13, right: 0),
-                child: TextField(
-                  keyboardType: TextInputType.datetime,
-                  readOnly: _isDisableDob,
-                  controller: _userBodController,
-                  autofocus: true,
-                  textAlign: TextAlign.end,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Mytheme.color_82869E,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "OpenSans-Regular",
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 12, left: 16, bottom: 13, right: 0),
+                  child: TextField(
+                    keyboardType: TextInputType.datetime,
+                    readOnly: _isDisableDob,
+                    controller: _userBodController,
+                    autofocus: true,
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Mytheme.color_82869E,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "OpenSans-Regular",
+                    ),
+                    decoration: InputDecoration.collapsed(
+                      border: InputBorder.none,
+                      hintText: user.dob ?? "Ngày sinh",
+                    ),
+                    maxLines: 1,
                   ),
-                  decoration: InputDecoration.collapsed(
-                    border: InputBorder.none,
-                    hintText: user.dob ?? "Ngày sinh",
-                  ),
-                  maxLines: 1,
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
-                child: IconButton(
-                  icon: Image.asset(urlActionBirthday),
-                  // tooltip: 'Increase volume by 10',
-                  iconSize: 50,
-                  onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        theme: DatePickerTheme(
-                          containerHeight: 210.0,
-                        ),
-                        showTitleActions: true,
-                        minTime: DateTime(1930, 1, 1),
-                        maxTime: DateTime(2022, 12, 31),
-                        onConfirm: (date) {
-                          print('confirm $date');
-                          _date = '${date.year} - ${date.month} - ${date.day}';
-                          setState(() {
-                            _userBodController.text = '${date.day} - ${date.month} - ${date.year}';
-                          });
-                        },
-                        currentTime: DateTime.now(),
-                        locale: LocaleType.vi);
-                  },
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                  child: IconButton(
+                    icon: Image.asset(urlActionBirthday),
+                    // tooltip: 'Increase volume by 10',
+                    iconSize: 50,
+                    onPressed: () async {
+                      showDatePicker();
+                      // final snackBar =
+                      // SnackBar(content: Text("$datePicked"));
+                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      // DatePicker.showDatePicker(context,
+                      //     theme: DatePickerTheme(
+                      //       containerHeight: 210.0,
+                      //     ),
+                      //     showTitleActions: true,
+                      //
+                      //     minTime: DateTime(1930, 1, 1),
+                      //     maxTime: DateTime(2022, 12, 31),
+                      //     onConfirm: (date) {
+                      //       print('confirm $date');
+                      //       _date = '${date.year} - ${date.month} - ${date.day}';
+                      //       setState(() {
+                      //         _userBodController.text = '${date.day} - ${date.month} - ${date.year}';
+                      //       });
+                      //     },
+                      //     currentTime: DateTime.now(),
+                      //     locale: LocaleType.vi);
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+
     );
   }
+
+  showDatePicker() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+    );
+    if(datePicked != null) {
+      setState(() {
+        _date =
+        '${datePicked?.day} - ${datePicked?.month} - ${datePicked.year}';
+        _userBodController.text =
+        '${datePicked?.day} - ${datePicked?.month} - ${datePicked?.year}';
+      });
+    }
+
+  }
+
 
   cityUser() {
     return Padding(
@@ -881,8 +919,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             this.setState(() {
                               selectedUserGroupList;
                               textUserGroup = _userGroupValue(
-                                  selectedUserGroupList,
-                                  userGroupData!);
+                                  selectedUserGroupList, userGroupData!);
                             });
                           },
                           child: Container(
@@ -893,11 +930,11 @@ class _AccountScreenState extends State<AccountScreen> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(left: 30),
-                                  child: SvgPicture.asset( !selectedUserGroupList.contains(userGroupData![i].id) ?
-                                  "assets/svg/ic_not_check_gray.svg":
-                                  "assets/svg/checkbox_check_correct.svg"),
+                                  child: SvgPicture.asset(!selectedUserGroupList
+                                          .contains(userGroupData![i].id)
+                                      ? "assets/svg/ic_not_check_gray.svg"
+                                      : "assets/svg/checkbox_check_correct.svg"),
                                 ),
-
                                 Padding(
                                   padding: const EdgeInsets.only(left: 16),
                                   child: Text(
@@ -1174,34 +1211,32 @@ class _AccountScreenState extends State<AccountScreen> {
     if (user.avatar != null && user.avatar.toString().isNotEmpty) {
       return Stack(
         children: <Widget>[
-          if(_image != null)...[
+          if (_image != null) ...[
             ClipRRect(
               borderRadius: BorderRadius.circular(60.0),
               child: _image != null
                   ? Image.file(
-                _image,
-                fit: BoxFit.fill,
-                height: 125.0,
-                width: 125.0,
-              )
+                      _image,
+                      fit: BoxFit.fill,
+                      height: 125.0,
+                      width: 125.0,
+                    )
                   : Image.asset(
-                "assets/images/no_image.png",
-                fit: BoxFit.fill,
-                height: 125.0,
-                width: 125.0,
-              ),
+                      "assets/images/no_image.png",
+                      fit: BoxFit.fill,
+                      height: 125.0,
+                      width: 125.0,
+                    ),
             ),
           ] else ...[
             Container(
               width: 125.0,
               height: 125.0,
               child: CircleAvatar(
-                backgroundImage:
-                NetworkImage(user.avatar.toString()),
+                backgroundImage: NetworkImage(user.avatar.toString()),
               ),
             ),
           ],
-
           Padding(
             padding:
                 const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
@@ -1249,7 +1284,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   width: 125.0,
                 ),
         ),
-
         Padding(
           padding:
               const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
@@ -1316,7 +1350,7 @@ class _AccountScreenState extends State<AccountScreen> {
         currentSexIndex = user.gender ?? 0;
         currentCityIndex = user.cityId ?? 0;
         currentWardIndex = user.provinceId ?? 0;
-        if(!user.dob.toString().isNotEmpty) {
+        if (!user.dob.toString().isNotEmpty) {
           _userBodController.text = "Thêm thông tin";
         } else {
           _userBodController.text = user.dob.toString();
@@ -1523,8 +1557,7 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future<void> saveInfoUser() async {
-    if(!pr.isShowing())
-      await pr.show();
+    if (!pr.isShowing()) await pr.show();
     user.name = _usernameController.text;
     user.gender = currentSexIndex;
     user.dob = _userBodController.text;
@@ -1546,7 +1579,6 @@ class _AccountScreenState extends State<AccountScreen> {
 
     APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
         (value) async {
-
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
@@ -1562,8 +1594,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       descriptions: "Cập nhật thông tin thành công",
                       onClicked: () {
                         Navigator.pop(context);
-                      }
-                  ));
+                      }));
             });
         // Get.offAllNamed("/home");
       }
@@ -1585,7 +1616,8 @@ class _AccountScreenState extends State<AccountScreen> {
 
   Future<void> saveImage(File file) async {
     await pr.show();
-    APIManager.uploadImageHTTP(file, RemoteServices.updateAvatarURL).then((value) async {
+    APIManager.uploadImageHTTP(file, RemoteServices.updateAvatarURL).then(
+        (value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         saveInfoUser();
@@ -1608,10 +1640,4 @@ class _AccountScreenState extends State<AccountScreen> {
     });
     await pr.hide();
   }
-
-
-
-
-
-
 }
