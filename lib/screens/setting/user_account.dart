@@ -154,7 +154,6 @@ class _AccountScreenState extends State<AccountScreen> {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
       child: Container(
-        height: 50,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           color: Colors.white,
@@ -170,13 +169,14 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Expanded(
+            Expanded(
               flex: 2,
               child: Padding(
                 padding:
-                    EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                    EdgeInsets.only(top: 12, left: 16, bottom: 13, right: 0),
                 child: Text(
                   "Họ và tên",
                   textAlign: TextAlign.start,
@@ -193,8 +193,17 @@ class _AccountScreenState extends State<AccountScreen> {
               flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 12, left: 16, bottom: 13, right: 0),
+                    top: 12, left: 0, bottom: 13, right: 0),
                 child: TextField(
+                  onTap: () {
+                    if (_isDisableUsername == true) {
+                      setState(() {
+                        _isDisableUsername = false;
+                        _usernameController.text = user.name.toString();
+                        urlActionUsername = "assets/images/ic_delete.png";
+                      });
+                    }
+                  },
                   readOnly: _isDisableUsername,
                   controller: _usernameController,
                   autofocus: true,
@@ -377,6 +386,9 @@ class _AccountScreenState extends State<AccountScreen> {
                   padding: const EdgeInsets.only(
                       top: 12, left: 16, bottom: 13, right: 0),
                   child: TextField(
+                    onTap: () {
+                      showDatePicker();
+                    },
                     keyboardType: TextInputType.datetime,
                     readOnly: _isDisableDob,
                     controller: _userBodController,
@@ -452,9 +464,9 @@ class _AccountScreenState extends State<AccountScreen> {
     if(datePicked != null) {
       setState(() {
         _date =
-        '${datePicked?.day} - ${datePicked?.month} - ${datePicked.year}';
+        '${datePicked.day}-${datePicked.month}-${datePicked.year}';
         _userBodController.text =
-        '${datePicked?.day} - ${datePicked?.month} - ${datePicked?.year}';
+        '${datePicked.day}-${datePicked.month}-${datePicked.year}';
       });
     }
 

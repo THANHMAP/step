@@ -14,16 +14,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "105597937164-bfu90a1sfkb91oagr6de1r7odgr0opqp.apps.googleusercontent.com",
+          "client_id": "105597937164-di8i0u8hau0e45okmc77d47gr04ddvrf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.step.bank.step_bank",
             "certificate_hash": "3f9127d0f3d90601ff2bc2589a045fb2bf215b24"
           }
-        },
-        {
-          "client_id": "105597937164-kt4c7ssj0b4jmjcbpdr7v7k3rtisc55t.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,8 +31,11 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "105597937164-kt4c7ssj0b4jmjcbpdr7v7k3rtisc55t.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "105597937164-7pucs2g5301ir3lejg0mi2rlaq3tno3m.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.step.bank.step"
+              }
             }
           ]
         }

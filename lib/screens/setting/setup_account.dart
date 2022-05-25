@@ -341,7 +341,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 12, left: 16, bottom: 13, right: 0),
@@ -430,7 +430,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
               flex: 4,
               child: Padding(
                 padding: const EdgeInsets.only(
-                    top: 12, left: 16, bottom: 13, right: 0),
+                    top: 12, left: 0, bottom: 13, right: 0),
                 child: TextField(
                   readOnly: _isDisableEmail,
                   controller: _emailController,

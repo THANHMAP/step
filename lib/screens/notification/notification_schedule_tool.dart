@@ -47,6 +47,8 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
   String numberDay = "";
 
   String userId = Get.arguments.toString();
+  bool showEdit = false;
+
   @override
   void initState() {
     super.initState();
@@ -91,7 +93,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Container(
+                        Container(
                         child: Column(
                           children: [
                             Padding(
@@ -201,7 +203,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                   Align(
+                                  Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       repaymentNumber,
@@ -281,6 +283,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                           ],
                         ),
                       ),
+
                     ],
                   ),
                 ),

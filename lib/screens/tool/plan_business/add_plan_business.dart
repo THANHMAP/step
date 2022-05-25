@@ -892,7 +892,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                             flex:2,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
-                              height: 44,
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: Mytheme.colorTextDivider,
@@ -918,6 +917,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
                             ),),
                           Expanded(
+                            flex: 2,
                             child: Container(
                             height: 44,
                             decoration: BoxDecoration(
@@ -1109,7 +1109,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                             flex:2,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
-                              height: 44,
                               decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: Mytheme.colorTextDivider,
@@ -1135,6 +1134,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
                             ),),
                           Expanded(
+                            flex: 2,
                             child: Container(
                             height: 44,
                             decoration: BoxDecoration(

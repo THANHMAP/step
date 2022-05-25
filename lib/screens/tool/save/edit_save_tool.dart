@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker.dart';
+import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -310,19 +311,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                                                           // tooltip: 'Increase volume by 10',
                                                           iconSize: 50,
                                                           onPressed: () {
-                                                            DatePicker.showDatePicker(context,
-                                                                theme: DatePickerTheme(
-                                                                  containerHeight: 210.0,
-                                                                ),
-                                                                showTitleActions: true,
-                                                                minTime: DateTime(2022, 1, 1),
-                                                                maxTime: DateTime(2030, 12, 31), onConfirm: (date) {
-                                                                  print('confirm $date');
-                                                                  // _date = '${date.year} - ${date.month} - ${date.day}';
-                                                                  setState(() {
-                                                                    dateFirst = '${date.day}/${date.month}/${date.year}';
-                                                                  });
-                                                                }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                                                            showDatePicker();
                                                           },
                                                         ),
                                                       ),
@@ -399,19 +388,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                                                           // tooltip: 'Increase volume by 10',
                                                           iconSize: 50,
                                                           onPressed: () {
-                                                            DatePicker.showDatePicker(context,
-                                                                theme: DatePickerTheme(
-                                                                  containerHeight: 210.0,
-                                                                ),
-                                                                showTitleActions: true,
-                                                                minTime: DateTime(2022, 1, 1),
-                                                                maxTime: DateTime(2030, 12, 31), onConfirm: (date) {
-                                                                  print('confirm $date');
-                                                                  // _date = '${date.year} - ${date.month} - ${date.day}';
-                                                                  setState(() {
-                                                                    dateEnd = '${date.day}/${date.month}/${date.year}';
-                                                                  });
-                                                                }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                                                            showDatePickerEnd();
                                                           },
                                                         ),
                                                       ),
@@ -528,8 +505,8 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
 
                                           InkWell(
                                             onTap: () {
-                                              var stringDateStart = dateFirst.split("/");
-                                              var stringDateEnd = dateEnd.split("/");
+                                              var stringDateStart = dateFirst.split("-");
+                                              var stringDateEnd = dateEnd.split("-");
                                               final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
                                               final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
                                               final differenceDay = daysBetween(dayStart, dayEnd);
@@ -898,6 +875,41 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
+  }
+
+
+  showDatePicker() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+    );
+    if(datePicked != null) {
+      setState(() {
+        dateFirst = '${datePicked.day}-${datePicked.month}-${datePicked.year}';
+      });
+    }
+  }
+
+  showDatePickerEnd() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+    );
+    if(datePicked != null) {
+      setState(() {
+        dateEnd = '${datePicked.day}-${datePicked.month}-${datePicked.year}';
+      });
+    }
   }
 
 }

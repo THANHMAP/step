@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker.dart';
+import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -725,23 +726,22 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                       "assets/svg/ic_calender.svg"),
                                   // tooltip: 'Increase volume by 10',
                                   iconSize: 50,
-                                  onPressed: () {
-                                    DatePicker.showDatePicker(context,
-                                        theme: DatePickerTheme(
-                                          containerHeight: 210.0,
-                                        ),
-                                        showTitleActions: true,
-                                        minTime: DateTime(2022, 1, 1),
-                                        maxTime: DateTime(2030, 12, 31),
-                                        onConfirm: (date) {
-                                          print('confirm $date');
-                                          // _date = '${date.year} - ${date.month} - ${date.day}';
-                                          setState(() {
-                                            dates = formatDate(int.parse(date.day.toString()), int.parse(date.month.toString()), int.parse(date.year.toString()));
-                                          });
-                                        },
-                                        currentTime: DateTime.now(),
-                                        locale: LocaleType.vi);
+                                  onPressed: () async {
+                                    var datePicked = await DatePicker.showSimpleDatePicker(
+                                      context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1960),
+                                      lastDate: DateTime(2050),
+                                      dateFormat: "dd-MMMM-yyyy",
+                                      locale: DateTimePickerLocale.en_us,
+                                      looping: true,
+                                    );
+                                    if(datePicked != null) {
+                                      setState(() {
+                                        dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
+                                        // dates = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                                      });
+                                    }
                                   },
                                 ),
                               ),
@@ -1216,6 +1216,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   //   return "0";
   // }
 
+
+
 }
 
 class DataManage {
@@ -1272,4 +1274,7 @@ class ItemManage {
     data['note'] = this.note;
     return data;
   }
+
+
+
 }

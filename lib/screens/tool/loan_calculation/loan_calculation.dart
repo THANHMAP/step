@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker.dart';
+import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -436,19 +437,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                   // tooltip: 'Increase volume by 10',
                                                   iconSize: 50,
                                                   onPressed: () {
-                                                    DatePicker.showDatePicker(context,
-                                                        theme: DatePickerTheme(
-                                                          containerHeight: 210.0,
-                                                        ),
-                                                        showTitleActions: true,
-                                                        minTime: DateTime(2022, 1, 1),
-                                                        maxTime: DateTime(2030, 12, 31), onConfirm: (date) {
-                                                          print('confirm $date');
-                                                          // _date = '${date.year} - ${date.month} - ${date.day}';
-                                                          setState(() {
-                                                            dateFirst = '${date.day}/${date.month}/${date.year}';
-                                                          });
-                                                        }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                                                    showDatePicker();
                                                   },
                                                 ),
                                               ),
@@ -1498,10 +1487,10 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       if(number % soThangTraLai == 0) {
         if(!thangLaiDauTien) {
           thangLaiDauTien = true;
-          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          lai = ((noGocConLai * phanTramLaiHangThang) / (12/soThangTraLai)).round();
           dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
         } else {
-          lai = ((noGocConLai * phanTramLaiHangThang) / soLanTraLai).round();
+          lai = ((noGocConLai * phanTramLaiHangThang) / (12/soThangTraLai)).round();
           dataCalculator.tienLai = formNum(lai.toString()) + " vnđ";
         }
       }
@@ -1601,4 +1590,22 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
 
     return '$tempDay/$tempMonth/$tempYear';
   }
+
+  showDatePicker() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+    );
+    if(datePicked != null) {
+      setState(() {
+        dateFirst = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+      });
+    }
+  }
+
 }

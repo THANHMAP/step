@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_holo_date_picker/date_picker.dart';
+import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -69,8 +70,10 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
     );
     Utils.portraitModeOnly();
 
-    scrollController.addListener(() { //scroll listener
-      double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+    scrollController.addListener(() {
+      //scroll listener
+      double showoffset =
+          10.0; //Back to top botton will show on scroll offset 10.0
 
       // if(scrollController.offset > showoffset){
       //   showbtn = true;
@@ -116,7 +119,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
               flex: 8,
               child: SingleChildScrollView(
                 controller: scrollController,
-                child:  Container(
+                child: Container(
                   padding: EdgeInsets.only(
                       top: 30,
                       left: 24,
@@ -125,8 +128,8 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 0, left: 0, right: 0),
+                        padding:
+                            const EdgeInsets.only(top: 0, left: 0, right: 0),
                         child: Column(
                           children: [
                             const Align(
@@ -158,8 +161,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                   suffixIcon: Icons.close,
                                   clickSuffixIcon: () =>
                                       _nameRepaymentController.clear(),
-                                  textController:
-                                  _nameRepaymentController),
+                                  textController: _nameRepaymentController),
                             ),
                             //
                             const SizedBox(height: 10),
@@ -192,8 +194,8 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                   fillColor: const Color(0xFFEFF0FB),
                                   filled: true,
                                   hintText: "Nhập số tiền",
-                                  hintStyle: const TextStyle(
-                                      color: Color(0xFFA7ABC3)),
+                                  hintStyle:
+                                      const TextStyle(color: Color(0xFFA7ABC3)),
                                   // labelText: labelText,
 
                                   suffixIcon: IconButton(
@@ -203,25 +205,22 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                           color: Colors.grey, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(14)),
+                                      borderRadius: BorderRadius.circular(14)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color: Colors.green,
-                                          width: 1.7),
-                                      borderRadius:
-                                      BorderRadius.circular(14))),
+                                          color: Colors.green, width: 1.7),
+                                      borderRadius: BorderRadius.circular(14))),
                               onChanged: (value) {
                                 value = '${formNum(
                                   value.replaceAll(',', ''),
                                 )}';
                                 _moneyPaymentController.value =
                                     TextEditingValue(
-                                      text: value,
-                                      selection: TextSelection.collapsed(
-                                        offset: value.length,
-                                      ),
-                                    );
+                                  text: value,
+                                  selection: TextSelection.collapsed(
+                                    offset: value.length,
+                                  ),
+                                );
                               },
                             ),
                             //
@@ -257,11 +256,9 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                             textAlign: TextAlign.left,
                                             style: const TextStyle(
                                               fontSize: 16,
-                                              color: Mytheme
-                                                  .colorTextSubTitle,
+                                              color: Mytheme.colorTextSubTitle,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily:
-                                              "OpenSans-SemiBold",
+                                              fontFamily: "OpenSans-SemiBold",
                                             ),
                                           ),
                                         ),
@@ -269,14 +266,14 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                         SizedBox(
                                           child: TextFieldWidget(
                                               keyboardType:
-                                              TextInputType.number,
+                                                  TextInputType.number,
                                               inputFormatters: <
                                                   TextInputFormatter>[
                                                 FilteringTextInputFormatter
                                                     .digitsOnly
                                               ],
                                               textInputAction:
-                                              TextInputAction.done,
+                                                  TextInputAction.done,
                                               obscureText: false,
                                               hintText: "Số lần",
                                               // labelText: "Phone number",
@@ -286,7 +283,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                                   _numberPaymentController
                                                       .clear(),
                                               textController:
-                                              _numberPaymentController),
+                                                  _numberPaymentController),
                                         ),
                                       ],
                                     )),
@@ -304,11 +301,9 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                             textAlign: TextAlign.left,
                                             style: const TextStyle(
                                               fontSize: 16,
-                                              color: Mytheme
-                                                  .colorTextSubTitle,
+                                              color: Mytheme.colorTextSubTitle,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily:
-                                              "OpenSans-SemiBold",
+                                              fontFamily: "OpenSans-SemiBold",
                                             ),
                                           ),
                                         ),
@@ -316,10 +311,9 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                         Container(
                                           decoration: BoxDecoration(
                                             shape: BoxShape.rectangle,
-                                            color:
-                                            Mytheme.colorTextDivider,
+                                            color: Mytheme.colorTextDivider,
                                             borderRadius:
-                                            BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                             boxShadow: [
                                               BoxShadow(
                                                 color: Colors.grey
@@ -333,30 +327,28 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                           ),
                                           child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Expanded(
                                                 flex: 3,
                                                 child: Padding(
-                                                  padding:
-                                                  EdgeInsets.only(
+                                                  padding: EdgeInsets.only(
                                                       top: 12,
                                                       left: 16,
                                                       bottom: 18,
                                                       right: 0),
                                                   child: Text(
                                                     dateFirst,
-                                                    textAlign:
-                                                    TextAlign.start,
+                                                    textAlign: TextAlign.start,
                                                     style: TextStyle(
                                                       fontSize: 16,
                                                       color: Mytheme
                                                           .colorBgButtonLogin,
                                                       fontWeight:
-                                                      FontWeight.w600,
+                                                          FontWeight.w600,
                                                       fontFamily:
-                                                      "OpenSans-Semibold",
+                                                          "OpenSans-Semibold",
                                                     ),
                                                   ),
                                                 ),
@@ -365,53 +357,43 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                                 flex: 1,
                                                 child: Padding(
                                                   padding:
-                                                  const EdgeInsets
-                                                      .only(
-                                                      top: 0,
-                                                      left: 6,
-                                                      bottom: 0,
-                                                      right: 0),
+                                                      const EdgeInsets.only(
+                                                          top: 0,
+                                                          left: 6,
+                                                          bottom: 0,
+                                                          right: 0),
                                                   child: IconButton(
                                                     icon: SvgPicture.asset(
                                                         "assets/svg/ic_calender.svg"),
                                                     // tooltip: 'Increase volume by 10',
                                                     iconSize: 50,
                                                     onPressed: () {
-                                                      DatePicker.showDatePicker(
-                                                          context,
-                                                          theme:
-                                                          DatePickerTheme(
-                                                            containerHeight:
-                                                            210.0,
-                                                          ),
-                                                          showTitleActions:
-                                                          true,
-                                                          minTime:
-                                                          DateTime(
-                                                              2022,
-                                                              1,
-                                                              1),
-                                                          maxTime:
-                                                          DateTime(
-                                                              2030,
-                                                              12,
-                                                              31),
-                                                          onConfirm:
-                                                              (date) {
-                                                            print(
-                                                                'confirm $date');
-                                                            // _date = '${date.year} - ${date.month} - ${date.day}';
-                                                            setState(() {
-                                                              dateFirst =
-                                                              '${date.day}/${date.month}/${date.year}';
-                                                            });
-                                                          },
-                                                          currentTime:
-                                                          DateTime
-                                                              .now(),
-                                                          locale:
-                                                          LocaleType
-                                                              .vi);
+                                                      showDatePicker();
+                                                      // DatePicker.showDatePicker(
+                                                      //     context,
+                                                      //     theme:
+                                                      //         DatePickerTheme(
+                                                      //       containerHeight:
+                                                      //           210.0,
+                                                      //     ),
+                                                      //     showTitleActions:
+                                                      //         true,
+                                                      //     minTime: DateTime(
+                                                      //         2022, 1, 1),
+                                                      //     maxTime: DateTime(
+                                                      //         2030, 12, 31),
+                                                      //     onConfirm: (date) {
+                                                      //   print('confirm $date');
+                                                      //   // _date = '${date.year} - ${date.month} - ${date.day}';
+                                                      //   setState(() {
+                                                      //     dateFirst =
+                                                      //         '${date.day}/${date.month}/${date.year}';
+                                                      //   });
+                                                      // },
+                                                      //     currentTime:
+                                                      //         DateTime.now(),
+                                                      //     locale:
+                                                      //         LocaleType.vi);
                                                     },
                                                   ),
                                                 ),
@@ -441,11 +423,14 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                             const SizedBox(height: 10),
                             TextField(
                               onTap: () {
-                                scrollController.animateTo( //go to top of scroll
-                                    scrollController.position.maxScrollExtent,  //scroll offset to go
-                                    duration: Duration(milliseconds: 500), //duration of scroll
-                                    curve:Curves.fastOutSlowIn //scroll type
-                                );
+                                scrollController.animateTo(
+                                    //go to top of scroll
+                                    scrollController.position.maxScrollExtent,
+                                    //scroll offset to go
+                                    duration: Duration(milliseconds: 500),
+                                    //duration of scroll
+                                    curve: Curves.fastOutSlowIn //scroll type
+                                    );
                               },
                               keyboardType: TextInputType.number,
                               inputFormatters: <TextInputFormatter>[
@@ -460,8 +445,8 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                   fillColor: const Color(0xFFEFF0FB),
                                   filled: true,
                                   hintText: "Nhập số ngày",
-                                  hintStyle: const TextStyle(
-                                      color: Color(0xFFA7ABC3)),
+                                  hintStyle:
+                                      const TextStyle(color: Color(0xFFA7ABC3)),
                                   // labelText: labelText,
 
                                   suffixIcon: IconButton(
@@ -471,14 +456,11 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                                   enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                           color: Colors.grey, width: 1),
-                                      borderRadius:
-                                      BorderRadius.circular(14)),
+                                      borderRadius: BorderRadius.circular(14)),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
-                                          color: Colors.green,
-                                          width: 1.7),
-                                      borderRadius:
-                                      BorderRadius.circular(14))),
+                                          color: Colors.green, width: 1.7),
+                                      borderRadius: BorderRadius.circular(14))),
                             ),
 
                             const SizedBox(height: 10),
@@ -490,10 +472,7 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 10,
-                                    bottom: 10,
-                                    left: 12,
-                                    right: 12),
+                                    top: 10, bottom: 10, left: 12, right: 12),
                                 child: Text(
                                   "Lưu ý: Bạn chỉ được sửa thông tin trước ngày nhắc nợ đầu tiên ",
                                   textAlign: TextAlign.left,
@@ -796,6 +775,24 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
       pr.hide();
       Utils.showError(error.toString(), context);
     });
+  }
+
+  showDatePicker() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MMMM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+    );
+    if(datePicked != null) {
+      setState(() {
+        dateFirst = '${datePicked.day}-${datePicked.month}-${datePicked.year}';
+      });
+    }
+
   }
 
   showDialogSuccess() {

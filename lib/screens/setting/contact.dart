@@ -38,7 +38,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
   //
   List<ContactData> _listContact = [];
-  List<ContactData> _tempListWard = [];
   ContactData? _contactData;
   int currentContactIndex = 0;
   int currentContactId = 0;
@@ -84,7 +83,7 @@ class _ContactScreenState extends State<ContactScreen> {
               height: 20,
             ),
             Expanded(
-              flex: 2,
+              flex: 1,
               child: Container(
                 color: Mytheme.colorBgMain,
                 child: Column(
@@ -98,162 +97,124 @@ class _ContactScreenState extends State<ContactScreen> {
                     districtUser(), // Expanded(
                     //     child: wardUser()
                     // ),
-                    if (_contactData != null) ...[
-                      Padding(
-                        padding: EdgeInsets.only(top: 60),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            _contactData?.name ?? "",
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Mytheme.colorTextSubTitle,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "OpenSans-SemiBold",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                    SizedBox(
-                      height: 16,
-                    ),
+                    // if (_contactData != null) ...[
+                    //   Padding(
+                    //     padding: EdgeInsets.only(top: 60),
+                    //     child: Align(
+                    //       alignment: Alignment.center,
+                    //       child: Text(
+                    //         _contactData?.name ?? "",
+                    //         textAlign: TextAlign.center,
+                    //         style: const TextStyle(
+                    //           fontSize: 16,
+                    //           color: Mytheme.colorTextSubTitle,
+                    //           fontWeight: FontWeight.w600,
+                    //           fontFamily: "OpenSans-SemiBold",
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ],
+
                   ],
                 ),
               ),
             ),
             Expanded(
-              flex: 1,
-              child: Container(
-                color: Mytheme.colorTextDivider,
-                child: Column(
-                  children: [
-                    if (_contactData != null) ...[
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 16, right: 16),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Địa chỉ",
-                                // textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Mytheme.color_82869E,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
+              flex: 2,
+              child: SingleChildScrollView(
+                child:  Container(
+                  color: Mytheme.colorTextDivider,
+                  child: Column(
+                    children: [
+                      for (int i = 0; i < _listContact.length; i++) ...[
+                        Padding(
+                          padding: EdgeInsets.only(top: 10, left: 16, right: 16),
+                          child: Column(
+                            children: [
+                              Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      _listContact[i].name ?? "",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-SemiBold",
+                                      ),
+                                    ),
+                               ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Địa chỉ",
+                                  // textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Mytheme.color_82869E,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                _contactData?.address ?? "",
-                                // textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-SemiBold",
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  _listContact[i].address ?? "",
+                                  // textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-SemiBold",
+                                  ),
                                 ),
                               ),
-                            ),
-                            // SizedBox(
-                            //   height: 16,
-                            // ),
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: Text(
-                            //     "Thời gian làm việc",
-                            //     // textAlign: TextAlign.start,
-                            //     style: const TextStyle(
-                            //       fontSize: 12,
-                            //       color: Mytheme.color_82869E,
-                            //       fontWeight: FontWeight.w400,
-                            //       fontFamily: "OpenSans-Regular",
-                            //     ),
-                            //   ),
-                            // ),
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: Text(
-                            //     _contactData?.workTime ?? "",
-                            //     // textAlign: TextAlign.start,
-                            //     style: const TextStyle(
-                            //       fontSize: 16,
-                            //       color: Mytheme.colorTextSubTitle,
-                            //       fontWeight: FontWeight.w600,
-                            //       fontFamily: "OpenSans-SemiBold",
-                            //     ),
-                            //   ),
-                            // ),
-                            SizedBox(
-                              height: 16,
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                "Điện thoại",
-                                // textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Mytheme.color_82869E,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Điện thoại",
+                                  // textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Mytheme.color_82869E,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                  ),
                                 ),
                               ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                _contactData?.phone ?? "",
-                                // textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-SemiBold",
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  _listContact[i].phone ?? "",
+                                  // textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorTextSubTitle,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-SemiBold",
+                                  ),
                                 ),
                               ),
-                            ),
-                            // SizedBox(
-                            //   height: 16,
-                            // ),
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: Text(
-                            //     "Email",
-                            //     // textAlign: TextAlign.start,
-                            //     style: const TextStyle(
-                            //       fontSize: 12,
-                            //       color: Mytheme.color_82869E,
-                            //       fontWeight: FontWeight.w400,
-                            //       fontFamily: "OpenSans-Regular",
-                            //     ),
-                            //   ),
-                            // ),
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: Text(
-                            //     _contactData?.email ?? "",
-                            //     // textAlign: TextAlign.start,
-                            //     style: const TextStyle(
-                            //       fontSize: 16,
-                            //       color: Mytheme.colorTextSubTitle,
-                            //       fontWeight: FontWeight.w600,
-                            //       fontFamily: "OpenSans-SemiBold",
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                      )
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                color: Colors.black,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ),
+
             )
           ],
         ),
@@ -378,8 +339,9 @@ class _ContactScreenState extends State<ContactScreen> {
                             this.setState(() {
                               currentCreditIndex;
                               getNameCredit(currentCreditIndex);
-                              getListContact(currentProviderIndex.toString(),
-                                  _providersData[currentProviderIndex].id ?? "0");
+                              getListContact(currentCreditIndex.toString(),
+                                  cityData[currentCityIndex].id.toString(),
+                                  "");
                             }
                             );
                           });
@@ -766,7 +728,7 @@ class _ContactScreenState extends State<ContactScreen> {
         setState(() {
           Navigator.of(context).pop();
           currentProviderIndex = index;
-          getListContact(currentProviderIndex.toString(),
+          getListContact(currentCreditIndex.toString(), "",
               listOfProvinces[currentProviderIndex].id ?? "0");
         });
       },
@@ -888,7 +850,7 @@ class _ContactScreenState extends State<ContactScreen> {
           }
 
           currentProviderIndex = 0;
-          getListContact(currentCityIndex.toString(), _providersData[currentProviderIndex].id ?? "0");
+          getListContact(currentCreditIndex.toString(), listOfCities[index].id.toString(), "");
         });
       },
       child: Container(
@@ -961,7 +923,7 @@ class _ContactScreenState extends State<ContactScreen> {
     setState(() {
       cityData = listCitys.data!;
       getListContact(
-          currentCreditIndex.toString(), cityData[0].provinces![0].id ?? "0");
+          currentCreditIndex.toString(), cityData[currentCityIndex].id.toString(), "");
     });
   }
 
@@ -993,11 +955,13 @@ class _ContactScreenState extends State<ContactScreen> {
     return _searchList;
   }
 
-  Future<void> getListContact(String indexCredit, String idProvince) async {
+  Future<void> getListContact(String indexCredit, String cityId, String idProvince) async {
     pr.show();
     var param = jsonEncode(<String, String>{
       'is_credit_fund': currentCreditIndex.toString(),
       'province_id': idProvince,
+      'city_id': cityId,
+
     });
     APIManager.postAPICallNeedToken(RemoteServices.listContactURL, param).then(
         (value) async {
@@ -1005,11 +969,7 @@ class _ContactScreenState extends State<ContactScreen> {
       pr.hide();
       if (dataContact.statusCode == 200) {
         setState(() {
-          _contactData = null;
           _listContact = dataContact.data!;
-          if (_listContact.isNotEmpty) {
-            selectItem(0);
-          }
         });
       } else {
         Utils.showAlertDialogOneButton(context, value['message'].toString());

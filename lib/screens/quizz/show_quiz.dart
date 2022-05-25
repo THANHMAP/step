@@ -58,225 +58,227 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
               ),
               Expanded(
                 flex: 11,
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: Constants.kDefaultPadding,
-                  ),
-                  padding: EdgeInsets.only(top: 20),
-                  child: Column(
-                    children: [
-                      if (contentQuizz.isNotEmpty) ...[
-                        Text(
-                          "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Mytheme.color_0xFF003A8C,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-SemiBold",
+                child: SingleChildScrollView(
+                  child:  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: Constants.kDefaultPadding,
+                    ),
+                    padding: EdgeInsets.only(top: 20),
+                    child: Column(
+                      children: [
+                        if (contentQuizz.isNotEmpty) ...[
+                          Text(
+                            "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Mytheme.color_0xFF003A8C,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: Constants.kDefaultPadding / 2),
-                        if (contentQuizz[index].type == 3) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: Constants.kDefaultPadding),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    for (var i = 0;
-                                        i < contentQuizz[index].answers!.length;
-                                        i++) ...[
-                                      InkWell(
-                                        onTap: () {},
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 0, left: 0, right: 10),
-                                          child: Container(
-                                            width: 150,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: getTheRightColorType3(
-                                                    contentQuizz[index]
-                                                        .answers![i]),
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Mytheme.kBackgroundColor,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.5),
-                                                  spreadRadius: 1,
-                                                  blurRadius: 7,
-                                                  offset: const Offset(0,
-                                                      3), // changes position of shadow
+                          const SizedBox(height: Constants.kDefaultPadding / 2),
+                          if (contentQuizz[index].type == 3) ...[
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: Constants.kDefaultPadding),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      for (var i = 0;
+                                      i < contentQuizz[index].answers!.length;
+                                      i++) ...[
+                                        InkWell(
+                                          onTap: () {},
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 0, left: 0, right: 10),
+                                            child: Container(
+                                              width: 150,
+                                              height: 150,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: getTheRightColorType3(
+                                                      contentQuizz[index]
+                                                          .answers![i]),
+                                                  width: 1,
                                                 ),
-                                              ],
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(urlIconType3(
-                                                    contentQuizz[index]
-                                                        .answers![i])),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                  contentQuizz[index]
-                                                          .answers![i]
-                                                          .answerText ??
-                                                      "",
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Mytheme
-                                                        .colorBgButtonLogin,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily:
-                                                        "OpenSans-Semibold",
+                                                borderRadius:
+                                                BorderRadius.circular(8),
+                                                color: Mytheme.kBackgroundColor,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 7,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
                                                   ),
-                                                )
-                                              ],
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(urlIconType3(
+                                                      contentQuizz[index]
+                                                          .answers![i])),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    contentQuizz[index]
+                                                        .answers![i]
+                                                        .answerText ??
+                                                        "",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Mytheme
+                                                          .colorBgButtonLogin,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily:
+                                                      "OpenSans-Semibold",
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ],
-                                  ],
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ] else if (contentQuizz[index].type == 4) ...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: Constants.kDefaultPadding),
-                            child: Column(
-                              children: [
-                                loadType4(contentQuizz[index].answers!),
-                              ],
+                          ] else if (contentQuizz[index].type == 4) ...[
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: Constants.kDefaultPadding),
+                              child: Column(
+                                children: [
+                                  loadType4(contentQuizz[index].answers!),
+                                ],
+                              ),
                             ),
-                          ),
-                        ] else ...[
-                          for (var i = 0;
-                              i < contentQuizz[index].answers!.length;
-                              i++) ...[
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                    top: Constants.kDefaultPadding),
-                                padding: const EdgeInsets.all(
-                                    Constants.kDefaultPadding),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                      color: getTheRightColor(
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .userChoose,
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .isCorrect)),
-                                  color: Mytheme.kBackgroundColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    if (contentQuizz[index].type == 1) ...[
-                                      SvgPicture.asset(urlIconRadio(
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .userChoose,
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .isCorrect)),
-                                    ] else ...[
-                                      SvgPicture.asset(urlIconRadioMutil(
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .userChoose,
-                                          contentQuizz[index]
-                                              .answers![i]
-                                              .isCorrect)),
-                                    ],
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 0, left: 10, right: 0),
-                                        child: Text(
-                                          "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorBgButtonLogin,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    if (getTheRightIcon(
+                          ] else ...[
+                            for (var i = 0;
+                            i < contentQuizz[index].answers!.length;
+                            i++) ...[
+                              InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: Constants.kDefaultPadding),
+                                  padding: const EdgeInsets.all(
+                                      Constants.kDefaultPadding),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                        color: getTheRightColor(
                                             contentQuizz[index]
                                                 .answers![i]
                                                 .userChoose,
                                             contentQuizz[index]
                                                 .answers![i]
-                                                .isCorrect)
-                                        .isNotEmpty) ...[
-                                      Container(
-                                        width: 26,
-                                        height: 26,
-                                        child: SvgPicture.asset(
-                                          getTheRightIcon(
-                                              contentQuizz[index]
-                                                  .answers![i]
-                                                  .userChoose,
-                                              contentQuizz[index]
-                                                  .answers![i]
-                                                  .isCorrect),
-                                        ),
+                                                .isCorrect)),
+                                    color: Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
                                       ),
                                     ],
-                                  ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (contentQuizz[index].type == 1) ...[
+                                        SvgPicture.asset(urlIconRadio(
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .userChoose,
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .isCorrect)),
+                                      ] else ...[
+                                        SvgPicture.asset(urlIconRadioMutil(
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .userChoose,
+                                            contentQuizz[index]
+                                                .answers![i]
+                                                .isCorrect)),
+                                      ],
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 0, left: 10, right: 0),
+                                          child: Text(
+                                            "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorBgButtonLogin,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      if (getTheRightIcon(
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .userChoose,
+                                          contentQuizz[index]
+                                              .answers![i]
+                                              .isCorrect)
+                                          .isNotEmpty) ...[
+                                        Container(
+                                          width: 26,
+                                          height: 26,
+                                          child: SvgPicture.asset(
+                                            getTheRightIcon(
+                                                contentQuizz[index]
+                                                    .answers![i]
+                                                    .userChoose,
+                                                contentQuizz[index]
+                                                    .answers![i]
+                                                    .isCorrect),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
-                        ],
-                        const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Giải thích: ${contentQuizz[index].suggest.toString()}",
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Mytheme.color_82869E,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "OpenSans-Regular",
+                          const SizedBox(height: 20),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Giải thích: ${contentQuizz[index].suggest.toString()}",
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Mytheme.color_82869E,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "OpenSans-Regular",
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ),
