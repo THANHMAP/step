@@ -41,6 +41,7 @@ class _ContactScreenState extends State<ContactScreen> {
   ContactData? _contactData;
   int currentContactIndex = 0;
   int currentContactId = 0;
+  bool selectCity = true;
 
   List<String> creditList = ["Ngân hàng", "Quỹ tín dụng"];
   int currentCreditIndex = 1;
@@ -727,6 +728,7 @@ class _ContactScreenState extends State<ContactScreen> {
       onTap: () {
         setState(() {
           Navigator.of(context).pop();
+          selectCity = false;
           currentProviderIndex = index;
           getListContact(currentCreditIndex.toString(), "",
               listOfProvinces[currentProviderIndex].id ?? "0");
@@ -797,32 +799,15 @@ class _ContactScreenState extends State<ContactScreen> {
   }
 
   String _nameProvider(int indexCity, int indexProvider) {
-    var nameProvider = "Chưa lựa chọn";
-    if(cityData.isNotEmpty) {
-      nameProvider = cityData[indexCity].provinces![indexProvider].name.toString();
+    var nameProvider = "Quận/Huyện";
+    if(selectCity) {
       _providersData = cityData[indexCity].provinces!;
+    } else {
+      if(cityData.isNotEmpty) {
+        nameProvider = cityData[indexCity].provinces![indexProvider].name.toString();
+        _providersData = cityData[indexCity].provinces!;
+      }
     }
-
-    // if (idCity == 0) {
-    //   return nameProvider;
-    // }
-    // for (var city in cityData) {
-    //   if (idCity == city.id) {
-    //     _providersData = city.provinces!;
-    //     if (idProvider == 0) {
-    //       nameProvider = city.provinces![0].name.toString();
-    //       setState(() {
-    //         currentProviderIndex = int.parse(city.provinces![0].id ?? "0");
-    //       });
-    //
-    //     }
-    //     for (var provider in city.provinces!) {
-    //       if (idProvider == int.parse(provider.id ?? "0")) {
-    //         nameProvider = provider.name.toString();
-    //       }
-    //     }
-    //   }
-    // }
 
     return nameProvider;
   }
@@ -833,6 +818,7 @@ class _ContactScreenState extends State<ContactScreen> {
       onTap: () {
         setState(() {
           Navigator.of(context).pop();
+          selectCity = true;
           if(_tempListCity.isNotEmpty && cityEditingController.text.toString().isNotEmpty) {
               var idCity = listOfCities[index].id;
               for(int i = 0; i < cityData.length; i++) {
@@ -848,7 +834,6 @@ class _ContactScreenState extends State<ContactScreen> {
             currentCityIndex = index;
             _providersData = cityData[currentCityIndex].provinces!;
           }
-
           currentProviderIndex = 0;
           getListContact(currentCreditIndex.toString(), listOfCities[index].id.toString(), "");
         });

@@ -1363,7 +1363,7 @@ class _AccountScreenState extends State<AccountScreen> {
         currentCityIndex = user.cityId ?? 0;
         currentWardIndex = user.provinceId ?? 0;
         if (!user.dob.toString().isNotEmpty) {
-          _userBodController.text = "Thêm thông tin";
+          _userBodController.text = "Ngày sinh";
         } else {
           _userBodController.text = user.dob.toString();
         }

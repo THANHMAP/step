@@ -54,19 +54,19 @@ class _ReportScreenState extends State<ReportScreen> {
           backgroundColor: Mytheme.kBackgroundColor,
           body: Column(
             children: <Widget>[
+              AppbarWidget(
+                text: StringText.text_report_title,
+                onClicked: () => Get.back(),
+              ),
               Expanded(
                 flex: 9,
                 child: SingleChildScrollView(
                   child:  Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      AppbarWidget(
-                        text: StringText.text_report_title,
-                        onClicked: () => Get.back(),
-                      ),
                       Padding(
                         padding:
-                        const EdgeInsets.only(top: 30, left: 24, right: 24),
+                        EdgeInsets.only(top: 30, left: 24, right: 24,  bottom: MediaQuery.of(context).viewInsets.bottom),
                         child: Column(
                           children: [
                             const Align(

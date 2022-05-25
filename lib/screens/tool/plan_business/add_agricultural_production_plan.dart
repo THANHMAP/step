@@ -44,6 +44,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
 
   TextEditingController _thuNhapController = TextEditingController();
   TextEditingController _soTienController = TextEditingController();
+  TextEditingController _editMoneyController = TextEditingController();
 
   var formatter = NumberFormat('#,##,000');
   late ProgressDialog pr;
@@ -764,24 +765,32 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                               color: Mytheme.colorTextDivider,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  formNum(dataUsers[i].value ?? "0"),
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily:
-                                    "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: () {
+                                showDialogEditTool(
+                                    dataUsers[i]
+                                        .value ??
+                                        "0",
+                                    i);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    formNum(dataUsers[i].value ?? "0"),
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorTextSubTitle,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily:
+                                      "OpenSans-Regular",
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-
                           ),)
                         ],
                       ),
@@ -971,23 +980,33 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                               color: Mytheme.colorTextDivider,
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  formNum(dataUsers[i].value ?? "0"),
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily:
-                                    "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditTool(
+                                    dataUsers[i]
+                                        .value ??
+                                        "0",
+                                    i);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    formNum(dataUsers[i].value ?? "0"),
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorTextSubTitle,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily:
+                                      "OpenSans-Regular",
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
+
 
                           ),)
                         ],
@@ -1339,6 +1358,157 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
       pr.hide();
       Utils.showError(error.toString(), context);
     });
+  }
+
+  showDialogEditTool(String text, int position) async {
+    if (text.isNotEmpty) {
+      _editMoneyController.text = text;
+      // setState(() {
+      //   updateButton = true;
+      // });
+    } else {
+      _editMoneyController.text = "";
+      // setState(() {
+      //   updateButton = false;
+      // });
+    }
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return Future.value(false);
+            },
+            child: Dialog(
+              insetPadding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Constants.padding),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              child: contentEditBox(context, position),
+            ),
+          );
+        });
+  }
+
+  contentEditBox(context, int position) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(top: 0, right: 0, bottom: Constants.padding),
+          margin: EdgeInsets.only(top: Constants.avatarRadius),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding:
+                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _editMoneyController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Số tiền',
+                      ),
+                      onChanged: (value) {
+                        value = '${formNum(
+                          value.replaceAll(',', ''),
+                        )}';
+                        _editMoneyController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.collapsed(
+                            offset: value.length,
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 34,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context, "");
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 44,
+                      width: 135,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border:
+                          Border.all(color: Mytheme.colorBgButtonLogin)),
+                      child: const Text(
+                        "Hủy",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.color_434657,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "OpenSans-Semibold",
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      var thunhap = _editMoneyController.text;
+                      if (thunhap.isNotEmpty) {
+                        setState(() {
+                          dataUsers[position].value = thunhap.replaceAll(",", "");
+                        });
+                      }
+                      Navigator.pop(context, "");
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(10),
+                      height: 44,
+                      width: 135,
+                      decoration: BoxDecoration(
+                        color: Mytheme.colorBgButtonLogin,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        // updateButton == true ? "Cập nhật" : "Thêm",
+                        "Cập nhật",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.kBackgroundColor,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "OpenSans-Semibold",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
 }
