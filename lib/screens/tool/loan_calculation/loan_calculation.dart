@@ -1102,63 +1102,68 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                     ),
                     onPressed: () {
                       if (displayCalculation) {
-                        StoreDataTool storeDataTool = StoreDataTool();
-                        storeDataTool.title = _nameLoanController.text;
-                        storeDataTool.toolId = data.id;
-                        storeDataTool.type = 1; // 1 plan business
+                        if(_nameLoanController.text.isEmpty) {
+                          Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                        } else {
+                          StoreDataTool storeDataTool = StoreDataTool();
+                          storeDataTool.title = _nameLoanController.text;
+                          storeDataTool.toolId = data.id;
+                          storeDataTool.type = 1; // 1 plan business
 
-                        //ten khoản vay
-                        dataUsers.add(DataUsers(
-                          key: "ten_khoan_vay",
-                          value: _nameLoanController.text,
-                          type: 0,
-                        ));
+                          //ten khoản vay
+                          dataUsers.add(DataUsers(
+                            key: "ten_khoan_vay",
+                            value: _nameLoanController.text,
+                            type: 0,
+                          ));
 
-                        //số tiền bạn cần vay
-                        dataUsers.add(DataUsers(
-                          key: "tien_can_vay",
-                          value: _moneyLoanRootController.text.replaceAll(",", ""),
-                          type: 0,
-                        ));
+                          //số tiền bạn cần vay
+                          dataUsers.add(DataUsers(
+                            key: "tien_can_vay",
+                            value: _moneyLoanRootController.text.replaceAll(
+                                ",", ""),
+                            type: 0,
+                          ));
 
-                        //ty le lãi xuất năm
-                        dataUsers.add(DataUsers(
-                          key: "ty_le_lai_suat",
-                          value: _tyLeLaiXuatController.text,
-                          type: 0,
-                        ));
+                          //ty le lãi xuất năm
+                          dataUsers.add(DataUsers(
+                            key: "ty_le_lai_suat",
+                            value: _tyLeLaiXuatController.text,
+                            type: 0,
+                          ));
 
-                        //kỳ hạn vay
-                        dataUsers.add(DataUsers(
-                          key: "ky_han_vay",
-                          value: _kyHanVayController.text,
-                          type: 0,
-                        ));
+                          //kỳ hạn vay
+                          dataUsers.add(DataUsers(
+                            key: "ky_han_vay",
+                            value: _kyHanVayController.text,
+                            type: 0,
+                          ));
 
-                        //phan kỳ trả tiền gốc
-                        dataUsers.add(DataUsers(
-                          key: "phan_ky_tien_goc",
-                          value: _numberMonthTienGocController.text,
-                          type: 0,
-                        ));
+                          //phan kỳ trả tiền gốc
+                          dataUsers.add(DataUsers(
+                            key: "phan_ky_tien_goc",
+                            value: _numberMonthTienGocController.text,
+                            type: 0,
+                          ));
 
-                        //phan kỳ trả tiền lãi
-                        dataUsers.add(DataUsers(
-                          key: "phan_ky_tien_lai",
-                          value: _numberMonthTienLaiController.text,
-                          type: 0,
-                        ));
+                          //phan kỳ trả tiền lãi
+                          dataUsers.add(DataUsers(
+                            key: "phan_ky_tien_lai",
+                            value: _numberMonthTienLaiController.text,
+                            type: 0,
+                          ));
 
-                        //ngày vay
-                        dataUsers.add(DataUsers(
-                          key: "ngay_vay",
-                          value: dateFirst,
-                          type: 0,
-                        ));
+                          //ngày vay
+                          dataUsers.add(DataUsers(
+                            key: "ngay_vay",
+                            value: dateFirst,
+                            type: 0,
+                          ));
 
-                        storeDataTool.dataUsers = dataUsers;
-                        print(jsonEncode(storeDataTool));
-                        saveItemTool(jsonEncode(storeDataTool));
+                          storeDataTool.dataUsers = dataUsers;
+                          print(jsonEncode(storeDataTool));
+                          saveItemTool(jsonEncode(storeDataTool));
+                        }
 
                       } else {
                         setState(() {

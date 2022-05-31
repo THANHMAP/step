@@ -445,6 +445,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
 
                               for(int i = 0; i < listItemTienRa.length; i++)...[
                                 Container(
+                                  margin: EdgeInsets.only(bottom: 10),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     color: Mytheme.colorTextDivider,

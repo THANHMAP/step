@@ -215,54 +215,70 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                                         curve:Curves.fastOutSlowIn //scroll type
                                                     );
                                                   } else {
-                                                    StoreDataTool storeDataTool = StoreDataTool();
-                                                    storeDataTool.title = _namePlantBusinessController.text;
-                                                    storeDataTool.toolId = data.id;
-                                                    storeDataTool.type = 2; // 2 plan business
+                                                    if(_namePlantBusinessController.text.isEmpty) {
+                                                      Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                    } else {
+                                                      StoreDataTool storeDataTool = StoreDataTool();
+                                                      storeDataTool.title =
+                                                          _namePlantBusinessController
+                                                              .text;
+                                                      storeDataTool.toolId =
+                                                          data.id;
+                                                      storeDataTool.type =
+                                                      2; // 2 plan business
 
-                                                    //bạn là ai
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ban_la_ai",
-                                                      value: _whoAreYouController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //bạn là ai
+                                                      dataUsers.add(DataUsers(
+                                                        key: "ban_la_ai",
+                                                        value: _whoAreYouController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //trong cay nuoi con gi
-                                                    dataUsers.add(DataUsers(
-                                                      key: "trong_cay_nuoi_gi",
-                                                      value: _trongCayNuoiConGiController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //trong cay nuoi con gi
+                                                      dataUsers.add(DataUsers(
+                                                        key: "trong_cay_nuoi_gi",
+                                                        value: _trongCayNuoiConGiController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //nha cung cap dich vu
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nha_cung_cap_dich_vu",
-                                                      value: _nhaCungCapDichVuController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nha cung cap dich vu
+                                                      dataUsers.add(DataUsers(
+                                                        key: "nha_cung_cap_dich_vu",
+                                                        value: _nhaCungCapDichVuController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //nguon nhan cong
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nguon_nhan_cong",
-                                                      value: _nguonNhanCongController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nguon nhan cong
+                                                      dataUsers.add(DataUsers(
+                                                        key: "nguon_nhan_cong",
+                                                        value: _nguonNhanCongController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //ban cho ai
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ban_cho_ai",
-                                                      value: _banChoAiController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //ban cho ai
+                                                      dataUsers.add(DataUsers(
+                                                        key: "ban_cho_ai",
+                                                        value: _banChoAiController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //ban nhu the nào
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ban_nhu_the_nao",
-                                                      value: _banNhuTheNaoController.text,
-                                                      type: 0,
-                                                    ));
-                                                    storeDataTool.dataUsers = dataUsers;
-                                                    saveItemTool(jsonEncode(storeDataTool));
+                                                      //ban nhu the nào
+                                                      dataUsers.add(DataUsers(
+                                                        key: "ban_nhu_the_nao",
+                                                        value: _banNhuTheNaoController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
+                                                      storeDataTool.dataUsers =
+                                                          dataUsers;
+                                                      saveItemTool(jsonEncode(
+                                                          storeDataTool));
+                                                    }
                                                   }
 
                                                 },
@@ -1225,7 +1241,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Thu nhập',
+                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
                       ),
                       onChanged: (value) {
 

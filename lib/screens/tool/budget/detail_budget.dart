@@ -959,18 +959,23 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                     ),
                     onPressed: () {
                       setState(() {
-                        if (showCalculator) {
-                          showCalculator = false;
-                          showBudget = true;
+                        if(_nameBudgetController.text.isEmpty) {
+                          Utils.showError("Bạn chưa nhập tên của ngân sách", context);
                         } else {
-                          StoreDataTool storeDataTool = StoreDataTool();
-                          storeDataTool.title = _nameBudgetController.text;
-                          storeDataTool.toolId = data.id;
-                          storeDataTool.type = 1;
-                          storeDataTool.dataUsers = dataUsers;
-                          print(jsonEncode(storeDataTool));
-                          saveItemTool(jsonEncode(storeDataTool));
+                          if (showCalculator) {
+                            showCalculator = false;
+                            showBudget = true;
+                          } else {
+                            StoreDataTool storeDataTool = StoreDataTool();
+                            storeDataTool.title = _nameBudgetController.text;
+                            storeDataTool.toolId = data.id;
+                            storeDataTool.type = 1;
+                            storeDataTool.dataUsers = dataUsers;
+                            print(jsonEncode(storeDataTool));
+                            saveItemTool(jsonEncode(storeDataTool));
+                          }
                         }
+
                       });
                       // StoreDataTool storeDataTool = StoreDataTool();
                       // storeDataTool.title = _nameBudgetController.text;

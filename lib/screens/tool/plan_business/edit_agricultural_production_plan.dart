@@ -218,67 +218,99 @@ class _EditAgriculturalProductionPlanToolScreenState extends State<EditAgricultu
                                                         curve:Curves.fastOutSlowIn //scroll type
                                                     );
                                                   } else {
+                                                    if(_namePlantBusinessController.text.isEmpty) {
+                                                      Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                    } else {
+                                                      UpdateDataTool updateDataTool = UpdateDataTool();
+                                                      updateDataTool.title =
+                                                          _namePlantBusinessController
+                                                              .text;
+                                                      updateDataTool
+                                                          .userToolId =
+                                                          _itemToolData?.id;
+                                                      updateDataTool.type = 2;
 
-                                                    UpdateDataTool updateDataTool = UpdateDataTool();
-                                                    updateDataTool.title = _namePlantBusinessController.text;
-                                                    updateDataTool.userToolId = _itemToolData?.id;
-                                                    updateDataTool.type = 2;
+                                                      List<
+                                                          UpdateDataToolUsers>? listData = [
+                                                      ];
 
-                                                    List<UpdateDataToolUsers>? listData = [];
+                                                      //bạn là ai
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "ban_la_ai",
+                                                            value: _whoAreYouController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //bạn là ai
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "ban_la_ai",
-                                                      value: _whoAreYouController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //trong cay nuoi con gi
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "trong_cay_nuoi_gi",
+                                                            value: _trongCayNuoiConGiController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //trong cay nuoi con gi
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "trong_cay_nuoi_gi",
-                                                      value: _trongCayNuoiConGiController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nha cung cap dich vu
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "nha_cung_cap_dich_vu",
+                                                            value: _nhaCungCapDichVuController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //nha cung cap dich vu
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "nha_cung_cap_dich_vu",
-                                                      value: _nhaCungCapDichVuController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nguon nhan cong
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "nguon_nhan_cong",
+                                                            value: _nguonNhanCongController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //nguon nhan cong
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "nguon_nhan_cong",
-                                                      value: _nguonNhanCongController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //ban cho ai
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "ban_cho_ai",
+                                                            value: _banChoAiController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //ban cho ai
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "ban_cho_ai",
-                                                      value: _banChoAiController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //ban nhu the nào
+                                                      listData.add(
+                                                          UpdateDataToolUsers(
+                                                            key: "ban_nhu_the_nao",
+                                                            value: _banNhuTheNaoController
+                                                                .text,
+                                                            type: 0,
+                                                          ));
 
-                                                    //ban nhu the nào
-                                                    listData.add(UpdateDataToolUsers(
-                                                      key: "ban_nhu_the_nao",
-                                                      value: _banNhuTheNaoController.text,
-                                                      type: 0,
-                                                    ));
-
-                                                    for(var i = 0; i<dataUsers.length; i++) {
-                                                      if(dataUsers[i].type == 1 || dataUsers[i].type == 2) {
-                                                        listData.add(UpdateDataToolUsers(
-                                                            key: dataUsers[i].key,
-                                                            type: dataUsers[i].type,
-                                                            value: dataUsers[i].value
-                                                        ));
+                                                      for (var i = 0; i <
+                                                          dataUsers
+                                                              .length; i++) {
+                                                        if (dataUsers[i].type ==
+                                                            1 ||
+                                                            dataUsers[i].type ==
+                                                                2) {
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                  key: dataUsers[i]
+                                                                      .key,
+                                                                  type: dataUsers[i]
+                                                                      .type,
+                                                                  value: dataUsers[i]
+                                                                      .value
+                                                              ));
+                                                        }
                                                       }
+                                                      updateDataTool.dataUsers =
+                                                          listData;
+                                                      saveItemTool(jsonEncode(
+                                                          updateDataTool));
                                                     }
-                                                    updateDataTool.dataUsers = listData;
-                                                    saveItemTool(jsonEncode(updateDataTool));
                                                   }
 
                                                 },
@@ -1203,7 +1235,7 @@ class _EditAgriculturalProductionPlanToolScreenState extends State<EditAgricultu
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Thu nhập',
+                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
                       ),
                       onChanged: (value) {
 

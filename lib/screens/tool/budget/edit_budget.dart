@@ -862,27 +862,32 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                     ),
                     onPressed: () {
                       setState(() {
-                        if(showCalculator) {
-                          showCalculator = false;
-                          showBudget = true;
+                        if(_nameBudgetController.text.isEmpty) {
+                          Utils.showError("Bạn chưa nhập tên của ngân sách", context);
                         } else {
-                          UpdateDataTool updateDataTool = UpdateDataTool();
-                          updateDataTool.title = _nameBudgetController.text;
-                          updateDataTool.userToolId = int.parse(userId);
-                          updateDataTool.type = 1;
-                          List<UpdateDataToolUsers>? listData = [];
-                          for(var i = 0; i<dataUsers.length; i++) {
-                            listData.add(UpdateDataToolUsers(
-                              key: dataUsers[i].key,
-                              type: dataUsers[i].type,
-                              value: dataUsers[i].value
-                            ));
-                          }
-                          updateDataTool.dataUsers = listData;
-                          print(jsonEncode(updateDataTool));
-                          saveItemTool(jsonEncode(updateDataTool));
+                          if(showCalculator) {
+                            showCalculator = false;
+                            showBudget = true;
+                          } else {
+                            UpdateDataTool updateDataTool = UpdateDataTool();
+                            updateDataTool.title = _nameBudgetController.text;
+                            updateDataTool.userToolId = int.parse(userId);
+                            updateDataTool.type = 1;
+                            List<UpdateDataToolUsers>? listData = [];
+                            for(var i = 0; i<dataUsers.length; i++) {
+                              listData.add(UpdateDataToolUsers(
+                                  key: dataUsers[i].key,
+                                  type: dataUsers[i].type,
+                                  value: dataUsers[i].value
+                              ));
+                            }
+                            updateDataTool.dataUsers = listData;
+                            print(jsonEncode(updateDataTool));
+                            saveItemTool(jsonEncode(updateDataTool));
 
+                          }
                         }
+
                       });
                       // StoreDataTool storeDataTool = StoreDataTool();
                       // storeDataTool.title = _nameBudgetController.text;

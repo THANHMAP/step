@@ -283,7 +283,7 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
                               InkWell(
                                 onTap: () {
                                   Constants.selectDefault = true;
-                                  loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
+                                  loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
                                 },
                                 child: Image.asset("assets/images/img_tienvao.png"),
                               ),
@@ -293,7 +293,7 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
                               InkWell(
                                 onTap: () {
                                   Constants.selectDefault = false;
-                                  loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
+                                  loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
                                 },
                                 child: Image.asset("assets/images/img_tienra.png"),
                               ),

@@ -630,48 +630,53 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                         return;
                       }
                       // showDialogSuccess();
-                      StoreDataTool storeDataTool = StoreDataTool();
-                      storeDataTool.title = _nameSaveController.text;
-                      storeDataTool.toolId = data.id;
-                      storeDataTool.type = 1;
-                      //
-                      //so tien bạn muốn tiết kiệm
-                      dataUsers.add(DataUsers(
-                        key: "money_want_save",
-                        value: _moneyWantSaveController.text.replaceAll(',', ''),
-                        type: 1,
-                      ));
-                      //
-                      //so tien bạn có
-                      dataUsers.add(DataUsers(
-                        key: "money_has",
-                        value: _numberHasController.text.replaceAll(',', ''),
-                        type: 2,
-                      ));
-                      //
-                      //ngày bắt dầu
-                      dataUsers.add(DataUsers(
-                        key: "day_start",
-                        value: dateFirst,
-                        type: 3,
-                      ));
-                      //ngày kết thúc
-                      dataUsers.add(DataUsers(
-                        key: "day_end",
-                        value: dateEnd,
-                        type: 4,
-                      ));
-                      //
-                      //tần suất tiet kiem
-                      dataUsers.add(DataUsers(
-                        key: "repayment_cycle",
-                        value: _numberWeekController.text,
-                        type: 5,
-                      ));
-                      //
-                      storeDataTool.dataUsers = dataUsers;
-                      print(jsonEncode(storeDataTool));
-                      saveItemTool(jsonEncode(storeDataTool));
+                      if(_nameSaveController.text.isEmpty) {
+                        Utils.showError("Bạn chưa nhập tên", context);
+                      } else {
+                        StoreDataTool storeDataTool = StoreDataTool();
+                        storeDataTool.title = _nameSaveController.text;
+                        storeDataTool.toolId = data.id;
+                        storeDataTool.type = 1;
+                        //
+                        //so tien bạn muốn tiết kiệm
+                        dataUsers.add(DataUsers(
+                          key: "money_want_save",
+                          value: _moneyWantSaveController.text.replaceAll(',',
+                              ''),
+                          type: 1,
+                        ));
+                        //
+                        //so tien bạn có
+                        dataUsers.add(DataUsers(
+                          key: "money_has",
+                          value: _numberHasController.text.replaceAll(',', ''),
+                          type: 2,
+                        ));
+                        //
+                        //ngày bắt dầu
+                        dataUsers.add(DataUsers(
+                          key: "day_start",
+                          value: dateFirst,
+                          type: 3,
+                        ));
+                        //ngày kết thúc
+                        dataUsers.add(DataUsers(
+                          key: "day_end",
+                          value: dateEnd,
+                          type: 4,
+                        ));
+                        //
+                        //tần suất tiet kiem
+                        dataUsers.add(DataUsers(
+                          key: "repayment_cycle",
+                          value: _numberWeekController.text,
+                          type: 5,
+                        ));
+                        //
+                        storeDataTool.dataUsers = dataUsers;
+                        print(jsonEncode(storeDataTool));
+                        saveItemTool(jsonEncode(storeDataTool));
+                      }
                     },
                   )),
             ),

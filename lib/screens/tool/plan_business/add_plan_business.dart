@@ -226,77 +226,95 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                     );
                                                   } else {
 
-                                                    StoreDataTool storeDataTool = StoreDataTool();
-                                                    storeDataTool.title = _namePlantBusinessController.text;
-                                                    storeDataTool.toolId = data.id;
-                                                    storeDataTool.type = 1; // 1 plan business
+                                                    if(_namePlantBusinessController.text.isEmpty) {
+                                                      Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                    } else {
+                                                      StoreDataTool storeDataTool = StoreDataTool();
+                                                      storeDataTool.title =
+                                                          _namePlantBusinessController
+                                                              .text;
+                                                      storeDataTool.toolId =
+                                                          data.id;
+                                                      storeDataTool.type =
+                                                      1; // 1 plan business
 
-                                                    //bạn là ai
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ban_la_ai",
-                                                      value: _whoAreYouController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //bạn là ai
+                                                      dataUsers.add(DataUsers(
+                                                        key: "ban_la_ai",
+                                                        value: _whoAreYouController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //ý tương kinh doanh
-                                                    dataUsers.add(DataUsers(
-                                                      key: "y_tuong_kinh_doanh",
-                                                      value: _idealPlanBusinessController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //ý tương kinh doanh
+                                                      dataUsers.add(DataUsers(
+                                                        key: "y_tuong_kinh_doanh",
+                                                        value: _idealPlanBusinessController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //kinh doanh cái gì
-                                                    dataUsers.add(DataUsers(
-                                                      key: "kinh_doanh_cai_gi",
-                                                      value: _whatBusinessController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //kinh doanh cái gì
+                                                      dataUsers.add(DataUsers(
+                                                        key: "kinh_doanh_cai_gi",
+                                                        value: _whatBusinessController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //Khách hàng của bạn là ai
-                                                    dataUsers.add(DataUsers(
-                                                      key: "khach_hang_cua_ban",
-                                                      value: _khachHangCuaBanController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //Khách hàng của bạn là ai
+                                                      dataUsers.add(DataUsers(
+                                                        key: "khach_hang_cua_ban",
+                                                        value: _khachHangCuaBanController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //Đối thủ cạnh tranh
-                                                    dataUsers.add(DataUsers(
-                                                      key: "doi_thu_canh_tranh",
-                                                      value: _doiThuCanhTranhController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //Đối thủ cạnh tranh
+                                                      dataUsers.add(DataUsers(
+                                                        key: "doi_thu_canh_tranh",
+                                                        value: _doiThuCanhTranhController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //Thế mạnh cạnh tranh
-                                                    dataUsers.add(DataUsers(
-                                                      key: "the_manh_canh_tranh",
-                                                      value: _theManhCanhTranhController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //Thế mạnh cạnh tranh
+                                                      dataUsers.add(DataUsers(
+                                                        key: "the_manh_canh_tranh",
+                                                        value: _theManhCanhTranhController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //Kế hoạch bán hàng
-                                                    dataUsers.add(DataUsers(
-                                                      key: "ke_hoach_ban_hang",
-                                                      value: _cachTiepThiSanPhamController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //Kế hoạch bán hàng
+                                                      dataUsers.add(DataUsers(
+                                                        key: "ke_hoach_ban_hang",
+                                                        value: _cachTiepThiSanPhamController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //nhiệm vụ thuc hien
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nhiem_vu_thuc_hien",
-                                                      value: _lietKeNhiemVuController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nhiệm vụ thuc hien
+                                                      dataUsers.add(DataUsers(
+                                                        key: "nhiem_vu_thuc_hien",
+                                                        value: _lietKeNhiemVuController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    //nguồn lực
-                                                    dataUsers.add(DataUsers(
-                                                      key: "nguon_luc",
-                                                      value: _lietKeNguonLucController.text,
-                                                      type: 0,
-                                                    ));
+                                                      //nguồn lực
+                                                      dataUsers.add(DataUsers(
+                                                        key: "nguon_luc",
+                                                        value: _lietKeNguonLucController
+                                                            .text,
+                                                        type: 0,
+                                                      ));
 
-                                                    storeDataTool.dataUsers = dataUsers;
-                                                    saveItemTool(jsonEncode(storeDataTool));
-
+                                                      storeDataTool.dataUsers =
+                                                          dataUsers;
+                                                      saveItemTool(jsonEncode(
+                                                          storeDataTool));
+                                                    }
                                                   }
 
                                                 },
@@ -1387,7 +1405,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Thu nhập',
+                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
                       ),
                       onChanged: (value) {
 

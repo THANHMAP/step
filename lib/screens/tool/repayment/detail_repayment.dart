@@ -515,48 +515,53 @@ class _DetailRepaymentScreenState extends State<DetailRepaymentScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      StoreDataTool storeDataTool = StoreDataTool();
-                      storeDataTool.title = _nameRepaymentController.text;
-                      storeDataTool.toolId = data.id;
-                      storeDataTool.type = 1;
-                      //so tien can thanh toan moi kì
-                      dataUsers.add(DataUsers(
-                        key: "payment_amount",
-                        value: _moneyPaymentController.text.replaceAll(',', ''),
-                        type: 1,
-                      ));
+                      if(_nameRepaymentController.text.isEmpty) {
+                        Utils.showError("Bạn chưa nhập tên", context);
+                      } else {
+                        StoreDataTool storeDataTool = StoreDataTool();
+                        storeDataTool.title = _nameRepaymentController.text;
+                        storeDataTool.toolId = data.id;
+                        storeDataTool.type = 1;
+                        //so tien can thanh toan moi kì
+                        dataUsers.add(DataUsers(
+                          key: "payment_amount",
+                          value: _moneyPaymentController.text.replaceAll(',',
+                              ''),
+                          type: 1,
+                        ));
 
-                      //Chu kì trả nợ
-                      dataUsers.add(DataUsers(
-                        key: "repayment_cycle",
-                        value: _listRepaymentCycle[currentRepaymentCycleIndex],
-                        type: currentRepaymentCycleIndex,
-                      ));
+                        //Chu kì trả nợ
+                        dataUsers.add(DataUsers(
+                          key: "repayment_cycle",
+                          value: _listRepaymentCycle[currentRepaymentCycleIndex],
+                          type: currentRepaymentCycleIndex,
+                        ));
 
-                      //số lần trả nợ
-                      dataUsers.add(DataUsers(
-                        key: "repayment_number",
-                        value: _numberPaymentController.text,
-                        type: 3,
-                      ));
+                        //số lần trả nợ
+                        dataUsers.add(DataUsers(
+                          key: "repayment_number",
+                          value: _numberPaymentController.text,
+                          type: 3,
+                        ));
 
-                      //ngày trả nợ
-                      dataUsers.add(DataUsers(
-                        key: "repayment_day",
-                        value: dateFirst,
-                        type: 4,
-                      ));
+                        //ngày trả nợ
+                        dataUsers.add(DataUsers(
+                          key: "repayment_day",
+                          value: dateFirst,
+                          type: 4,
+                        ));
 
-                      //ngày nhận thông báo trả nợ
-                      dataUsers.add(DataUsers(
-                        key: "repayment_number_day",
-                        value: _numberDayController.text,
-                        type: 5,
-                      ));
+                        //ngày nhận thông báo trả nợ
+                        dataUsers.add(DataUsers(
+                          key: "repayment_number_day",
+                          value: _numberDayController.text,
+                          type: 5,
+                        ));
 
-                      storeDataTool.dataUsers = dataUsers;
-                      print(jsonEncode(storeDataTool));
-                      saveItemTool(jsonEncode(storeDataTool));
+                        storeDataTool.dataUsers = dataUsers;
+                        print(jsonEncode(storeDataTool));
+                        saveItemTool(jsonEncode(storeDataTool));
+                      }
                     },
                   )),
             ),

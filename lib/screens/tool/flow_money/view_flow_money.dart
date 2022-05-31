@@ -64,6 +64,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   double present = 0;
   var totalMonth = 0;
   bool validate = false;
+  bool selectDefault = true;
   @override
   void initState() {
     super.initState();
@@ -128,6 +129,87 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+
+                      SizedBox(height: 10),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectDefault = true;
+                                });
+                              },
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Tháng",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: selectDefault
+                                        ? Mytheme.colorBgButtonLogin
+                                        : Mytheme.color_82869E,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-SemiBold",
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectDefault = false;
+                                });
+                              },
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Năm",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: !selectDefault
+                                        ? Mytheme.colorBgButtonLogin
+                                        : Mytheme.color_82869E,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-SemiBold",
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Divider(
+                                  thickness: 2,
+                                  color: selectDefault
+                                      ? Mytheme.colorBgButtonLogin
+                                      : Mytheme.color_82869E,
+                                )),
+                          ),
+                          Expanded(
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Divider(
+                                  thickness: 2,
+                                  color: !selectDefault
+                                      ? Mytheme.colorBgButtonLogin
+                                      : Mytheme.color_82869E,
+                                )),
+                          )
+                        ],
+                      ),
 
                       Container(
                         margin: EdgeInsets.all(16),

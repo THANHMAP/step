@@ -591,21 +591,25 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      UpdateDataTool updateDataTool = UpdateDataTool();
-                      updateDataTool.title = _nameLoanController.text;
-                      updateDataTool.userToolId = int.parse(userId);
-                      updateDataTool.type = 1;
-                      List<UpdateDataToolUsers>? listData = [];
-                      for(var i = 0; i<dataUsers.length; i++) {
-                        listData.add(UpdateDataToolUsers(
-                            key: dataUsers[i].key,
-                            type: dataUsers[i].type,
-                            value: dataUsers[i].value
-                        ));
+                      if(_nameLoanController.text.isEmpty) {
+                        Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                      } else {
+                        UpdateDataTool updateDataTool = UpdateDataTool();
+                        updateDataTool.title = _nameLoanController.text;
+                        updateDataTool.userToolId = int.parse(userId);
+                        updateDataTool.type = 1;
+                        List<UpdateDataToolUsers>? listData = [];
+                        for (var i = 0; i < dataUsers.length; i++) {
+                          listData.add(UpdateDataToolUsers(
+                              key: dataUsers[i].key,
+                              type: dataUsers[i].type,
+                              value: dataUsers[i].value
+                          ));
+                        }
+                        updateDataTool.dataUsers = listData;
+                        print(jsonEncode(updateDataTool));
+                        saveItemTool(jsonEncode(updateDataTool));
                       }
-                      updateDataTool.dataUsers = listData;
-                      print(jsonEncode(updateDataTool));
-                      saveItemTool(jsonEncode(updateDataTool));
                     },
                   )),
             ),

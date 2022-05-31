@@ -510,9 +510,15 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                                               final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
                                               final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
                                               final differenceDay = daysBetween(dayStart, dayEnd);
+                                              if(differenceDay <= 0) {
+                                                Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+                                                return;
+                                              }
                                               var calculatorWeek = int.parse(_numberWeekController.text)*7;
-                                              var numberSaver = differenceDay / calculatorWeek ;
-                                              var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+                                              var solantietkiem = (differenceDay/calculatorWeek).toInt();
+                                              var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
+                                              var result = (soTienCanTietKiem/solantietkiem).round();
+                                              // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
                                               setState(() {
                                                 moneySave = result.round();
                                               });
@@ -580,49 +586,64 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      UpdateDataTool updateDataTool = UpdateDataTool();
-                      updateDataTool.title = _nameSaveController.text;
-                      updateDataTool.userToolId = int.parse(userId);
-                      updateDataTool.type = 1;
-                      List<UpdateDataToolUsers>? listData = [];
-                      //
-                      //so tien bạn muốn tiết kiệm
-                      listData.add(UpdateDataToolUsers(
-                        key: "money_want_save",
-                        value: _moneyWantSaveController.text.replaceAll(',', ''),
-                        type: 1,
-                      ));
-                      //
-                      //so tien bạn có
-                      listData.add(UpdateDataToolUsers(
-                        key: "money_has",
-                        value: _numberHasController.text.replaceAll(',', ''),
-                        type: 2,
-                      ));
-                      //
-                      //ngày bắt dầu
-                      listData.add(UpdateDataToolUsers(
-                        key: "day_start",
-                        value: dateFirst,
-                        type: 3,
-                      ));
-                      //ngày kết thúc
-                      listData.add(UpdateDataToolUsers(
-                        key: "day_end",
-                        value: dateEnd,
-                        type: 4,
-                      ));
-                      //
-                      //tần suất tiet kiem
-                      listData.add(UpdateDataToolUsers(
-                        key: "repayment_cycle",
-                        value: _numberWeekController.text,
-                        type: 5,
-                      ));
-                      //
-                      updateDataTool.dataUsers = listData;
-                      print(jsonEncode(updateDataTool));
-                      saveItemTool(jsonEncode(updateDataTool));
+                      var stringDateStart = dateFirst.split("-");
+                      var stringDateEnd = dateEnd.split("-");
+                      final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+                      final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+                      final differenceDay = daysBetween(dayStart, dayEnd);
+                      if(differenceDay <= 0) {
+                        Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+                        return;
+                      }
+
+                      if(_nameSaveController.text.isEmpty) {
+                        Utils.showError("Bạn chưa nhập tên", context);
+                      } else {
+                        UpdateDataTool updateDataTool = UpdateDataTool();
+                        updateDataTool.title = _nameSaveController.text;
+                        updateDataTool.userToolId = int.parse(userId);
+                        updateDataTool.type = 1;
+                        List<UpdateDataToolUsers>? listData = [];
+                        //
+                        //so tien bạn muốn tiết kiệm
+                        listData.add(UpdateDataToolUsers(
+                          key: "money_want_save",
+                          value: _moneyWantSaveController.text.replaceAll(',',
+                              ''),
+                          type: 1,
+                        ));
+                        //
+                        //so tien bạn có
+                        listData.add(UpdateDataToolUsers(
+                          key: "money_has",
+                          value: _numberHasController.text.replaceAll(',', ''),
+                          type: 2,
+                        ));
+                        //
+                        //ngày bắt dầu
+                        listData.add(UpdateDataToolUsers(
+                          key: "day_start",
+                          value: dateFirst,
+                          type: 3,
+                        ));
+                        //ngày kết thúc
+                        listData.add(UpdateDataToolUsers(
+                          key: "day_end",
+                          value: dateEnd,
+                          type: 4,
+                        ));
+                        //
+                        //tần suất tiet kiem
+                        listData.add(UpdateDataToolUsers(
+                          key: "repayment_cycle",
+                          value: _numberWeekController.text,
+                          type: 5,
+                        ));
+                        //
+                        updateDataTool.dataUsers = listData;
+                        print(jsonEncode(updateDataTool));
+                        saveItemTool(jsonEncode(updateDataTool));
+                      }
                     },
                   )),
             ),

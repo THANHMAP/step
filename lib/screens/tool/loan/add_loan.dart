@@ -584,13 +584,18 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      StoreDataTool storeDataTool = StoreDataTool();
-                      storeDataTool.title = _nameLoanController.text;
-                      storeDataTool.toolId = data.id;
-                      storeDataTool.type = 1;
-                      storeDataTool.dataUsers = dataUsers;
-                      print(jsonEncode(storeDataTool));
-                      saveItemTool(jsonEncode(storeDataTool));
+                      if(_nameLoanController.text.isEmpty) {
+                        Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                      } else {
+                        StoreDataTool storeDataTool = StoreDataTool();
+                        storeDataTool.title = _nameLoanController.text;
+                        storeDataTool.toolId = data.id;
+                        storeDataTool.type = 1;
+                        storeDataTool.dataUsers = dataUsers;
+                        print(jsonEncode(storeDataTool));
+                        saveItemTool(jsonEncode(storeDataTool));
+                      }
+
                     },
                   )),
             ),

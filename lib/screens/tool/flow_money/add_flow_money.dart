@@ -39,12 +39,19 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
   late ToolData data;
-  List<String> _listRepaymentCycle = ["2 tháng", "4 tháng", "6 tháng", "8 tháng", "12 tháng"];
+  List<String> _listRepaymentCycle = [
+    "2 tháng",
+    "4 tháng",
+    "6 tháng",
+    "8 tháng",
+    "12 tháng"
+  ];
   int currentRepaymentCycleIndex = 0;
   String dateFirst = "";
   String dateEnd = "";
   final minDate = DateTime.now();
   int moneySave = 0;
+
   @override
   void initState() {
     super.initState();
@@ -65,7 +72,6 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
   void dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -593,11 +599,9 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
 //                                     ),
 //
 //                                   ),
-
                                 ],
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -619,7 +623,7 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
                         ),
                         primary: Mytheme.colorBgButtonLogin,
                         minimumSize:
-                        Size(MediaQuery.of(context).size.width, 44)),
+                            Size(MediaQuery.of(context).size.width, 44)),
                     child: Text(
                       "Lưu",
                       style: TextStyle(
@@ -629,49 +633,54 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
                     ),
                     onPressed: () {
                       // showDialogSuccess();
-                      StoreDataTool storeDataTool = StoreDataTool();
-                      storeDataTool.title = _nameSaveController.text;
-                      storeDataTool.toolId = data.id;
-                      storeDataTool.type = 1;
-                      //
-                      //so tien bạn muốn tiết kiệm
-                      // dataUsers.add(DataUsers(
-                      //   key: "money_want_save",
-                      //   value: _moneyWantSaveController.text.replaceAll(',', ''),
-                      //   type: 1,
-                      // ));
-                      //
-                      //so tien bạn có
-                      dataUsers.add(DataUsers(
-                        key: "money_has",
-                        // value: _numberHasController.text.replaceAll(',', ''),
-                        value: "0",
-                        type: 2,
-                      ));
-                      //
-                      // //ngày bắt dầu
-                      // dataUsers.add(DataUsers(
-                      //   key: "day_start",
-                      //   value: dateFirst,
-                      //   type: 3,
-                      // ));
-                      // //ngày kết thúc
-                      // dataUsers.add(DataUsers(
-                      //   key: "day_end",
-                      //   value: dateEnd,
-                      //   type: 4,
-                      // ));
-                      // //
-                      // //tần suất tiet kiem
-                      // dataUsers.add(DataUsers(
-                      //   key: "repayment_cycle",
-                      //   value: _numberWeekController.text,
-                      //   type: 5,
-                      // ));
-                      // //
-                      storeDataTool.dataUsers = dataUsers;
-                      print(jsonEncode(storeDataTool));
-                      saveItemTool(jsonEncode(storeDataTool));
+                      if (_nameSaveController.text.isEmpty) {
+                        Utils.showError(
+                            "Bạn chưa nhập tên của sổ ghi chép", context);
+                      } else {
+                        StoreDataTool storeDataTool = StoreDataTool();
+                        storeDataTool.title = _nameSaveController.text;
+                        storeDataTool.toolId = data.id;
+                        storeDataTool.type = 1;
+                        //
+                        //so tien bạn muốn tiết kiệm
+                        // dataUsers.add(DataUsers(
+                        //   key: "money_want_save",
+                        //   value: _moneyWantSaveController.text.replaceAll(',', ''),
+                        //   type: 1,
+                        // ));
+                        //
+                        //so tien bạn có
+                        dataUsers.add(DataUsers(
+                          key: "money_has",
+                          // value: _numberHasController.text.replaceAll(',', ''),
+                          value: "0",
+                          type: 2,
+                        ));
+                        //
+                        // //ngày bắt dầu
+                        // dataUsers.add(DataUsers(
+                        //   key: "day_start",
+                        //   value: dateFirst,
+                        //   type: 3,
+                        // ));
+                        // //ngày kết thúc
+                        // dataUsers.add(DataUsers(
+                        //   key: "day_end",
+                        //   value: dateEnd,
+                        //   type: 4,
+                        // ));
+                        // //
+                        // //tần suất tiet kiem
+                        // dataUsers.add(DataUsers(
+                        //   key: "repayment_cycle",
+                        //   value: _numberWeekController.text,
+                        //   type: 5,
+                        // ));
+                        // //
+                        storeDataTool.dataUsers = dataUsers;
+                        print(jsonEncode(storeDataTool));
+                        saveItemTool(jsonEncode(storeDataTool));
+                      }
                     },
                   )),
             ),
@@ -681,7 +690,6 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
     );
   }
 
-
   String formNum(String s) {
     return NumberFormat.decimalPattern().format(
       int.parse(s),
@@ -690,13 +698,13 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
-            (value) async {
-          pr.hide();
-          if (value['status_code'] == 200) {
-            showDialogSuccess();
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj)
+        .then((value) async {
+      pr.hide();
+      if (value['status_code'] == 200) {
+        showDialogSuccess();
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -708,7 +716,7 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
     return (to.difference(from).inHours / 24).round();
   }
 
-  showDialogSuccess(){
+  showDialogSuccess() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -718,16 +726,13 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
               },
               child: SuccessDialogBox(
                 title: "Chúc mừng bạn đã tạo thành công ",
-                descriptions:
-                "",
+                descriptions: "",
                 textButton: "Tiếp tục",
                 onClickedConfirm: () {
                   Get.back(result: true);
                   Get.back(result: true);
                 },
               ));
-        }
-    );
+        });
   }
-
 }
