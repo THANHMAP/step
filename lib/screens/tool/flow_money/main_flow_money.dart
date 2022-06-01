@@ -160,7 +160,13 @@ class _MainFlowMoneyScreenState extends State<MainFlowMoneyScreen>
                       },
                       onClickedView: () {
                         Get.toNamed("/viewFlowMoneyScreen",
-                            arguments: _listItemToolData[i]);
+                            arguments: _listItemToolData[i])?.then((value) {
+                          print(value);
+                          if(value) {
+                            loadListItemTool();
+                          }
+                          // _reload();
+                        });
                       },
                     ),
                   ]

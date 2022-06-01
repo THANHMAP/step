@@ -71,5 +71,6 @@ class RemoteServices {
   static var reportDataDrawToolURL = '$baseURL/api/v1/tool/report-with-draw';
   static var reportDetailDataDrawToolURL = '$baseURL/api/v1/tool/report-detail-with-draw';
 
+  static var listWithDrawFilterToolURL = '$baseURL/api/v1/tool/list-with-draw-filter';
 
 }

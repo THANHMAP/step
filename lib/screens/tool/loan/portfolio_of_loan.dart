@@ -258,6 +258,8 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
                   }
                   // _reload();
                 });
+
+
                 // Get.toNamed("/detailBudgetScreen", arguments: data);
               },
             ),

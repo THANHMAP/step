@@ -161,10 +161,22 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                       onClickedView: () {
                         if(_listItemToolData[i].type == 1) {
                           Get.toNamed("/editPlaneBusinessToolScreen",
-                              arguments: _listItemToolData[i]);
+                              arguments: _listItemToolData[i])?.then((value) {
+                            print(value);
+                            if(value) {
+                              loadListItemTool();
+                            }
+                            // _reload();
+                          });
                         } else {
                           Get.toNamed("/editAgriculturalProductionPlanToolScreen",
-                              arguments: _listItemToolData[i]);
+                              arguments: _listItemToolData[i])?.then((value) {
+                            print(value);
+                            if(value) {
+                              loadListItemTool();
+                            }
+                            // _reload();
+                          });
                         }
 
                       },

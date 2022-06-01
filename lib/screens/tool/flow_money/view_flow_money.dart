@@ -65,11 +65,74 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   var totalMonth = 0;
   bool validate = false;
   bool selectDefault = true;
+
+  List<String> _listMonth = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12"
+  ];
+
+  List<String> _listYeah = [
+    "Năm 2000",
+    "Năm 2001",
+    "Năm 2002",
+    "Năm 2003",
+    "Năm 2004",
+    "Năm 2005",
+    "Năm 2006",
+    "Năm 2007",
+    "Năm 2008",
+    "Năm 2009",
+    "Năm 2010",
+    "Năm 2011",
+    "Năm 2012",
+    "Năm 2013",
+    "Năm 2014",
+    "Năm 2015",
+    "Năm 2016",
+    "Năm 2017",
+    "Năm 2018",
+    "Năm 2019",
+    "Năm 2020",
+    "Năm 2021",
+    "Năm 2022",
+    "Năm 2023",
+    "Năm 2024",
+    "Năm 2025",
+    "Năm 2026",
+    "Năm 2027",
+    "Năm 2028",
+  ];
+
+  int currentMonthIndex = 0;
+  int currentYear = 0;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
     _itemToolData = Get.arguments;
+    var month = DateTime.now().month;
+    var year = DateTime.now().year;
+    for(int i = 0; i < _listYeah.length; i++) {
+      if(_listYeah[i].contains(year.toString())) {
+        currentYear = i;
+        break;
+      }
+    }
+    setState(() {
+      currentMonthIndex = month - 1;
+    });
+
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -77,7 +140,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     );
     Utils.portraitModeOnly();
     Future.delayed(Duration.zero, () {
-      loadDataTool(_itemToolData?.id.toString() ?? "0");
+      loadDataDrawTool(_itemToolData?.id.toString() ?? "0", month.toString(), "");
     });
   }
 
@@ -141,6 +204,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                 setState(() {
                                   selectDefault = true;
                                 });
+                                loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
                               },
                               child: Align(
                                 alignment: Alignment.center,
@@ -165,6 +229,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                 setState(() {
                                   selectDefault = false;
                                 });
+                                loadDataDrawTool(_itemToolData?.id.toString() ?? "0", "", _listYeah[currentYear].replaceAll("Năm ", ""));
                               },
                               child: Align(
                                 alignment: Alignment.center,
@@ -210,6 +275,12 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                           )
                         ],
                       ),
+
+                      Padding(padding: const EdgeInsets.only(
+                          top: 0, left: 16, right: 16, bottom: 10),
+                        child:  selectDefault ? month() : yeah(),
+                      ),
+
 
                       Container(
                         margin: EdgeInsets.all(16),
@@ -1161,7 +1232,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
             }
           }
         });
-        loadDataDrawTool(id);
+        loadDataDrawTool(id, "", "");
       }
     }, onError: (error) async {
       pr.hide();
@@ -1169,12 +1240,470 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     });
   }
 
-  Future<void> loadDataDrawTool(String id) async {
+
+  String formatDate(int day, int month, int year) {
+    var tempDay = day.toString();
+    var tempMonth = month.toString();
+    var tempYear = year.toString();
+    if(day < 10) {
+      tempDay = "0$day";
+    }
+    if(month < 10) {
+      tempMonth = "0$month";
+    }
+
+    return '$tempDay/$tempMonth/$tempYear';
+  }
+
+  Future<void> addDataDrawTool(String user_tool_id, String type,
+      String withdraw, String deposit, String date, String note) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      "user_tool_id": user_tool_id,
+      "type":type,
+      "withdraw":withdraw,
+      "deposit": deposit,
+      "date":date.replaceAll("/", "-"),
+      "note":note
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.storeWithDrawToolURL, param)
+        .then((value) async {
+      pr.hide();
+      int statusCode = value['status_code'];
+      if (statusCode == 200) {
+        if(selectDefault) {
+          loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
+        } else {
+          loadDataDrawTool(
+              _itemToolData?.id.toString() ?? "0",
+              "",
+              _listYeah[currentYear].replaceAll("Năm ", ""));
+        }
+
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  String calculatorTotalMonth(List<ItemManage> itemList) {
+    var total = 0;
+    if(itemList.isNotEmpty) {
+      for(var i=0; i<itemList.length; i++) {
+        if(itemList[i].type == 1) {
+          total = total + int.parse(itemList[i].deposit.toString());
+        } else {
+          total = total - int.parse(itemList[i].withdraw.toString());
+        }
+      }
+      totalMonth = totalMonth + total;
+      return total.toString();
+    }
+    return "0";
+  }
+
+
+  String getNameMonth(int index) {
+    return _listMonth[index];
+  }
+
+  void _monthModalBottomSheet(context) {
+    showModalBottomSheet(
+        backgroundColor: Mytheme.kBackgroundColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.zero,
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.zero,
+              topRight: Radius.circular(10)),
+        ),
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setState /*You can rename this!*/) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: SizedBox(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: <Widget>[
+                          const Center(
+                            child: Text(
+                              "Chọn tháng",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Mytheme.color_434657,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-Semibold",
+                                // decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: 40,
+                                child: IconButton(
+                                  icon:
+                                  Image.asset("assets/images/ic_close.png"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ))
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            for (var i = 0;
+                            i < _listMonth.length;
+                            i++) ...[
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentMonthIndex = i;
+                                    Navigator.of(context).pop();
+                                    loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
+                                    // loadDataDraw(
+                                    //     idUserTool,
+                                    //     (currentRepaymentCycleIndex + 1)
+                                    //         .toString(),
+                                    //     "2022");
+                                    this.setState(() {
+                                      // user.gender = currentSexIndex;
+                                    });
+                                  });
+                                },
+                                child: Container(
+                                  height: 60,
+                                  color: currentMonthIndex == i
+                                      ? Mytheme.color_DCDEE9
+                                      : Mytheme.kBackgroundColor,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(left: 16),
+                                        child: Text(
+                                          _listMonth[i],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_434657,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-Semibold",
+                                            // decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+
+                                      // di chuyen item tối cuối
+                                      const Spacer(),
+                                      Visibility(
+                                        visible: currentMonthIndex == i
+                                            ? true
+                                            : false,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(right: 16),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/img_check.png'),
+                                              fit: BoxFit.fill),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        });
+  }
+
+  void _yeahModalBottomSheet(context) {
+    showModalBottomSheet(
+        backgroundColor: Mytheme.kBackgroundColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.zero,
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.zero,
+              topRight: Radius.circular(10)),
+        ),
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setState /*You can rename this!*/) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: SizedBox(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      child: Stack(
+                        children: <Widget>[
+                          const Center(
+                            child: Text(
+                              "Chọn năm",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Mytheme.color_434657,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-Semibold",
+                                // decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: SizedBox(
+                                width: 40,
+                                child: IconButton(
+                                  icon:
+                                  Image.asset("assets/images/ic_close.png"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ))
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            for (var i = 0;
+                            i < _listYeah.length;
+                            i++) ...[
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentYear = i;
+                                    Navigator.of(context).pop();
+                                    loadDataDrawTool(
+                                        _itemToolData?.id.toString() ?? "0",
+                                        "",
+                                        _listYeah[i].replaceAll("Năm ", ""));
+
+                                  });
+                                },
+                                child: Container(
+                                  height: 60,
+                                  color: currentYear == i
+                                      ? Mytheme.color_DCDEE9
+                                      : Mytheme.kBackgroundColor,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(left: 16),
+                                        child: Text(
+                                          _listYeah[i],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_434657,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-Semibold",
+                                            // decoration: TextDecoration.underline,
+                                          ),
+                                        ),
+                                      ),
+
+                                      // di chuyen item tối cuối
+                                      const Spacer(),
+                                      Visibility(
+                                        visible: currentYear == i
+                                            ? true
+                                            : false,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(right: 16),
+                                          child: Image(
+                                              image: AssetImage(
+                                                  'assets/images/img_check.png'),
+                                              fit: BoxFit.fill),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        });
+  }
+
+  month() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+      child: InkWell(
+        onTap: () {
+          _monthModalBottomSheet(context);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Mytheme.colorTextDivider,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding:
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  child: Text(
+                    getNameMonth(currentMonthIndex),
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Mytheme.colorBgButtonLogin,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Semibold",
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0, left: 6, bottom: 0, right: 0),
+                  child: IconButton(
+                    icon: Image.asset("assets/images/ic_arrow_down.png"),
+                    // tooltip: 'Increase volume by 10',
+                    iconSize: 50,
+                    onPressed: () {
+                      _monthModalBottomSheet(context);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  yeah() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+      child: InkWell(
+        onTap: () {
+          _yeahModalBottomSheet(context);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Mytheme.colorTextDivider,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding:
+                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                  child: Text(
+                    getNameYeah(currentYear),
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Mytheme.colorBgButtonLogin,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Semibold",
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0, left: 6, bottom: 0, right: 0),
+                  child: IconButton(
+                    icon: Image.asset("assets/images/ic_arrow_down.png"),
+                    // tooltip: 'Increase volume by 10',
+                    iconSize: 50,
+                    onPressed: () {
+                      _yeahModalBottomSheet(context);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String getNameYeah(int index) {
+    return _listYeah[index];
+  }
+
+  Future<void> loadDataDrawTool(String id, String month, String yeah) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
       'user_tool_id': id,
+      'month': month,
+      'year' : yeah
     });
-    APIManager.postAPICallNeedToken(RemoteServices.listWithDrawToolURL, param)
+    APIManager.postAPICallNeedToken(RemoteServices.listWithDrawFilterToolURL, param)
         .then((value) async {
       pr.hide();
       int statusCode = value['status_code'];
@@ -1237,69 +1766,6 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     });
   }
 
-  String formatDate(int day, int month, int year) {
-    var tempDay = day.toString();
-    var tempMonth = month.toString();
-    var tempYear = year.toString();
-    if(day < 10) {
-      tempDay = "0$day";
-    }
-    if(month < 10) {
-      tempMonth = "0$month";
-    }
-
-    return '$tempDay/$tempMonth/$tempYear';
-  }
-
-  Future<void> addDataDrawTool(String user_tool_id, String type,
-      String withdraw, String deposit, String date, String note) async {
-    await pr.show();
-    var param = jsonEncode(<String, String>{
-      "user_tool_id": user_tool_id,
-      "type":type,
-      "withdraw":withdraw,
-      "deposit": deposit,
-      "date":date.replaceAll("/", "-"),
-      "note":note
-    });
-    APIManager.postAPICallNeedToken(RemoteServices.storeWithDrawToolURL, param)
-        .then((value) async {
-      pr.hide();
-      int statusCode = value['status_code'];
-      if (statusCode == 200) {
-        loadDataDrawTool(user_tool_id);
-      }
-    }, onError: (error) async {
-      pr.hide();
-      Utils.showError(error.toString(), context);
-    });
-  }
-
-  String calculatorTotalMonth(List<ItemManage> itemList) {
-    var total = 0;
-    if(itemList.isNotEmpty) {
-      for(var i=0; i<itemList.length; i++) {
-        if(itemList[i].type == 1) {
-          total = total + int.parse(itemList[i].deposit.toString());
-        } else {
-          total = total - int.parse(itemList[i].withdraw.toString());
-        }
-      }
-      totalMonth = totalMonth + total;
-      return total.toString();
-    }
-    return "0";
-  }
-
-  // String calculatorPresent() {
-  //   if(dataUsers.isNotEmpty) {
-  //     return "${(int.parse(moneyHasSave)/int.parse(moneySaveTarget)*100).round().toString()}%";
-  //   }
-  //   return "0";
-  // }
-
-
-
 }
 
 class DataManage {
@@ -1356,7 +1822,6 @@ class ItemManage {
     data['note'] = this.note;
     return data;
   }
-
 
 
 }
