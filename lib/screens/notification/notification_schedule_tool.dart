@@ -48,6 +48,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
 
   String userId = Get.arguments.toString();
   bool showEdit = false;
+  String currentDate = "";
 
   @override
   void initState() {
@@ -216,11 +217,42 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                                       ),
                                     ),
                                   ),
+                                  // if(!showFirst())...[
+                                  //   const SizedBox(height: 10),
+                                  //   const Align(
+                                  //     alignment: Alignment.centerLeft,
+                                  //     child: Text(
+                                  //       "Ngày trả nợ đầu tiên",
+                                  //       textAlign: TextAlign.left,
+                                  //       style: const TextStyle(
+                                  //         fontSize: 16,
+                                  //         color: Mytheme.color_82869E,
+                                  //         fontWeight: FontWeight.w400,
+                                  //         fontFamily: "OpenSans-Regular",
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  //   const SizedBox(height: 4),
+                                  //   Align(
+                                  //     alignment: Alignment.centerLeft,
+                                  //     child: Text(
+                                  //       dateFirst,
+                                  //       textAlign: TextAlign.left,
+                                  //       style: const TextStyle(
+                                  //         fontSize: 16,
+                                  //         color: Mytheme.colorTextSubTitle,
+                                  //         fontWeight: FontWeight.w600,
+                                  //         fontFamily: "OpenSans-SemiBold",
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ],
+
                                   const SizedBox(height: 10),
                                   const Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      "Ngày trả nợ đầu tiên",
+                                      "Ngày trả nợ tiếp theo",
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 16,
@@ -234,7 +266,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      dateFirst,
+                                      currentDate.isNotEmpty == true ? nextDayRepayment():"",
                                       textAlign: TextAlign.left,
                                       style: const TextStyle(
                                         fontSize: 16,
@@ -244,7 +276,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                                       ),
                                     ),
                                   ),
-//
+
                                   const SizedBox(height: 10),
                                   const Align(
                                     alignment: Alignment.centerLeft,
@@ -331,6 +363,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                   repaymentNumber = dataUsers[i].value.toString();
                 } else if(dataUsers[i].key == "repayment_day"){
                   dateFirst = dataUsers[i].value.toString();
+                  currentDate = dateFirst;
                 } else if(dataUsers[i].key == "repayment_number_day"){
                   numberDay = dataUsers[i].value.toString();
                 }
@@ -341,6 +374,55 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
       pr.hide();
       Utils.showError(error.toString(), context);
     });
+  }
+
+  bool showFirst() {
+    var stringDateStart = dateFirst.split("-");
+    final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+    final dayEnd = DateTime.now();
+    final differenceDay = daysBetween(dayStart, dayEnd);
+    if(differenceDay <= 0) {
+      true;
+    }
+    return false;
+  }
+
+  int daysBetween(DateTime from, DateTime to) {
+    from = DateTime(from.year, from.month, from.day);
+    to = DateTime(to.year, to.month, to.day);
+    return (to.difference(from).inHours / 24).round();
+  }
+
+  String nextDayRepayment() {
+    var month = DateTime.now().month;
+    var text = "";
+    List<String> test = [];
+    for (int i = 0; i < currentRepaymentCycleIndex + 1; i++) {
+      test.add(showDay());
+    }
+
+    for (int i = 0; i < test.length; i++) {
+      var dates = test[i].split("-");
+      var montht = int.parse(dates[1]);
+      if (month == montht) {
+        text = test[i];
+        break;
+      }
+    }
+    return text;
+  }
+
+  String showDay() {
+    var dates = currentDate.replaceAll("-", "/").split("/");
+    var month = int.parse(dates[1]);
+    var year = int.parse(dates[2]);
+    month = month + 1;
+    if (month > 12) {
+      month = month - 12;
+      year = year + 1;
+    }
+    currentDate = "${dates[0]}/${month}/${year}";
+    return "${dates[0]}-${month}-${year}";
   }
 
 }

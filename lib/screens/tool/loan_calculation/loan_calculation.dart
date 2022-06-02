@@ -1102,9 +1102,6 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                     ),
                     onPressed: () {
                       if (displayCalculation) {
-                        if(_nameLoanController.text.isEmpty) {
-                          Utils.showError("Bạn chưa nhập tên khoản vay", context);
-                        } else {
                           StoreDataTool storeDataTool = StoreDataTool();
                           storeDataTool.title = _nameLoanController.text;
                           storeDataTool.toolId = data.id;
@@ -1163,17 +1160,23 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                           storeDataTool.dataUsers = dataUsers;
                           print(jsonEncode(storeDataTool));
                           saveItemTool(jsonEncode(storeDataTool));
-                        }
+
 
                       } else {
-                        setState(() {
-                          displayCalculation = true;
-                        });
-                        currentDate = dateFirst;
-                        calculatorLaiDuNoGiamDan();
-                        currentDate = dateFirst;
-                        calculatorLaiPhang();
-                        return;
+                        if(_nameLoanController.text.isEmpty || _moneyLoanRootController.text.isEmpty || _tyLeLaiXuatController.text.isEmpty
+                        || _kyHanVayController.text.isEmpty || _numberMonthTienGocController.text.isEmpty || _numberMonthTienLaiController.text.isEmpty || dateFirst.isEmpty) {
+                          Utils.showError("Bạn chưa nhập đầy đủ thông tin", context);
+                        } else {
+                          setState(() {
+                            displayCalculation = true;
+                          });
+                          currentDate = dateFirst;
+                          calculatorLaiDuNoGiamDan();
+                          currentDate = dateFirst;
+                          calculatorLaiPhang();
+                          return;
+                        }
+
                       }
 
                     },

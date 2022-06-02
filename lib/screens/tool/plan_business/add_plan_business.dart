@@ -59,7 +59,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
   int indexPlan = 0;
   String imgHeader = "assets/svg/img_plan_business_1.svg";
   bool selectDefault = true;
-  int typeObj = 1;
+  int typeObj = 2;
   late ToolData data;
 
   @override

@@ -23,6 +23,7 @@ import 'package:step_bank/strings.dart';
 
 import '../../../compoment/card_education.dart';
 import '../../../compoment/card_item_tool.dart';
+import '../../../compoment/card_money.dart';
 import '../../../compoment/card_setting.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_success.dart';
@@ -151,16 +152,31 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                 children: [
                   for (var i = 0; i < _listItemToolData.length; i++) ...[
                     const SizedBox(height: 15),
-                    CardItemToolWidget(
+                    CardItemMoneyToolWidget(
                       title: _listItemToolData[i].name,
                       date: _listItemToolData[i].createdAt,
+                      onClickedEdit: () {
+                        Get.toNamed("/editSaveToolScreen", arguments: _listItemToolData[i].id)?.then((value) {
+                          print(value);
+                          if(value) {
+                            loadListItemTool();
+                          }
+                          // _reload();
+                        });
+                      },
                       onClickedDelete: () {
                         showDialogConfig(_listItemToolData[i].id ?? 0, i);
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
                         Get.toNamed("/manageSaveToolScreen",
-                            arguments: _listItemToolData[i]);
+                            arguments: _listItemToolData[i])?.then((value) {
+                          print(value);
+                          if(value) {
+                            loadListItemTool();
+                          }
+                          // _reload();
+                        });
                       },
                     ),
                   ]

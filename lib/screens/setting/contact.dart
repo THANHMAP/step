@@ -801,7 +801,9 @@ class _ContactScreenState extends State<ContactScreen> {
   String _nameProvider(int indexCity, int indexProvider) {
     var nameProvider = "Quận/Huyện";
     if(selectCity) {
-      _providersData = cityData[indexCity].provinces!;
+      if(cityData.isNotEmpty) {
+        _providersData = cityData[indexCity].provinces!;
+      }
     } else {
       if(cityData.isNotEmpty) {
         nameProvider = cityData[indexCity].provinces![indexProvider].name.toString();
@@ -835,7 +837,7 @@ class _ContactScreenState extends State<ContactScreen> {
             _providersData = cityData[currentCityIndex].provinces!;
           }
           currentProviderIndex = 0;
-          getListContact(currentCreditIndex.toString(), listOfCities[index].id.toString(), "");
+          getListContact(currentCreditIndex.toString(), cityData[currentCityIndex].id.toString(), "");
         });
       },
       child: Container(

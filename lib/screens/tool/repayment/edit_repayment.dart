@@ -263,34 +263,34 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                                       ),
                                     ),
 
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Ngày trả nợ tiếp theo",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        currentDate.isNotEmpty == true ? nextDayRepayment():"",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
+                                    // const SizedBox(height: 10),
+                                    // const Align(
+                                    //   alignment: Alignment.centerLeft,
+                                    //   child: Text(
+                                    //     "Ngày trả nợ tiếp theo",
+                                    //     textAlign: TextAlign.left,
+                                    //     style: const TextStyle(
+                                    //       fontSize: 16,
+                                    //       color: Mytheme.color_82869E,
+                                    //       fontWeight: FontWeight.w400,
+                                    //       fontFamily: "OpenSans-Regular",
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // const SizedBox(height: 4),
+                                    // Align(
+                                    //   alignment: Alignment.centerLeft,
+                                    //   child: Text(
+                                    //     currentDate.isNotEmpty == true ? nextDayRepayment():"",
+                                    //     textAlign: TextAlign.left,
+                                    //     style: const TextStyle(
+                                    //       fontSize: 16,
+                                    //       color: Mytheme.colorTextSubTitle,
+                                    //       fontWeight: FontWeight.w600,
+                                    //       fontFamily: "OpenSans-SemiBold",
+                                    //     ),
+                                    //   ),
+                                    // ),
 //
                                     const SizedBox(height: 10),
                                     const Align(
@@ -984,7 +984,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
     for (int i = 0; i < test.length; i++) {
       var dates = test[i].split("-");
       var montht = int.parse(dates[1]);
-      if (month == montht) {
+      if (montht >= month) {
         text = test[i];
         break;
       }

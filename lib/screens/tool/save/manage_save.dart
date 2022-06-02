@@ -384,32 +384,32 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
               flex: 2,
               child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Get.offAndToNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
-                    },
-                    child: Container(
-                        margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border:
-                            Border.all(color: Mytheme.colorBgButtonLogin)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 16, right: 16),
-                          child: Text(
-                            "Sửa",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Mytheme.color_434657,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "OpenSans-Semibold",
-                            ),
-                          ),
-                        )),
-                  ),
+                  // InkWell(
+                  //   onTap: () {
+                  //     Get.toNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
+                  //   },
+                  //   child: Container(
+                  //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
+                  //       alignment: Alignment.center,
+                  //       decoration: BoxDecoration(
+                  //           color: Colors.white,
+                  //           borderRadius: BorderRadius.circular(8),
+                  //           border:
+                  //           Border.all(color: Mytheme.colorBgButtonLogin)),
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.only(
+                  //             top: 10, bottom: 10, left: 16, right: 16),
+                  //         child: Text(
+                  //           "Sửa",
+                  //           style: TextStyle(
+                  //             fontSize: 16,
+                  //             color: Mytheme.color_434657,
+                  //             fontWeight: FontWeight.w600,
+                  //             fontFamily: "OpenSans-Semibold",
+                  //           ),
+                  //         ),
+                  //       )),
+                  // ),
 
                   Padding(
                       padding: const EdgeInsets.only(
