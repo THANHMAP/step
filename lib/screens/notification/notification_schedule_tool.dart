@@ -11,6 +11,7 @@ import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
+import '../../models/next_repayment_date.dart';
 
 class NotificationRepaymentScreen extends StatefulWidget {
   const NotificationRepaymentScreen({Key? key}) : super(key: key);
@@ -49,6 +50,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
   String userId = Get.arguments.toString();
   bool showEdit = false;
   String currentDate = "";
+  String nextRepaymentDate = "";
 
   @override
   void initState() {
@@ -217,65 +219,68 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                                       ),
                                     ),
                                   ),
-                                  // if(!showFirst())...[
-                                  //   const SizedBox(height: 10),
-                                  //   const Align(
-                                  //     alignment: Alignment.centerLeft,
-                                  //     child: Text(
-                                  //       "Ngày trả nợ đầu tiên",
-                                  //       textAlign: TextAlign.left,
-                                  //       style: const TextStyle(
-                                  //         fontSize: 16,
-                                  //         color: Mytheme.color_82869E,
-                                  //         fontWeight: FontWeight.w400,
-                                  //         fontFamily: "OpenSans-Regular",
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  //   const SizedBox(height: 4),
-                                  //   Align(
-                                  //     alignment: Alignment.centerLeft,
-                                  //     child: Text(
-                                  //       dateFirst,
-                                  //       textAlign: TextAlign.left,
-                                  //       style: const TextStyle(
-                                  //         fontSize: 16,
-                                  //         color: Mytheme.colorTextSubTitle,
-                                  //         fontWeight: FontWeight.w600,
-                                  //         fontFamily: "OpenSans-SemiBold",
-                                  //       ),
-                                  //     ),
-                                  //   ),
-                                  // ],
 
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Ngày trả nợ tiếp theo",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
+                                    const SizedBox(height: 10),
+                                    const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Ngày trả nợ đầu tiên",
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.color_82869E,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      currentDate.isNotEmpty == true ? nextDayRepayment():"",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
+                                    const SizedBox(height: 4),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        formatDay(),
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-SemiBold",
+                                        ),
                                       ),
                                     ),
-                                  ),
+
+                                  if(nextRepaymentDate.isNotEmpty)...[
+                                    const SizedBox(height: 10),
+                                    const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Ngày trả nợ tiếp theo",
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.color_82869E,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        nextRepaymentDate,
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-SemiBold",
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+
+
 
                                   const SizedBox(height: 10),
                                   const Align(
@@ -376,6 +381,26 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
     });
   }
 
+  Future<void> loadNextRepaymentDateTool(String id) async {
+    // await pr.show();
+    var param = jsonEncode(<String, String>{
+      'user_tool_id': id,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.nextRepaymentDateToolURL, param)
+        .then((value) async {
+      pr.hide();
+      var data = NextRepaymentDate.fromJson(value);
+      if (data.statusCode == 200 && data.data != null) {
+        setState(() {
+          nextRepaymentDate = data.data?.nextRepaymentDate ?? "";
+        });
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
   bool showFirst() {
     var stringDateStart = dateFirst.split("-");
     final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
@@ -423,6 +448,27 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
     }
     currentDate = "${dates[0]}/${month}/${year}";
     return "${dates[0]}-${month}-${year}";
+  }
+
+  String formatDay() {
+    if(dateFirst.isNotEmpty) {
+      var dates = dateFirst.replaceAll("/", "-").split("-");
+      var date = int.parse(dates[0]);
+      var month = int.parse(dates[1]);
+      var year = int.parse(dates[2]);
+      var tempDate = "";
+      var tempMonth = "";
+      if(date < 10) {
+        tempDate = "0${date}";
+      }
+
+      if(month < 10) {
+        tempMonth = "0${month}";
+      }
+
+      return "${tempDate}-${tempMonth}-${year}";
+    }
+    return "";
   }
 
 }

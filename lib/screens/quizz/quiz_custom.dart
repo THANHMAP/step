@@ -962,20 +962,44 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
   void checkQuestionMutil() {
     var data = contentQuizz[index].answers;
     var status = true;
+    var statusNoAnswer = true;
+
     for (var i = 0; i < data!.length; i++) {
-      for (var ii = 0; ii < _listAnswers.length; ii++) {
-        if (data[i].id == _listAnswers[ii].id) {
-          contentQuizz[index].isAnswers = true;
-          if (_listAnswers[ii].isCorrect == 1) {
+      if(data[i].isCorrect == 1) {
+        statusNoAnswer = false;
+        break;
+      }
+    }
+
+    if(statusNoAnswer) {
+      for (var i = 0; i < data.length; i++) {
+        for (var ii = 0; ii < _listAnswers.length; ii++) {
+          if (data[i].id == _listAnswers[ii].id) {
+            contentQuizz[index].isAnswers = true;
             data[i].selectIsCorrect = 2;
-          } else {
-            data[i].selectIsCorrect = 1;
+          } else if (data[i].isCorrect == 1) {
+            contentQuizz[index].answers![i].selectIsCorrect = 2;
           }
-        } else if (data[i].isCorrect == 1) {
-          contentQuizz[index].answers![i].selectIsCorrect = 2;
+        }
+      }
+    } else {
+      for (var i = 0; i < data!.length; i++) {
+        for (var ii = 0; ii < _listAnswers.length; ii++) {
+          if (data[i].id == _listAnswers[ii].id) {
+            contentQuizz[index].isAnswers = true;
+            if (_listAnswers[ii].isCorrect == 1) {
+              data[i].selectIsCorrect = 2;
+            } else {
+              data[i].selectIsCorrect = 1;
+            }
+          } else if (data[i].isCorrect == 1) {
+            contentQuizz[index].answers![i].selectIsCorrect = 2;
+          }
         }
       }
     }
+
+
     if (_listAnswers.length == 1) {
       status = false;
     }

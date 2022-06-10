@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +15,7 @@ import 'package:step_bank/compoment/textfield_widget.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_confirm.dart';
 import '../../../constants.dart';
+import '../../../models/next_repayment_date.dart';
 import '../../../models/tool/data_sample.dart';
 import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/item_tool.dart';
@@ -61,6 +63,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   String userId = Get.arguments.toString();
   bool showEdit = false;
   String currentDate = "";
+  String nextRepaymentDate = "";
 
   @override
   void initState() {
@@ -252,7 +255,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        dateFirst,
+                                        formatDay(),
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 16,
@@ -262,35 +265,37 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                                         ),
                                       ),
                                     ),
+                                    if(nextRepaymentDate.isNotEmpty)...[
+                                      const SizedBox(height: 10),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Ngày trả nợ tiếp theo",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          nextRepaymentDate,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+                                    ],
 
-                                    // const SizedBox(height: 10),
-                                    // const Align(
-                                    //   alignment: Alignment.centerLeft,
-                                    //   child: Text(
-                                    //     "Ngày trả nợ tiếp theo",
-                                    //     textAlign: TextAlign.left,
-                                    //     style: const TextStyle(
-                                    //       fontSize: 16,
-                                    //       color: Mytheme.color_82869E,
-                                    //       fontWeight: FontWeight.w400,
-                                    //       fontFamily: "OpenSans-Regular",
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // const SizedBox(height: 4),
-                                    // Align(
-                                    //   alignment: Alignment.centerLeft,
-                                    //   child: Text(
-                                    //     currentDate.isNotEmpty == true ? nextDayRepayment():"",
-                                    //     textAlign: TextAlign.left,
-                                    //     style: const TextStyle(
-                                    //       fontSize: 16,
-                                    //       color: Mytheme.colorTextSubTitle,
-                                    //       fontWeight: FontWeight.w600,
-                                    //       fontFamily: "OpenSans-SemiBold",
-                                    //     ),
-                                    //   ),
-                                    // ),
 //
                                     const SizedBox(height: 10),
                                     const Align(
@@ -606,7 +611,8 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                                                   ),
                                                 ),
                                               ],
-                                            ))
+                                            )),
+
                                       ],
                                     ),
 //
@@ -973,36 +979,27 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
         });
   }
 
-  String nextDayRepayment() {
-    var month = DateTime.now().month;
-    var text = "";
-    List<String> test = [];
-    for (int i = 0; i < currentRepaymentCycleIndex + 1; i++) {
-      test.add(showDay());
-    }
 
-    for (int i = 0; i < test.length; i++) {
-      var dates = test[i].split("-");
-      var montht = int.parse(dates[1]);
-      if (montht >= month) {
-        text = test[i];
-        break;
+
+  String formatDay() {
+    if(dateFirst.isNotEmpty) {
+      var dates = dateFirst.replaceAll("/", "-").split("-");
+      var date = int.parse(dates[0]);
+      var month = int.parse(dates[1]);
+      var year = int.parse(dates[2]);
+      var tempDate = "";
+      var tempMonth = "";
+      if(date < 10) {
+        tempDate = "0${date}";
       }
-    }
-    return text;
-  }
 
-  String showDay() {
-    var dates = currentDate.replaceAll("-", "/").split("/");
-    var month = int.parse(dates[1]);
-    var year = int.parse(dates[2]);
-    month = month + 1;
-    if (month > 12) {
-      month = month - 12;
-      year = year + 1;
+      if(month < 10) {
+        tempMonth = "0${month}";
+      }
+
+      return "${tempDate}-${tempMonth}-${year}";
     }
-    currentDate = "${dates[0]}/${month}/${year}";
-    return "${dates[0]}-${month}-${year}";
+    return "";
   }
 
   String getNameRepayment(int index) {
@@ -1039,6 +1036,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       pr.hide();
       var data = DetailTool.fromJson(value);
       if (data.statusCode == 200) {
+        loadNextRepaymentDateTool(id);
         setState(() {
           dataUsers = data.data!.dataUsers!;
           _nameRepaymentController.text = data.data!.name!;
@@ -1058,6 +1056,26 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
             }
           }
         });
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  Future<void> loadNextRepaymentDateTool(String id) async {
+    // await pr.show();
+    var param = jsonEncode(<String, String>{
+      'user_tool_id': id,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.nextRepaymentDateToolURL, param)
+        .then((value) async {
+      pr.hide();
+      var data = NextRepaymentDate.fromJson(value);
+      if (data.statusCode == 200 && data.data != null) {
+          setState(() {
+            nextRepaymentDate = data.data?.nextRepaymentDate ?? "";
+          });
       }
     }, onError: (error) async {
       pr.hide();

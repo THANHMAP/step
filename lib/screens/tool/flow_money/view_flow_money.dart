@@ -547,7 +547,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                   Expanded(
                                     flex: 1,
                                     child: Text(
-                                      convert(dataManage[i].itemList![po].date ?? "").replaceAll("-", "/"),
+                                      convert(dataManage[i].itemList![po].date ?? ""),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 16,
@@ -656,6 +656,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   }
 
   String convert(String date) {
+    return date;
     return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
   }
 

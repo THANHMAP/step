@@ -25,6 +25,7 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 import 'package:weather/weather.dart';
 
+import '../../models/number_notification.dart';
 import '../../models/tool_model.dart';
 import '../../strings.dart';
 import '../../themes.dart';
@@ -64,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String statusWeather = "Trời nắng";
   Color textColorNhietDo = Mytheme.kBackgroundColor;
   bool statusPermission = false;
+  int totalNotification = 0;
 
   @override
   void initState() {
@@ -876,4 +878,21 @@ class _HomeScreenState extends State<HomeScreen> {
       Utils.showError(error.toString(), context);
     });
   }
+
+  Future<void> loadNumberNotification() async {
+
+    APIManager.getAPICallNeedToken(RemoteServices.numberNotificationURL).then(
+            (value) async {
+          pr.hide();
+          var data = NumberNotification.fromJson(value);
+          if (data.statusCode == 200) {
+            setState(() {
+              totalNotification = data.data?.total ?? 0;
+            });
+          }
+        }, onError: (error) async {
+      Utils.showError(error.toString(), context);
+    });
+  }
+
 }

@@ -26,6 +26,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
   var studyData = study.StudyData();
   String textButton = "Tiếp theo";
   int index = 0;
+  var statusHasAnswer = false;
 
   @override
   void initState() {
@@ -181,6 +182,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
                                         color: getTheRightColor(
+                                            statusHasAnswer,
                                             contentQuizz[index]
                                                 .answers![i]
                                                 .userChoose,
@@ -205,6 +207,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                     children: [
                                       if (contentQuizz[index].type == 1) ...[
                                         SvgPicture.asset(urlIconRadio(
+                                            statusHasAnswer,
                                             contentQuizz[index]
                                                 .answers![i]
                                                 .userChoose,
@@ -213,6 +216,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                                 .isCorrect)),
                                       ] else ...[
                                         SvgPicture.asset(urlIconRadioMutil(
+                                            statusHasAnswer,
                                             contentQuizz[index]
                                                 .answers![i]
                                                 .userChoose,
@@ -236,6 +240,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                         ),
                                       ),
                                       if (getTheRightIcon(
+                                          statusHasAnswer,
                                           contentQuizz[index]
                                               .answers![i]
                                               .userChoose,
@@ -248,6 +253,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                           height: 26,
                                           child: SvgPicture.asset(
                                             getTheRightIcon(
+                                                statusHasAnswer,
                                                 contentQuizz[index]
                                                     .answers![i]
                                                     .userChoose,
@@ -333,6 +339,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                           if (index > 0) {
                                             textButton = "Tiếp theo";
                                             index = index - 1;
+                                            checkQuestionHasAnser();
                                           }
                                         },
                                       );
@@ -370,6 +377,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                                           return;
                                         }
                                         index = index + 1;
+                                        checkQuestionHasAnser();
                                         if (index == contentQuizz.length - 1) {
                                           textButton = "Tiếp tục";
                                         }
@@ -390,7 +398,6 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
   }
 
 
-
   bool? checkQuestionAnswersed() {
     return false;
   }
@@ -408,6 +415,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
       if (data.statusCode == 200) {
         setState(() {
           contentQuizz = data.data!.contentQuizz!;
+          checkQuestionHasAnser();
         });
       }
     }, onError: (error) async {
@@ -416,8 +424,12 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
     });
   }
 
-  Color getTheRightColor(bool? userChoose, int? isCorrect) {
+  Color getTheRightColor(bool noAnser, bool? userChoose, int? isCorrect) {
+
     if (userChoose == true) {
+      if(noAnser == false) {
+        return Mytheme.color_0xFF30CD60;
+      }
       if (isCorrect == 0) {
         return Mytheme.kRedColor;
       } else {
@@ -431,7 +443,10 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
     return Mytheme.kBackgroundColor;
   }
 
-  String urlIconRadio(bool? userChoose, int? isCorrect) {
+  String urlIconRadio(bool noAnser, bool? userChoose, int? isCorrect) {
+    if(noAnser == false) {
+      return "assets/svg/ic_radio_choose_correct.svg";
+    }
     if (userChoose == true) {
       if (isCorrect == 0) {
         return "assets/svg/ic_radio_choose_incorrect.svg";
@@ -444,8 +459,11 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
     return "assets/svg/ic_radio_no_select.svg";
   }
 
-  String urlIconRadioMutil(bool? userChoose, int? isCorrect) {
+  String urlIconRadioMutil(bool noAnser, bool? userChoose, int? isCorrect) {
     if (userChoose == true) {
+      if(noAnser == false) {
+        return "assets/svg/checkbox_check_correct.svg";
+      }
       if (isCorrect == 0) {
         return "assets/svg/checkbox_check_incorrect.svg";
       } else {
@@ -457,8 +475,11 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
     return "assets/svg/checkbox_no_check.svg";
   }
 
-  String getTheRightIcon(bool? userChoose, int? isCorrect) {
+  String getTheRightIcon(bool noAnser, bool? userChoose, int? isCorrect) {
     if (userChoose == true) {
+      if(noAnser == false) {
+        return "assets/svg/check_circle_correct.svg";
+      }
       if (isCorrect == 0) {
         return "assets/svg/check_wrong.svg";
       } else {
@@ -558,6 +579,19 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
     } else {
       return "assets/svg/check_wrong.svg";
     }
+  }
+
+  checkQuestionHasAnser() {
+    var data = contentQuizz[index].answers;
+    for (var i = 0; i < data!.length; i++) {
+      if(data[i].isCorrect == 1) {
+        statusHasAnswer = true;
+        break;
+      }
+    }
+    setState(() {
+      statusHasAnswer;
+    });
   }
 
 }
