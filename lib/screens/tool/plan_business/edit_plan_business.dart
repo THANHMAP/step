@@ -944,60 +944,72 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                           ),
                           Expanded(
                             flex:2,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.colorTextDivider,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    dataUsers[i].key ?? "",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      dataUsers[i].key ?? "",
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                            ),),
+                              ),
+                            ),
+                            ),
                           Expanded(
                             flex: 2,
-                            child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  formNum(dataUsers[i].value ?? "0"),
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily:
-                                    "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
+                                    ),
                                   ),
                                 ),
+
                               ),
                             ),
-
-                          ),)
+                            )
                         ],
                       ),
                     ),
@@ -1151,60 +1163,72 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                           ),
                           Expanded(
                             flex:2,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.colorTextDivider,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    dataUsers[i].key ?? "",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      dataUsers[i].key ?? "",
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                            ),),
+                              ),
+                            ),
+                            ),
                           Expanded(
                             flex: 2,
-                            child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  formNum(dataUsers[i].value ?? "0"),
-                                  textAlign: TextAlign.left,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily:
-                                    "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                height: 44,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
+                                    ),
                                   ),
                                 ),
+
                               ),
                             ),
-
-                          ),)
+                            )
                         ],
                       ),
                     ),
@@ -1367,6 +1391,29 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
     );
   }
 
+  showDialogEditItemTool(DataUsers dataUser, int position) async {
+    _thuNhapController.text = dataUser.key.toString();
+    _soTienController.text = formNum(dataUser.value.toString());
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return Future.value(false);
+            },
+            child: Dialog(
+              insetPadding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Constants.padding),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              child: contentBox(context, true, position),
+            ),
+          );
+        });
+  }
+
   showDialogAddItemTool() async {
     showDialog(
         context: context,
@@ -1382,14 +1429,14 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
               ),
               elevation: 0,
               backgroundColor: Colors.transparent,
-              child: contentBox(context),
+              child: contentBox(context, false, 0),
             ),
           );
         }
     );
   }
 
-  contentBox(context) {
+  contentBox(context, bool edit, int position) {
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -1493,11 +1540,13 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                       var thunhap = _thuNhapController.text;
                       var sotien = _soTienController.text.replaceAll(',', '');
                       setState(() {
-                        dataUsers.add(DataUsers(
-                            key: thunhap,
-                            value: sotien,
-                            type: typeObj
-                        ));
+                        if (edit) {
+                          dataUsers[position].key = thunhap;
+                          dataUsers[position].value = sotien;
+                        } else {
+                          dataUsers.add(DataUsers(
+                              key: thunhap, value: sotien, type: typeObj));
+                        }
                       });
                       _thuNhapController.clear();
                       _soTienController.clear();
@@ -1513,8 +1562,8 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                         color: Mytheme.colorBgButtonLogin,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        "Thêm",
+                      child: Text(
+                        edit ? "Sửa" : "Thêm",
                         style: TextStyle(
                           fontSize: 16,
                           color: Mytheme.kBackgroundColor,

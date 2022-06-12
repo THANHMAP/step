@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -112,7 +111,8 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
                               primary: Mytheme.colorBgButtonLogin,
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width,
-                                  44)),
+                                  44)
+                          ),
                           child:  const Text(
                             "Tiếp tục",
                             style: TextStyle(

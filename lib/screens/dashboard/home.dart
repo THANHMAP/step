@@ -227,15 +227,49 @@ class _HomeScreenState extends State<HomeScreen> {
                         alignment: Alignment.centerRight,
                         child: Padding(
                             padding: const EdgeInsets.only(top: 66, right: 20),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: SvgPicture.asset(
-                                "assets/svg/ic_notification.svg",
+                            child: Container(
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 2, right: 4),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: SvgPicture.asset(
+                                        "assets/svg/ic_notification.svg",
+                                      ),
+                                    ),
+                                  ),
+                                  if(totalNotification > 0)...[
+                                    Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          width: 16,
+                                          height: 16,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Mytheme.kRedColor,
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              totalNotification.toString(),
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                color: Mytheme.kBackgroundColor,
+                                                fontWeight: FontWeight.w700,
+                                                fontFamily: "OpenSans-Bold",
+                                                // decoration: TextDecoration.underline,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ],
+
+                                ],
                               ),
                             )),
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(top: 60, left: 33),
                       child: Column(
@@ -253,28 +287,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Visibility(
-                              visible: !statusPermission,
-                              child: InkWell(
-                                onTap: () {
-                                  _getCurrentPosition();
-                                },
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Tải lại",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      color: Mytheme.kBackgroundColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-Semibold",
-                                    ),
+                            visible: !statusPermission,
+                            child: InkWell(
+                              onTap: () {
+                                _getCurrentPosition();
+                              },
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Tải lại",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 26,
+                                    color: Mytheme.kBackgroundColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
                                   ),
                                 ),
                               ),
-
+                            ),
                           ),
-
                           Visibility(
                             visible: statusPermission,
                             child: Row(
@@ -525,7 +557,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(10.0),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed("/webViewScreen", arguments: listBanner![_index]);
+                    Get.toNamed("/webViewScreen",
+                        arguments: listBanner![_index]);
                   },
                   child: Container(
                     height: 140.0,
@@ -540,7 +573,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: CircularProgressIndicator(
                             value: loadingProgress.expectedTotalBytes != null
                                 ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
+                                    loadingProgress.expectedTotalBytes!
                                 : null,
                           ),
                         );
@@ -548,7 +581,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-
               )
 
               // new Container(
@@ -868,6 +900,7 @@ class _HomeScreenState extends State<HomeScreen> {
       pr.hide();
       var data = ToolModel.fromJson(value);
       if (data.statusCode == 200) {
+        loadNumberNotification();
         if (mounted) {
           setState(() {
             _toolList = data.data!;
@@ -880,19 +913,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadNumberNotification() async {
-
     APIManager.getAPICallNeedToken(RemoteServices.numberNotificationURL).then(
-            (value) async {
-          pr.hide();
-          var data = NumberNotification.fromJson(value);
-          if (data.statusCode == 200) {
-            setState(() {
-              totalNotification = data.data?.total ?? 0;
-            });
-          }
-        }, onError: (error) async {
+        (value) async {
+      pr.hide();
+      var data = NumberNotification.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          totalNotification = data.data?.total ?? 0;
+        });
+      }
+    }, onError: (error) async {
       Utils.showError(error.toString(), context);
     });
   }
-
 }
