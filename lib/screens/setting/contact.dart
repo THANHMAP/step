@@ -43,7 +43,7 @@ class _ContactScreenState extends State<ContactScreen> {
   int currentContactId = 0;
   bool selectCity = true;
 
-  List<String> creditList = ["Ngân hàng", "Quỹ tín dụng"];
+  List<String> creditList = ["Ngân hàng hợp tác xã", "Quỹ tín dụng"];
   int currentCreditIndex = 1;
 
   // provider

@@ -972,6 +972,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     }
 
     if(statusNoAnswer) {
+      _numOfCorrectAns++;
       for (var i = 0; i < data.length; i++) {
         for (var ii = 0; ii < _listAnswers.length; ii++) {
           if (data[i].id == _listAnswers[ii].id) {
@@ -1000,7 +1001,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     }
 
 
-    if (_listAnswers.length == 1) {
+    if (_listAnswers.length == 1 && !statusNoAnswer) {
       status = false;
     }
 

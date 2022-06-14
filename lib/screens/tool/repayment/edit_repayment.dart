@@ -63,6 +63,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   String userId = Get.arguments.toString();
   bool showEdit = false;
   String currentDate = "";
+  String dayRepaymentDate = "";
   String nextRepaymentDate = "";
 
   @override
@@ -255,7 +256,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                                     Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        formatDay(),
+                                        dayRepaymentDate,
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 16,
@@ -981,7 +982,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
 
 
 
-  String formatDay() {
+  formatDay() {
     if(dateFirst.isNotEmpty) {
       var dates = dateFirst.replaceAll("/", "-").split("-");
       var date = int.parse(dates[0]);
@@ -991,15 +992,19 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       var tempMonth = "";
       if(date < 10) {
         tempDate = "0${date}";
+      } else {
+        tempDate = "$date";
       }
 
       if(month < 10) {
         tempMonth = "0${month}";
+      } else {
+        tempMonth = "${month}";
       }
-
-      return "${tempDate}-${tempMonth}-${year}";
+      setState(() {
+        dayRepaymentDate = "${tempDate}-${tempMonth}-${year}";
+      });
     }
-    return "";
   }
 
   String getNameRepayment(int index) {
@@ -1051,6 +1056,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
             } else if (dataUsers[i].key == "repayment_day") {
               dateFirst = dataUsers[i].value.toString();
               currentDate = dateFirst;
+              formatDay();
             } else if (dataUsers[i].key == "repayment_number_day") {
               _numberDayController.text = dataUsers[i].value.toString();
             }

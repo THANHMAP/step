@@ -460,10 +460,14 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
       var tempMonth = "";
       if(date < 10) {
         tempDate = "0${date}";
+      } else {
+        tempDate = "$date";
       }
 
       if(month < 10) {
         tempMonth = "0${month}";
+      } else {
+        tempMonth = "${month}";
       }
 
       return "${tempDate}-${tempMonth}-${year}";
