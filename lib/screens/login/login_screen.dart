@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -12,6 +13,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/dialog_nomal.dart';
@@ -407,36 +409,101 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(StringText.text_login_different),
                         ],
                       ),
-                      if (Platform.isAndroid) ...[
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon:
-                                  Image.asset("assets/images/icon_google.png"),
-                              // tooltip: 'Increase volume by 10',
-                              iconSize: 50,
-                              onPressed: () {
-                                _handleSignIn();
-                              },
-                            ),
+
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon:
+                            Image.asset("assets/images/icon_google.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              _handleSignIn();
+                            },
+                          ),
+                          const Image(
+                            image: AssetImage('assets/images/img_col.png'),
+                            fit: BoxFit.fill,
+                            width: 2,
+                          ),
+                          IconButton(
+                            icon: Image.asset("assets/images/icon_face.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              _loginFacebook();
+                            },
+                          ),
+                          if (Platform.isIOS) ...[
                             const Image(
                               image: AssetImage('assets/images/img_col.png'),
                               fit: BoxFit.fill,
                               width: 2,
                             ),
                             IconButton(
-                              icon: Image.asset("assets/images/icon_face.png"),
+                              icon: SvgPicture.asset("assets/svg/apple-icon.svg"),
                               // tooltip: 'Increase volume by 10',
                               iconSize: 50,
-                              onPressed: () {
-                                _loginFacebook();
+                              onPressed: () async {
+                                final credential = await SignInWithApple.getAppleIDCredential(
+                                  scopes: [
+                                    AppleIDAuthorizationScopes.email,
+                                    AppleIDAuthorizationScopes.fullName,
+                                  ],
+                                  webAuthenticationOptions: WebAuthenticationOptions(
+                                    // TODO: Set the `clientId` and `redirectUri` arguments to the values you entered in the Apple Developer portal during the setup
+                                    clientId:
+                                    'de.lunaone.flutter.signinwithappleexample.service',
+
+                                    redirectUri:
+                                    // For web your redirect URI needs to be the host of the "current page",
+                                    // while for Android you will be using the API server that redirects back into your app via a deep link
+                                    kIsWeb
+                                        ? Uri.parse('')
+                                        : Uri.parse(
+                                      'https://flutter-sign-in-with-apple-example.glitch.me/callbacks/sign_in_with_apple',
+                                    ),
+                                  ),
+                                  // TODO: Remove these if you have no need for them
+                                  nonce: 'example-nonce',
+                                  state: 'example-state',
+                                );
+                                // ignore: avoid_print
+                                print(credential);
+                                final signInWithAppleEndpoint = Uri(
+                                  scheme: 'https',
+                                  host: 'flutter-sign-in-with-apple-example.glitch.me',
+                                  path: '/sign_in_with_apple',
+                                  queryParameters: <String, String>{
+                                    'code': credential.authorizationCode,
+                                    if (credential.givenName != null)
+                                      'firstName': credential.givenName!,
+                                    if (credential.familyName != null)
+                                      'lastName': credential.familyName!,
+                                    'useBundleId':
+                                    !kIsWeb && (Platform.isIOS || Platform.isMacOS)
+                                        ? 'true'
+                                        : 'false',
+                                    if (credential.state != null) 'state': credential.state!,
+                                  },
+                                );
+                                final session = await http.Client().post(
+                                  signInWithAppleEndpoint,
+                                );
+
+                                // If we got this far, a session based on the Apple ID credential has been created in your system,
+                                // and you can now set this as the app's session
+                                // ignore: avoid_print
+                                print(session);
                               },
                             ),
                           ],
-                        ),
-                      ],
+
+                        ],
+                      ),
+
 
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
