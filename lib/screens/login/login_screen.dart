@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -12,11 +13,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
-import 'package:step_bank/compoment/button_wiget_border.dart';
-import 'package:step_bank/compoment/dialog_nomal.dart';
 import 'package:step_bank/compoment/textfield_widget.dart';
 import 'package:step_bank/models/login_model.dart';
 import 'package:step_bank/service/api_manager.dart';
@@ -27,6 +26,7 @@ import 'package:step_bank/util.dart';
 import 'package:http/http.dart' as http;
 import '../../models/biometrics_model.dart';
 import '../../themes.dart';
+import 'authentication_provider.dart';
 
 enum _SupportState {
   unknown,
@@ -112,7 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     _checkBiometrics();
     _getAvailableBiometrics();
-
+    final firebaseUser = context.watch<User>();
+    if(firebaseUser != null) {
+      print(firebaseUser.email);
+    }
     // loadData();
   }
 
@@ -241,324 +244,296 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        backgroundColor: Mytheme.kBackgroundColor,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 0, right: 0),
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 246,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/head_login.png"),
-                      fit: BoxFit.cover,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => AuthenticationProvider(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (BuildContext context) {
+            return context.read<AuthenticationProvider>().authStateChanges;
+          }, initialData: null,
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.deepOrange,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            backgroundColor: Mytheme.kBackgroundColor,
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 0, right: 0),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 246,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/head_login.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          StringText.text_phone,
-                          textAlign: TextAlign.left,
-                          style: Mytheme.textSubTitle,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        height: 56,
-                        child: TextFieldWidget(
-                            textAlign: true,
-                            maxLines: 1,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            textInputAction: TextInputAction.next,
-                            obscureText: false,
-                            hintText: StringText.text_phone_input,
-                            // labelText: "Phone number",
-                            // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                            suffixIcon: Icons.close,
-                            clickSuffixIcon: () => _phoneController.clear(),
-                            textController: _phoneController),
-                      ),
-                      const SizedBox(height: 20),
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          StringText.text_password,
-                          textAlign: TextAlign.left,
-                          style: Mytheme.textSubTitle,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+                      child: Column(
+                        // mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Expanded(
-                              flex: 6,
-                              child: Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: SizedBox(
-                                    height: 56,
-                                    child: TextFieldWidget(
-                                        textAlign: true,
-                                        maxLines: 1,
-                                        obscureText: isPasswordVisible,
-                                        hintText:
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              StringText.text_phone,
+                              textAlign: TextAlign.left,
+                              style: Mytheme.textSubTitle,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            height: 56,
+                            child: TextFieldWidget(
+                                textAlign: true,
+                                maxLines: 1,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                textInputAction: TextInputAction.next,
+                                obscureText: false,
+                                hintText: StringText.text_phone_input,
+                                // labelText: "Phone number",
+                                // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                suffixIcon: Icons.close,
+                                clickSuffixIcon: () => _phoneController.clear(),
+                                textController: _phoneController),
+                          ),
+                          const SizedBox(height: 20),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              StringText.text_password,
+                              textAlign: TextAlign.left,
+                              style: Mytheme.textSubTitle,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                  flex: 6,
+                                  child: Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: SizedBox(
+                                        height: 56,
+                                        child: TextFieldWidget(
+                                            textAlign: true,
+                                            maxLines: 1,
+                                            obscureText: isPasswordVisible,
+                                            hintText:
                                             StringText.text_password_input,
-                                        // labelText: 'Password',
-                                        // prefixIcon:
-                                        // const Icon(Icons.person, color: Colors.grey),
-                                        textInputAction: TextInputAction.done,
-                                        suffixIcon: isPasswordVisible
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        clickSuffixIcon: () {
-                                          setState(() {
-                                            isPasswordVisible =
+                                            // labelText: 'Password',
+                                            // prefixIcon:
+                                            // const Icon(Icons.person, color: Colors.grey),
+                                            textInputAction: TextInputAction.done,
+                                            suffixIcon: isPasswordVisible
+                                                ? Icons.visibility_off
+                                                : Icons.visibility,
+                                            clickSuffixIcon: () {
+                                              setState(() {
+                                                isPasswordVisible =
                                                 !isPasswordVisible;
-                                          });
-                                        },
-                                        textController: _passwordController),
-                                  ))),
-                          Expanded(
-                            flex: 1,
-                            child: InkWell(
-                              onTap: () {
-                                if (_isFingerprint && _canCheckBiometrics) {
-                                  checkBiometrics();
-                                } else {
-                                  Utils.showAlertDialogOneButton(context,
-                                      "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
-                                }
-                              },
-                              child: Stack(
-                                children: <Widget>[
-                                  Container(
-                                    height: 44,
-                                    width: 44,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/bg_fingerprint.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 8, left: 8, bottom: 8, right: 12),
-                                    child: Container(
-                                      height: 24,
-                                      width: 27,
-                                      decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/fingerprint.png"),
-                                          fit: BoxFit.fill,
+                                              });
+                                            },
+                                            textController: _passwordController),
+                                      ))),
+                              Expanded(
+                                flex: 1,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (_isFingerprint && _canCheckBiometrics) {
+                                      checkBiometrics();
+                                    } else {
+                                      Utils.showAlertDialogOneButton(context,
+                                          "Điện thoại không hỗ trợ hoặc chưa bật chức năng này trong cài đặt");
+                                    }
+                                  },
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 44,
+                                        width: 44,
+                                        decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                "assets/images/bg_fingerprint.png"),
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 8, left: 8, bottom: 8, right: 12),
+                                        child: Container(
+                                          height: 24,
+                                          width: 27,
+                                          decoration: const BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/fingerprint.png"),
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Get.toNamed('/forgotPassword');
-                          },
-                          child: const Text(
-                            StringText.text_forgot_password,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Mytheme.colorBgButtonLogin,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "OpenSans-Regular",
-                              decoration: TextDecoration.underline,
-                            ),
-                          )),
-                      const SizedBox(height: 10),
-                      ButtonWidget(
-                          text: StringText.text_login,
-                          color: Mytheme.colorBgButtonLogin,
-                          onClicked: () => doLogin()),
-                      // const SizedBox(height: 10),
-                      // ButtonWidgetBorder(
-                      //     text: StringText.text_try,
-                      //     color: Mytheme.kBackgroundColor,
-                      //     onClicked: () => {}),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(StringText.text_login_different),
-                        ],
-                      ),
-
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            icon:
-                            Image.asset("assets/images/icon_google.png"),
-                            // tooltip: 'Increase volume by 10',
-                            iconSize: 50,
-                            onPressed: () {
-                              _handleSignIn();
-                            },
-                          ),
-                          const Image(
-                            image: AssetImage('assets/images/img_col.png'),
-                            fit: BoxFit.fill,
-                            width: 2,
-                          ),
-                          IconButton(
-                            icon: Image.asset("assets/images/icon_face.png"),
-                            // tooltip: 'Increase volume by 10',
-                            iconSize: 50,
-                            onPressed: () {
-                              _loginFacebook();
-                            },
-                          ),
-                          if (Platform.isIOS) ...[
-                            const Image(
-                              image: AssetImage('assets/images/img_col.png'),
-                              fit: BoxFit.fill,
-                              width: 2,
-                            ),
-                            IconButton(
-                              icon: SvgPicture.asset("assets/svg/apple-icon.svg"),
-                              // tooltip: 'Increase volume by 10',
-                              iconSize: 50,
-                              onPressed: () async {
-                                final credential = await SignInWithApple.getAppleIDCredential(
-                                  scopes: [
-                                    AppleIDAuthorizationScopes.email,
-                                    AppleIDAuthorizationScopes.fullName,
-                                  ],
-                                  webAuthenticationOptions: WebAuthenticationOptions(
-                                    // TODO: Set the `clientId` and `redirectUri` arguments to the values you entered in the Apple Developer portal during the setup
-                                    clientId:
-                                    'de.lunaone.flutter.signinwithappleexample.service',
-
-                                    redirectUri:
-                                    // For web your redirect URI needs to be the host of the "current page",
-                                    // while for Android you will be using the API server that redirects back into your app via a deep link
-                                    kIsWeb
-                                        ? Uri.parse('')
-                                        : Uri.parse(
-                                      'https://flutter-sign-in-with-apple-example.glitch.me/callbacks/sign_in_with_apple',
-                                    ),
-                                  ),
-                                  // TODO: Remove these if you have no need for them
-                                  nonce: 'example-nonce',
-                                  state: 'example-state',
-                                );
-                                // ignore: avoid_print
-                                print(credential);
-                                final signInWithAppleEndpoint = Uri(
-                                  scheme: 'https',
-                                  host: 'flutter-sign-in-with-apple-example.glitch.me',
-                                  path: '/sign_in_with_apple',
-                                  queryParameters: <String, String>{
-                                    'code': credential.authorizationCode,
-                                    if (credential.givenName != null)
-                                      'firstName': credential.givenName!,
-                                    if (credential.familyName != null)
-                                      'lastName': credential.familyName!,
-                                    'useBundleId':
-                                    !kIsWeb && (Platform.isIOS || Platform.isMacOS)
-                                        ? 'true'
-                                        : 'false',
-                                    if (credential.state != null) 'state': credential.state!,
-                                  },
-                                );
-                                final session = await http.Client().post(
-                                  signInWithAppleEndpoint,
-                                );
-
-                                // If we got this far, a session based on the Apple ID credential has been created in your system,
-                                // and you can now set this as the app's session
-                                // ignore: avoid_print
-                                print(session);
-                              },
-                            ),
-                          ],
-
-                        ],
-                      ),
-
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            StringText.text_no_register,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Mytheme.color_121212,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "OpenSans-Regular",
-                              // decoration: TextDecoration.underline,
-                            ),
+                            ],
                           ),
                           TextButton(
                               onPressed: () {
-                                Get.toNamed('/register');
+                                Get.toNamed('/forgotPassword');
                               },
                               child: const Text(
-                                StringText.text_register,
+                                StringText.text_forgot_password,
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
+                                  color: Mytheme.colorBgButtonLogin,
                                   fontWeight: FontWeight.w400,
                                   fontFamily: "OpenSans-Regular",
                                   decoration: TextDecoration.underline,
                                 ),
                               )),
+                          const SizedBox(height: 10),
+                          ButtonWidget(
+                              text: StringText.text_login,
+                              color: Mytheme.colorBgButtonLogin,
+                              onClicked: () => doLogin()),
+                          // const SizedBox(height: 10),
+                          // ButtonWidgetBorder(
+                          //     text: StringText.text_try,
+                          //     color: Mytheme.kBackgroundColor,
+                          //     onClicked: () => {}),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(StringText.text_login_different),
+                            ],
+                          ),
+
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                icon:
+                                Image.asset("assets/images/icon_google.png"),
+                                // tooltip: 'Increase volume by 10',
+                                iconSize: 50,
+                                onPressed: () {
+                                  _handleSignIn();
+                                },
+                              ),
+                              const Image(
+                                image: AssetImage('assets/images/img_col.png'),
+                                fit: BoxFit.fill,
+                                width: 2,
+                              ),
+                              IconButton(
+                                icon: Image.asset("assets/images/icon_face.png"),
+                                // tooltip: 'Increase volume by 10',
+                                iconSize: 50,
+                                onPressed: () {
+                                  _loginFacebook();
+                                },
+                              ),
+                              if (Platform.isIOS) ...[
+                                const Image(
+                                  image: AssetImage('assets/images/img_col.png'),
+                                  fit: BoxFit.fill,
+                                  width: 2,
+                                ),
+                                IconButton(
+                                  icon: SvgPicture.asset("assets/svg/apple-icon.svg"),
+                                  // tooltip: 'Increase volume by 10',
+                                  iconSize: 50,
+                                  onPressed: ()  {
+                                    context.read<AuthenticationProvider>().signInWithApple();
+                                  },
+                                ),
+                              ],
+
+                            ],
+                          ),
+
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                StringText.text_no_register,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.color_121212,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "OpenSans-Regular",
+                                  // decoration: TextDecoration.underline,
+                                ),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Get.toNamed('/register');
+                                  },
+                                  child: const Text(
+                                    StringText.text_register,
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorTextSubTitle,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "OpenSans-Regular",
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  )),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          const Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Image(
+                              image:
+                              AssetImage('assets/images/img_line_horizone.png'),
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Image(
+                              image: AssetImage('assets/images/img_bank.png'),
+                              fit: BoxFit.fill,
+                            ),
+                          )
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      const Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image(
-                          image:
-                              AssetImage('assets/images/img_line_horizone.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      const Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image(
-                          image: AssetImage('assets/images/img_bank.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
+        routes: {},
       ),
     );
   }
