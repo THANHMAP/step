@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "105597937164-23s3573loij9bdc0psccuo844nbkpekr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.step.bank.step_bank",
+            "certificate_hash": "a310e272faabbfc07896dfc13a00c6bcbfda2773"
+          }
+        },
+        {
           "client_id": "105597937164-di8i0u8hau0e45okmc77d47gr04ddvrf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
