@@ -435,7 +435,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _loginFacebook();
                             },
                           ),
-                          if (!Platform.isIOS) ...[
+                          if (Platform.isIOS) ...[
                             const Image(
                               image: AssetImage('assets/images/img_col.png'),
                               fit: BoxFit.fill,
