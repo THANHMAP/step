@@ -28,6 +28,8 @@ class CourseScreen extends StatefulWidget {
 class _CourseScreenState extends State<CourseScreen> {
   late ProgressDialog pr;
   List<InfoList> infoList = [];
+  List<InfoList> infoSearchList = [];
+  TextEditingController khaiNiemEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -60,6 +62,38 @@ class _CourseScreenState extends State<CourseScreen> {
                       text: "Các khái niệm cơ bản",
                       onClicked: () => Get.back(),
                     ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 20, right: 20),
+                      child: Container(
+                        child: TextField(
+                          controller: khaiNiemEditingController,
+                          decoration: InputDecoration(
+                              labelText: "Search",
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)))),
+                          onChanged: (value) {
+                            setState(() {
+                              infoSearchList.clear();
+                              // infoSearchList = searchCourseList(value);
+                              infoSearchList = infoList
+                                  .where(
+                                    (u) => (u.title
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(
+                                          value.toLowerCase(),
+                                        )),
+                                  )
+                                  .toList();
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
@@ -67,8 +101,14 @@ class _CourseScreenState extends State<CourseScreen> {
                               top: 30, left: 24, right: 24),
                           child: Column(
                             children: [
-                              for (var i = 0; i < infoList.length; i++) ...[
-                                layoutTest(i, infoList[i])
+                              if (khaiNiemEditingController.text.toString().isNotEmpty || infoSearchList.isNotEmpty) ...[
+                                for (var i = 0;
+                                    i < infoSearchList.length;
+                                    i++) ...[layoutTest(i, infoSearchList[i])],
+                              ] else ...[
+                                for (var i = 0; i < infoList.length; i++) ...[
+                                  layoutTest(i, infoList[i])
+                                ],
                               ],
                             ],
                           ),

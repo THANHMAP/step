@@ -27,6 +27,8 @@ class FAQScreen extends StatefulWidget {
 class _FAQScreenState extends State<FAQScreen> {
   late ProgressDialog pr;
   List<FAQData> faqData = [];
+  List<FAQData> faqSearchData = [];
+  TextEditingController faqEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -59,13 +61,54 @@ class _FAQScreenState extends State<FAQScreen> {
                       text: StringText.text_faq,
                       onClicked: () => Get.back(),
                     ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(top: 10, left: 20, right: 20),
+                      child: Container(
+                        child: TextField(
+                          controller: faqEditingController,
+                          decoration: InputDecoration(
+                              labelText: "Search",
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0)))),
+                          onChanged: (value) {
+                            setState(() {
+                              faqSearchData.clear();
+                              // infoSearchList = searchCourseList(value);
+                              faqSearchData = faqData
+                                  .where(
+                                    (u) => (u.question
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(
+                                  value.toLowerCase(),
+                                )),
+                              )
+                                  .toList();
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
                           child: Column(
                             children: [
-                              for (var i = 0; i < faqData.length; i++) ...[layoutFAQ(i, faqData[i])],
+                              if (faqEditingController.text.toString().isNotEmpty || faqSearchData.isNotEmpty) ...[
+                                for (var i = 0;
+                                i < faqSearchData.length;
+                                i++) ...[layoutFAQ(i, faqSearchData[i])],
+                              ] else ...[
+                                for (var i = 0; i < faqData.length; i++) ...[
+                                  layoutFAQ(i, faqData[i])
+                                ],
+                              ],
+                              // for (var i = 0; i < faqData.length; i++) ...[layoutFAQ(i, faqData[i])],
                             ],
                           ),
                         ),
