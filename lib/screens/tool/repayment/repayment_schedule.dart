@@ -87,54 +87,57 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: data?.name,
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      headerLayout(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 0, left: 16, right: 16, bottom: 0),
-                              child: Column(
-                                children: [
-                                  layoutCourse(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // layoutCourse(),
-                    ],
-                  ),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: data?.name,
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
                 ),
-              ),
-            )
-          ],
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          headerLayout(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 0, left: 16, right: 16, bottom: 0),
+                                  child: Column(
+                                    children: [
+                                      layoutCourse(),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          // layoutCourse(),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      ),
     );
   }
 

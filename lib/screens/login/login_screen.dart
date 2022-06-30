@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Scaffold(

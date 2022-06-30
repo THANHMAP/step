@@ -61,267 +61,270 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: Constants.nameCourseTemp,
-                onClicked: () => Get.back(),
-              ),
-              Expanded(
-                flex: 11,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
-                        child: Column(
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.colorBgMain,
+              body: Column(
+                children: <Widget>[
+                  AppbarWidget(
+                    text: Constants.nameCourseTemp,
+                    onClicked: () => Get.back(),
+                  ),
+                  Expanded(
+                    flex: 11,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, left: 0, right: 0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 16),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        _lessonData?.name.toString() ?? "",
+                                        style: const TextStyle(
+                                          fontSize: 24,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-SemiBold",
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      CachedNetworkImage(
+                                        imageUrl: _lessonData?.thumbnail.toString() ?? "",
+                                        placeholder: (context, url) => const CircularProgressIndicator(),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectDefault = true;
+                                          });
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Nội dung",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectDefault = false;
+                                          });
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Tài liệu",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                          child: Divider(
+                                            thickness: 2,
+                                            color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                          child: Divider(
+                                            thickness: 2,
+                                            color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                          )),
+                                    )
+                                  ],
+                                ),
+                                Visibility(
+                                  visible: selectDefault ? true : false,
+                                  child: Column(
+                                    children: [
+                                      if (_studyData.isNotEmpty) ...[
+                                        for (var i = 0; i < _studyData.length; i++) ...[
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                                            child: CardContentTopicWidget(
+                                              title: _studyData[i].name,
+                                              type: _studyData[i].type,
+                                              hideImageRight: true,
+                                              onClicked: () {
+                                                trackingLesson(_studyData[i].id ?? 0);
+                                                // _studyData[i].nameCourse = _lessonData?.nameCourse;
+                                                _studyData[i].exerciseData = _exerciseData;
+                                                if (_studyData[i].type == 5) {
+                                                  Get.toNamed('/homeQuizScreen', arguments: _studyData[i]);
+                                                } else if (_studyData[i].type == 2 ) {
+                                                  Get.toNamed('/videoScreen', arguments: _studyData[i]);
+                                                } else if (_studyData[i].type == 4) {
+                                                  Get.toNamed('/scromVideoScreen', arguments: _studyData[i].fileScorm);
+                                                } else if ( _studyData[i].type == 6) {
+                                                  Get.toNamed('/audioScreen', arguments: _studyData[i]);
+                                                }
+                                                else {
+                                                  // _studyData[i].nameCourse = _lessonData?.nameCourse;
+                                                  Get.toNamed('/detailEducationScreen', arguments: _studyData[i]);
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ]
+                                    ],
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: !selectDefault ? true : false,
+                                  child: Column(
+                                    children: [
+                                      if (_exerciseData.isNotEmpty) ...[
+                                        for (var i = 0; i < _exerciseData.length; i++) ...[
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                                            child: CardContentTopicWidget(
+                                              title: _exerciseData[i].name,
+                                              type: 1,
+                                              hideImageRight: false,
+                                              onClicked: () async {
+                                                downloadFile(
+                                                    _exerciseData[i].fileExercise ?? "", _exerciseData[i].name.toString(), "mp4");
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ]
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Mytheme.kBackgroundColor,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 0, left: 24, right: 24),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 0, left: 16, right: 16, bottom: 16),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    _lessonData?.name.toString() ?? "",
-                                    style: const TextStyle(
-                                      fontSize: 24,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-SemiBold",
-                                    ),
+                            Expanded(
+                                flex: 1,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        // side: const BorderSide(color: Colors.red)
+                                      ),
+                                      primary: index == 0 ? Mytheme.colorTextDivider : Mytheme.colorBgButtonLogin,
+                                      minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                                  child: Text(
+                                    "Bài trước",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: index == 0 ? Mytheme.color_0xFFA7ABC3 : Mytheme.kBackgroundColor,
+                                        fontFamily: "OpenSans-SemiBold",
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  const SizedBox(height: 10),
-                                  CachedNetworkImage(
-                                    imageUrl: _lessonData?.thumbnail.toString() ?? "",
-                                    placeholder: (context, url) => const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
+                                  onPressed: () {
+                                    if (index != 0) {
                                       setState(() {
-                                        selectDefault = true;
+                                        index = index - 1;
+                                        _lessonData = Constants.lessonListTemp![index];
+                                        loadListStudy();
                                       });
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Nội dung",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
+                                    }
+                                  },
+                                )),
+                            SizedBox(
+                              height: 100,
+                              width: 30,
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                        // side: const BorderSide(color: Colors.red)
                                       ),
-                                    ),
+                                      primary: index == Constants.lessonListTemp!.length - 1
+                                          ? Mytheme.colorTextDivider
+                                          : Mytheme.colorBgButtonLogin,
+                                      minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                                  child: Text(
+                                    StringText.text_next_lesson,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: index == Constants.lessonListTemp!.length - 1
+                                            ? Mytheme.color_0xFFA7ABC3
+                                            : Mytheme.kBackgroundColor,
+                                        fontFamily: "OpenSans-Regular",
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectDefault = false;
-                                      });
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Tài liệu",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Divider(
-                                        thickness: 2,
-                                        color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                      )),
-                                ),
-                                Expanded(
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Divider(
-                                        thickness: 2,
-                                        color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                      )),
-                                )
-                              ],
-                            ),
-                            Visibility(
-                              visible: selectDefault ? true : false,
-                              child: Column(
-                                children: [
-                                  if (_studyData.isNotEmpty) ...[
-                                    for (var i = 0; i < _studyData.length; i++) ...[
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
-                                        child: CardContentTopicWidget(
-                                          title: _studyData[i].name,
-                                          type: _studyData[i].type,
-                                          hideImageRight: true,
-                                          onClicked: () {
-                                            trackingLesson(_studyData[i].id ?? 0);
-                                            // _studyData[i].nameCourse = _lessonData?.nameCourse;
-                                            _studyData[i].exerciseData = _exerciseData;
-                                            if (_studyData[i].type == 5) {
-                                              Get.toNamed('/homeQuizScreen', arguments: _studyData[i]);
-                                            } else if (_studyData[i].type == 2 ) {
-                                              Get.toNamed('/videoScreen', arguments: _studyData[i]);
-                                            } else if (_studyData[i].type == 4) {
-                                              Get.toNamed('/scromVideoScreen', arguments: _studyData[i].fileScorm);
-                                            } else if ( _studyData[i].type == 6) {
-                                              Get.toNamed('/audioScreen', arguments: _studyData[i]);
-                                            }
-                                            else {
-                                              // _studyData[i].nameCourse = _lessonData?.nameCourse;
-                                              Get.toNamed('/detailEducationScreen', arguments: _studyData[i]);
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ]
-                                ],
-                              ),
-                            ),
-                            Visibility(
-                              visible: !selectDefault ? true : false,
-                              child: Column(
-                                children: [
-                                  if (_exerciseData.isNotEmpty) ...[
-                                    for (var i = 0; i < _exerciseData.length; i++) ...[
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
-                                        child: CardContentTopicWidget(
-                                          title: _exerciseData[i].name,
-                                          type: 1,
-                                          hideImageRight: false,
-                                          onClicked: () async {
-                                            downloadFile(
-                                                _exerciseData[i].fileExercise ?? "", _exerciseData[i].name.toString(), "mp4");
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ]
-                                ],
-                              ),
-                            ),
+                                  onPressed: () {
+                                    if (index == Constants.lessonListTemp!.length - 1) {
+                                    } else {
+                                      index = index + 1;
+                                      _lessonData = Constants.lessonListTemp![index];
+                                      loadListStudy();
+                                    }
+                                  },
+                                ))
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: Mytheme.kBackgroundColor,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 0, left: 24, right: 24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    // side: const BorderSide(color: Colors.red)
-                                  ),
-                                  primary: index == 0 ? Mytheme.colorTextDivider : Mytheme.colorBgButtonLogin,
-                                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-                              child: Text(
-                                "Bài trước",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: index == 0 ? Mytheme.color_0xFFA7ABC3 : Mytheme.kBackgroundColor,
-                                    fontFamily: "OpenSans-SemiBold",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                if (index != 0) {
-                                  setState(() {
-                                    index = index - 1;
-                                    _lessonData = Constants.lessonListTemp![index];
-                                    loadListStudy();
-                                  });
-                                }
-                              },
-                            )),
-                        SizedBox(
-                          height: 100,
-                          width: 30,
-                        ),
-                        Expanded(
-                            flex: 1,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                    // side: const BorderSide(color: Colors.red)
-                                  ),
-                                  primary: index == Constants.lessonListTemp!.length - 1
-                                      ? Mytheme.colorTextDivider
-                                      : Mytheme.colorBgButtonLogin,
-                                  minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-                              child: Text(
-                                StringText.text_next_lesson,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: index == Constants.lessonListTemp!.length - 1
-                                        ? Mytheme.color_0xFFA7ABC3
-                                        : Mytheme.kBackgroundColor,
-                                    fontFamily: "OpenSans-Regular",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                if (index == Constants.lessonListTemp!.length - 1) {
-                                } else {
-                                  index = index + 1;
-                                  _lessonData = Constants.lessonListTemp![index];
-                                  loadListStudy();
-                                }
-                              },
-                            ))
-                      ],
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   Future<void> loadListStudy() async {

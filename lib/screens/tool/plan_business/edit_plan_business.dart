@@ -103,280 +103,283 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Kế hoạch kinh doanh",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 0, left: 0, right: 0),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(imgHeader, width: 450,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, left: 16, right: 16, bottom: 10),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Kế hoạch kinh doanh",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 0, left: 0, right: 0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset(imgHeader, width: 450,),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 16, right: 16, bottom: 10),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
 
-                                        Visibility(
-                                          visible: indexPlan == 0 ? true : false,
-                                          child:  layouIndex1(),
-                                        ),
-                                        Visibility(
-                                          visible: indexPlan == 1 ? true : false,
-                                          child:  layouIndex2(),
-                                        ),
-                                        Visibility(
-                                          visible: indexPlan == 2 ? true : false,
-                                          child:  layouIndex3(),
-                                        ),
-                                        Visibility(
-                                          visible: indexPlan == 3 ? true : false,
-                                          child:  layouIndex4(),
-                                        ),
-                                        Visibility(
-                                          visible: indexPlan == 4 ? true : false,
-                                          child:  layouIndex5(),
-                                        ),
+                                            Visibility(
+                                              visible: indexPlan == 0 ? true : false,
+                                              child:  layouIndex1(),
+                                            ),
+                                            Visibility(
+                                              visible: indexPlan == 1 ? true : false,
+                                              child:  layouIndex2(),
+                                            ),
+                                            Visibility(
+                                              visible: indexPlan == 2 ? true : false,
+                                              child:  layouIndex3(),
+                                            ),
+                                            Visibility(
+                                              visible: indexPlan == 3 ? true : false,
+                                              child:  layouIndex4(),
+                                            ),
+                                            Visibility(
+                                              visible: indexPlan == 4 ? true : false,
+                                              child:  layouIndex5(),
+                                            ),
 
-                                        Container(
-                                          margin:EdgeInsets.only(top: 60),
-                                          child: Column(
-                                            children: [
-                                              Visibility(
-                                                visible: indexPlan == 0 ? false : true,
-                                                child:  InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      indexPlan = indexPlan - 1;
-                                                      imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                      alignment: Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                        const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
-                                                        child: Text(
-                                                          "Quay lại",
-                                                          style: TextStyle(
-                                                            fontSize: 16,
-                                                            color: Mytheme.color_434657,
-                                                            fontWeight: FontWeight.w600,
-                                                            fontFamily: "OpenSans-Semibold",
+                                            Container(
+                                              margin:EdgeInsets.only(top: 60),
+                                              child: Column(
+                                                children: [
+                                                  Visibility(
+                                                    visible: indexPlan == 0 ? false : true,
+                                                    child:  InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          indexPlan = indexPlan - 1;
+                                                          imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              border: Border.all(color: Mytheme.colorBgButtonLogin)
                                                           ),
-                                                        ),
-                                                      )
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      // side: const BorderSide(color: Colors.red)
+                                                          child: Padding(
+                                                            padding:
+                                                            const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                                                            child: Text(
+                                                              "Quay lại",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Mytheme.color_434657,
+                                                                fontWeight: FontWeight.w600,
+                                                                fontFamily: "OpenSans-Semibold",
+                                                              ),
+                                                            ),
+                                                          )
+                                                      ),
                                                     ),
-                                                    primary: Mytheme.colorBgButtonLogin,
-                                                    minimumSize:
-                                                    Size(MediaQuery.of(context).size.width, 44)),
-                                                child: Text(
-                                                  indexPlan == 4 ? "Lưu" :"Tiếp tục",
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontFamily: "OpenSans-Regular",
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                                onPressed: () {
-                                                  if(indexPlan < 4) {
-                                                    setState(() {
-                                                      indexPlan = indexPlan + 1;
-                                                      imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                    });
-                                                    scrollController.animateTo( //go to top of scroll
-                                                        0,  //scroll offset to go
-                                                        duration: Duration(milliseconds: 500), //duration of scroll
-                                                        curve:Curves.fastOutSlowIn //scroll type
-                                                    );
-                                                  } else {
-                                                    if(_namePlantBusinessController.text.isEmpty) {
-                                                      Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                    } else {
-                                                      UpdateDataTool updateDataTool = UpdateDataTool();
-                                                      updateDataTool.title =
-                                                          _namePlantBusinessController
-                                                              .text;
-                                                      updateDataTool
-                                                          .userToolId =
-                                                          _itemToolData?.id;
-                                                      updateDataTool.type =
-                                                      1; // 1 plan business
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          // side: const BorderSide(color: Colors.red)
+                                                        ),
+                                                        primary: Mytheme.colorBgButtonLogin,
+                                                        minimumSize:
+                                                        Size(MediaQuery.of(context).size.width, 44)),
+                                                    child: Text(
+                                                      indexPlan == 4 ? "Lưu" :"Tiếp tục",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: "OpenSans-Regular",
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
+                                                    onPressed: () {
+                                                      if(indexPlan < 4) {
+                                                        setState(() {
+                                                          indexPlan = indexPlan + 1;
+                                                          imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                        });
+                                                        scrollController.animateTo( //go to top of scroll
+                                                            0,  //scroll offset to go
+                                                            duration: Duration(milliseconds: 500), //duration of scroll
+                                                            curve:Curves.fastOutSlowIn //scroll type
+                                                        );
+                                                      } else {
+                                                        if(_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                        } else {
+                                                          UpdateDataTool updateDataTool = UpdateDataTool();
+                                                          updateDataTool.title =
+                                                              _namePlantBusinessController
+                                                                  .text;
+                                                          updateDataTool
+                                                              .userToolId =
+                                                              _itemToolData?.id;
+                                                          updateDataTool.type =
+                                                          1; // 1 plan business
 
-                                                      List<
-                                                          UpdateDataToolUsers>? listData = [
-                                                      ];
-                                                      //bạn là ai
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "ban_la_ai",
-                                                            value: _whoAreYouController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //ý tương kinh doanh
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "y_tuong_kinh_doanh",
-                                                            value: _idealPlanBusinessController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //kinh doanh cái gì
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "kinh_doanh_cai_gi",
-                                                            value: _whatBusinessController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //Khách hàng của bạn là ai
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "khach_hang_cua_ban",
-                                                            value: _khachHangCuaBanController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //Đối thủ cạnh tranh
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "doi_thu_canh_tranh",
-                                                            value: _doiThuCanhTranhController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //Thế mạnh cạnh tranh
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "the_manh_canh_tranh",
-                                                            value: _theManhCanhTranhController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //Kế hoạch bán hàng
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "ke_hoach_ban_hang",
-                                                            value: _cachTiepThiSanPhamController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //nhiệm vụ thuc hien
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "nhiem_vu_thuc_hien",
-                                                            value: _lietKeNhiemVuController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      //nguồn lực
-                                                      listData.add(
-                                                          UpdateDataToolUsers(
-                                                            key: "nguon_luc",
-                                                            value: _lietKeNguonLucController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                      for (var i = 0; i <
-                                                          dataUsers
-                                                              .length; i++) {
-                                                        if (dataUsers[i].type ==
-                                                            1 ||
-                                                            dataUsers[i].type ==
-                                                                2) {
+                                                          List<
+                                                              UpdateDataToolUsers>? listData = [
+                                                          ];
+                                                          //bạn là ai
                                                           listData.add(
                                                               UpdateDataToolUsers(
-                                                                  key: dataUsers[i]
-                                                                      .key,
-                                                                  type: dataUsers[i]
-                                                                      .type,
-                                                                  value: dataUsers[i]
-                                                                      .value
+                                                                key: "ban_la_ai",
+                                                                value: _whoAreYouController
+                                                                    .text,
+                                                                type: 0,
                                                               ));
+
+                                                          //ý tương kinh doanh
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "y_tuong_kinh_doanh",
+                                                                value: _idealPlanBusinessController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //kinh doanh cái gì
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "kinh_doanh_cai_gi",
+                                                                value: _whatBusinessController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //Khách hàng của bạn là ai
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "khach_hang_cua_ban",
+                                                                value: _khachHangCuaBanController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //Đối thủ cạnh tranh
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "doi_thu_canh_tranh",
+                                                                value: _doiThuCanhTranhController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //Thế mạnh cạnh tranh
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "the_manh_canh_tranh",
+                                                                value: _theManhCanhTranhController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //Kế hoạch bán hàng
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "ke_hoach_ban_hang",
+                                                                value: _cachTiepThiSanPhamController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //nhiệm vụ thuc hien
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "nhiem_vu_thuc_hien",
+                                                                value: _lietKeNhiemVuController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          //nguồn lực
+                                                          listData.add(
+                                                              UpdateDataToolUsers(
+                                                                key: "nguon_luc",
+                                                                value: _lietKeNguonLucController
+                                                                    .text,
+                                                                type: 0,
+                                                              ));
+
+                                                          for (var i = 0; i <
+                                                              dataUsers
+                                                                  .length; i++) {
+                                                            if (dataUsers[i].type ==
+                                                                1 ||
+                                                                dataUsers[i].type ==
+                                                                    2) {
+                                                              listData.add(
+                                                                  UpdateDataToolUsers(
+                                                                      key: dataUsers[i]
+                                                                          .key,
+                                                                      type: dataUsers[i]
+                                                                          .type,
+                                                                      value: dataUsers[i]
+                                                                          .value
+                                                                  ));
+                                                            }
+                                                          }
+                                                          updateDataTool.dataUsers =
+                                                              listData;
+                                                          saveItemTool(jsonEncode(
+                                                              updateDataTool));
                                                         }
                                                       }
-                                                      updateDataTool.dataUsers =
-                                                          listData;
-                                                      saveItemTool(jsonEncode(
-                                                          updateDataTool));
-                                                    }
-                                                  }
 
-                                                },
+                                                    },
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+
+
+                                      //
+
+                                    ],
                                   ),
+                                ),
 
-
-                                  //
-
-                                ],
-                              ),
+                              ],
                             ),
-
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
 
-          ],
+              ],
+            ),
+          ),
         ),
-      ),
     );
   }
 

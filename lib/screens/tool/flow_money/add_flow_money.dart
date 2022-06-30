@@ -75,179 +75,181 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Theo dõi dòng tiền",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              flex: 8,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, left: 24, right: 24),
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Tên sổ ghi chép dòng tiền",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Theo dõi dòng tiền",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  flex: 8,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 30, left: 24, right: 24),
+                                  child: Column(
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Tên sổ ghi chép dòng tiền",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  SizedBox(
-                                    child: TextFieldWidget(
-                                        keyboardType: TextInputType.text,
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter
-                                              .singleLineFormatter
-                                        ],
-                                        textInputAction: TextInputAction.done,
-                                        obscureText: false,
-                                        hintText: "Nhập tên sổ ghi chép",
-                                        // labelText: "Phone number",
-                                        // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                        suffixIcon: Icons.close,
-                                        clickSuffixIcon: () =>
-                                            _nameSaveController.clear(),
-                                        textController: _nameSaveController),
-                                  ),
-                                  //
-                                  // const SizedBox(height: 10),
-                                  // const Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: Text(
-                                  //     "Số tiền bạn muốn tiết kiệm",
-                                  //     textAlign: TextAlign.left,
-                                  //     style: const TextStyle(
-                                  //       fontSize: 16,
-                                  //       color: Mytheme.colorTextSubTitle,
-                                  //       fontWeight: FontWeight.w600,
-                                  //       fontFamily: "OpenSans-SemiBold",
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // const SizedBox(height: 10),
-                                  // TextField(
-                                  //   keyboardType: TextInputType.number,
-                                  //   inputFormatters: <TextInputFormatter>[
-                                  //     FilteringTextInputFormatter.digitsOnly
-                                  //   ],
-                                  //   obscureText: false,
-                                  //   controller: _moneyWantSaveController,
-                                  //   enabled: true,
-                                  //   textInputAction: TextInputAction.done,
-                                  //   textAlignVertical: TextAlignVertical.center,
-                                  //   decoration: InputDecoration(
-                                  //       fillColor: const Color(0xFFEFF0FB), filled: true,
-                                  //       hintText: "Nhập số tiền",
-                                  //       hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                  //       // labelText: labelText,
-                                  //
-                                  //       suffixIcon: IconButton(
-                                  //           onPressed: (){},
-                                  //           icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
-                                  //       ),
-                                  //       enabledBorder:  OutlineInputBorder(
-                                  //           borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                  //           borderRadius: BorderRadius.circular(14)),
-                                  //
-                                  //       focusedBorder: OutlineInputBorder(
-                                  //           borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                  //           borderRadius: BorderRadius.circular(14))),
-                                  //   onChanged: (value) {
-                                  //     value = '${formNum(
-                                  //       value.replaceAll(',', ''),
-                                  //     )}';
-                                  //     _moneyWantSaveController.value = TextEditingValue(
-                                  //       text: value,
-                                  //       selection: TextSelection.collapsed(
-                                  //         offset: value.length,
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  // ),
-                                  //
-                                  // const SizedBox(height: 10),
-                                  // const Align(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   child: Text(
-                                  //     "Số tiền bạn đang có",
-                                  //     textAlign: TextAlign.left,
-                                  //     style: const TextStyle(
-                                  //       fontSize: 16,
-                                  //       color: Mytheme.colorTextSubTitle,
-                                  //       fontWeight: FontWeight.w600,
-                                  //       fontFamily: "OpenSans-SemiBold",
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  // const SizedBox(height: 10),
-                                  // TextField(
-                                  //   keyboardType: TextInputType.number,
-                                  //   inputFormatters: <TextInputFormatter>[
-                                  //     FilteringTextInputFormatter.digitsOnly
-                                  //   ],
-                                  //   obscureText: false,
-                                  //   controller: _numberHasController,
-                                  //   enabled: true,
-                                  //   textInputAction: TextInputAction.done,
-                                  //   textAlignVertical: TextAlignVertical.center,
-                                  //   decoration: InputDecoration(
-                                  //       fillColor: const Color(0xFFEFF0FB), filled: true,
-                                  //       hintText: "Nhập số tiền",
-                                  //       hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                  //       // labelText: labelText,
-                                  //
-                                  //       suffixIcon: IconButton(
-                                  //           onPressed: (){},
-                                  //           icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
-                                  //       ),
-                                  //       enabledBorder:  OutlineInputBorder(
-                                  //           borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                  //           borderRadius: BorderRadius.circular(14)),
-                                  //
-                                  //       focusedBorder: OutlineInputBorder(
-                                  //           borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                  //           borderRadius: BorderRadius.circular(14))),
-                                  //   onChanged: (value) {
-                                  //     value = '${formNum(
-                                  //       value.replaceAll(',', ''),
-                                  //     )}';
-                                  //     _numberHasController.value = TextEditingValue(
-                                  //       text: value,
-                                  //       selection: TextSelection.collapsed(
-                                  //         offset: value.length,
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  // ),
+                                      const SizedBox(height: 10),
+                                      SizedBox(
+                                        child: TextFieldWidget(
+                                            keyboardType: TextInputType.text,
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .singleLineFormatter
+                                            ],
+                                            textInputAction: TextInputAction.done,
+                                            obscureText: false,
+                                            hintText: "Nhập tên sổ ghi chép",
+                                            // labelText: "Phone number",
+                                            // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                            suffixIcon: Icons.close,
+                                            clickSuffixIcon: () =>
+                                                _nameSaveController.clear(),
+                                            textController: _nameSaveController),
+                                      ),
+                                      //
+                                      // const SizedBox(height: 10),
+                                      // const Align(
+                                      //   alignment: Alignment.centerLeft,
+                                      //   child: Text(
+                                      //     "Số tiền bạn muốn tiết kiệm",
+                                      //     textAlign: TextAlign.left,
+                                      //     style: const TextStyle(
+                                      //       fontSize: 16,
+                                      //       color: Mytheme.colorTextSubTitle,
+                                      //       fontWeight: FontWeight.w600,
+                                      //       fontFamily: "OpenSans-SemiBold",
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(height: 10),
+                                      // TextField(
+                                      //   keyboardType: TextInputType.number,
+                                      //   inputFormatters: <TextInputFormatter>[
+                                      //     FilteringTextInputFormatter.digitsOnly
+                                      //   ],
+                                      //   obscureText: false,
+                                      //   controller: _moneyWantSaveController,
+                                      //   enabled: true,
+                                      //   textInputAction: TextInputAction.done,
+                                      //   textAlignVertical: TextAlignVertical.center,
+                                      //   decoration: InputDecoration(
+                                      //       fillColor: const Color(0xFFEFF0FB), filled: true,
+                                      //       hintText: "Nhập số tiền",
+                                      //       hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                      //       // labelText: labelText,
+                                      //
+                                      //       suffixIcon: IconButton(
+                                      //           onPressed: (){},
+                                      //           icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
+                                      //       ),
+                                      //       enabledBorder:  OutlineInputBorder(
+                                      //           borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                      //           borderRadius: BorderRadius.circular(14)),
+                                      //
+                                      //       focusedBorder: OutlineInputBorder(
+                                      //           borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                      //           borderRadius: BorderRadius.circular(14))),
+                                      //   onChanged: (value) {
+                                      //     value = '${formNum(
+                                      //       value.replaceAll(',', ''),
+                                      //     )}';
+                                      //     _moneyWantSaveController.value = TextEditingValue(
+                                      //       text: value,
+                                      //       selection: TextSelection.collapsed(
+                                      //         offset: value.length,
+                                      //       ),
+                                      //     );
+                                      //   },
+                                      // ),
+                                      //
+                                      // const SizedBox(height: 10),
+                                      // const Align(
+                                      //   alignment: Alignment.centerLeft,
+                                      //   child: Text(
+                                      //     "Số tiền bạn đang có",
+                                      //     textAlign: TextAlign.left,
+                                      //     style: const TextStyle(
+                                      //       fontSize: 16,
+                                      //       color: Mytheme.colorTextSubTitle,
+                                      //       fontWeight: FontWeight.w600,
+                                      //       fontFamily: "OpenSans-SemiBold",
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      // const SizedBox(height: 10),
+                                      // TextField(
+                                      //   keyboardType: TextInputType.number,
+                                      //   inputFormatters: <TextInputFormatter>[
+                                      //     FilteringTextInputFormatter.digitsOnly
+                                      //   ],
+                                      //   obscureText: false,
+                                      //   controller: _numberHasController,
+                                      //   enabled: true,
+                                      //   textInputAction: TextInputAction.done,
+                                      //   textAlignVertical: TextAlignVertical.center,
+                                      //   decoration: InputDecoration(
+                                      //       fillColor: const Color(0xFFEFF0FB), filled: true,
+                                      //       hintText: "Nhập số tiền",
+                                      //       hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                      //       // labelText: labelText,
+                                      //
+                                      //       suffixIcon: IconButton(
+                                      //           onPressed: (){},
+                                      //           icon: SvgPicture.asset("assets/svg/ic_vnd.svg")
+                                      //       ),
+                                      //       enabledBorder:  OutlineInputBorder(
+                                      //           borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                      //           borderRadius: BorderRadius.circular(14)),
+                                      //
+                                      //       focusedBorder: OutlineInputBorder(
+                                      //           borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                      //           borderRadius: BorderRadius.circular(14))),
+                                      //   onChanged: (value) {
+                                      //     value = '${formNum(
+                                      //       value.replaceAll(',', ''),
+                                      //     )}';
+                                      //     _numberHasController.value = TextEditingValue(
+                                      //       text: value,
+                                      //       selection: TextSelection.collapsed(
+                                      //         offset: value.length,
+                                      //       ),
+                                      //     );
+                                      //   },
+                                      // ),
 
-                                  //
+                                      //
 //                                   const SizedBox(height: 10),
 //                                   Row(
 //                                     children: [
@@ -599,94 +601,95 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
 //                                     ),
 //
 //                                   ),
-                                ],
-                              ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 20, left: 24, right: 24),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          // side: const BorderSide(color: Colors.red)
-                        ),
-                        primary: Mytheme.colorBgButtonLogin,
-                        minimumSize:
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 20, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize:
                             Size(MediaQuery.of(context).size.width, 44)),
-                    child: Text(
-                      "Lưu",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: "OpenSans-Regular",
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      // showDialogSuccess();
-                      if (_nameSaveController.text.isEmpty) {
-                        Utils.showError(
-                            "Bạn chưa nhập tên của sổ ghi chép", context);
-                      } else {
-                        StoreDataTool storeDataTool = StoreDataTool();
-                        storeDataTool.title = _nameSaveController.text;
-                        storeDataTool.toolId = data.id;
-                        storeDataTool.type = 1;
-                        //
-                        //so tien bạn muốn tiết kiệm
-                        // dataUsers.add(DataUsers(
-                        //   key: "money_want_save",
-                        //   value: _moneyWantSaveController.text.replaceAll(',', ''),
-                        //   type: 1,
-                        // ));
-                        //
-                        //so tien bạn có
-                        dataUsers.add(DataUsers(
-                          key: "money_has",
-                          // value: _numberHasController.text.replaceAll(',', ''),
-                          value: "0",
-                          type: 2,
-                        ));
-                        //
-                        // //ngày bắt dầu
-                        // dataUsers.add(DataUsers(
-                        //   key: "day_start",
-                        //   value: dateFirst,
-                        //   type: 3,
-                        // ));
-                        // //ngày kết thúc
-                        // dataUsers.add(DataUsers(
-                        //   key: "day_end",
-                        //   value: dateEnd,
-                        //   type: 4,
-                        // ));
-                        // //
-                        // //tần suất tiet kiem
-                        // dataUsers.add(DataUsers(
-                        //   key: "repayment_cycle",
-                        //   value: _numberWeekController.text,
-                        //   type: 5,
-                        // ));
-                        // //
-                        storeDataTool.dataUsers = dataUsers;
-                        print(jsonEncode(storeDataTool));
-                        saveItemTool(jsonEncode(storeDataTool));
-                      }
-                    },
-                  )),
+                        child: Text(
+                          "Lưu",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          // showDialogSuccess();
+                          if (_nameSaveController.text.isEmpty) {
+                            Utils.showError(
+                                "Bạn chưa nhập tên của sổ ghi chép", context);
+                          } else {
+                            StoreDataTool storeDataTool = StoreDataTool();
+                            storeDataTool.title = _nameSaveController.text;
+                            storeDataTool.toolId = data.id;
+                            storeDataTool.type = 1;
+                            //
+                            //so tien bạn muốn tiết kiệm
+                            // dataUsers.add(DataUsers(
+                            //   key: "money_want_save",
+                            //   value: _moneyWantSaveController.text.replaceAll(',', ''),
+                            //   type: 1,
+                            // ));
+                            //
+                            //so tien bạn có
+                            dataUsers.add(DataUsers(
+                              key: "money_has",
+                              // value: _numberHasController.text.replaceAll(',', ''),
+                              value: "0",
+                              type: 2,
+                            ));
+                            //
+                            // //ngày bắt dầu
+                            // dataUsers.add(DataUsers(
+                            //   key: "day_start",
+                            //   value: dateFirst,
+                            //   type: 3,
+                            // ));
+                            // //ngày kết thúc
+                            // dataUsers.add(DataUsers(
+                            //   key: "day_end",
+                            //   value: dateEnd,
+                            //   type: 4,
+                            // ));
+                            // //
+                            // //tần suất tiet kiem
+                            // dataUsers.add(DataUsers(
+                            //   key: "repayment_cycle",
+                            //   value: _numberWeekController.text,
+                            //   type: 5,
+                            // ));
+                            // //
+                            storeDataTool.dataUsers = dataUsers;
+                            print(jsonEncode(storeDataTool));
+                            saveItemTool(jsonEncode(storeDataTool));
+                          }
+                        },
+                      )),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

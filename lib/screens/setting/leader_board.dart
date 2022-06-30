@@ -41,73 +41,76 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Bảng xếp hạng",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              flex: 8,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      for(var i = 0; i < dataLeaderBoard.length; i++)...[
-                        ItemLeaderBoardWidget(
-                          name: dataLeaderBoard[i].name,
-                          numberStt: i + 1,
-                          avatar: dataLeaderBoard[i].avatar,
-                          score: dataLeaderBoard[i].score??0,
-                          onClicked: () {
-                          },
-                        ),
-                      ]
-
-                    ],
-                  ),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Bảng xếp hạng",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
                 ),
-              ),
-            ),
+                Expanded(
+                  flex: 8,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          for(var i = 0; i < dataLeaderBoard.length; i++)...[
+                            ItemLeaderBoardWidget(
+                              name: dataLeaderBoard[i].name,
+                              numberStt: i + 1,
+                              avatar: dataLeaderBoard[i].avatar,
+                              score: dataLeaderBoard[i].score??0,
+                              onClicked: () {
+                              },
+                            ),
+                          ]
 
-            if(dataPosition != null) ...[
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ItemLeaderPositionBoardWidget(
-                        name: dataPosition?.name,
-                        numberStt: dataPosition?.position,
-                        avatar: dataPosition?.avatar,
-                        score: dataPosition?.score??0,
-                        onClicked: () {
-
-                        },
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+
+                if(dataPosition != null) ...[
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          ItemLeaderPositionBoardWidget(
+                            name: dataPosition?.name,
+                            numberStt: dataPosition?.position,
+                            avatar: dataPosition?.avatar,
+                            score: dataPosition?.score??0,
+                            onClicked: () {
+
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
 
 
-          ],
+              ],
+            ),
+          ),
         ),
-      ),
     );
   }
 

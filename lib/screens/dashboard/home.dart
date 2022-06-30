@@ -208,171 +208,174 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Scaffold(
-        backgroundColor: Mytheme.colorBgMain,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 90),
-            child: Column(
-              children: [
-                Stack(
-                  children: <Widget>[
-                    headerLayout(),
-                    InkWell(
-                      onTap: () {
-                        Get.toNamed("/notificationScreen");
-                      },
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                            padding: const EdgeInsets.only(top: 66, right: 20),
-                            child: Container(
-                              child: Stack(
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+        child: Scaffold(
+          backgroundColor: Mytheme.colorBgMain,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 90),
+              child: Column(
+                children: [
+                  Stack(
+                    children: <Widget>[
+                      headerLayout(),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed("/notificationScreen");
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                              padding: const EdgeInsets.only(top: 66, right: 20),
+                              child: Container(
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 2, right: 4),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: SvgPicture.asset(
+                                          "assets/svg/ic_notification.svg",
+                                        ),
+                                      ),
+                                    ),
+                                    if(totalNotification > 0)...[
+                                      Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            width: 16,
+                                            height: 16,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Mytheme.kRedColor,
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                totalNotification.toString(),
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Mytheme.kBackgroundColor,
+                                                  fontWeight: FontWeight.w700,
+                                                  fontFamily: "OpenSans-Bold",
+                                                  // decoration: TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ),
+                                          )),
+                                    ],
+
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 60, left: 33),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding:
+                                const EdgeInsets.only(bottom: 27, right: 0),
+                                child: SvgPicture.asset(
+                                  "assets/svg/ic_logo_notext.svg",
+                                  width: 70,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: !statusPermission,
+                              child: InkWell(
+                                onTap: () {
+                                  _getCurrentPosition();
+                                },
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Tải lại",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 26,
+                                      color: Mytheme.kBackgroundColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-Semibold",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: statusPermission,
+                              child: Row(
                                 children: [
+                                  Text(
+                                      _data.isNotEmpty
+                                          ? _data[0]
+                                          .tempMax!
+                                          .celsius!
+                                          .round()
+                                          .toString()
+                                          : "34",
+                                      style: GoogleFonts.manrope(
+                                          fontSize: 36,
+                                          fontWeight: FontWeight.w300,
+                                          color: textColorNhietDo)),
                                   Padding(
-                                    padding: EdgeInsets.only(top: 2, right: 4),
+                                    padding: const EdgeInsets.only(bottom: 8),
                                     child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: SvgPicture.asset(
-                                        "assets/svg/ic_notification.svg",
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        "0",
+                                        style: GoogleFonts.manrope(
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.w300,
+                                            color: textColorNhietDo),
                                       ),
                                     ),
                                   ),
-                                  if(totalNotification > 0)...[
-                                    Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Container(
-                                          width: 16,
-                                          height: 16,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Mytheme.kRedColor,
-                                          ),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              totalNotification.toString(),
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: Mytheme.kBackgroundColor,
-                                                fontWeight: FontWeight.w700,
-                                                fontFamily: "OpenSans-Bold",
-                                                // decoration: TextDecoration.underline,
-                                              ),
-                                            ),
-                                          ),
-                                        )),
-                                  ],
-
-                                ],
-                              ),
-                            )),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60, left: 33),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 27, right: 0),
-                              child: SvgPicture.asset(
-                                "assets/svg/ic_logo_notext.svg",
-                                width: 70,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: !statusPermission,
-                            child: InkWell(
-                              onTap: () {
-                                _getCurrentPosition();
-                              },
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Tải lại",
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    color: Mytheme.kBackgroundColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: statusPermission,
-                            child: Row(
-                              children: [
-                                Text(
-                                    _data.isNotEmpty
-                                        ? _data[0]
-                                            .tempMax!
-                                            .celsius!
-                                            .round()
-                                            .toString()
-                                        : "34",
+                                  Text(
+                                    "C",
                                     style: GoogleFonts.manrope(
                                         fontSize: 36,
                                         fontWeight: FontWeight.w300,
-                                        color: textColorNhietDo)),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Text(
-                                      "0",
-                                      style: GoogleFonts.manrope(
-                                          fontSize: 26,
-                                          fontWeight: FontWeight.w300,
-                                          color: textColorNhietDo),
+                                        color: textColorNhietDo),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 15, left: 7),
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        statusWeather,
+                                        style: GoogleFonts.manrope(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w300,
+                                            color: textColorNhietDo),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  "C",
-                                  style: GoogleFonts.manrope(
-                                      fontSize: 36,
-                                      fontWeight: FontWeight.w300,
-                                      color: textColorNhietDo),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 15, left: 7),
-                                  child: Align(
-                                    alignment: Alignment.topCenter,
-                                    child: Text(
-                                      statusWeather,
-                                      style: GoogleFonts.manrope(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w300,
-                                          color: textColorNhietDo),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                toolLayout(),
-                const SizedBox(height: 20),
-                hoctapLayout(),
-                const SizedBox(height: 20),
-                viewPager(),
-                const SizedBox(height: 20),
-                newsLayout(),
-              ],
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  toolLayout(),
+                  const SizedBox(height: 20),
+                  hoctapLayout(),
+                  const SizedBox(height: 20),
+                  viewPager(),
+                  const SizedBox(height: 20),
+                  newsLayout(),
+                ],
+              ),
             ),
           ),
         ),

@@ -84,1108 +84,1111 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Tính toán khoản vay",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-                // if(displayCalculation) {
-                //   setState(() {
-                //     displayCalculation = false;
-                //   });
-                // } else {
-                //   Navigator.of(context).pop(false);
-                // }
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Tính toán khoản vay",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                    // if(displayCalculation) {
+                    //   setState(() {
+                    //     displayCalculation = false;
+                    //   });
+                    // } else {
+                    //   Navigator.of(context).pop(false);
+                    // }
 
-              },
-            ),
-            Expanded(
-              flex: 8,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Visibility(
-                        visible: !displayCalculation,
-                        child:  Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Tên khoản vay",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    SizedBox(
-                                      child: TextFieldWidget(
-                                          keyboardType: TextInputType.text,
-                                          inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.singleLineFormatter],
-                                          textInputAction: TextInputAction.done,
-                                          obscureText: false,
-                                          hintText: "Viết tên của khoản vay này",
-                                          // labelText: "Phone number",
-                                          // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                          suffixIcon: Icons.close,
-                                          clickSuffixIcon: () => _nameLoanController.clear(),
-                                          textController: _nameLoanController),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    //----------------------------------//
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Số tiền bạn cần vay ( Nợ gốc )",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    TextField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                                      obscureText: false,
-                                      controller: _moneyLoanRootController,
-                                      enabled: true,
-                                      textInputAction: TextInputAction.done,
-                                      textAlignVertical: TextAlignVertical.center,
-                                      decoration: InputDecoration(
-                                          fillColor: const Color(0xFFEFF0FB),
-                                          filled: true,
-                                          hintText: "Nhập số tiền",
-                                          hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                          // labelText: labelText,
-
-                                          suffixIcon: IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_vnd.svg")),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                              borderRadius: BorderRadius.circular(14)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                              borderRadius: BorderRadius.circular(14))),
-                                      onChanged: (value) {
-                                        value = '${formNum(
-                                          value.replaceAll(',', ''),
-                                        )}';
-                                        _moneyLoanRootController.value = TextEditingValue(
-                                          text: value,
-                                          selection: TextSelection.collapsed(
-                                            offset: value.length,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    //----------------------------------//
-                                    const SizedBox(height: 10),
-                                    Row(
+                  },
+                ),
+                Expanded(
+                  flex: 8,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Visibility(
+                            visible: !displayCalculation,
+                            child:  Container(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
+                                    child: Column(
                                       children: [
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Tỷ lệ lãi suất năm",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                TextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                                                  obscureText: false,
-                                                  controller: _tyLeLaiXuatController,
-                                                  enabled: true,
-                                                  textInputAction: TextInputAction.done,
-                                                  textAlignVertical: TextAlignVertical.center,
-                                                  decoration: InputDecoration(
-                                                      fillColor: const Color(0xFFEFF0FB),
-                                                      filled: true,
-                                                      hintText: "Nhập lãi suất",
-                                                      hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                                      // labelText: labelText,
-
-                                                      suffixIcon: IconButton(
-                                                          onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_phantram.svg")),
-                                                      enabledBorder: OutlineInputBorder(
-                                                          borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                                          borderRadius: BorderRadius.circular(14)),
-                                                      focusedBorder: OutlineInputBorder(
-                                                          borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                                          borderRadius: BorderRadius.circular(14))),
-                                                ),
-                                              ],
-                                            )),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Kỳ hạn vay",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                TextField(
-                                                  keyboardType: TextInputType.number,
-                                                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                                                  obscureText: false,
-                                                  controller: _kyHanVayController,
-                                                  enabled: true,
-                                                  textInputAction: TextInputAction.done,
-                                                  textAlignVertical: TextAlignVertical.center,
-                                                  decoration: InputDecoration(
-                                                      fillColor: const Color(0xFFEFF0FB),
-                                                      filled: true,
-                                                      hintText: "Nhập số tháng",
-                                                      hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                                      // labelText: labelText,
-
-                                                      suffixIcon: IconButton(
-                                                          onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
-                                                      enabledBorder: OutlineInputBorder(
-                                                          borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                                          borderRadius: BorderRadius.circular(14)),
-                                                      focusedBorder: OutlineInputBorder(
-                                                          borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                                          borderRadius: BorderRadius.circular(14))),
-                                                ),
-                                              ],
-                                            ))
-                                      ],
-                                    ),
-
-                                    //----------------------------------//
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Phân kỳ trả tiền gốc",
-                                        textAlign: TextAlign.left,
-                                        // ignore: unnecessary_const
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    TextField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                                      obscureText: false,
-                                      controller: _numberMonthTienGocController,
-                                      enabled: true,
-                                      textInputAction: TextInputAction.done,
-                                      textAlignVertical: TextAlignVertical.center,
-                                      decoration: InputDecoration(
-                                          fillColor: const Color(0xFFEFF0FB),
-                                          filled: true,
-                                          hintText: "Nhập số tháng",
-                                          hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                          // labelText: labelText,
-
-                                          suffixIcon:
-                                          IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                              borderRadius: BorderRadius.circular(14)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                              borderRadius: BorderRadius.circular(14))),
-                                    ),
-
-                                    //----------------------------------//
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Phân kỳ trả tiền lãi",
-                                        textAlign: TextAlign.left,
-                                        // ignore: unnecessary_const
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    TextField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
-                                      obscureText: false,
-                                      controller: _numberMonthTienLaiController,
-                                      enabled: true,
-                                      textInputAction: TextInputAction.done,
-                                      textAlignVertical: TextAlignVertical.center,
-                                      decoration: InputDecoration(
-                                          fillColor: const Color(0xFFEFF0FB),
-                                          filled: true,
-                                          hintText: "Nhập số tháng",
-                                          hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
-                                          // labelText: labelText,
-
-                                          suffixIcon:
-                                          IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
-                                          enabledBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                              borderRadius: BorderRadius.circular(14)),
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                              borderRadius: BorderRadius.circular(14))),
-                                    ),
-
-                                    //
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Ngày vay",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        color: Mytheme.colorTextDivider,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 1,
-                                            blurRadius: 7,
-                                            offset: const Offset(0, 3), // changes position of shadow
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Tên khoản vay",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
                                           ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        // crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: Padding(
-                                              padding:
-                                              EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
-                                              child: Text(
-                                                dateFirst,
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Mytheme.colorBgButtonLogin,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "OpenSans-Semibold",
-                                                ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        SizedBox(
+                                          child: TextFieldWidget(
+                                              keyboardType: TextInputType.text,
+                                              inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.singleLineFormatter],
+                                              textInputAction: TextInputAction.done,
+                                              obscureText: false,
+                                              hintText: "Viết tên của khoản vay này",
+                                              // labelText: "Phone number",
+                                              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                              suffixIcon: Icons.close,
+                                              clickSuffixIcon: () => _nameLoanController.clear(),
+                                              textController: _nameLoanController),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        //----------------------------------//
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Số tiền bạn cần vay ( Nợ gốc )",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                          obscureText: false,
+                                          controller: _moneyLoanRootController,
+                                          enabled: true,
+                                          textInputAction: TextInputAction.done,
+                                          textAlignVertical: TextAlignVertical.center,
+                                          decoration: InputDecoration(
+                                              fillColor: const Color(0xFFEFF0FB),
+                                              filled: true,
+                                              hintText: "Nhập số tiền",
+                                              hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                              // labelText: labelText,
+
+                                              suffixIcon: IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_vnd.svg")),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                                  borderRadius: BorderRadius.circular(14)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                                  borderRadius: BorderRadius.circular(14))),
+                                          onChanged: (value) {
+                                            value = '${formNum(
+                                              value.replaceAll(',', ''),
+                                            )}';
+                                            _moneyLoanRootController.value = TextEditingValue(
+                                              text: value,
+                                              selection: TextSelection.collapsed(
+                                                offset: value.length,
                                               ),
+                                            );
+                                          },
+                                        ),
+                                        //----------------------------------//
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Tỷ lệ lãi suất năm",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    TextField(
+                                                      keyboardType: TextInputType.number,
+                                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                                      obscureText: false,
+                                                      controller: _tyLeLaiXuatController,
+                                                      enabled: true,
+                                                      textInputAction: TextInputAction.done,
+                                                      textAlignVertical: TextAlignVertical.center,
+                                                      decoration: InputDecoration(
+                                                          fillColor: const Color(0xFFEFF0FB),
+                                                          filled: true,
+                                                          hintText: "Nhập lãi suất",
+                                                          hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                                          // labelText: labelText,
+
+                                                          suffixIcon: IconButton(
+                                                              onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_phantram.svg")),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                                              borderRadius: BorderRadius.circular(14)),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                                              borderRadius: BorderRadius.circular(14))),
+                                                    ),
+                                                  ],
+                                                )),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
-                                          ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 0, left: 6, bottom: 0, right: 0),
-                                              child: IconButton(
-                                                icon: SvgPicture.asset("assets/svg/ic_calender.svg"),
-                                                // tooltip: 'Increase volume by 10',
-                                                iconSize: 50,
-                                                onPressed: () {
-                                                  showDatePicker();
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    Visibility(
-                                      visible: showResult,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 7,
-                                              offset: const Offset(0, 3), // changes position of shadow
-                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Kỳ hạn vay",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 10),
+                                                    TextField(
+                                                      keyboardType: TextInputType.number,
+                                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                                      obscureText: false,
+                                                      controller: _kyHanVayController,
+                                                      enabled: true,
+                                                      textInputAction: TextInputAction.done,
+                                                      textAlignVertical: TextAlignVertical.center,
+                                                      decoration: InputDecoration(
+                                                          fillColor: const Color(0xFFEFF0FB),
+                                                          filled: true,
+                                                          hintText: "Nhập số tháng",
+                                                          hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                                          // labelText: labelText,
+
+                                                          suffixIcon: IconButton(
+                                                              onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
+                                                          enabledBorder: OutlineInputBorder(
+                                                              borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                                              borderRadius: BorderRadius.circular(14)),
+                                                          focusedBorder: OutlineInputBorder(
+                                                              borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                                              borderRadius: BorderRadius.circular(14))),
+                                                    ),
+                                                  ],
+                                                ))
                                           ],
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
-                                          child: Column(
+
+                                        //----------------------------------//
+                                        const SizedBox(height: 10),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Phân kỳ trả tiền gốc",
+                                            textAlign: TextAlign.left,
+                                            // ignore: unnecessary_const
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                          obscureText: false,
+                                          controller: _numberMonthTienGocController,
+                                          enabled: true,
+                                          textInputAction: TextInputAction.done,
+                                          textAlignVertical: TextAlignVertical.center,
+                                          decoration: InputDecoration(
+                                              fillColor: const Color(0xFFEFF0FB),
+                                              filled: true,
+                                              hintText: "Nhập số tháng",
+                                              hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                              // labelText: labelText,
+
+                                              suffixIcon:
+                                              IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                                  borderRadius: BorderRadius.circular(14)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                                  borderRadius: BorderRadius.circular(14))),
+                                        ),
+
+                                        //----------------------------------//
+                                        const SizedBox(height: 10),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Phân kỳ trả tiền lãi",
+                                            textAlign: TextAlign.left,
+                                            // ignore: unnecessary_const
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                          obscureText: false,
+                                          controller: _numberMonthTienLaiController,
+                                          enabled: true,
+                                          textInputAction: TextInputAction.done,
+                                          textAlignVertical: TextAlignVertical.center,
+                                          decoration: InputDecoration(
+                                              fillColor: const Color(0xFFEFF0FB),
+                                              filled: true,
+                                              hintText: "Nhập số tháng",
+                                              hintStyle: const TextStyle(color: Color(0xFFA7ABC3)),
+                                              // labelText: labelText,
+
+                                              suffixIcon:
+                                              IconButton(onPressed: () {}, icon: SvgPicture.asset("assets/svg/ic_thang.svg")),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                                  borderRadius: BorderRadius.circular(14)),
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                                  borderRadius: BorderRadius.circular(14))),
+                                        ),
+
+                                        //
+                                        const SizedBox(height: 10),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Ngày vay",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            color: Mytheme.colorTextDivider,
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.5),
+                                                spreadRadius: 1,
+                                                blurRadius: 7,
+                                                offset: const Offset(0, 3), // changes position of shadow
+                                              ),
+                                            ],
+                                          ),
+                                          child: Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  "Cuối kỳ gửi tiết kiệm, bạn nhận được:",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_82869E,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily: "OpenSans-Regular",
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: Text(
-                                                  formNum(total.toString()),
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 24,
-                                                    color: Mytheme.colorBgButtonLogin,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-SemiBold",
-                                                  ),
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Container(
-                                                  margin: EdgeInsets.all(10),
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius: BorderRadius.circular(8),
-                                                      border: Border.all(color: Mytheme.colorBgButtonLogin)),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              flex: 2,
-                                                              child: Align(
-                                                                alignment: Alignment.centerLeft,
-                                                                child: Text(
-                                                                  "Tiền lãi",
-                                                                  textAlign: TextAlign.left,
-                                                                  style: const TextStyle(
-                                                                    fontSize: 16,
-                                                                    color: Mytheme.color_82869E,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: "OpenSans-Regular",
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              flex: 3,
-                                                              child: Align(
-                                                                alignment: Alignment.centerRight,
-                                                                child: Text(
-                                                                  formNum(interest_amount.toString()),
-                                                                  textAlign: TextAlign.left,
-                                                                  style: const TextStyle(
-                                                                    fontSize: 16,
-                                                                    color: Mytheme.color_82869E,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: "OpenSans-Regular",
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Expanded(
-                                                              flex: 2,
-                                                              child: Align(
-                                                                alignment: Alignment.centerLeft,
-                                                                child: Text(
-                                                                  "Tiền gốc",
-                                                                  textAlign: TextAlign.left,
-                                                                  style: const TextStyle(
-                                                                    fontSize: 16,
-                                                                    color: Mytheme.color_82869E,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: "OpenSans-Regular",
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              flex: 3,
-                                                              child: Align(
-                                                                alignment: Alignment.centerRight,
-                                                                child: Text(
-                                                                  _moneyLoanRootController.text.isNotEmpty
-                                                                      ? formNum(_moneyLoanRootController.text.replaceAll(",", ""))
-                                                                      : "",
-                                                                  textAlign: TextAlign.left,
-                                                                  style: const TextStyle(
-                                                                    fontSize: 16,
-                                                                    color: Mytheme.color_82869E,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontFamily: "OpenSans-Regular",
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ],
+                                              Expanded(
+                                                flex: 3,
+                                                child: Padding(
+                                                  padding:
+                                                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                                                  child: Text(
+                                                    dateFirst,
+                                                    textAlign: TextAlign.start,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: Mytheme.colorBgButtonLogin,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: "OpenSans-Semibold",
                                                     ),
-                                                  )),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 1,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 0, left: 6, bottom: 0, right: 0),
+                                                  child: IconButton(
+                                                    icon: SvgPicture.asset("assets/svg/ic_calender.svg"),
+                                                    // tooltip: 'Increase volume by 10',
+                                                    iconSize: 50,
+                                                    onPressed: () {
+                                                      showDatePicker();
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      Visibility(
-                        visible: displayCalculation,
-                        child:  Container(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
-                                child: Column(
-                                  children: [
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Tên khoản vay",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        _nameLoanController.text,
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    //----------------------------------//
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Số tiền gốc",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        _moneyLoanRootController.text.isNotEmpty ? "${formNum(_moneyLoanRootController.text.replaceAll(",", ""))} VNĐ" : "",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    //----------------------------------//
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children:  [
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Lãi suất",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.color_82869E,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontFamily: "OpenSans-Regular",
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(height: 4),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "${_tyLeLaiXuatController.text}% /năm",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
+                                        const SizedBox(height: 20),
+                                        Visibility(
+                                          visible: showResult,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.rectangle,
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 7,
+                                                  offset: const Offset(0, 3), // changes position of shadow
                                                 ),
                                               ],
-                                            )),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Kỳ hạn vay",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.color_82869E,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontFamily: "OpenSans-Regular",
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "${_kyHanVayController.text} tháng",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ))
-                                      ],
-                                    ),
-
-                                    //----------------------------------//
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Phân kỳ trả nợ gốc",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.color_82869E,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontFamily: "OpenSans-Regular",
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Mỗi ${_numberMonthTienGocController.text} tháng",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                            flex: 1,
-                                            child: Column(
-                                              children: [
-                                                const Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Phân kỳ trả nợ tiền lãi",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.color_82869E,
-                                                      fontWeight: FontWeight.w400,
-                                                      fontFamily: "OpenSans-Regular",
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 4),
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                    "Mỗi ${_numberMonthTienLaiController.text} tháng",
-                                                    textAlign: TextAlign.left,
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      color: Mytheme.colorTextSubTitle,
-                                                      fontWeight: FontWeight.w600,
-                                                      fontFamily: "OpenSans-SemiBold",
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ))
-                                      ],
-                                    ),
-                                    //----------------------------------//
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Ngày bắt đầu",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        dateFirst,
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                selectDefault = true;
-                                              });
-                                            },
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Lãi phẳng",
-                                                textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: selectDefault
-                                                      ? Mytheme.colorBgButtonLogin
-                                                      : Mytheme.color_82869E,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "OpenSans-SemiBold",
-                                                ),
-                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                selectDefault = false;
-                                              });
-                                            },
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                "Lãi trên dư nợ giảm dần",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: !selectDefault
-                                                      ? Mytheme.colorBgButtonLogin
-                                                      : Mytheme.color_82869E,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "OpenSans-SemiBold",
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Expanded(
-                                          child: Align(
-                                              alignment: Alignment.center,
-                                              child: Divider(
-                                                thickness: 2,
-                                                color: selectDefault
-                                                    ? Mytheme.colorBgButtonLogin
-                                                    : Mytheme.color_82869E,
-                                              )),
-                                        ),
-                                        Expanded(
-                                          child: Align(
-                                              alignment: Alignment.center,
-                                              child: Divider(
-                                                thickness: 2,
-                                                color: !selectDefault
-                                                    ? Mytheme.colorBgButtonLogin
-                                                    : Mytheme.color_82869E,
-                                              )),
-                                        )
-                                      ],
-                                    ),
-
-                                    // lãi giam dan
-                                    Visibility(
-                                      visible: !selectDefault ? true : false,
-                                      child:  Padding(
-                                        padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
-                                        child: Column(
-                                          children: [
-
-                                            Container(
-                                              height: 108,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey.withOpacity(0.5),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 7,
-                                                    offset: const Offset(0, 3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16),
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      "Bạn sẽ cần trả tổng tiền lãi",
+                                                      "Cuối kỳ gửi tiết kiệm, bạn nhận được:",
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
                                                         fontSize: 16,
                                                         color: Mytheme.color_82869E,
                                                         fontWeight: FontWeight.w400,
-                                                        fontFamily:
-                                                        "OpenSans-Regular",
+                                                        fontFamily: "OpenSans-Regular",
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 10,
                                                   ),
                                                   Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
-                                                      "${formNum(tongLaiGiamDan.toString())} vnđ",
+                                                      formNum(total.toString()),
                                                       textAlign: TextAlign.left,
                                                       style: const TextStyle(
                                                         fontSize: 24,
                                                         color: Mytheme.colorBgButtonLogin,
                                                         fontWeight: FontWeight.w600,
-                                                        fontFamily:
-                                                        "OpenSans-SemiBold",
+                                                        fontFamily: "OpenSans-SemiBold",
                                                       ),
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-
-                                            for (int i = 0; i < listLaiGiamDan.length; i++) ...[
-                                              layoutLai(true, listLaiGiamDan[i]),
-                                            ]
-                                          ],
-                                        ),
-                                      ),),
-
-                                    // lãi phẳng
-                                    Visibility(
-                                      visible: selectDefault ? true : false,
-                                      child:  Padding(
-                                        padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
-                                        child: Column(
-                                          children: [
-
-                                            Container(
-                                              height: 108,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.rectangle,
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.grey.withOpacity(0.5),
-                                                    spreadRadius: 1,
-                                                    blurRadius: 7,
-                                                    offset: const Offset(0, 3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "Bạn sẽ cần trả tổng tiền lãi",
-                                                      textAlign: TextAlign.left,
-                                                      style: const TextStyle(
-                                                        fontSize: 16,
-                                                        color: Mytheme.color_82869E,
-                                                        fontWeight: FontWeight.w400,
-                                                        fontFamily:
-                                                        "OpenSans-Regular",
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 10,
                                                   ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "${formNum(tongLaiPhang.toString())} vnđ",
-                                                      textAlign: TextAlign.left,
-                                                      style: const TextStyle(
-                                                        fontSize: 24,
-                                                        color: Mytheme.colorBgButtonLogin,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontFamily:
-                                                        "OpenSans-SemiBold",
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  Container(
+                                                      margin: EdgeInsets.all(10),
+                                                      alignment: Alignment.center,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          border: Border.all(color: Mytheme.colorBgButtonLogin)),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Align(
+                                                                    alignment: Alignment.centerLeft,
+                                                                    child: Text(
+                                                                      "Tiền lãi",
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                        fontSize: 16,
+                                                                        color: Mytheme.color_82869E,
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontFamily: "OpenSans-Regular",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 3,
+                                                                  child: Align(
+                                                                    alignment: Alignment.centerRight,
+                                                                    child: Text(
+                                                                      formNum(interest_amount.toString()),
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                        fontSize: 16,
+                                                                        color: Mytheme.color_82869E,
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontFamily: "OpenSans-Regular",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 2,
+                                                                  child: Align(
+                                                                    alignment: Alignment.centerLeft,
+                                                                    child: Text(
+                                                                      "Tiền gốc",
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                        fontSize: 16,
+                                                                        color: Mytheme.color_82869E,
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontFamily: "OpenSans-Regular",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 3,
+                                                                  child: Align(
+                                                                    alignment: Alignment.centerRight,
+                                                                    child: Text(
+                                                                      _moneyLoanRootController.text.isNotEmpty
+                                                                          ? formNum(_moneyLoanRootController.text.replaceAll(",", ""))
+                                                                          : "",
+                                                                      textAlign: TextAlign.left,
+                                                                      style: const TextStyle(
+                                                                        fontSize: 16,
+                                                                        color: Mytheme.color_82869E,
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontFamily: "OpenSans-Regular",
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )),
                                                 ],
                                               ),
                                             ),
-
-                                            for (int i = 0; i < listLaiPhang.length; i++) ...[
-                                              layoutLai(true, listLaiPhang[i]),
-                                            ]
-                                          ],
+                                          ),
                                         ),
-                                      ),),
-
-
-                                  ],
-                                ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+
+                          Visibility(
+                            visible: displayCalculation,
+                            child:  Container(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
+                                    child: Column(
+                                      children: [
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Tên khoản vay",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            _nameLoanController.text,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        //----------------------------------//
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Số tiền gốc",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            _moneyLoanRootController.text.isNotEmpty ? "${formNum(_moneyLoanRootController.text.replaceAll(",", ""))} VNĐ" : "",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        //----------------------------------//
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children:  [
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Lãi suất",
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.color_82869E,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 4),
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${_tyLeLaiXuatController.text}% /năm",
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Kỳ hạn vay",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.color_82869E,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 4),
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "${_kyHanVayController.text} tháng",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ))
+                                          ],
+                                        ),
+
+                                        //----------------------------------//
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Phân kỳ trả nợ gốc",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.color_82869E,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 4),
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Mỗi ${_numberMonthTienGocController.text} tháng",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Column(
+                                                  children: [
+                                                    const Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Phân kỳ trả nợ tiền lãi",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.color_82869E,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(height: 4),
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        "Mỗi ${_numberMonthTienLaiController.text} tháng",
+                                                        textAlign: TextAlign.left,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.colorTextSubTitle,
+                                                          fontWeight: FontWeight.w600,
+                                                          fontFamily: "OpenSans-SemiBold",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ))
+                                          ],
+                                        ),
+                                        //----------------------------------//
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Ngày bắt đầu",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            dateFirst,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectDefault = true;
+                                                  });
+                                                },
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "Lãi phẳng",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: selectDefault
+                                                          ? Mytheme.colorBgButtonLogin
+                                                          : Mytheme.color_82869E,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: "OpenSans-SemiBold",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    selectDefault = false;
+                                                  });
+                                                },
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "Lãi trên dư nợ giảm dần",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: !selectDefault
+                                                          ? Mytheme.colorBgButtonLogin
+                                                          : Mytheme.color_82869E,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: "OpenSans-SemiBold",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Divider(
+                                                    thickness: 2,
+                                                    color: selectDefault
+                                                        ? Mytheme.colorBgButtonLogin
+                                                        : Mytheme.color_82869E,
+                                                  )),
+                                            ),
+                                            Expanded(
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Divider(
+                                                    thickness: 2,
+                                                    color: !selectDefault
+                                                        ? Mytheme.colorBgButtonLogin
+                                                        : Mytheme.color_82869E,
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+
+                                        // lãi giam dan
+                                        Visibility(
+                                          visible: !selectDefault ? true : false,
+                                          child:  Padding(
+                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
+                                            child: Column(
+                                              children: [
+
+                                                Container(
+                                                  height: 108,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey.withOpacity(0.5),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 7,
+                                                        offset: const Offset(0, 3), // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "Bạn sẽ cần trả tổng tiền lãi",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 16,
+                                                            color: Mytheme.color_82869E,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily:
+                                                            "OpenSans-Regular",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "${formNum(tongLaiGiamDan.toString())} vnđ",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 24,
+                                                            color: Mytheme.colorBgButtonLogin,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontFamily:
+                                                            "OpenSans-SemiBold",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                for (int i = 0; i < listLaiGiamDan.length; i++) ...[
+                                                  layoutLai(true, listLaiGiamDan[i]),
+                                                ]
+                                              ],
+                                            ),
+                                          ),),
+
+                                        // lãi phẳng
+                                        Visibility(
+                                          visible: selectDefault ? true : false,
+                                          child:  Padding(
+                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
+                                            child: Column(
+                                              children: [
+
+                                                Container(
+                                                  height: 108,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    color: Colors.white,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey.withOpacity(0.5),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 7,
+                                                        offset: const Offset(0, 3), // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "Bạn sẽ cần trả tổng tiền lãi",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 16,
+                                                            color: Mytheme.color_82869E,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontFamily:
+                                                            "OpenSans-Regular",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text(
+                                                          "${formNum(tongLaiPhang.toString())} vnđ",
+                                                          textAlign: TextAlign.left,
+                                                          style: const TextStyle(
+                                                            fontSize: 24,
+                                                            color: Mytheme.colorBgButtonLogin,
+                                                            fontWeight: FontWeight.w600,
+                                                            fontFamily:
+                                                            "OpenSans-SemiBold",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+
+                                                for (int i = 0; i < listLaiPhang.length; i++) ...[
+                                                  layoutLai(true, listLaiPhang[i]),
+                                                ]
+                                              ],
+                                            ),
+                                          ),),
+
+
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+
+                        ],
                       ),
-
-
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 20, left: 24, right: 24),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          // side: const BorderSide(color: Colors.red)
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 20, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                        child: Text(
+                          displayCalculation ? "Lưu" : "Tính toán",
+                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                         ),
-                        primary: Mytheme.colorBgButtonLogin,
-                        minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-                    child: Text(
-                      displayCalculation ? "Lưu" : "Tính toán",
-                      style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      if (displayCalculation) {
-                        if(_nameLoanController.text.isEmpty) {
-                          Utils.showError("Bạn chưa nhập tên khoản vay", context);
-                        } else {
-                          UpdateDataTool updateDataTool = UpdateDataTool();
-                          updateDataTool.title = _nameLoanController.text;
-                          updateDataTool.userToolId = int.parse(itemToolData!.id
-                              .toString());
-                          updateDataTool.type = 1;
-                          List<UpdateDataToolUsers>? listData = [];
+                        onPressed: () {
+                          if (displayCalculation) {
+                            if(_nameLoanController.text.isEmpty) {
+                              Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                            } else {
+                              UpdateDataTool updateDataTool = UpdateDataTool();
+                              updateDataTool.title = _nameLoanController.text;
+                              updateDataTool.userToolId = int.parse(itemToolData!.id
+                                  .toString());
+                              updateDataTool.type = 1;
+                              List<UpdateDataToolUsers>? listData = [];
 
 
-                          //số tiền bạn cần vay
-                          listData.add(UpdateDataToolUsers(
-                            key: "tien_can_vay",
-                            value: _moneyLoanRootController.text.replaceAll(
-                                ",", ""),
-                            type: 0,
-                          ));
+                              //số tiền bạn cần vay
+                              listData.add(UpdateDataToolUsers(
+                                key: "tien_can_vay",
+                                value: _moneyLoanRootController.text.replaceAll(
+                                    ",", ""),
+                                type: 0,
+                              ));
 
-                          //ty le lãi xuất năm
-                          listData.add(UpdateDataToolUsers(
-                            key: "ty_le_lai_suat",
-                            value: _tyLeLaiXuatController.text,
-                            type: 0,
-                          ));
+                              //ty le lãi xuất năm
+                              listData.add(UpdateDataToolUsers(
+                                key: "ty_le_lai_suat",
+                                value: _tyLeLaiXuatController.text,
+                                type: 0,
+                              ));
 
-                          //kỳ hạn vay
-                          listData.add(UpdateDataToolUsers(
-                            key: "ky_han_vay",
-                            value: _kyHanVayController.text,
-                            type: 0,
-                          ));
+                              //kỳ hạn vay
+                              listData.add(UpdateDataToolUsers(
+                                key: "ky_han_vay",
+                                value: _kyHanVayController.text,
+                                type: 0,
+                              ));
 
-                          //phan kỳ trả tiền gốc
-                          listData.add(UpdateDataToolUsers(
-                            key: "phan_ky_tien_goc",
-                            value: _numberMonthTienGocController.text,
-                            type: 0,
-                          ));
+                              //phan kỳ trả tiền gốc
+                              listData.add(UpdateDataToolUsers(
+                                key: "phan_ky_tien_goc",
+                                value: _numberMonthTienGocController.text,
+                                type: 0,
+                              ));
 
-                          //phan kỳ trả tiền lãi
-                          listData.add(UpdateDataToolUsers(
-                            key: "phan_ky_tien_goc",
-                            value: _numberMonthTienLaiController.text,
-                            type: 0,
-                          ));
+                              //phan kỳ trả tiền lãi
+                              listData.add(UpdateDataToolUsers(
+                                key: "phan_ky_tien_goc",
+                                value: _numberMonthTienLaiController.text,
+                                type: 0,
+                              ));
 
-                          //ngày vay
-                          listData.add(UpdateDataToolUsers(
-                            key: "ngay_vay",
-                            value: dateFirst,
-                            type: 0,
-                          ));
+                              //ngày vay
+                              listData.add(UpdateDataToolUsers(
+                                key: "ngay_vay",
+                                value: dateFirst,
+                                type: 0,
+                              ));
 
-                          updateDataTool.dataUsers = listData;
-                          print(jsonEncode(updateDataTool));
-                          saveItemTool(jsonEncode(updateDataTool));
-                        }
-                      } else {
-                        setState(() {
-                          displayCalculation = true;
-                        });
+                              updateDataTool.dataUsers = listData;
+                              print(jsonEncode(updateDataTool));
+                              saveItemTool(jsonEncode(updateDataTool));
+                            }
+                          } else {
+                            setState(() {
+                              displayCalculation = true;
+                            });
 
-                        currentDate = dateFirst;
-                        calculatorLaiDuNoGiamDan();
-                        currentDate = dateFirst;
-                        calculatorLaiPhang();
-                        return;
-                      }
+                            currentDate = dateFirst;
+                            calculatorLaiDuNoGiamDan();
+                            currentDate = dateFirst;
+                            calculatorLaiPhang();
+                            return;
+                          }
 
 
 
 
-                    },
-                  )),
+                        },
+                      )),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

@@ -54,113 +54,116 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: _educationData.name,
-                onClicked: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, left: 16, right: 16, bottom: 0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.colorBgMain,
+              body: Column(
+                children: <Widget>[
+                  AppbarWidget(
+                    text: _educationData.name,
+                    onClicked: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0, left: 16, right: 16, bottom: 0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       top: 16, left: 0, bottom: 0, right: 26),
-                            //   child:  Image.network(
-                            //     _educationData.icon.toString(),
-                            //     fit: BoxFit.fill,
-                            //     width: 50,
-                            //     loadingBuilder: (BuildContext context, Widget child,
-                            //         ImageChunkEvent? loadingProgress) {
-                            //       if (loadingProgress == null) return child;
-                            //       return Center(
-                            //         child: CircularProgressIndicator(
-                            //           value: loadingProgress.expectedTotalBytes != null
-                            //               ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toDouble()
-                            //               : null,
-                            //         ),
-                            //       );
-                            //     },
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       top: 16, left: 0, bottom: 18, right: 0),
-                            //   child: Column(
-                            //     mainAxisAlignment: MainAxisAlignment.start,
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: [
-                            //       Align(
-                            //         alignment: Alignment.centerLeft,
-                            //         child: Text(
-                            //           _educationData.name.toString(),
-                            //           // textAlign: TextAlign.start,
-                            //           style: const TextStyle(
-                            //             fontSize: 20,
-                            //             color: Mytheme.colorBgButtonLogin,
-                            //             fontWeight: FontWeight.w400,
-                            //             fontFamily: "OpenSans-Regular",
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        if (_lessonList.isNotEmpty) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, left: 0, right: 0, bottom: 0),
-                            child: Column(
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                            for (var i = 0; i < _lessonList.length; i++) ...[
-                                  layoutTest(_lessonList[i], i)
-                              ],
-                                // for (var i = 0; i < _lessonList.length; i++) ...[
-                                //   CardEducationTopicWidget(
-                                //     title: _lessonList[i].name,
-                                //     numberLesson: numberLesson(i+1),
-                                //     finish: _lessonList[i].numberFinish ?? 0,
-                                //     total: _lessonList[i].totalPart ?? 0,
-                                //     onClicked: () {
-                                //       trackingLesson(_lessonList[i].id ?? 0);
-                                //       _lessonList[i].nameCourse = _educationData.name;
-                                //       Get.toNamed('/educationTopicDetail', arguments: i);
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: 16, left: 0, bottom: 0, right: 26),
+                                //   child:  Image.network(
+                                //     _educationData.icon.toString(),
+                                //     fit: BoxFit.fill,
+                                //     width: 50,
+                                //     loadingBuilder: (BuildContext context, Widget child,
+                                //         ImageChunkEvent? loadingProgress) {
+                                //       if (loadingProgress == null) return child;
+                                //       return Center(
+                                //         child: CircularProgressIndicator(
+                                //           value: loadingProgress.expectedTotalBytes != null
+                                //               ? (loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!).toDouble()
+                                //               : null,
+                                //         ),
+                                //       );
                                 //     },
                                 //   ),
-                                //   const SizedBox(height: 10),
-                                // ]
+                                // ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(
+                                //       top: 16, left: 0, bottom: 18, right: 0),
+                                //   child: Column(
+                                //     mainAxisAlignment: MainAxisAlignment.start,
+                                //     crossAxisAlignment: CrossAxisAlignment.start,
+                                //     children: [
+                                //       Align(
+                                //         alignment: Alignment.centerLeft,
+                                //         child: Text(
+                                //           _educationData.name.toString(),
+                                //           // textAlign: TextAlign.start,
+                                //           style: const TextStyle(
+                                //             fontSize: 20,
+                                //             color: Mytheme.colorBgButtonLogin,
+                                //             fontWeight: FontWeight.w400,
+                                //             fontFamily: "OpenSans-Regular",
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                               ],
                             ),
-                          ),
-                        ],
-                      ],
+                            const SizedBox(height: 10),
+                            if (_lessonList.isNotEmpty) ...[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20, left: 0, right: 0, bottom: 0),
+                                child: Column(
+                                  children: [
+                                    for (var i = 0; i < _lessonList.length; i++) ...[
+                                      layoutTest(_lessonList[i], i)
+                                    ],
+                                    // for (var i = 0; i < _lessonList.length; i++) ...[
+                                    //   CardEducationTopicWidget(
+                                    //     title: _lessonList[i].name,
+                                    //     numberLesson: numberLesson(i+1),
+                                    //     finish: _lessonList[i].numberFinish ?? 0,
+                                    //     total: _lessonList[i].totalPart ?? 0,
+                                    //     onClicked: () {
+                                    //       trackingLesson(_lessonList[i].id ?? 0);
+                                    //       _lessonList[i].nameCourse = _educationData.name;
+                                    //       Get.toNamed('/educationTopicDetail', arguments: i);
+                                    //     },
+                                    //   ),
+                                    //   const SizedBox(height: 10),
+                                    // ]
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
+                  )
+                ],
+              ),
+            )),
+    );
   }
 
   headerLayout() {

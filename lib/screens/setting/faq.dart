@@ -46,80 +46,83 @@ class _FAQScreenState extends State<FAQScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: StringText.text_faq,
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.only(top: 10, left: 20, right: 20),
-                      child: Container(
-                        child: TextField(
-                          controller: faqEditingController,
-                          decoration: InputDecoration(
-                              labelText: "Search",
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(25.0)))),
-                          onChanged: (value) {
-                            setState(() {
-                              faqSearchData.clear();
-                              // infoSearchList = searchCourseList(value);
-                              faqSearchData = faqData
-                                  .where(
-                                    (u) => (u.question
-                                    .toString()
-                                    .toLowerCase()
-                                    .contains(
-                                  value.toLowerCase(),
-                                )),
-                              )
-                                  .toList();
-                            });
-                          },
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: StringText.text_faq,
+                          onClicked: () => Get.back(),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
-                          child: Column(
-                            children: [
-                              if (faqEditingController.text.toString().isNotEmpty || faqSearchData.isNotEmpty) ...[
-                                for (var i = 0;
-                                i < faqSearchData.length;
-                                i++) ...[layoutFAQ(i, faqSearchData[i])],
-                              ] else ...[
-                                for (var i = 0; i < faqData.length; i++) ...[
-                                  layoutFAQ(i, faqData[i])
-                                ],
-                              ],
-                              // for (var i = 0; i < faqData.length; i++) ...[layoutFAQ(i, faqData[i])],
-                            ],
+                        Padding(
+                          padding:
+                          const EdgeInsets.only(top: 10, left: 20, right: 20),
+                          child: Container(
+                            child: TextField(
+                              controller: faqEditingController,
+                              decoration: InputDecoration(
+                                  labelText: "Search",
+                                  hintText: "Search",
+                                  prefixIcon: Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)))),
+                              onChanged: (value) {
+                                setState(() {
+                                  faqSearchData.clear();
+                                  // infoSearchList = searchCourseList(value);
+                                  faqSearchData = faqData
+                                      .where(
+                                        (u) => (u.question
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(
+                                      value.toLowerCase(),
+                                    )),
+                                  )
+                                      .toList();
+                                });
+                              },
+                            ),
                           ),
                         ),
-                      ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 30, left: 24, right: 24),
+                              child: Column(
+                                children: [
+                                  if (faqEditingController.text.toString().isNotEmpty || faqSearchData.isNotEmpty) ...[
+                                    for (var i = 0;
+                                    i < faqSearchData.length;
+                                    i++) ...[layoutFAQ(i, faqSearchData[i])],
+                                  ] else ...[
+                                    for (var i = 0; i < faqData.length; i++) ...[
+                                      layoutFAQ(i, faqData[i])
+                                    ],
+                                  ],
+                                  // for (var i = 0; i < faqData.length; i++) ...[layoutFAQ(i, faqData[i])],
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   layoutFAQ(int index, FAQData faqData) {

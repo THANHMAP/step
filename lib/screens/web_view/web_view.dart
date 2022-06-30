@@ -45,35 +45,38 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: bannerPromotionData?.name ?? "",
-                      onClicked: () => Get.back(),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: bannerPromotionData?.name ?? "",
+                          onClicked: () => Get.back(),
+                        ),
+                        Expanded(
+                          child:  WebView(
+                            initialUrl: bannerPromotionData?.linkWeb ?? "",
+                            // Enable Javascript on WebView
+                            javascriptMode: JavascriptMode.unrestricted,
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child:  WebView(
-                        initialUrl: bannerPromotionData?.linkWeb ?? "",
-                        // Enable Javascript on WebView
-                        javascriptMode: JavascriptMode.unrestricted,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
 
-            ],
-          ),
-        ));
+                ],
+              ),
+            )),
+    );
   }
 
 }

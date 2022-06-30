@@ -64,130 +64,133 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 9,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: title,
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 9,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: title,
+                          onClicked: () => Get.back(),
+                        ),
+                        Padding(
+                          padding:
                           const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              StringText.text_password,
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 56,
-                            child: TextFieldWidget(
-                                textAlign: true,
-                                maxLines: 1,
-                                obscureText: isPasswordVisible,
-                                hintText: StringText.text_password_input,
-                                // labelText: 'Password',
-                                // prefixIcon:
-                                // const Icon(Icons.person, color: Colors.grey),
-                                textInputAction: TextInputAction.done,
-                                suffixIcon: isPasswordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                clickSuffixIcon: () {
-                                  setState(() {
-                                    isPasswordVisible = !isPasswordVisible;
-                                  });
-                                },
-                                textController: _passwordController),
-                          ),
-                          const SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: SvgPicture.asset("assets/svg/text_goi_u_pass.svg"),
-                          ),
-                          const SizedBox(height: 10),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              StringText.text_password_input_again,
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 56,
-                            child: TextFieldWidget(
-                                textAlign: true,
-                                maxLines: 1,
-                                obscureText: isPasswordConfirmVisible,
-                                hintText: StringText.text_password_input_again,
-                                // labelText: 'Password',
-                                // prefixIcon:
-                                // const Icon(Icons.person, color: Colors.grey),
-                                textInputAction: TextInputAction.done,
-                                suffixIcon: isPasswordConfirmVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                clickSuffixIcon: () {
-                                  setState(() {
-                                    isPasswordConfirmVisible =
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  StringText.text_password,
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                height: 56,
+                                child: TextFieldWidget(
+                                    textAlign: true,
+                                    maxLines: 1,
+                                    obscureText: isPasswordVisible,
+                                    hintText: StringText.text_password_input,
+                                    // labelText: 'Password',
+                                    // prefixIcon:
+                                    // const Icon(Icons.person, color: Colors.grey),
+                                    textInputAction: TextInputAction.done,
+                                    suffixIcon: isPasswordVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    clickSuffixIcon: () {
+                                      setState(() {
+                                        isPasswordVisible = !isPasswordVisible;
+                                      });
+                                    },
+                                    textController: _passwordController),
+                              ),
+                              const SizedBox(height: 10),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: SvgPicture.asset("assets/svg/text_goi_u_pass.svg"),
+                              ),
+                              const SizedBox(height: 10),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  StringText.text_password_input_again,
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                height: 56,
+                                child: TextFieldWidget(
+                                    textAlign: true,
+                                    maxLines: 1,
+                                    obscureText: isPasswordConfirmVisible,
+                                    hintText: StringText.text_password_input_again,
+                                    // labelText: 'Password',
+                                    // prefixIcon:
+                                    // const Icon(Icons.person, color: Colors.grey),
+                                    textInputAction: TextInputAction.done,
+                                    suffixIcon: isPasswordConfirmVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    clickSuffixIcon: () {
+                                      setState(() {
+                                        isPasswordConfirmVisible =
                                         !isPasswordConfirmVisible;
-                                  });
-                                },
-                                textController: _passwordConfirmController),
+                                      });
+                                    },
+                                    textController: _passwordConfirmController),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                    padding:
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                        padding:
                         const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            // side: const BorderSide(color: Colors.red)
-                          ),
-                          primary: Mytheme.colorBgButtonLogin,
-                          minimumSize:
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize:
                               Size(MediaQuery.of(context).size.width, 44)),
-                      child: Text(
-                        textButton,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        doUpdate();
-                        // Get.toNamed('/otp');
-                      },
-                    )),
+                          child: Text(
+                            textButton,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            doUpdate();
+                            // Get.toNamed('/otp');
+                          },
+                        )),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   Future<void> signUp() async {

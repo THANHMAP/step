@@ -103,81 +103,84 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Cài đặt tài khoản",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-                child: SingleChildScrollView(
-              child: Padding(
-                padding:  EdgeInsets.only(top: 30, bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    loadImage(user),
-                    const SizedBox(height: 20),
-                    phoneUser(),
-                    const SizedBox(height: 10),
-                    passwordUser(),
-                    const SizedBox(height: 10),
-                    emailUser(),
-                    const SizedBox(height: 10),
-                    switchFinger(),
-                    const SizedBox(height: 5),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: 12, left: 20, bottom: 18, right: 20),
-                      child: Text(
-                        "Lưu ý: Tất cả vân tay đã được đăng ký trong thiết bị đều có thể xác thực.",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Mytheme.color_82869E,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "OpenSans-Regular",
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Cài đặt tài khoản",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding:  EdgeInsets.only(top: 30, bottom: MediaQuery.of(context).viewInsets.bottom),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            loadImage(user),
+                            const SizedBox(height: 20),
+                            phoneUser(),
+                            const SizedBox(height: 10),
+                            passwordUser(),
+                            const SizedBox(height: 10),
+                            emailUser(),
+                            const SizedBox(height: 10),
+                            switchFinger(),
+                            const SizedBox(height: 5),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 12, left: 20, bottom: 18, right: 20),
+                              child: Text(
+                                "Lưu ý: Tất cả vân tay đã được đăng ký trong thiết bị đều có thể xác thực.",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Mytheme.color_82869E,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "OpenSans-Regular",
+                                ),
+                              ),
+                            ),
+
+                            Visibility(
+                              visible: showButtonSave,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 12, left: 20, bottom: 18, right: 20),
+                                child: ButtonWidget(
+                                    text: StringText.text_save,
+                                    color: Mytheme.colorBgButtonLogin,
+                                    onClicked: () => {
+                                      // saveInfoUser()
+                                      // if(_image != null){
+                                      //   saveImage(_image),
+                                      //
+                                      // } else {
+                                      saveInfoUser()
+                                      // }
+                                    }),
+                              ),
+                            )
+
+
+
+                          ],
                         ),
                       ),
-                    ),
-
-                    Visibility(
-                      visible: showButtonSave,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: 12, left: 20, bottom: 18, right: 20),
-                        child: ButtonWidget(
-                            text: StringText.text_save,
-                            color: Mytheme.colorBgButtonLogin,
-                            onClicked: () => {
-                              // saveInfoUser()
-                              // if(_image != null){
-                              //   saveImage(_image),
-                              //
-                              // } else {
-                                saveInfoUser()
-                              // }
-                            }),
-                      ),
-                    )
-
-
-
-                  ],
-                ),
-              ),
-            )),
-          ],
+                    )),
+              ],
+            ),
+          ),
         ),
-      ),
     );
   }
 

@@ -40,98 +40,101 @@ class _InputOldPassWordScreenState extends State<InputOldPassWordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 9,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: "Nhập mật khẩu cũ",
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 9,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: "Nhập mật khẩu cũ",
+                          onClicked: () => Get.back(),
+                        ),
+                        Padding(
+                          padding:
                           const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Nhập mật khẩu cũ",
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 56,
-                            child: TextFieldWidget(
-                                textAlign: true,
-                                maxLines: 1,
-                                obscureText: isPasswordVisible,
-                                hintText: "Nhập mật khẩu",
-                                // labelText: 'Password',
-                                // prefixIcon:
-                                // const Icon(Icons.person, color: Colors.grey),
-                                textInputAction: TextInputAction.done,
-                                suffixIcon: isPasswordVisible
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                clickSuffixIcon: () {
-                                  setState(() {
-                                    isPasswordVisible = !isPasswordVisible;
-                                  });
-                                },
-                                textController: _passwordController),
-                          ),
-                          const SizedBox(height: 10),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Nhập mật khẩu cũ",
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                height: 56,
+                                child: TextFieldWidget(
+                                    textAlign: true,
+                                    maxLines: 1,
+                                    obscureText: isPasswordVisible,
+                                    hintText: "Nhập mật khẩu",
+                                    // labelText: 'Password',
+                                    // prefixIcon:
+                                    // const Icon(Icons.person, color: Colors.grey),
+                                    textInputAction: TextInputAction.done,
+                                    suffixIcon: isPasswordVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    clickSuffixIcon: () {
+                                      setState(() {
+                                        isPasswordVisible = !isPasswordVisible;
+                                      });
+                                    },
+                                    textController: _passwordController),
+                              ),
+                              const SizedBox(height: 10),
 
-                        ],
-                      ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                    padding:
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                        padding:
                         const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            // side: const BorderSide(color: Colors.red)
-                          ),
-                          primary: Mytheme.colorBgButtonLogin,
-                          minimumSize:
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize:
                               Size(MediaQuery.of(context).size.width, 44)),
-                      child: Text(
-                        StringText.text_continue,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        if(_passwordController.text.isNotEmpty) {
-                          validatePassword(_passwordController.text);
-                        } else {
+                          child: Text(
+                            StringText.text_continue,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            if(_passwordController.text.isNotEmpty) {
+                              validatePassword(_passwordController.text);
+                            } else {
 
-                        }
-                      },
-                    )),
+                            }
+                          },
+                        )),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   Future<void> validatePassword(String password) async {

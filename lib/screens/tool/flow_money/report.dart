@@ -127,189 +127,192 @@ class _ReportFlowMoneyScreenState extends State<ReportFlowMoneyScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Theo dõi dòng tiền",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 20, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Theo dõi dòng tiền",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 20, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectDefault = true;
-                                });
-                              },
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Tháng",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: selectDefault
-                                        ? Mytheme.colorBgButtonLogin
-                                        : Mytheme.color_82869E,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-SemiBold",
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectDefault = true;
+                                    });
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Tháng",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: selectDefault
+                                            ? Mytheme.colorBgButtonLogin
+                                            : Mytheme.color_82869E,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-SemiBold",
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectDefault = false;
-                                });
-                                if(monthdata.isEmpty) {
-                                  loadDataDrawMonth(
-                                      idUserTool,
-                                      "",
-                                      DateTime.now().year.toString());
-                                }
-                              },
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Năm",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: !selectDefault
-                                        ? Mytheme.colorBgButtonLogin
-                                        : Mytheme.color_82869E,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-SemiBold",
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectDefault = false;
+                                    });
+                                    if(monthdata.isEmpty) {
+                                      loadDataDrawMonth(
+                                          idUserTool,
+                                          "",
+                                          DateTime.now().year.toString());
+                                    }
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Năm",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: !selectDefault
+                                            ? Mytheme.colorBgButtonLogin
+                                            : Mytheme.color_82869E,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-SemiBold",
+                                      ),
+                                    ),
                                   ),
                                 ),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Divider(
+                                      thickness: 2,
+                                      color: selectDefault
+                                          ? Mytheme.colorBgButtonLogin
+                                          : Mytheme.color_82869E,
+                                    )),
+                              ),
+                              Expanded(
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Divider(
+                                      thickness: 2,
+                                      color: !selectDefault
+                                          ? Mytheme.colorBgButtonLogin
+                                          : Mytheme.color_82869E,
+                                    )),
+                              )
+                            ],
+                          ),
+                          Visibility(
+                            visible: selectDefault ? true : false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 30, top: 10, left: 16, right: 16),
+                              child: Column(
+                                children: [
+                                  month(),
+                                  loadChart(),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Constants.selectDefault = true;
+                                      loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
+                                    },
+                                    child: Image.asset("assets/images/img_tienvao.png"),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Constants.selectDefault = false;
+                                      loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
+                                    },
+                                    child: Image.asset("assets/images/img_tienra.png"),
+                                  ),
+
+                                ],
                               ),
                             ),
-                          )
+                          ),
+
+                          //nam
+                          Visibility(
+                            visible: !selectDefault ? true : false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 30, top: 10, left: 16, right: 16),
+                              child: Column(
+                                children: [
+                                  yeah(),
+                                  loadChartYear(),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Constants.selectDefault = true;
+                                      loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
+                                    },
+                                    child: Image.asset("assets/images/img_tienvao.png"),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Constants.selectDefault = false;
+                                      loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
+                                    },
+                                    child: Image.asset("assets/images/img_tienra.png"),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Divider(
-                                  thickness: 2,
-                                  color: selectDefault
-                                      ? Mytheme.colorBgButtonLogin
-                                      : Mytheme.color_82869E,
-                                )),
-                          ),
-                          Expanded(
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Divider(
-                                  thickness: 2,
-                                  color: !selectDefault
-                                      ? Mytheme.colorBgButtonLogin
-                                      : Mytheme.color_82869E,
-                                )),
-                          )
-                        ],
-                      ),
-                      Visibility(
-                        visible: selectDefault ? true : false,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 30, top: 10, left: 16, right: 16),
-                          child: Column(
-                            children: [
-                              month(),
-                              loadChart(),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Constants.selectDefault = true;
-                                  loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
-                                },
-                                child: Image.asset("assets/images/img_tienvao.png"),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Constants.selectDefault = false;
-                                  loadDetailDataDraw(idUserTool, (currentRepaymentCycleIndex + 1).toString(), DateTime.now().year.toString());
-                                },
-                                child: Image.asset("assets/images/img_tienra.png"),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //nam
-                      Visibility(
-                        visible: !selectDefault ? true : false,
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 30, top: 10, left: 16, right: 16),
-                          child: Column(
-                            children: [
-                              yeah(),
-                              loadChartYear(),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Constants.selectDefault = true;
-                                  loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
-                                },
-                                child: Image.asset("assets/images/img_tienvao.png"),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Constants.selectDefault = false;
-                                  loadDetailDataDraw(idUserTool, "", _listYeah[currentYear].replaceAll("Năm ", ""));
-                                },
-                                child: Image.asset("assets/images/img_tienra.png"),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

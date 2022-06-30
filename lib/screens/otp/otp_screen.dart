@@ -52,136 +52,139 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 9,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: title,
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                StringText.text_code_otp,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorTextSubTitle,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-Semibold",
-                                  // decoration: TextDecoration.underline,
-                                ),
-                              ),
-                              // di chuyen item tối cuối
-                              const Spacer(),
-                              TextButton(
-                                  onPressed: () {
-                                    getOtpAgain(phone);
-                                  },
-                                  child: const Text(
-                                    StringText.text_get_code_otp_again,
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorBgButtonLogin,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "OpenSans-Regular",
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  )),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            child: TextFieldWidget(
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                textInputAction: TextInputAction.done,
-                                obscureText: false,
-                                hintText: StringText.text_input_code_otp,
-                                // labelText: "Phone number",
-                                // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                suffixIcon: Icons.close,
-                                clickSuffixIcon: () => _phoneController.clear(),
-                                textController: _phoneController),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Image(
-                                image:
-                                    AssetImage('assets/images/icon_info.png'),
-                                fit: BoxFit.fill,
-                                width: 13,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Text(
-                                  StringText.text_introduction_get_otp,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.kBackgroundColor,
+            body: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 9,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      AppbarWidget(
+                        text: title,
+                        onClicked: () => Get.back(),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(top: 30, left: 24, right: 24),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  StringText.text_code_otp,
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 16,
                                     color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "OpenSans-Regular",
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                    // decoration: TextDecoration.underline,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ],
+                                // di chuyen item tối cuối
+                                const Spacer(),
+                                TextButton(
+                                    onPressed: () {
+                                      getOtpAgain(phone);
+                                    },
+                                    child: const Text(
+                                      StringText.text_get_code_otp_again,
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorBgButtonLogin,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              child: TextFieldWidget(
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                  textInputAction: TextInputAction.done,
+                                  obscureText: false,
+                                  hintText: StringText.text_input_code_otp,
+                                  // labelText: "Phone number",
+                                  // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                  suffixIcon: Icons.close,
+                                  clickSuffixIcon: () => _phoneController.clear(),
+                                  textController: _phoneController),
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+                                Image(
+                                  image:
+                                  AssetImage('assets/images/icon_info.png'),
+                                  fit: BoxFit.fill,
+                                  width: 13,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    StringText.text_introduction_get_otp,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Mytheme.colorTextSubTitle,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: "OpenSans-Regular",
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            // side: const BorderSide(color: Colors.red)
-                          ),
-                          primary: Mytheme.colorBgButtonLogin,
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width, 44)),
-                      child: const Text(
-                        StringText.text_continue,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        validateOtp(phone);
-                        // Get.toNamed('/updatePassword');
-                      },
-                    )),
-              ),
-            ],
-          ),
-        ));
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding:
+                      const EdgeInsets.only(bottom: 30, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize:
+                            Size(MediaQuery.of(context).size.width, 44)),
+                        child: const Text(
+                          StringText.text_continue,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          validateOtp(phone);
+                          // Get.toNamed('/updatePassword');
+                        },
+                      )),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 
   // Future<void> getOtpAgain(String phone) async {

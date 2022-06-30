@@ -111,166 +111,169 @@ class _AudioScreenState extends State<AudioScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: Constants.nameCourseTemp,
-                onClicked: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                flex: 11,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 50),
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(80),
-                          ),
-                          child: Row(
-                            children: <Widget>[
-                              IconButton(
-                                  icon: Icon(
-                                    isPlaying
-                                        ? Icons.pause_circle_filled
-                                        : Icons.play_circle_filled,
-                                    color: Colors.black,
-                                    size: 30,
-                                  ),
-                                  onPressed: () {
-                                    if (isPlaying) {
-                                      player.pause();
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child:  GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.colorBgMain,
+              body: Column(
+                children: <Widget>[
+                  AppbarWidget(
+                    text: Constants.nameCourseTemp,
+                    onClicked: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  Expanded(
+                    flex: 11,
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 50),
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(80),
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  IconButton(
+                                      icon: Icon(
+                                        isPlaying
+                                            ? Icons.pause_circle_filled
+                                            : Icons.play_circle_filled,
+                                        color: Colors.black,
+                                        size: 30,
+                                      ),
+                                      onPressed: () {
+                                        if (isPlaying) {
+                                          player.pause();
+
+                                          setState(() {
+                                            isPlaying = false;
+                                          });
+                                        } else {
+                                          player.resume();
+                                          setState(() {
+                                            isPlaying = true;
+                                          });
+                                        }
+                                      }),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.stop,
+                                      color: Colors.black,
+                                      size: 25,
+                                    ),
+                                    onPressed: () {
+                                      player.stop();
 
                                       setState(() {
                                         isPlaying = false;
                                       });
-                                    } else {
-                                      player.resume();
-                                      setState(() {
-                                        isPlaying = true;
-                                      });
-                                    }
-                                  }),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.stop,
-                                  color: Colors.black,
-                                  size: 25,
-                                ),
-                                onPressed: () {
-                                  player.stop();
-
-                                  setState(() {
-                                    isPlaying = false;
-                                  });
-                                },
-                              ),
-                              Text(
-                                "   " + currentTime,
-                                style: TextStyle(fontWeight: FontWeight.w700),
-                              ),
-                              Text(" | "),
-                              Text(
-                                completeTime,
-                                style: TextStyle(fontWeight: FontWeight.w300),
-                              ),
-                              Expanded(child: slider())
-                              ,
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Html(
-                            data: _studyData.contentText.toString(),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 20.0),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Tài liệu",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "OpenSans-Regular",
+                                    },
                                   ),
+                                  Text(
+                                    "   " + currentTime,
+                                    style: TextStyle(fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(" | "),
+                                  Text(
+                                    completeTime,
+                                    style: TextStyle(fontWeight: FontWeight.w300),
+                                  ),
+                                  Expanded(child: slider())
+                                  ,
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Html(
+                                data: _studyData.contentText.toString(),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 20.0),
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "Tài liệu",
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(color: Colors.black),
+                                ],
+                              ),
+                            ),
+                            for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                                child: CardContentTopicWidget(
+                                  title: _studyData.exerciseData![i].name,
+                                  type: 1,
+                                  hideImageRight: false,
+                                  onClicked: () async {
+                                    // downloadFile(
+                                    //     "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
+                                    //     _studyData.exerciseData![i].name.toString(),
+                                    //     "mp4");
+                                  },
                                 ),
                               ),
-                              Divider(color: Colors.black),
-                            ],
-                          ),
+                            ]
+                          ],
                         ),
-                        for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
-                            child: CardContentTopicWidget(
-                              title: _studyData.exerciseData![i].name,
-                              type: 1,
-                              hideImageRight: false,
-                              onClicked: () async {
-                                // downloadFile(
-                                //     "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
-                                //     _studyData.exerciseData![i].name.toString(),
-                                //     "mp4");
-                              },
-                            ),
-                          ),
-                        ]
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 0, left: 24, right: 24),
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              // side: const BorderSide(color: Colors.red)
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40, bottom: 0, left: 24, right: 24),
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  // side: const BorderSide(color: Colors.red)
+                                ),
+                                primary: Mytheme.colorBgButtonLogin,
+                                minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                            child: Text(
+                              "Tiếp tục",
+                              style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
                             ),
-                            primary: Mytheme.colorBgButtonLogin,
-                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-                        child: Text(
-                          "Tiếp tục",
-                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {
-                          Get.back();
-                          // await browser.open(
-                          //     url: Uri.parse("https://internal.co-opsmart.vn/scorm/13"),
-                          //     options: ChromeSafariBrowserClassOptions(
-                          //         android: AndroidChromeCustomTabsOptions(shareState: CustomTabsShareState.SHARE_STATE_OFF),
-                          //         ios: IOSSafariOptions(barCollapsingEnabled: true)));
-                        },
-                      )
-                    ],
+                            onPressed: () {
+                              Get.back();
+                              // await browser.open(
+                              //     url: Uri.parse("https://internal.co-opsmart.vn/scorm/13"),
+                              //     options: ChromeSafariBrowserClassOptions(
+                              //         android: AndroidChromeCustomTabsOptions(shareState: CustomTabsShareState.SHARE_STATE_OFF),
+                              //         ios: IOSSafariOptions(barCollapsingEnabled: true)));
+                            },
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 }

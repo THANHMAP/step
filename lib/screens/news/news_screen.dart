@@ -46,35 +46,38 @@ class _NewsScreenState extends State<NewsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: StringText.text_news,
-                onClicked: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        newsLayout(),
-                      ],
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: StringText.text_news,
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          newsLayout(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        ));
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   newsLayout() {

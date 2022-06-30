@@ -75,265 +75,265 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: title,
-              onClicked: () {
-                Get.back(result: false);
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                        Container(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, left: 24, right: 24),
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Lịch trả nợ món vay mới",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      nameSchedule,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  //
-                                  const SizedBox(height: 10),
-                                  //
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số tiền bạn phải thanh toán mỗi kỳ",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      payment_amount,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  //
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Chu kỳ trả nợ",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      repaymentCycle,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  //
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số lần trả nợ",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      repaymentNumber,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Ngày trả nợ đầu tiên",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: title,
+                  onClicked: () {
+                    Get.back(result: false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 30, left: 24, right: 24),
+                                  child: Column(
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Lịch trả nợ món vay mới",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        formatDay(),
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          nameSchedule,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
                                         ),
                                       ),
-                                    ),
-
-                                  if(nextRepaymentDate.isNotEmpty)...[
-                                    const SizedBox(height: 10),
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        "Ngày trả nợ tiếp theo",
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
+                                      //
+                                      const SizedBox(height: 10),
+                                      //
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Số tiền bạn phải thanh toán mỗi kỳ",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        nextRepaymentDate,
-                                        textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          payment_amount,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-
-
-
-                                  const SizedBox(height: 10),
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Số ngày nhận thông báo trước hẹn",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
+                                      //
+                                      const SizedBox(height: 10),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Chu kỳ trả nợ",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          repaymentCycle,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+                                      //
+                                      const SizedBox(height: 10),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Số lần trả nợ",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          repaymentNumber,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 10),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Ngày trả nợ đầu tiên",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          formatDay(),
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+
+                                      if(nextRepaymentDate.isNotEmpty)...[
+                                        const SizedBox(height: 10),
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Ngày trả nợ tiếp theo",
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            nextRepaymentDate,
+                                            textAlign: TextAlign.left,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+
+
+
+                                      const SizedBox(height: 10),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Số ngày nhận thông báo trước hẹn",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          numberDay,
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+
+                                      Image.asset("assets/images/schedule.png", width: 190,),
+
+                                    ],
                                   ),
-                                  const SizedBox(height: 4),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      numberDay,
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
+                                ),
 
-                                  Image.asset("assets/images/schedule.png", width: 190,),
-
-                                ],
-                              ),
+                              ],
                             ),
+                          ),
 
-                          ],
-                        ),
+                        ],
                       ),
-
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
-
-
-
 
   String getNameRepayment(int index) {
     return _listRepaymentCycle[index];

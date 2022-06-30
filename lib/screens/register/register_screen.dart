@@ -41,91 +41,94 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 9,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: StringText.text_register,
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 9,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: StringText.text_register,
+                          onClicked: () => Get.back(),
+                        ),
+                        Padding(
+                          padding:
                           const EdgeInsets.only(top: 30, left: 24, right: 24),
-                      child: Column(
-                        children: [
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              StringText.text_register_account,
-                              textAlign: TextAlign.left,
-                              style: Mytheme.textSubTitle,
-                            ),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  StringText.text_register_account,
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                child: TextFieldWidget(
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    textInputAction: TextInputAction.done,
+                                    obscureText: false,
+                                    hintText: StringText.text_phone_input,
+                                    // labelText: "Phone number",
+                                    // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                    suffixIcon: Icons.close,
+                                    clickSuffixIcon: () => _phoneController.clear(),
+                                    textController: _phoneController),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            child: TextFieldWidget(
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                textInputAction: TextInputAction.done,
-                                obscureText: false,
-                                hintText: StringText.text_phone_input,
-                                // labelText: "Phone number",
-                                // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                suffixIcon: Icons.close,
-                                clickSuffixIcon: () => _phoneController.clear(),
-                                textController: _phoneController),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                    padding:
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                        padding:
                         const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            // side: const BorderSide(color: Colors.red)
-                          ),
-                          primary: Mytheme.colorBgButtonLogin,
-                          minimumSize:
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize:
                               Size(MediaQuery.of(context).size.width, 44)),
-                      child: const Text(
-                        StringText.text_get_otp,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        validatePhoneUser();
-                        // pr.show();
-                        // Future.delayed(Duration(seconds: 3)).then((value) {
-                        //   pr.hide();
-                        // });
-                        // Get.toNamed('/otp');
-                      },
-                    )),
+                          child: const Text(
+                            StringText.text_get_otp,
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            validatePhoneUser();
+                            // pr.show();
+                            // Future.delayed(Duration(seconds: 3)).then((value) {
+                            //   pr.hide();
+                            // });
+                            // Get.toNamed('/otp');
+                          },
+                        )),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   Future<void> validatePhoneUser() async {

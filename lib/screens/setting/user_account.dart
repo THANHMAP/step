@@ -94,42 +94,44 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: "Thông tin cá nhân",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      loadImage(user),
-                      infoUser(),
-                      sexUser(),
-                      birthUser(),
-                      cityUser(),
-                      districtUser(),
-                      memberUser(),
-                      const SizedBox(height: 40),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, left: 24, right: 24, bottom: 24),
-                        child: ButtonWidget(
-                            text: StringText.text_save,
-                            color: Mytheme.colorBgButtonLogin,
-                            onClicked: () => {
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Thông tin cá nhân",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          loadImage(user),
+                          infoUser(),
+                          sexUser(),
+                          birthUser(),
+                          cityUser(),
+                          districtUser(),
+                          memberUser(),
+                          const SizedBox(height: 40),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10, left: 24, right: 24, bottom: 24),
+                            child: ButtonWidget(
+                                text: StringText.text_save,
+                                color: Mytheme.colorBgButtonLogin,
+                                onClicked: () => {
                                   // saveInfoUser()
                                   if (_image != null)
                                     {
@@ -138,15 +140,16 @@ class _AccountScreenState extends State<AccountScreen> {
                                   else
                                     {saveInfoUser()}
                                 }),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

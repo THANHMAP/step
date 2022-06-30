@@ -42,35 +42,38 @@ class _QTDScreenState extends State<QTDScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: "Quỹ tín dụng nhân dân",
-                      onClicked: () => Get.back(),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: "Quỹ tín dụng nhân dân",
+                          onClicked: () => Get.back(),
+                        ),
+                        Expanded(
+                          child:  WebView(
+                            initialUrl: 'https://co-opsmart.vn/about-pcf',
+                            // Enable Javascript on WebView
+                            javascriptMode: JavascriptMode.unrestricted,
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child:  WebView(
-                        initialUrl: 'https://co-opsmart.vn/about-pcf',
-                        // Enable Javascript on WebView
-                        javascriptMode: JavascriptMode.unrestricted,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
 
-            ],
-          ),
-        ));
+                ],
+              ),
+            )),
+    );
   }
 
 }

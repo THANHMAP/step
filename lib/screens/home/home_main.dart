@@ -77,38 +77,41 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      confineInSafeArea: true,
-      backgroundColor: Colors.white,
-      handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
-      stateManagement: true,
-      navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-          ? 0.0
-          : kBottomNavigationBarHeight,
-      hideNavigationBarWhenKeyboardShows: true,
-      margin: const EdgeInsets.all(0.0),
-      bottomScreenMargin: 0.0,
-      decoration: NavBarDecoration(
-        // borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
-      ),
-      popAllScreensOnTapOfSelectedTab: true,
-      popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: const ItemAnimationProperties(
-        duration: Duration(milliseconds: 200),
-        curve: Curves.ease,
-      ),
-      screenTransitionAnimation: const ScreenTransitionAnimation(
-        animateTabTransition: true,
-        curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
-      ),
-      navBarStyle: NavBarStyle.style3,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: PersistentTabView(
+          context,
+          controller: _controller,
+          screens: _buildScreens(),
+          items: _navBarsItems(),
+          confineInSafeArea: true,
+          backgroundColor: Colors.white,
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true,
+          navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
+              ? 0.0
+              : kBottomNavigationBarHeight,
+          hideNavigationBarWhenKeyboardShows: true,
+          margin: const EdgeInsets.all(0.0),
+          bottomScreenMargin: 0.0,
+          decoration: NavBarDecoration(
+            // borderRadius: BorderRadius.circular(10.0),
+            colorBehindNavBar: Colors.white,
+          ),
+          popAllScreensOnTapOfSelectedTab: true,
+          popActionScreens: PopActionScreensType.all,
+          itemAnimationProperties: const ItemAnimationProperties(
+            duration: Duration(milliseconds: 200),
+            curve: Curves.ease,
+          ),
+          screenTransitionAnimation: const ScreenTransitionAnimation(
+            animateTabTransition: true,
+            curve: Curves.ease,
+            duration: Duration(milliseconds: 200),
+          ),
+          navBarStyle: NavBarStyle.style3,
+        ),
     );
   }
 }

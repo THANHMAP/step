@@ -70,552 +70,555 @@ class _EditLoanScreenState extends State<EditLoanScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: data.name,
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              flex: 8,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 30),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, left: 24, right: 24, bottom: 24),
-                              child: Column(
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Tên khoản vay",
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  SizedBox(
-                                    child: TextFieldWidget(
-                                        keyboardType: TextInputType.text,
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter
-                                              .singleLineFormatter
-                                        ],
-                                        textInputAction: TextInputAction.done,
-                                        obscureText: false,
-                                        hintText: "Viết tên của khoản vay này",
-                                        // labelText: "Phone number",
-                                        // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                        suffixIcon: Icons.close,
-                                        clickSuffixIcon: () =>
-                                            _nameLoanController.clear(),
-                                        textController: _nameLoanController),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: data.name,
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  flex: 8,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: 30),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            child: Column(
                               children: [
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectDefault = true;
-                                        typeObj = 1;
-                                      });
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Người đi vay",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: selectDefault
-                                              ? Mytheme.colorBgButtonLogin
-                                              : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 30, left: 24, right: 24, bottom: 24),
+                                  child: Column(
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Tên khoản vay",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        selectDefault = false;
-                                        typeObj = 2;
-                                      });
-                                    },
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Người đồng trả nợ",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: !selectDefault
-                                              ? Mytheme.colorBgButtonLogin
-                                              : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
+                                      const SizedBox(height: 10),
+                                      SizedBox(
+                                        child: TextFieldWidget(
+                                            keyboardType: TextInputType.text,
+                                            inputFormatters: <TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .singleLineFormatter
+                                            ],
+                                            textInputAction: TextInputAction.done,
+                                            obscureText: false,
+                                            hintText: "Viết tên của khoản vay này",
+                                            // labelText: "Phone number",
+                                            // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                            suffixIcon: Icons.close,
+                                            clickSuffixIcon: () =>
+                                                _nameLoanController.clear(),
+                                            textController: _nameLoanController),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Divider(
-                                        thickness: 2,
-                                        color: selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
-                                      )),
                                 ),
-                                Expanded(
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Divider(
-                                        thickness: 2,
-                                        color: !selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
-                                      )),
-                                )
-                              ],
-                            ),
-
-                            Visibility(
-                              visible: selectDefault ? true : false,
-                              child:  Padding(
-                                padding:
-                                const EdgeInsets.only(
-                                    bottom: 30,
-                                    top: 10,
-                                    left: 16,
-                                    right: 16),
-                                child: Column(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    for (var i = 0;
-                                    i <
-                                        dataUsers
-                                            .length;
-                                    i++) ...[
-                                      if (dataUsers[i]
-                                          .type ==
-                                          1) ...[
-                                        Padding(
-                                          padding:
-                                          const EdgeInsets
-                                              .only(
-                                              top: 12,
-                                              bottom:
-                                              12),
-                                          child: Container(
-                                            decoration:
-                                            BoxDecoration(
-                                              shape: BoxShape
-                                                  .rectangle,
-                                              color: Colors
-                                                  .white,
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                                  8),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors
-                                                      .grey
-                                                      .withOpacity(
-                                                      0.5),
-                                                  spreadRadius:
-                                                  1,
-                                                  blurRadius:
-                                                  7,
-                                                  offset: const Offset(
-                                                      0,
-                                                      3), // changes position of shadow
-                                                ),
-                                              ],
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectDefault = true;
+                                            typeObj = 1;
+                                          });
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Người đi vay",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: selectDefault
+                                                  ? Mytheme.colorBgButtonLogin
+                                                  : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
                                             ),
-                                            child: Padding(
-                                              padding: const EdgeInsets
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectDefault = false;
+                                            typeObj = 2;
+                                          });
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Người đồng trả nợ",
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: !selectDefault
+                                                  ? Mytheme.colorBgButtonLogin
+                                                  : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                          child: Divider(
+                                            thickness: 2,
+                                            color: selectDefault
+                                                ? Mytheme.colorBgButtonLogin
+                                                : Mytheme.color_82869E,
+                                          )),
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                          alignment: Alignment.center,
+                                          child: Divider(
+                                            thickness: 2,
+                                            color: !selectDefault
+                                                ? Mytheme.colorBgButtonLogin
+                                                : Mytheme.color_82869E,
+                                          )),
+                                    )
+                                  ],
+                                ),
+
+                                Visibility(
+                                  visible: selectDefault ? true : false,
+                                  child:  Padding(
+                                    padding:
+                                    const EdgeInsets.only(
+                                        bottom: 30,
+                                        top: 10,
+                                        left: 16,
+                                        right: 16),
+                                    child: Column(
+                                      children: [
+                                        for (var i = 0;
+                                        i <
+                                            dataUsers
+                                                .length;
+                                        i++) ...[
+                                          if (dataUsers[i]
+                                              .type ==
+                                              1) ...[
+                                            Padding(
+                                              padding:
+                                              const EdgeInsets
                                                   .only(
                                                   top: 12,
                                                   bottom:
-                                                  12,
-                                                  left: 12,
-                                                  right:
                                                   12),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(right: 10),
-                                                    child:
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-                                                        setState(() {
-                                                          if (dataUsers[i].value == "0") {
-                                                            dataUsers[i].value = "1";
-                                                          } else {
-                                                            dataUsers[i].value = "0";
-                                                          }
-                                                        });
-                                                      },
-                                                      child: SvgPicture.asset(dataUsers[i].value == "0"
-                                                          ? "assets/svg/ic_checkbox_loan.svg"
-                                                          : "assets/svg/ic_checkbox_loan_select.svg"),
+                                              child: Container(
+                                                decoration:
+                                                BoxDecoration(
+                                                  shape: BoxShape
+                                                      .rectangle,
+                                                  color: Colors
+                                                      .white,
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(
+                                                      8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors
+                                                          .grey
+                                                          .withOpacity(
+                                                          0.5),
+                                                      spreadRadius:
+                                                      1,
+                                                      blurRadius:
+                                                      7,
+                                                      offset: const Offset(
+                                                          0,
+                                                          3), // changes position of shadow
                                                     ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child:
-                                                    Text(
-                                                      dataUsers[i].key ??
-                                                          "",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontFamily: "OpenSans-Regular",
-                                                          fontWeight: FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child:
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                      children: [
+                                                  ],
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      top: 12,
+                                                      bottom:
+                                                      12,
+                                                      left: 12,
+                                                      right:
+                                                      12),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(right: 10),
+                                                        child:
                                                         InkWell(
-                                                          onTap: () {
+                                                          onTap:
+                                                              () {
                                                             setState(() {
-                                                              showDialogConfig(i);
+                                                              if (dataUsers[i].value == "0") {
+                                                                dataUsers[i].value = "1";
+                                                              } else {
+                                                                dataUsers[i].value = "0";
+                                                              }
                                                             });
                                                           },
-                                                          child: Align(
-                                                            alignment: Alignment.topRight,
-                                                            child: SvgPicture.asset("assets/svg/ic_remove.svg"),
-                                                          ),
+                                                          child: SvgPicture.asset(dataUsers[i].value == "0"
+                                                              ? "assets/svg/ic_checkbox_loan.svg"
+                                                              : "assets/svg/ic_checkbox_loan_select.svg"),
                                                         ),
-                                                        SizedBox(
-                                                          width: 30,
+                                                      ),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child:
+                                                        Text(
+                                                          dataUsers[i].key ??
+                                                              "",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "OpenSans-Regular",
+                                                              fontWeight: FontWeight.bold),
                                                         ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            showDialogAddItemTool(dataUsers[i].key ?? "", i);
-                                                          },
-                                                          child: Align(
-                                                            alignment: Alignment.topRight,
-                                                            child: SvgPicture.asset("assets/svg/ic_pen.svg"),
-                                                          ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child:
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  showDialogConfig(i);
+                                                                });
+                                                              },
+                                                              child: Align(
+                                                                alignment: Alignment.topRight,
+                                                                child: SvgPicture.asset("assets/svg/ic_remove.svg"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 30,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                showDialogAddItemTool(dataUsers[i].key ?? "", i);
+                                                              },
+                                                              child: Align(
+                                                                alignment: Alignment.topRight,
+                                                                child: SvgPicture.asset("assets/svg/ic_pen.svg"),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    ],
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets
-                                          .only(
-                                          top: 10),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          showDialogAddItemTool("", 0);
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets
-                                                  .only(
-                                                  right:
-                                                  10),
-                                              child: SvgPicture
-                                                  .asset(
-                                                  "assets/svg/ic_add_blue.svg"),
-                                            ),
-                                            Text(
-                                              "Thêm danh mục",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                  16,
-                                                  fontFamily:
-                                                  "OpenSans-Regular",
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .bold),
-                                            ),
                                           ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),),
-                            Visibility(
-                              visible: !selectDefault ? true : false,
-                              child: Padding(
-                                padding:
-                                const EdgeInsets.only(
-                                    top: 10,
-                                    left: 16,
-                                    right: 16,
-                                    bottom: 22),
-                                child: Column(
-                                  children: [
-                                    for (var i = 0;
-                                    i <
-                                        dataUsers
-                                            .length;
-                                    i++) ...[
-                                      if (dataUsers[i]
-                                          .type ==
-                                          2) ...[
+                                        ],
                                         Padding(
                                           padding:
                                           const EdgeInsets
                                               .only(
-                                              top: 12,
-                                              bottom:
-                                              12),
-                                          child: Container(
-                                            decoration:
-                                            BoxDecoration(
-                                              shape: BoxShape
-                                                  .rectangle,
-                                              color: Colors
-                                                  .white,
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                                  8),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors
-                                                      .grey
-                                                      .withOpacity(
-                                                      0.5),
-                                                  spreadRadius:
-                                                  1,
-                                                  blurRadius:
-                                                  7,
-                                                  offset: const Offset(
-                                                      0,
-                                                      3), // changes position of shadow
+                                              top: 10),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              showDialogAddItemTool("", 0);
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      right:
+                                                      10),
+                                                  child: SvgPicture
+                                                      .asset(
+                                                      "assets/svg/ic_add_blue.svg"),
+                                                ),
+                                                Text(
+                                                  "Thêm danh mục",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                      16,
+                                                      fontFamily:
+                                                      "OpenSans-Regular",
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .bold),
                                                 ),
                                               ],
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets
-                                                  .only(
-                                                  top: 12,
-                                                  bottom:
-                                                  12,
-                                                  left: 12,
-                                                  right:
-                                                  12),
-                                              child: Row(
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(right: 10),
-                                                    child:
-                                                    InkWell(
-                                                      onTap:
-                                                          () {
-                                                        setState(() {
-                                                          if (dataUsers[i].value == "0") {
-                                                            dataUsers[i].value = "1";
-                                                          } else {
-                                                            dataUsers[i].value = "0";
-                                                          }
-                                                        });
-                                                      },
-                                                      child: SvgPicture.asset(dataUsers[i].value == "0"
-                                                          ? "assets/svg/ic_checkbox_loan.svg"
-                                                          : "assets/svg/ic_checkbox_loan_select.svg"),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child:
-                                                    Text(
-                                                      dataUsers[i].key ??
-                                                          "",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontFamily: "OpenSans-Regular",
-                                                          fontWeight: FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child:
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            showDialogConfig(i);
-                                                          },
-                                                          child: Align(
-                                                            alignment: Alignment.topRight,
-                                                            child: SvgPicture.asset("assets/svg/ic_remove.svg"),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 30,
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            showDialogAddItemTool(dataUsers[i].key ?? "", i);
-                                                          },
-                                                          child: Align(
-                                                            alignment: Alignment.topRight,
-                                                            child: SvgPicture.asset("assets/svg/ic_pen.svg"),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
-                                    ],
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets
-                                          .only(
-                                          top: 10),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          showDialogAddItemTool("", 0);
-                                        },
-                                        child: Row(
-                                          children: [
+                                    ),
+                                  ),),
+                                Visibility(
+                                  visible: !selectDefault ? true : false,
+                                  child: Padding(
+                                    padding:
+                                    const EdgeInsets.only(
+                                        top: 10,
+                                        left: 16,
+                                        right: 16,
+                                        bottom: 22),
+                                    child: Column(
+                                      children: [
+                                        for (var i = 0;
+                                        i <
+                                            dataUsers
+                                                .length;
+                                        i++) ...[
+                                          if (dataUsers[i]
+                                              .type ==
+                                              2) ...[
                                             Padding(
-                                              padding: const EdgeInsets
+                                              padding:
+                                              const EdgeInsets
                                                   .only(
-                                                  right:
-                                                  10),
-                                              child: SvgPicture
-                                                  .asset(
-                                                  "assets/svg/ic_add_blue.svg"),
-                                            ),
-                                            Text(
-                                              "Thêm danh mục",
-                                              style: TextStyle(
-                                                  fontSize:
-                                                  16,
-                                                  fontFamily:
-                                                  "OpenSans-Regular",
-                                                  fontWeight:
-                                                  FontWeight
-                                                      .bold),
+                                                  top: 12,
+                                                  bottom:
+                                                  12),
+                                              child: Container(
+                                                decoration:
+                                                BoxDecoration(
+                                                  shape: BoxShape
+                                                      .rectangle,
+                                                  color: Colors
+                                                      .white,
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(
+                                                      8),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors
+                                                          .grey
+                                                          .withOpacity(
+                                                          0.5),
+                                                      spreadRadius:
+                                                      1,
+                                                      blurRadius:
+                                                      7,
+                                                      offset: const Offset(
+                                                          0,
+                                                          3), // changes position of shadow
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      top: 12,
+                                                      bottom:
+                                                      12,
+                                                      left: 12,
+                                                      right:
+                                                      12),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(right: 10),
+                                                        child:
+                                                        InkWell(
+                                                          onTap:
+                                                              () {
+                                                            setState(() {
+                                                              if (dataUsers[i].value == "0") {
+                                                                dataUsers[i].value = "1";
+                                                              } else {
+                                                                dataUsers[i].value = "0";
+                                                              }
+                                                            });
+                                                          },
+                                                          child: SvgPicture.asset(dataUsers[i].value == "0"
+                                                              ? "assets/svg/ic_checkbox_loan.svg"
+                                                              : "assets/svg/ic_checkbox_loan_select.svg"),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child:
+                                                        Text(
+                                                          dataUsers[i].key ??
+                                                              "",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "OpenSans-Regular",
+                                                              fontWeight: FontWeight.bold),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child:
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () {
+                                                                showDialogConfig(i);
+                                                              },
+                                                              child: Align(
+                                                                alignment: Alignment.topRight,
+                                                                child: SvgPicture.asset("assets/svg/ic_remove.svg"),
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 30,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                showDialogAddItemTool(dataUsers[i].key ?? "", i);
+                                                              },
+                                                              child: Align(
+                                                                alignment: Alignment.topRight,
+                                                                child: SvgPicture.asset("assets/svg/ic_pen.svg"),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ],
+                                        ],
+                                        Padding(
+                                          padding:
+                                          const EdgeInsets
+                                              .only(
+                                              top: 10),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              showDialogAddItemTool("", 0);
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      right:
+                                                      10),
+                                                  child: SvgPicture
+                                                      .asset(
+                                                      "assets/svg/ic_add_blue.svg"),
+                                                ),
+                                                Text(
+                                                  "Thêm danh mục",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                      16,
+                                                      fontFamily:
+                                                      "OpenSans-Regular",
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .bold),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ),)
-                          ],
-                        ),
+                                  ),)
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 20, left: 24, right: 24),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          // side: const BorderSide(color: Colors.red)
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 20, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize:
+                            Size(MediaQuery.of(context).size.width, 44)),
+                        child: Text(
+                          "Lưu",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
                         ),
-                        primary: Mytheme.colorBgButtonLogin,
-                        minimumSize:
-                        Size(MediaQuery.of(context).size.width, 44)),
-                    child: Text(
-                      "Lưu",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontFamily: "OpenSans-Regular",
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      if(_nameLoanController.text.isEmpty) {
-                        Utils.showError("Bạn chưa nhập tên khoản vay", context);
-                      } else {
-                        UpdateDataTool updateDataTool = UpdateDataTool();
-                        updateDataTool.title = _nameLoanController.text;
-                        updateDataTool.userToolId = int.parse(userId);
-                        updateDataTool.type = 1;
-                        List<UpdateDataToolUsers>? listData = [];
-                        for (var i = 0; i < dataUsers.length; i++) {
-                          listData.add(UpdateDataToolUsers(
-                              key: dataUsers[i].key,
-                              type: dataUsers[i].type,
-                              value: dataUsers[i].value
-                          ));
-                        }
-                        updateDataTool.dataUsers = listData;
-                        print(jsonEncode(updateDataTool));
-                        saveItemTool(jsonEncode(updateDataTool));
-                      }
-                    },
-                  )),
+                        onPressed: () {
+                          if(_nameLoanController.text.isEmpty) {
+                            Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                          } else {
+                            UpdateDataTool updateDataTool = UpdateDataTool();
+                            updateDataTool.title = _nameLoanController.text;
+                            updateDataTool.userToolId = int.parse(userId);
+                            updateDataTool.type = 1;
+                            List<UpdateDataToolUsers>? listData = [];
+                            for (var i = 0; i < dataUsers.length; i++) {
+                              listData.add(UpdateDataToolUsers(
+                                  key: dataUsers[i].key,
+                                  type: dataUsers[i].type,
+                                  value: dataUsers[i].value
+                              ));
+                            }
+                            updateDataTool.dataUsers = listData;
+                            print(jsonEncode(updateDataTool));
+                            saveItemTool(jsonEncode(updateDataTool));
+                          }
+                        },
+                      )),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

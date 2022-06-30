@@ -103,348 +103,351 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Mytheme.colorBgMain,
-        body: Column(
-          children: <Widget>[
-            AppbarWidget(
-              text: _itemToolData?.name ?? "",
-              onClicked: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-            Expanded(
-              flex: 9,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, left: 0, right: 0, bottom: 70),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20, left: 0, bottom: 0, right: 0),
-                        child: CircularPercentIndicator(
-                          radius: 90.0,
-                          animation: true,
-                          animationDuration: 1200,
-                          lineWidth: 15.0,
-                          percent: present,
-                          center: Container(
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                Text(
-                                  presentShow,
-                                  style: TextStyle(
-                                    fontSize: 36,
-                                    color: Mytheme.colorBgButtonLogin,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                  ),
-                                ),
-                                Text(
-                                  "${formNum(moneyHasSave)} VNĐ",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "OpenSans-Regular",
-                                  ),
-                                ),
-                              ])),
-                          circularStrokeCap: CircularStrokeCap.butt,
-                          backgroundColor: Mytheme.color_DCDEE9,
-                          progressColor: Mytheme.color_0xFF003A8C,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        "Mục tiêu đến: $dayEnd",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.colorTextSubTitle,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "OpenSans-Regular",
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: _itemToolData?.name ?? "",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  flex: 9,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, right: 0, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 16.0, right: 16.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.kBackgroundColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 11, left: 12, right: 12, bottom: 11),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Mục tiêu tiết kiệm",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                    Text(
-                                      formNum(moneySaveTarget),
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorBgButtonLogin,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, left: 0, bottom: 0, right: 0),
+                            child: CircularPercentIndicator(
+                              radius: 90.0,
+                              animation: true,
+                              animationDuration: 1200,
+                              lineWidth: 15.0,
+                              percent: present,
+                              center: Container(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          presentShow,
+                                          style: TextStyle(
+                                            fontSize: 36,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-Semibold",
+                                          ),
+                                        ),
+                                        Text(
+                                          "${formNum(moneyHasSave)} VNĐ",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ])),
+                              circularStrokeCap: CircularStrokeCap.butt,
+                              backgroundColor: Mytheme.color_DCDEE9,
+                              progressColor: Mytheme.color_0xFF003A8C,
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.only(left: 0.0, right: 16.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.kBackgroundColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 11, left: 12, right: 12, bottom: 11),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Còn lại",
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
+                          SizedBox(height: 20),
+                          Text(
+                            "Mục tiêu đến: $dayEnd",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "OpenSans-Regular",
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 16.0, right: 16.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 11, left: 12, right: 12, bottom: 11),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Mục tiêu tiết kiệm",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                        Text(
+                                          formNum(moneySaveTarget),
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      "${formNum((int.parse(moneySaveTarget)-int.parse(moneyHasSave)).toString())} VNĐ",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorBgButtonLogin,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10),
+                              Expanded(
+                                child: Container(
+                                  margin:
+                                  const EdgeInsets.only(left: 0.0, right: 16.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 11, left: 12, right: 12, bottom: 11),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Còn lại",
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                        Text(
+                                          "${formNum((int.parse(moneySaveTarget)-int.parse(moneyHasSave)).toString())} VNĐ",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 10),
 
-                      for(var i = 0; i < dataManage.length; i++) ...[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  left: 16.0, right: 0.0),
-                              child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                      "assets/svg/ic_calender.svg"),
-                                  SizedBox(width: 5,),
-                                  Text(
-                                    dataManage[i].name ?? "",
+                          for(var i = 0; i < dataManage.length; i++) ...[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 16.0, right: 0.0),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          "assets/svg/ic_calender.svg"),
+                                      SizedBox(width: 5,),
+                                      Text(
+                                        dataManage[i].name ?? "",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ),
+                                Spacer(),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 16),
+                                  child:  Text(
+                                    "${formNum(calculatorTotalMonth(dataManage[i].itemList!))} VNĐ",
+                                    textAlign: TextAlign.end,
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "OpenSans-Regular",
+                                      color: Mytheme.colorBgButtonLogin,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-SemiBold",
                                     ),
                                   ),
-                                ],
-                              ),
-
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding:
-                              const EdgeInsets.only(right: 16),
-                              child:  Text(
-                                "${formNum(calculatorTotalMonth(dataManage[i].itemList!))} VNĐ",
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorBgButtonLogin,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-SemiBold",
                                 ),
-                              ),
-                            ),
 
-                          ],
-                        ),
-                        for(var po = 0; po < dataManage[i].itemList!.length; po++)...[
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 16.0, right: 16.0, top: 10, bottom: 10),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.color_DCDEE9,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
                               ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
-                              child:  Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      dataManage[i].itemList![po].deposit == "1" ? "Gửi vào" : "Rút ra",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
+                            for(var po = 0; po < dataManage[i].itemList!.length; po++)...[
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 16.0, right: 16.0, top: 10, bottom: 10),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.color_DCDEE9,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3), // changes position of shadow
                                     ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
+                                  child:  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          dataManage[i].itemList![po].deposit == "1" ? "Gửi vào" : "Rút ra",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          convert(dataManage[i].itemList![po].date ?? "").replaceAll("-", "/"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      convert(dataManage[i].itemList![po].date ?? "").replaceAll("-", "/"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  )
-                                ],
+                                ),
+
                               ),
-                            ),
+                            ],
 
-                          ),
+                          ],
+
+
+
+
                         ],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    children: [
+                      // InkWell(
+                      //   onTap: () {
+                      //     Get.toNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
+                      //   },
+                      //   child: Container(
+                      //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
+                      //       alignment: Alignment.center,
+                      //       decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           borderRadius: BorderRadius.circular(8),
+                      //           border:
+                      //           Border.all(color: Mytheme.colorBgButtonLogin)),
+                      //       child: Padding(
+                      //         padding: const EdgeInsets.only(
+                      //             top: 10, bottom: 10, left: 16, right: 16),
+                      //         child: Text(
+                      //           "Sửa",
+                      //           style: TextStyle(
+                      //             fontSize: 16,
+                      //             color: Mytheme.color_434657,
+                      //             fontWeight: FontWeight.w600,
+                      //             fontFamily: "OpenSans-Semibold",
+                      //           ),
+                      //         ),
+                      //       )),
+                      // ),
 
-                      ],
-
-
-
-
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 10, left: 16, right: 16),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  // side: const BorderSide(color: Colors.red)
+                                ),
+                                primary: Mytheme.colorBgButtonLogin,
+                                minimumSize:
+                                Size(MediaQuery.of(context).size.width, 44)),
+                            child: Text(
+                              "Thêm giao dịch mới",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: "OpenSans-Regular",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              selectItem = true;
+                              validate = false;
+                              _moneyController.clear();
+                              _noteController.clear();
+                              dates = formatDate(int.parse(DateTime.now().day.toString()), int.parse(DateTime.now().month.toString()), int.parse(DateTime.now().year.toString()));
+                              _sexEditModalBottomSheet(context);
+                            },
+                          )),
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  // InkWell(
-                  //   onTap: () {
-                  //     Get.toNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
-                  //   },
-                  //   child: Container(
-                  //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                  //       alignment: Alignment.center,
-                  //       decoration: BoxDecoration(
-                  //           color: Colors.white,
-                  //           borderRadius: BorderRadius.circular(8),
-                  //           border:
-                  //           Border.all(color: Mytheme.colorBgButtonLogin)),
-                  //       child: Padding(
-                  //         padding: const EdgeInsets.only(
-                  //             top: 10, bottom: 10, left: 16, right: 16),
-                  //         child: Text(
-                  //           "Sửa",
-                  //           style: TextStyle(
-                  //             fontSize: 16,
-                  //             color: Mytheme.color_434657,
-                  //             fontWeight: FontWeight.w600,
-                  //             fontFamily: "OpenSans-Semibold",
-                  //           ),
-                  //         ),
-                  //       )),
-                  // ),
-
-                  Padding(
-                      padding: const EdgeInsets.only(
-                          top: 10, bottom: 10, left: 16, right: 16),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              // side: const BorderSide(color: Colors.red)
-                            ),
-                            primary: Mytheme.colorBgButtonLogin,
-                            minimumSize:
-                                Size(MediaQuery.of(context).size.width, 44)),
-                        child: Text(
-                          "Thêm giao dịch mới",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: "OpenSans-Regular",
-                              fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {
-                          selectItem = true;
-                          validate = false;
-                          _moneyController.clear();
-                          _noteController.clear();
-                          dates = formatDate(int.parse(DateTime.now().day.toString()), int.parse(DateTime.now().month.toString()), int.parse(DateTime.now().year.toString()));
-                          _sexEditModalBottomSheet(context);
-                        },
-                      )),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
     );
   }
 

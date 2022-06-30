@@ -47,80 +47,83 @@ class _CourseScreenState extends State<CourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: "Các khái niệm cơ bản",
-                      onClicked: () => Get.back(),
-                    ),
-                    Padding(
-                      padding:
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: "Các khái niệm cơ bản",
+                          onClicked: () => Get.back(),
+                        ),
+                        Padding(
+                          padding:
                           const EdgeInsets.only(top: 10, left: 20, right: 20),
-                      child: Container(
-                        child: TextField(
-                          controller: khaiNiemEditingController,
-                          decoration: InputDecoration(
-                              labelText: "Search",
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                  borderRadius:
+                          child: Container(
+                            child: TextField(
+                              controller: khaiNiemEditingController,
+                              decoration: InputDecoration(
+                                  labelText: "Search",
+                                  hintText: "Search",
+                                  prefixIcon: Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
                                       BorderRadius.all(Radius.circular(25.0)))),
-                          onChanged: (value) {
-                            setState(() {
-                              infoSearchList.clear();
-                              // infoSearchList = searchCourseList(value);
-                              infoSearchList = infoList
-                                  .where(
-                                    (u) => (u.title
+                              onChanged: (value) {
+                                setState(() {
+                                  infoSearchList.clear();
+                                  // infoSearchList = searchCourseList(value);
+                                  infoSearchList = infoList
+                                      .where(
+                                        (u) => (u.title
                                         .toString()
                                         .toLowerCase()
                                         .contains(
-                                          value.toLowerCase(),
-                                        )),
+                                      value.toLowerCase(),
+                                    )),
                                   )
-                                  .toList();
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 30, left: 24, right: 24),
-                          child: Column(
-                            children: [
-                              if (khaiNiemEditingController.text.toString().isNotEmpty || infoSearchList.isNotEmpty) ...[
-                                for (var i = 0;
-                                    i < infoSearchList.length;
-                                    i++) ...[layoutTest(i, infoSearchList[i])],
-                              ] else ...[
-                                for (var i = 0; i < infoList.length; i++) ...[
-                                  layoutTest(i, infoList[i])
-                                ],
-                              ],
-                            ],
+                                      .toList();
+                                });
+                              },
+                            ),
                           ),
                         ),
-                      ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 30, left: 24, right: 24),
+                              child: Column(
+                                children: [
+                                  if (khaiNiemEditingController.text.toString().isNotEmpty || infoSearchList.isNotEmpty) ...[
+                                    for (var i = 0;
+                                    i < infoSearchList.length;
+                                    i++) ...[layoutTest(i, infoSearchList[i])],
+                                  ] else ...[
+                                    for (var i = 0; i < infoList.length; i++) ...[
+                                      layoutTest(i, infoList[i])
+                                    ],
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   layoutFAQ(int index, InfoList faqData) {

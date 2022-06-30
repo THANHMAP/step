@@ -42,35 +42,38 @@ class _CoopBankScreenState extends State<CoopBankScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.kBackgroundColor,
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    AppbarWidget(
-                      text: "Ngân hàng hợp tác xã Việt Nam",
-                      onClicked: () => Get.back(),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.kBackgroundColor,
+              body: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        AppbarWidget(
+                          text: "Ngân hàng hợp tác xã Việt Nam",
+                          onClicked: () => Get.back(),
+                        ),
+                        Expanded(
+                          child:  WebView(
+                            initialUrl: 'https://co-opsmart.vn/about-cbv',
+                            // Enable Javascript on WebView
+                            javascriptMode: JavascriptMode.unrestricted,
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child:  WebView(
-                        initialUrl: 'https://co-opsmart.vn/about-cbv',
-                        // Enable Javascript on WebView
-                        javascriptMode: JavascriptMode.unrestricted,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
 
-            ],
-          ),
-        ));
+                ],
+              ),
+            )),
+    );
   }
 
 }

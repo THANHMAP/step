@@ -47,99 +47,102 @@ class _NotificationNewScreenState extends State<NotificationNewScreen>
   @override
   Widget build(BuildContext context) {
     Utils.portraitModeOnly();
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: StringText.text_news_detail,
-                onClicked: () {
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, left: 0, right: 0, bottom: 70),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, left: 15, right: 15),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child:  Text(
-                                  newsData?.name.toString() ?? "",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    color: Mytheme.colorTextSubTitle,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.colorBgMain,
+              body: Column(
+                children: <Widget>[
+                  AppbarWidget(
+                    text: StringText.text_news_detail,
+                    onClicked: () {
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 0, left: 0, right: 0, bottom: 70),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 15, right: 15),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child:  Text(
+                                      newsData?.name.toString() ?? "",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
                                   ),
-                                  textAlign: TextAlign.left,
+
+                                  const SizedBox(height: 10),
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        newsData == null ? "" : convert(
+                                            newsData?.createdAt!.toString() ?? ""),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.color_82869E,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      )),
+
+                                  // newsLayout(),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            if(newsData != null) ...[
+                              Container(
+                                child: Image.network(
+                                  newsData?.thumbnail ?? "",
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-
-                              const SizedBox(height: 10),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                      newsData == null ? "" : convert(
-                                        newsData?.createdAt!.toString() ?? ""),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.color_82869E,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: "OpenSans-Regular",
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 15, right: 15),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Html(
+                                      data: newsData?.content.toString(),
                                     ),
-                                    textAlign: TextAlign.left,
-                                  )),
-
-                              // newsLayout(),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        if(newsData != null) ...[
-                          Container(
-                            child: Image.network(
-                              newsData?.thumbnail ?? "",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 15, right: 15),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Html(
-                                  data: newsData?.content.toString(),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
+                              ),
+                            ],
 
 
-                      ],
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
+                  )
+                ],
+              ),
+            )),
+    );
   }
 
   String convert(String date) {
