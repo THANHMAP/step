@@ -667,6 +667,8 @@ class _LoginScreenState extends State<LoginScreen> {
       final user = await authService.signInWithApple(
           scopes: [Scope.email, Scope.fullName]);
       print('uid: ${user.uid} ---- email: ${user.email}');
+      doLoginBySocial(
+          user.email.toString(), user.uid.toString(), "2");
     } catch (e) {
       // TODO: Show alert here
       print(e);
