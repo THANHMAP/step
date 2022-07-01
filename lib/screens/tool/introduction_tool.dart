@@ -29,7 +29,7 @@ class _IntroductionToolScreenState extends State<IntroductionToolScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: Scaffold(
           backgroundColor: Mytheme.kYellowColor,
           body: Scaffold(

@@ -104,7 +104,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Scaffold(

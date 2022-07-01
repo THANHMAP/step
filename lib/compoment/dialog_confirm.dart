@@ -26,14 +26,17 @@ class ConfirmDialogBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      insetPadding: EdgeInsets.all(20),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Constants.padding),
-      ),
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      child: contentBox(context),
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+        child: Dialog(
+          insetPadding: EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Constants.padding),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: contentBox(context),
+        ),
     );
   }
 

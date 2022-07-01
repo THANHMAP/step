@@ -95,7 +95,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Scaffold(
@@ -760,72 +760,27 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .33,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 38,
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn Giới tính",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    for (var i = 0; i < sexList.length; i++) ...[
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            currentSexIndex = i;
-                            this.setState(() {
-                              user.gender = currentSexIndex;
-                            });
-                          });
-                        },
-                        child: Container(
-                          height: 60,
-                          color: currentSexIndex == i
-                              ? Mytheme.color_DCDEE9
-                              : Mytheme.kBackgroundColor,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16),
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * .33,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 38,
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              const Center(
                                 child: Text(
-                                  sexList[i],
-                                  style: const TextStyle(
-                                    fontSize: 16,
+                                  "Chọn Giới tính",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
                                     color: Mytheme.color_434657,
                                     fontWeight: FontWeight.w600,
                                     fontFamily: "OpenSans-Semibold",
@@ -833,29 +788,77 @@ class _AccountScreenState extends State<AccountScreen> {
                                   ),
                                 ),
                               ),
-
-                              // di chuyen item tối cuối
-                              const Spacer(),
-                              Visibility(
-                                visible: currentSexIndex == i ? true : false,
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 16),
-                                  child: Image(
-                                      image: AssetImage(
-                                          'assets/images/img_check.png'),
-                                      fit: BoxFit.fill),
-                                ),
-                              ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon:
+                                      Image.asset("assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
                             ],
                           ),
                         ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-            );
-          });
+                        for (var i = 0; i < sexList.length; i++) ...[
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                currentSexIndex = i;
+                                this.setState(() {
+                                  user.gender = currentSexIndex;
+                                });
+                              });
+                            },
+                            child: Container(
+                              height: 60,
+                              color: currentSexIndex == i
+                                  ? Mytheme.color_DCDEE9
+                                  : Mytheme.kBackgroundColor,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 16),
+                                    child: Text(
+                                      sexList[i],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.color_434657,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                        // decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+
+                                  // di chuyen item tối cuối
+                                  const Spacer(),
+                                  Visibility(
+                                    visible: currentSexIndex == i ? true : false,
+                                    child: const Padding(
+                                      padding: EdgeInsets.only(right: 16),
+                                      child: Image(
+                                          image: AssetImage(
+                                              'assets/images/img_check.png'),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                );
+              }),
+          );
         });
   }
 
@@ -871,91 +874,30 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .48,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 48,
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Padding(
-                              padding:
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * .48,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 48,
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              const Center(
+                                child: Padding(
+                                  padding:
                                   const EdgeInsets.only(left: 60, right: 60),
-                              child: Text(
-                                "Chọn Thành viên / khách hàng của tổ chức tín dụng",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Mytheme.color_434657,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-Semibold",
-                                  // decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    if (userGroupData != null) ...[
-                      for (var i = 0; i < userGroupData!.length; i++) ...[
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              if (!selectedUserGroupList
-                                  .contains(userGroupData![i].id)) {
-                                selectedUserGroupList
-                                    .add(userGroupData![i].id!);
-                              } else {
-                                selectedUserGroupList
-                                    .remove(userGroupData![i].id);
-                              }
-                            });
-
-                            this.setState(() {
-                              selectedUserGroupList;
-                              textUserGroup = _userGroupValue(
-                                  selectedUserGroupList, userGroupData!);
-                            });
-                          },
-                          child: Container(
-                            height: 60,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30),
-                                  child: SvgPicture.asset(!selectedUserGroupList
-                                          .contains(userGroupData![i].id)
-                                      ? "assets/svg/ic_not_check_gray.svg"
-                                      : "assets/svg/checkbox_check_correct.svg"),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 16),
                                   child: Text(
-                                    userGroupData![i].name.toString(),
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                                    "Chọn Thành viên / khách hàng của tổ chức tín dụng",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
                                       color: Mytheme.color_434657,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: "OpenSans-Semibold",
@@ -963,17 +905,81 @@ class _AccountScreenState extends State<AccountScreen> {
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon:
+                                      Image.asset("assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
+                            ],
                           ),
                         ),
+                        if (userGroupData != null) ...[
+                          for (var i = 0; i < userGroupData!.length; i++) ...[
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  if (!selectedUserGroupList
+                                      .contains(userGroupData![i].id)) {
+                                    selectedUserGroupList
+                                        .add(userGroupData![i].id!);
+                                  } else {
+                                    selectedUserGroupList
+                                        .remove(userGroupData![i].id);
+                                  }
+                                });
+
+                                this.setState(() {
+                                  selectedUserGroupList;
+                                  textUserGroup = _userGroupValue(
+                                      selectedUserGroupList, userGroupData!);
+                                });
+                              },
+                              child: Container(
+                                height: 60,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: SvgPicture.asset(!selectedUserGroupList
+                                          .contains(userGroupData![i].id)
+                                          ? "assets/svg/ic_not_check_gray.svg"
+                                          : "assets/svg/checkbox_check_correct.svg"),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 16),
+                                      child: Text(
+                                        userGroupData![i].name.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.color_434657,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-Semibold",
+                                          // decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
                       ],
-                    ],
-                  ],
-                ),
-              ),
-            );
-          });
+                    ),
+                  ),
+                );
+              }),
+          );
         });
   }
 
@@ -989,97 +995,100 @@ class _AccountScreenState extends State<AccountScreen> {
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .68,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 38,
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn Tỉnh / thành phố",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
+          return  MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * .68,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 38,
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Text(
+                                "Chọn Tỉnh / thành phố",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_434657,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                  // decoration: TextDecoration.underline,
+                                ),
                               ),
                             ),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Container(
-                        child: TextField(
-                          controller: cityEditingController,
-                          decoration: InputDecoration(
-                              labelText: "Search",
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
-                          onChanged: (value) {
-                            setState(() {
-                              _tempListCity = _buildSearchCityList(value);
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: SizedBox(
-                        height: 468,
-                        child: Stack(
-                          children: [
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: (_tempListCity.isNotEmpty)
-                                  ? _tempListCity.length
-                                  : cityData.length,
-                              itemBuilder: (context, index) {
-                                return (_tempListCity.isNotEmpty)
-                                    ? _showBottomSheetCityWithSearch(
-                                        index, _tempListCity)
-                                    : _showBottomSheetCityWithSearch(
-                                        index, cityData);
-                                //   ListTile(
-                                //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
-                                // );
-                              },
-                            )
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon:
+                                    Image.asset("assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          child: TextField(
+                            controller: cityEditingController,
+                            decoration: InputDecoration(
+                                labelText: "Search",
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)))),
+                            onChanged: (value) {
+                              setState(() {
+                                _tempListCity = _buildSearchCityList(value);
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          height: 468,
+                          child: Stack(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: (_tempListCity.isNotEmpty)
+                                    ? _tempListCity.length
+                                    : cityData.length,
+                                itemBuilder: (context, index) {
+                                  return (_tempListCity.isNotEmpty)
+                                      ? _showBottomSheetCityWithSearch(
+                                      index, _tempListCity)
+                                      : _showBottomSheetCityWithSearch(
+                                      index, cityData);
+                                  //   ListTile(
+                                  //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
+                                  // );
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          });
+              );
+            }),
+          );
         });
   }
 
@@ -1095,98 +1104,101 @@ class _AccountScreenState extends State<AccountScreen> {
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .68,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 38,
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn Quận / huyện",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * .68,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 38,
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              const Center(
+                                child: Text(
+                                  "Chọn Quận / huyện",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Mytheme.color_434657,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                    // decoration: TextDecoration.underline,
+                                  ),
+                                ),
                               ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon:
+                                      Image.asset("assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: Container(
+                            child: TextField(
+                              controller: providerEditingController,
+                              decoration: const InputDecoration(
+                                  labelText: "Search",
+                                  hintText: "Search",
+                                  prefixIcon: Icon(Icons.search),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(25.0)))),
+                              onChanged: (value) {
+                                setState(() {
+                                  _tempProvidersData =
+                                      _buildSearchProviderList(value);
+                                });
+                              },
                             ),
                           ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 20),
-                      child: Container(
-                        child: TextField(
-                          controller: providerEditingController,
-                          decoration: const InputDecoration(
-                              labelText: "Search",
-                              hintText: "Search",
-                              prefixIcon: Icon(Icons.search),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
-                          onChanged: (value) {
-                            setState(() {
-                              _tempProvidersData =
-                                  _buildSearchProviderList(value);
-                            });
-                          },
                         ),
-                      ),
-                    ),
-                    Flexible(
-                      child: SizedBox(
-                        height: 468,
-                        child: Stack(
-                          children: [
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: (_tempProvidersData.isNotEmpty)
-                                  ? _tempProvidersData.length
-                                  : _providersData.length,
-                              itemBuilder: (context, index) {
-                                return (_tempProvidersData.isNotEmpty)
-                                    ? _showBottomSheetProviderWithSearch(
+                        Flexible(
+                          child: SizedBox(
+                            height: 468,
+                            child: Stack(
+                              children: [
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: (_tempProvidersData.isNotEmpty)
+                                      ? _tempProvidersData.length
+                                      : _providersData.length,
+                                  itemBuilder: (context, index) {
+                                    return (_tempProvidersData.isNotEmpty)
+                                        ? _showBottomSheetProviderWithSearch(
                                         index, _tempProvidersData)
-                                    : _showBottomSheetProviderWithSearch(
+                                        : _showBottomSheetProviderWithSearch(
                                         index, _providersData);
-                                //   ListTile(
-                                //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
-                                // );
-                              },
-                            )
-                          ],
+                                    //   ListTile(
+                                    //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
+                                    // );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          });
+                  ),
+                );
+              }),
+          );
         });
   }
 

@@ -71,7 +71,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Scaffold(
@@ -766,107 +766,110 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn chu kỳ trả nợ",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              const Center(
+                                child: Text(
+                                  "Chọn chu kỳ trả nợ",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Mytheme.color_434657,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                    // decoration: TextDecoration.underline,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon:
+                                      Image.asset("assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
+                            ],
                           ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                  Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              for (var i = 0; i < _listRepaymentCycle.length; i++) ...[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentRepaymentCycleIndex = i;
+                                      this.setState(() {
+                                        // user.gender = currentSexIndex;
+                                      });
+                                    });
                                   },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          for (var i = 0; i < _listRepaymentCycle.length; i++) ...[
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  currentRepaymentCycleIndex = i;
-                                  this.setState(() {
-                                    // user.gender = currentSexIndex;
-                                  });
-                                });
-                              },
-                              child: Container(
-                                height: 60,
-                                color: currentRepaymentCycleIndex == i
-                                    ? Mytheme.color_DCDEE9
-                                    : Mytheme.kBackgroundColor,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: Text(
-                                        _listRepaymentCycle[i],
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-Semibold",
-                                          // decoration: TextDecoration.underline,
+                                  child: Container(
+                                    height: 60,
+                                    color: currentRepaymentCycleIndex == i
+                                        ? Mytheme.color_DCDEE9
+                                        : Mytheme.kBackgroundColor,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 16),
+                                          child: Text(
+                                            _listRepaymentCycle[i],
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_434657,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-Semibold",
+                                              // decoration: TextDecoration.underline,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
 
-                                    // di chuyen item tối cuối
-                                    const Spacer(),
-                                    Visibility(
-                                      visible: currentRepaymentCycleIndex == i ? true : false,
-                                      child: const Padding(
-                                        padding: EdgeInsets.only(right: 16),
-                                        child: Image(
-                                            image: AssetImage(
-                                                'assets/images/img_check.png'),
-                                            fit: BoxFit.fill),
-                                      ),
+                                        // di chuyen item tối cuối
+                                        const Spacer(),
+                                        Visibility(
+                                          visible: currentRepaymentCycleIndex == i ? true : false,
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(right: 16),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/img_check.png'),
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    )
+                              ],
+                            ],
+                          ),
+                        )
 
-                  ],
-                ),
-              ),
-            );
-          });
+                      ],
+                    ),
+                  ),
+                );
+              }),
+          );
         });
   }
 

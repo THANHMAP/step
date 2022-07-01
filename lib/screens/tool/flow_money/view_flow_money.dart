@@ -171,7 +171,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Scaffold(
@@ -676,483 +676,486 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    top: 20,
-                    left: 16,
-                    right: 16,
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .67,
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 38,
-                        alignment: Alignment.center,
-                        child: Stack(
-                          children: <Widget>[
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: SizedBox(
-                                  width: 40,
-                                  child: IconButton(
-                                    icon: Image.asset(
-                                        "assets/images/ic_close.png"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectItem = true;
-                                  _selectedFruit = 0;
-                                });
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0.0, right: 16.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: selectItem
-                                      ? Mytheme.color_0xFFCCECFB
-                                      : Mytheme.kBackgroundColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: !selectItem
-                                      ? Border.all(
-                                      color: Mytheme.kBackgroundColor)
-                                      : null,
-                                  boxShadow: selectItem? null : [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 16, left: 12, right: 12, bottom: 16),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Thu nhập",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: selectItem
-                                              ? Mytheme.color_0xFF2655A6
-                                              : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        left: 16,
+                        right: 16,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * .67,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 38,
+                            alignment: Alignment.center,
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: SizedBox(
+                                      width: 40,
+                                      child: IconButton(
+                                        icon: Image.asset(
+                                            "assets/images/ic_close.png"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                    ))
+                              ],
                             ),
                           ),
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectItem = false;
-                                  _selectedFruit = 0;
-                                });
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 0.0, right: 0.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: !selectItem ? Mytheme.color_0xFFCCECFB: Mytheme.kBackgroundColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: !selectItem ? null : Border.all(color: Mytheme.kBackgroundColor) ,
-                                  boxShadow: !selectItem? null : [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: const Offset(
-                                          0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 16, left: 12, right: 12, bottom: 16),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Chi tiêu",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: !selectItem ? Mytheme.color_0xFF2655A6 : Mytheme.color_82869E,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Ngày",
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Mytheme.colorTextSubTitle,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-SemiBold",
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Mytheme.colorTextDivider,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 12, left: 16, bottom: 18, right: 0),
-                                child: Text(
-                                  dates,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Mytheme.colorBgButtonLogin,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 0, left: 6, bottom: 0, right: 0),
-                                child: IconButton(
-                                  icon: SvgPicture.asset(
-                                      "assets/svg/ic_calender.svg"),
-                                  // tooltip: 'Increase volume by 10',
-                                  iconSize: 50,
-                                  onPressed: () async {
-                                    var datePicked = await DatePicker.showSimpleDatePicker(
-                                      context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1960),
-                                      lastDate: DateTime(2050),
-                                      dateFormat: "dd-MMMM-yyyy",
-                                      locale: DateTimePickerLocale.en_us,
-                                      looping: true,
-                                    );
-                                    if(datePicked != null) {
-                                      setState(() {
-                                        dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
-                                        // dates = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
-                                      });
-                                    }
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectItem = true;
+                                      _selectedFruit = 0;
+                                    });
                                   },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 0.0, right: 16.0),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: selectItem
+                                          ? Mytheme.color_0xFFCCECFB
+                                          : Mytheme.kBackgroundColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: !selectItem
+                                          ? Border.all(
+                                          color: Mytheme.kBackgroundColor)
+                                          : null,
+                                      boxShadow: selectItem? null : [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 7,
+                                          offset: const Offset(
+                                              0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, left: 12, right: 12, bottom: 16),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Thu nhập",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: selectItem
+                                                  ? Mytheme.color_0xFF2655A6
+                                                  : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Số tiền",
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Mytheme.colorTextSubTitle,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-SemiBold",
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      selectItem = false;
+                                      _selectedFruit = 0;
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 0.0, right: 0.0),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: !selectItem ? Mytheme.color_0xFFCCECFB: Mytheme.kBackgroundColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: !selectItem ? null : Border.all(color: Mytheme.kBackgroundColor) ,
+                                      boxShadow: !selectItem? null : [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 7,
+                                          offset: const Offset(
+                                              0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 16, left: 12, right: 12, bottom: 16),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Chi tiêu",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: !selectItem ? Mytheme.color_0xFF2655A6 : Mytheme.color_82869E,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        obscureText: false,
-                        controller: _moneyController,
-                        enabled: true,
-                        textInputAction: TextInputAction.done,
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                            fillColor: const Color(0xFFEFF0FB),
-                            focusedErrorBorder: OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(8)),
-                            errorBorder: validate ? OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red, width: 1),
-                                borderRadius: BorderRadius.circular(8)) : OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(8)),
-                            errorText: validate ? "Tiền rút ra không được lớn hơn tiền đang có" : "",
-                            filled: true,
-                            hintText: "Nhập số tiền",
-                            hintStyle:
-                            const TextStyle(color: Color(0xFFA7ABC3)),
-                            isDense: true,
-                            // Added this
-                            contentPadding: EdgeInsets.all(8),
-                            // labelText: labelText,
-
-                            suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon:
-                                SvgPicture.asset("assets/svg/ic_vnd.svg")),
-                            enabledBorder: OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                borderRadius: BorderRadius.circular(8)),
-                            focusedBorder: OutlineInputBorder(
-                              // borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                borderRadius: BorderRadius.circular(8))),
-                        onChanged: (value) {
-                          value = '${formNum(
-                            value.replaceAll(',', ''),
-                          )}';
-                          _moneyController.value = TextEditingValue(
-                            text: value,
-                            selection: TextSelection.collapsed(
-                              offset: value.length,
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Danh mục",
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Mytheme.colorTextSubTitle,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-SemiBold",
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Container(
-                        height: 55,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Mytheme.colorTextDivider,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Ngày",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Mytheme.colorTextSubTitle,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-SemiBold",
+                              ),
                             ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: InkWell(
-                                onTap: () {
-                                  _showDialog(
-                                    CupertinoPicker(
-                                      magnification: 1.22,
-                                      squeeze: 1.2,
-                                      useMagnifier: true,
-                                      itemExtent: _kItemExtent,
-                                      // This is called when selected item is changed.
-                                      onSelectedItemChanged: (int selectedItem) {
-                                        setState(() {
-                                          _selectedFruit = selectedItem;
-                                        });
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Mytheme.colorTextDivider,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: 12, left: 16, bottom: 18, right: 0),
+                                    child: Text(
+                                      dates,
+                                      textAlign: TextAlign.start,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorBgButtonLogin,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 0, left: 6, bottom: 0, right: 0),
+                                    child: IconButton(
+                                      icon: SvgPicture.asset(
+                                          "assets/svg/ic_calender.svg"),
+                                      // tooltip: 'Increase volume by 10',
+                                      iconSize: 50,
+                                      onPressed: () async {
+                                        var datePicked = await DatePicker.showSimpleDatePicker(
+                                          context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1960),
+                                          lastDate: DateTime(2050),
+                                          dateFormat: "dd-MMMM-yyyy",
+                                          locale: DateTimePickerLocale.en_us,
+                                          looping: true,
+                                        );
+                                        if(datePicked != null) {
+                                          setState(() {
+                                            dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
+                                            // dates = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                                          });
+                                        }
                                       },
-                                      children:
-                                      List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
-                                        return Center(
-                                          child: Text(
-                                            !selectItem ? cashOut[index]: cashIn[index],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Số tiền",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Mytheme.colorTextSubTitle,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-SemiBold",
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            obscureText: false,
+                            controller: _moneyController,
+                            enabled: true,
+                            textInputAction: TextInputAction.done,
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: InputDecoration(
+                                fillColor: const Color(0xFFEFF0FB),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                    borderRadius: BorderRadius.circular(8)),
+                                errorBorder: validate ? OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.red, width: 1),
+                                    borderRadius: BorderRadius.circular(8)) : OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                    borderRadius: BorderRadius.circular(8)),
+                                errorText: validate ? "Tiền rút ra không được lớn hơn tiền đang có" : "",
+                                filled: true,
+                                hintText: "Nhập số tiền",
+                                hintStyle:
+                                const TextStyle(color: Color(0xFFA7ABC3)),
+                                isDense: true,
+                                // Added this
+                                contentPadding: EdgeInsets.all(8),
+                                // labelText: labelText,
+
+                                suffixIcon: IconButton(
+                                    onPressed: () {},
+                                    icon:
+                                    SvgPicture.asset("assets/svg/ic_vnd.svg")),
+                                enabledBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                    borderRadius: BorderRadius.circular(8)),
+                                focusedBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                    borderRadius: BorderRadius.circular(8))),
+                            onChanged: (value) {
+                              value = '${formNum(
+                                value.replaceAll(',', ''),
+                              )}';
+                              _moneyController.value = TextEditingValue(
+                                text: value,
+                                selection: TextSelection.collapsed(
+                                  offset: value.length,
+                                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 10),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Danh mục",
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Mytheme.colorTextSubTitle,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-SemiBold",
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            height: 55,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: Mytheme.colorTextDivider,
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: InkWell(
+                                    onTap: () {
+                                      _showDialog(
+                                        CupertinoPicker(
+                                          magnification: 1.22,
+                                          squeeze: 1.2,
+                                          useMagnifier: true,
+                                          itemExtent: _kItemExtent,
+                                          // This is called when selected item is changed.
+                                          onSelectedItemChanged: (int selectedItem) {
+                                            setState(() {
+                                              _selectedFruit = selectedItem;
+                                            });
+                                          },
+                                          children:
+                                          List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
+                                            return Center(
+                                              child: Text(
+                                                !selectItem ? cashOut[index]: cashIn[index],
+                                              ),
+                                            );
+                                          },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: 12, left: 16, bottom: 18, right: 0),
+                                      child: Text(
+                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit],
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorBgButtonLogin,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-Semibold",
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 0, left: 6, bottom: 0, right: 0),
+                                    child: IconButton(
+                                      icon: SvgPicture.asset(
+                                          "assets/svg/arow_down.svg"),
+                                      // tooltip: 'Increase volume by 10',
+                                      iconSize: 50,
+                                      onPressed: () {
+                                        _showDialog(
+                                          CupertinoPicker(
+                                            magnification: 1.22,
+                                            squeeze: 1.2,
+                                            useMagnifier: true,
+                                            itemExtent: _kItemExtent,
+                                            // This is called when selected item is changed.
+                                            onSelectedItemChanged: (int selectedItem) {
+                                              setState(() {
+                                                _selectedFruit = selectedItem;
+                                              });
+                                            },
+                                            children:
+                                            List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
+                                              return Center(
+                                                child: Text(
+                                                  !selectItem ? cashOut[index]: cashIn[index],
+                                                ),
+                                              );
+                                            },
+                                            ),
                                           ),
                                         );
                                       },
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 12, left: 16, bottom: 18, right: 0),
-                                  child: Text(
-                                    !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit],
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorBgButtonLogin,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-Semibold",
                                     ),
                                   ),
                                 ),
-                              ),
-
+                              ],
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 0, left: 6, bottom: 0, right: 0),
-                                child: IconButton(
-                                  icon: SvgPicture.asset(
-                                      "assets/svg/arow_down.svg"),
-                                  // tooltip: 'Increase volume by 10',
-                                  iconSize: 50,
-                                  onPressed: () {
-                                    _showDialog(
-                                      CupertinoPicker(
-                                        magnification: 1.22,
-                                        squeeze: 1.2,
-                                        useMagnifier: true,
-                                        itemExtent: _kItemExtent,
-                                        // This is called when selected item is changed.
-                                        onSelectedItemChanged: (int selectedItem) {
-                                          setState(() {
-                                            _selectedFruit = selectedItem;
-                                          });
-                                        },
-                                        children:
-                                        List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
-                                          return Center(
-                                            child: Text(
-                                              !selectItem ? cashOut[index]: cashIn[index],
-                                            ),
-                                          );
-                                        },
-                                        ),
-                                      ),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 40, bottom: 0, left: 0, right: 0),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                      // side: const BorderSide(color: Colors.red)
+                                    ),
+                                    primary: Mytheme.colorBgButtonLogin,
+                                    minimumSize: Size(
+                                        MediaQuery.of(context).size.width, 44)),
+                                child: Text(
+                                  "Lưu thay đổi",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "OpenSans-Regular",
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                onPressed: () {
+
+                                  if(_moneyController.text.isEmpty) {
+                                    Utils.showError("Vui lòng nhập số tiền", context);
+                                    return;
+                                  }
+
+                                  var text = "";
+                                  Navigator.of(context).pop();
+                                  if(selectItem) {
+                                    text = "1"; // thu nhap
+                                    addDataDrawTool(
+                                        _itemToolData?.id.toString() ?? "0",
+                                        text,
+                                        "0",
+                                        _moneyController.text.replaceAll(",", ""),
+                                        dates,
+                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
                                     );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                                  } else {
+                                    text = "2";
+                                    addDataDrawTool(
+                                        _itemToolData?.id.toString() ?? "0",
+                                        text,
+                                        _moneyController.text.replaceAll(",", ""),
+                                        "0",
+                                        dates,
+                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
+                                    );
+                                  }
+
+
+                                },
+                              )),
+                        ],
                       ),
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 40, bottom: 0, left: 0, right: 0),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  // side: const BorderSide(color: Colors.red)
-                                ),
-                                primary: Mytheme.colorBgButtonLogin,
-                                minimumSize: Size(
-                                    MediaQuery.of(context).size.width, 44)),
-                            child: Text(
-                              "Lưu thay đổi",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "OpenSans-Regular",
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-
-                              if(_moneyController.text.isEmpty) {
-                                Utils.showError("Vui lòng nhập số tiền", context);
-                                return;
-                              }
-
-                              var text = "";
-                              Navigator.of(context).pop();
-                              if(selectItem) {
-                                text = "1"; // thu nhap
-                                addDataDrawTool(
-                                    _itemToolData?.id.toString() ?? "0",
-                                    text,
-                                    "0",
-                                    _moneyController.text.replaceAll(",", ""),
-                                    dates,
-                                    !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
-                                );
-                              } else {
-                                text = "2";
-                                addDataDrawTool(
-                                    _itemToolData?.id.toString() ?? "0",
-                                    text,
-                                    _moneyController.text.replaceAll(",", ""),
-                                    "0",
-                                    dates,
-                                    !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
-                                );
-                              }
-
-
-                            },
-                          )),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          });
+                );
+              }),
+          );
         });
   }
 
@@ -1324,121 +1327,124 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn tháng",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Text(
+                                "Chọn tháng",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_434657,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                  // decoration: TextDecoration.underline,
+                                ),
                               ),
                             ),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                  Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            for (var i = 0;
-                            i < _listMonth.length;
-                            i++) ...[
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    currentMonthIndex = i;
-                                    Navigator.of(context).pop();
-                                    loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
-                                    // loadDataDraw(
-                                    //     idUserTool,
-                                    //     (currentRepaymentCycleIndex + 1)
-                                    //         .toString(),
-                                    //     "2022");
-                                    this.setState(() {
-                                      // user.gender = currentSexIndex;
-                                    });
-                                  });
-                                },
-                                child: Container(
-                                  height: 60,
-                                  color: currentMonthIndex == i
-                                      ? Mytheme.color_DCDEE9
-                                      : Mytheme.kBackgroundColor,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(left: 16),
-                                        child: Text(
-                                          _listMonth[i],
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.color_434657,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "OpenSans-Semibold",
-                                            // decoration: TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-
-                                      // di chuyen item tối cuối
-                                      const Spacer(),
-                                      Visibility(
-                                        visible: currentMonthIndex == i
-                                            ? true
-                                            : false,
-                                        child: const Padding(
-                                          padding: EdgeInsets.only(right: 16),
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/img_check.png'),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
-                                    ],
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon:
+                                    Image.asset("assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
                                   ),
-                                ),
-                              ),
-                            ],
+                                ))
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              for (var i = 0;
+                              i < _listMonth.length;
+                              i++) ...[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentMonthIndex = i;
+                                      Navigator.of(context).pop();
+                                      loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
+                                      // loadDataDraw(
+                                      //     idUserTool,
+                                      //     (currentRepaymentCycleIndex + 1)
+                                      //         .toString(),
+                                      //     "2022");
+                                      this.setState(() {
+                                        // user.gender = currentSexIndex;
+                                      });
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    color: currentMonthIndex == i
+                                        ? Mytheme.color_DCDEE9
+                                        : Mytheme.kBackgroundColor,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                          const EdgeInsets.only(left: 16),
+                                          child: Text(
+                                            _listMonth[i],
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_434657,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-Semibold",
+                                              // decoration: TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // di chuyen item tối cuối
+                                        const Spacer(),
+                                        Visibility(
+                                          visible: currentMonthIndex == i
+                                              ? true
+                                              : false,
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(right: 16),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/img_check.png'),
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          });
+              );
+            }),
+          );
         });
   }
 
@@ -1454,117 +1460,120 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         ),
         context: context,
         builder: (context) {
-          return StatefulBuilder(builder: (BuildContext context,
-              StateSetter setState /*You can rename this!*/) {
-            return Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: SizedBox(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.center,
-                      child: Stack(
-                        children: <Widget>[
-                          const Center(
-                            child: Text(
-                              "Chọn năm",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_434657,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                                // decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: SizedBox(
-                                width: 40,
-                                child: IconButton(
-                                  icon:
-                                  Image.asset("assets/images/ic_close.png"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            for (var i = 0;
-                            i < _listYeah.length;
-                            i++) ...[
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    currentYear = i;
-                                    Navigator.of(context).pop();
-                                    loadDataDrawTool(
-                                        _itemToolData?.id.toString() ?? "0",
-                                        "",
-                                        _listYeah[i].replaceAll("Năm ", ""));
-
-                                  });
-                                },
-                                child: Container(
-                                  height: 60,
-                                  color: currentYear == i
-                                      ? Mytheme.color_DCDEE9
-                                      : Mytheme.kBackgroundColor,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(left: 16),
-                                        child: Text(
-                                          _listYeah[i],
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.color_434657,
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily: "OpenSans-Semibold",
-                                            // decoration: TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ),
-
-                                      // di chuyen item tối cuối
-                                      const Spacer(),
-                                      Visibility(
-                                        visible: currentYear == i
-                                            ? true
-                                            : false,
-                                        child: const Padding(
-                                          padding: EdgeInsets.only(right: 16),
-                                          child: Image(
-                                              image: AssetImage(
-                                                  'assets/images/img_check.png'),
-                                              fit: BoxFit.fill),
-                                        ),
-                                      ),
-                                    ],
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: StatefulBuilder(builder: (BuildContext context,
+                  StateSetter setState /*You can rename this!*/) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: SizedBox(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              const Center(
+                                child: Text(
+                                  "Chọn năm",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Mytheme.color_434657,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                    // decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon:
+                                      Image.asset("assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
                             ],
-                          ],
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                for (var i = 0;
+                                i < _listYeah.length;
+                                i++) ...[
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        currentYear = i;
+                                        Navigator.of(context).pop();
+                                        loadDataDrawTool(
+                                            _itemToolData?.id.toString() ?? "0",
+                                            "",
+                                            _listYeah[i].replaceAll("Năm ", ""));
+
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 60,
+                                      color: currentYear == i
+                                          ? Mytheme.color_DCDEE9
+                                          : Mytheme.kBackgroundColor,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.only(left: 16),
+                                            child: Text(
+                                              _listYeah[i],
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                color: Mytheme.color_434657,
+                                                fontWeight: FontWeight.w600,
+                                                fontFamily: "OpenSans-Semibold",
+                                                // decoration: TextDecoration.underline,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // di chuyen item tối cuối
+                                          const Spacer(),
+                                          Visibility(
+                                            visible: currentYear == i
+                                                ? true
+                                                : false,
+                                            child: const Padding(
+                                              padding: EdgeInsets.only(right: 16),
+                                              child: Image(
+                                                  image: AssetImage(
+                                                      'assets/images/img_check.png'),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            );
-          });
+                  ),
+                );
+              }),
+          );
         });
   }
 

@@ -78,7 +78,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.1),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
         child: PersistentTabView(
           context,
           controller: _controller,

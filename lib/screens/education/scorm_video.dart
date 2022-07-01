@@ -84,121 +84,124 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: Mytheme.colorBgMain,
-          body: Column(
-            children: <Widget>[
-              AppbarWidget(
-                text: Constants.nameCourseTemp,
-                onClicked: () {
-                  Utils.portraitModeOnly();
-                  Navigator.of(context).pop(false);
-                },
-              ),
-              Expanded(
-                child: InAppWebView(
-                  key: webViewKey,
-                  initialUrlRequest:
-                  URLRequest(url: Uri.parse(Get.arguments.toString())),
-                  initialOptions: options,
-                  pullToRefreshController: pullToRefreshController,
-                  onWebViewCreated: (controller) {
-                    webViewController = controller;
-                  },
-                  onLoadStart: (controller, url) {
-                    setState(() {
-                      this.url = url.toString();
-                      urlController.text = this.url;
-                    });
-                  },
-                  androidOnPermissionRequest: (controller, origin, resources) async {
-                    return PermissionRequestResponse(
-                        resources: resources,
-                        action: PermissionRequestResponseAction.GRANT);
-                  },
-                  shouldOverrideUrlLoading: (controller, navigationAction) async {
-                    var uri = navigationAction.request.url!;
+    return MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+        child: GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              backgroundColor: Mytheme.colorBgMain,
+              body: Column(
+                children: <Widget>[
+                  AppbarWidget(
+                    text: Constants.nameCourseTemp,
+                    onClicked: () {
+                      Utils.portraitModeOnly();
+                      Navigator.of(context).pop(false);
+                    },
+                  ),
+                  Expanded(
+                    child: InAppWebView(
+                      key: webViewKey,
+                      initialUrlRequest:
+                      URLRequest(url: Uri.parse(Get.arguments.toString())),
+                      initialOptions: options,
+                      pullToRefreshController: pullToRefreshController,
+                      onWebViewCreated: (controller) {
+                        webViewController = controller;
+                      },
+                      onLoadStart: (controller, url) {
+                        setState(() {
+                          this.url = url.toString();
+                          urlController.text = this.url;
+                        });
+                      },
+                      androidOnPermissionRequest: (controller, origin, resources) async {
+                        return PermissionRequestResponse(
+                            resources: resources,
+                            action: PermissionRequestResponseAction.GRANT);
+                      },
+                      shouldOverrideUrlLoading: (controller, navigationAction) async {
+                        var uri = navigationAction.request.url!;
 
-                    // if (![ "http", "https", "file", "chrome",
-                    //   "data", "javascript", "about"].contains(uri.scheme)) {
-                    //   if (await canLaunch(url)) {
-                    //     // Launch the App
-                    //     await launch(
-                    //       url,
-                    //     );
-                    //     // and cancel the request
-                    //     return NavigationActionPolicy.CANCEL;
-                    //   }
-                    // }
+                        // if (![ "http", "https", "file", "chrome",
+                        //   "data", "javascript", "about"].contains(uri.scheme)) {
+                        //   if (await canLaunch(url)) {
+                        //     // Launch the App
+                        //     await launch(
+                        //       url,
+                        //     );
+                        //     // and cancel the request
+                        //     return NavigationActionPolicy.CANCEL;
+                        //   }
+                        // }
 
-                    return NavigationActionPolicy.ALLOW;
-                  },
-                  onLoadStop: (controller, url) async {
-                    pullToRefreshController.endRefreshing();
-                    setState(() {
-                      this.url = url.toString();
-                      urlController.text = this.url;
-                    });
-                  },
-                  onLoadError: (controller, url, code, message) {
-                    pullToRefreshController.endRefreshing();
-                  },
-                  onProgressChanged: (controller, progress) {
-                    if (progress == 100) {
-                      pullToRefreshController.endRefreshing();
-                    }
-                    setState(() {
-                      this.progress = progress / 100;
-                      urlController.text = this.url;
-                    });
-                  },
-                  onUpdateVisitedHistory: (controller, url, androidIsReload) {
-                    setState(() {
-                      this.url = url.toString();
-                      urlController.text = this.url;
-                    });
-                  },
-                  onConsoleMessage: (controller, consoleMessage) {
-                    print(consoleMessage);
-                  },
-                ),
+                        return NavigationActionPolicy.ALLOW;
+                      },
+                      onLoadStop: (controller, url) async {
+                        pullToRefreshController.endRefreshing();
+                        setState(() {
+                          this.url = url.toString();
+                          urlController.text = this.url;
+                        });
+                      },
+                      onLoadError: (controller, url, code, message) {
+                        pullToRefreshController.endRefreshing();
+                      },
+                      onProgressChanged: (controller, progress) {
+                        if (progress == 100) {
+                          pullToRefreshController.endRefreshing();
+                        }
+                        setState(() {
+                          this.progress = progress / 100;
+                          urlController.text = this.url;
+                        });
+                      },
+                      onUpdateVisitedHistory: (controller, url, androidIsReload) {
+                        setState(() {
+                          this.url = url.toString();
+                          urlController.text = this.url;
+                        });
+                      },
+                      onConsoleMessage: (controller, consoleMessage) {
+                        print(consoleMessage);
+                      },
+                    ),
+                  ),
+                  // Expanded(
+                  //   flex: 1,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(
+                  //         top: 10, bottom: 10, left: 24, right: 24),
+                  //     child: Column(
+                  //       children: [
+                  //         ElevatedButton(
+                  //           style: ElevatedButton.styleFrom(
+                  //               shape: RoundedRectangleBorder(
+                  //                 borderRadius: BorderRadius.circular(8),
+                  //                 // side: const BorderSide(color: Colors.red)
+                  //               ),
+                  //               primary: Mytheme.colorBgButtonLogin,
+                  //               minimumSize:
+                  //                   Size(MediaQuery.of(context).size.width, 44)),
+                  //           child: Text(
+                  //             "Tiếp tục",
+                  //             style: TextStyle(
+                  //                 fontSize: 16,
+                  //                 fontFamily: "OpenSans-Regular",
+                  //                 fontWeight: FontWeight.bold),
+                  //           ),
+                  //           onPressed: (){
+                  //           },
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                ],
               ),
-              // Expanded(
-              //   flex: 1,
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(
-              //         top: 10, bottom: 10, left: 24, right: 24),
-              //     child: Column(
-              //       children: [
-              //         ElevatedButton(
-              //           style: ElevatedButton.styleFrom(
-              //               shape: RoundedRectangleBorder(
-              //                 borderRadius: BorderRadius.circular(8),
-              //                 // side: const BorderSide(color: Colors.red)
-              //               ),
-              //               primary: Mytheme.colorBgButtonLogin,
-              //               minimumSize:
-              //                   Size(MediaQuery.of(context).size.width, 44)),
-              //           child: Text(
-              //             "Tiếp tục",
-              //             style: TextStyle(
-              //                 fontSize: 16,
-              //                 fontFamily: "OpenSans-Regular",
-              //                 fontWeight: FontWeight.bold),
-              //           ),
-              //           onPressed: (){
-              //           },
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
-        ));
+            )),
+    );
   }
 
   openDialog() {
