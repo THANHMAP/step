@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,19 +79,17 @@ class _CourseScreenState extends State<CourseScreen> {
                                       borderRadius:
                                       BorderRadius.all(Radius.circular(25.0)))),
                               onChanged: (value) {
+                                // var valuechange = removeDiacritics(value);
+                                // print("search value---- ${valuechange}");
                                 setState(() {
-                                  infoSearchList.clear();
-                                  // infoSearchList = searchCourseList(value);
-                                  infoSearchList = infoList
-                                      .where(
-                                        (u) => (u.title
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(
-                                      value.toLowerCase(),
-                                    )),
-                                  )
-                                      .toList();
+                                  onSearchTextChanged(value);
+                                  // infoSearchList.clear();
+                                  // // infoSearchList = searchCourseList(value);
+                                  // infoSearchList = infoList
+                                  //     .where(
+                                  //       (u) => (removeDiacritics(u.title.toString()).toLowerCase().contains(valuechange.toLowerCase())),
+                                  // )
+                                  //     .toList();
                                 });
                               },
                             ),
@@ -321,4 +320,21 @@ class _CourseScreenState extends State<CourseScreen> {
       Utils.showError(error.toString(), context);
     });
   }
+
+  onSearchTextChanged(String text) async {
+    infoSearchList.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in infoList) {
+      if (removeDiacritics(info.title.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        print("search result---- ${removeDiacritics(info.title.toString().toLowerCase())}");
+        infoSearchList.add(info);
+      }
+    }
+    setState(() {});
+  }
+
 }
+

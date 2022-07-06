@@ -79,7 +79,6 @@ class _VideoScreenState extends State<VideoScreen> {
       _videoPlayerController2.initialize()
     ]);
     _createChewieController();
-    setState(() {});
   }
 
   void _createChewieController() {

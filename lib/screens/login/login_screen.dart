@@ -568,10 +568,9 @@ class _LoginScreenState extends State<LoginScreen> {
       'device_type': platform,
       'fcm_token': token
     });
-    pr.show();
+    await pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.loginSocialURL, param)
         .then((value) async {
-      pr.hide();
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
@@ -590,8 +589,9 @@ class _LoginScreenState extends State<LoginScreen> {
         print("Error == $error");
         Utils.showAlertDialogOneButton(context, error);
       }
+      await pr.hide();
     });
-    pr.hide();
+    await pr.hide();
   }
 
   Future<void> doLoginWithBiometrics(String phone, String password) async {

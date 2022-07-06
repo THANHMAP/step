@@ -907,20 +907,23 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () {
-                return Future.value(false);
-              },
-              child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công Kế hoạch tiết kiệm!",
-                descriptions:
-                "Việc thực hiện tiết kiệm và quản lý theo kế hoạch là rất quan trọng. Đừng ngần ngại tiết kiệm nhiều hơn nếu có thể. Hãy nhớ giữ tiền ở nơi an toàn và tránh chi tiêu không cần thiết trước khi đạt được mục tiêu nhé.",
-                textButton: "Tiếp tục",
-                onClickedConfirm: () {
-                  Get.back(result: true);
-                  Get.back(result: true);
-                },
-              ));
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: SuccessDialogBox(
+                    title: "Chúc mừng bạn đã tạo thành công Kế hoạch tiết kiệm!",
+                    descriptions:
+                    "Việc thực hiện tiết kiệm và quản lý theo kế hoạch là rất quan trọng. Đừng ngần ngại tiết kiệm nhiều hơn nếu có thể. Hãy nhớ giữ tiền ở nơi an toàn và tránh chi tiêu không cần thiết trước khi đạt được mục tiêu nhé.",
+                    textButton: "Tiếp tục",
+                    onClickedConfirm: () {
+                      Get.back(result: true);
+                      Get.back(result: true);
+                    },
+                  )),
+          );
         }
     );
   }

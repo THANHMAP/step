@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,18 +79,7 @@ class _FAQScreenState extends State<FAQScreen> {
                                       BorderRadius.all(Radius.circular(25.0)))),
                               onChanged: (value) {
                                 setState(() {
-                                  faqSearchData.clear();
-                                  // infoSearchList = searchCourseList(value);
-                                  faqSearchData = faqData
-                                      .where(
-                                        (u) => (u.question
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(
-                                      value.toLowerCase(),
-                                    )),
-                                  )
-                                      .toList();
+                                  onSearchTextChanged(value);
                                 });
                               },
                             ),
@@ -237,6 +227,21 @@ class _FAQScreenState extends State<FAQScreen> {
         ),
       ),
     );
+  }
+
+  onSearchTextChanged(String text) async {
+    faqSearchData.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in faqData) {
+      if (removeDiacritics(info.question.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        print("search result---- ${removeDiacritics(info.question.toString().toLowerCase())}");
+        faqSearchData.add(info);
+      }
+    }
+    setState(() {});
   }
 
   Future<void> loadFAQ() async {

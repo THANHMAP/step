@@ -723,19 +723,22 @@ class _AddFlowMoneyScreenState extends State<AddFlowMoneyScreen>
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () {
-                return Future.value(false);
-              },
-              child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công ",
-                descriptions: "",
-                textButton: "Tiếp tục",
-                onClickedConfirm: () {
-                  Get.back(result: true);
-                  Get.back(result: true);
-                },
-              ));
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: SuccessDialogBox(
+                    title: "Chúc mừng bạn đã tạo thành công ",
+                    descriptions: "",
+                    textButton: "Tiếp tục",
+                    onClickedConfirm: () {
+                      Get.back(result: true);
+                      Get.back(result: true);
+                    },
+                  )),
+          );
         });
   }
 }
