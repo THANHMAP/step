@@ -23,7 +23,7 @@ class StringText {
   static const text_continue = "Tiếp tục";
   static const text_create_password_new = "Thiết lập mật khẩu mới";
   static const text_regestion_password_1 = "Lưu ý: Mật khẩu phải thoả mãn các điều kiện sau ";
-  static const text_regestion_password_2 = "Có độ dài ít nhất 6-10 ký tự";
+  static const text_regestion_password_2 = "Có độ dài ít nhất 8-10 ký tự";
   static const text_regestion_password_3 = "Phải bao gồm chữ cái và số";
   static const text_change_password = "Đổi mật khẩu";
   static const text_register_account = "Nhập số điện thoại để đăng ký tài khoản";

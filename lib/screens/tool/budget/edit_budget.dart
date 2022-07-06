@@ -961,18 +961,21 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {
-              return Future.value(false);
-            },
-            child: Dialog(
-              insetPadding: EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Constants.padding),
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: Dialog(
+                insetPadding: EdgeInsets.all(20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Constants.padding),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                child: contentBox(context, true, position),
               ),
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              child: contentBox(context, true, position),
             ),
           );
         }
@@ -986,17 +989,20 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {
-              return Future.value(false);
-            },
-            child: Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Constants.padding),
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(Constants.padding),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                child: contentBox(context, false, 0),
               ),
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              child: contentBox(context, false, 0),
             ),
           );
         }

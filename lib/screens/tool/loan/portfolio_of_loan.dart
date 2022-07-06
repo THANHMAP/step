@@ -331,22 +331,25 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return WillPopScope(
-              onWillPop: () {
-                return Future.value(false);
-              },
-              child: ConfirmDialogBoxWithIcon(
-                title: "Bạn chắc chắn muốn xoá?",
-                textButtonLeft: "Huỷ",
-                textButtonRight: "Tiếp tục",
-                onClickedConfirm: ()  {
-                  Navigator.pop(context, "");
-                  deleteItemTool(id, position);
-                },
-                onClickedCancel: () {
-                  Navigator.pop(context, "");
-                },
-              ));
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: ConfirmDialogBoxWithIcon(
+                    title: "Bạn chắc chắn muốn xoá?",
+                    textButtonLeft: "Huỷ",
+                    textButtonRight: "Tiếp tục",
+                    onClickedConfirm: ()  {
+                      Navigator.pop(context, "");
+                      deleteItemTool(id, position);
+                    },
+                    onClickedCancel: () {
+                      Navigator.pop(context, "");
+                    },
+                  )),
+          );
         });
   }
 
