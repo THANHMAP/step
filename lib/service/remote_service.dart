@@ -75,4 +75,6 @@ class RemoteServices {
   static var nextRepaymentDateToolURL = '$baseURL/api/v1/tool/next-repayment-date';
   static var numberNotificationURL = '$baseURL/api/v1/setting/number-notification';
 
+  static var deleteUserURL = '$baseURL/api/v1/user/delete';
+
 }

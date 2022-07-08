@@ -37,7 +37,8 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   late ProgressDialog pr;
   late UserData user = UserData();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController(text: '123456789');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '123456789');
   bool _isDisableEmail = true;
   String urlActionUsername = "assets/images/ic_edit.png";
   bool _switchValue = false;
@@ -104,83 +105,110 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Mytheme.colorBgMain,
-            body: Column(
-              children: <Widget>[
-                AppbarWidget(
-                  text: "Cài đặt tài khoản",
-                  onClicked: () {
-                    Navigator.of(context).pop(false);
-                  },
-                ),
-                Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding:  EdgeInsets.only(top: 30, bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            loadImage(user),
-                            const SizedBox(height: 20),
-                            phoneUser(),
-                            const SizedBox(height: 10),
-                            passwordUser(),
-                            const SizedBox(height: 10),
-                            emailUser(),
-                            const SizedBox(height: 10),
-                            switchFinger(),
-                            const SizedBox(height: 5),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 12, left: 20, bottom: 18, right: 20),
-                              child: Text(
-                                "Lưu ý: Tất cả vân tay đã được đăng ký trong thiết bị đều có thể xác thực.",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Mytheme.color_82869E,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
-                                ),
-                              ),
-                            ),
-
-                            Visibility(
-                              visible: showButtonSave,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 12, left: 20, bottom: 18, right: 20),
-                                child: ButtonWidget(
-                                    text: StringText.text_save,
-                                    color: Mytheme.colorBgButtonLogin,
-                                    onClicked: () => {
-                                      // saveInfoUser()
-                                      // if(_image != null){
-                                      //   saveImage(_image),
-                                      //
-                                      // } else {
-                                      saveInfoUser()
-                                      // }
-                                    }),
-                              ),
-                            )
-
-
-
-                          ],
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Mytheme.colorBgMain,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: "Cài đặt tài khoản",
+                onClicked: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              Expanded(
+                  child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: 30,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      loadImage(user),
+                      const SizedBox(height: 20),
+                      phoneUser(),
+                      const SizedBox(height: 10),
+                      passwordUser(),
+                      const SizedBox(height: 10),
+                      emailUser(),
+                      const SizedBox(height: 10),
+                      switchFinger(),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 12, left: 20, bottom: 18, right: 20),
+                        child: Text(
+                          "Lưu ý: Tất cả vân tay đã được đăng ký trong thiết bị đều có thể xác thực.",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Mytheme.color_82869E,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
                         ),
                       ),
-                    )),
-              ],
-            ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 12, left: 20, bottom: 0, right: 20),
+                        child: ButtonWidget(
+                            text: "Xóa tài khoản",
+                            color: Mytheme.colorBgButtonLogin,
+                            onClicked: () => {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return WillPopScope(
+                                            onWillPop: () {
+                                              return Future.value(false);
+                                            },
+                                            child: ConfirmDialogBox(
+                                              title: "Xóa tài khoản",
+                                              textButtonRight: "Xóa",
+                                              descriptions:
+                                                  "Bạn muốn có chắc muốn xóa tài khoản này?",
+                                              onClickedConfirm: () async {
+                                                deleteAccount();
+                                              },
+                                              onClickedCancel: () {
+                                                Navigator.pop(context, "");
+                                              },
+                                            ));
+                                      })
+                                }),
+                      ),
+                      Visibility(
+                        visible: showButtonSave,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 12, left: 20, bottom: 18, right: 20),
+                          child: ButtonWidget(
+                              text: StringText.text_save,
+                              color: Mytheme.colorBgButtonLogin,
+                              onClicked: () => {
+                                    // saveInfoUser()
+                                    // if(_image != null){
+                                    //   saveImage(_image),
+                                    //
+                                    // } else {
+                                    saveInfoUser()
+                                    // }
+                                  }),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )),
+            ],
           ),
         ),
+      ),
     );
   }
 
@@ -191,14 +219,12 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-              width: 125.0,
-              height: 125.0,
-             child: CircleAvatar(
-               backgroundImage:
-               NetworkImage(user.avatar.toString()),
-             ),
+            width: 125.0,
+            height: 125.0,
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(user.avatar.toString()),
+            ),
           ),
-
           Padding(
               padding: const EdgeInsets.only(top: 10),
               child: Text(
@@ -218,11 +244,10 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Container(
-            width: 125.0,
-            height: 125.0,
+          width: 125.0,
+          height: 125.0,
           child: const CircleAvatar(
-            backgroundImage:
-            AssetImage("assets/images/no_image.png"),
+            backgroundImage: AssetImage("assets/images/no_image.png"),
           ),
         ),
         Padding(
@@ -451,13 +476,12 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   ),
                   onChanged: (value) {
                     setState(() {
-                      if(value != user.email) {
+                      if (value != user.email) {
                         showButtonSave = true;
                       } else {
                         showButtonSave = false;
                       }
                     });
-
                   },
                   maxLines: 1,
                 ),
@@ -541,7 +565,8 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 16, bottom: 18, right: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 16, bottom: 18, right: 10),
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
@@ -560,12 +585,13 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                         }
                       },
                       child: Image.asset(
-                        !_switchValue ? "assets/images/ic_switch_off.png": "assets/images/ic_switch_on.png",
+                        !_switchValue
+                            ? "assets/images/ic_switch_off.png"
+                            : "assets/images/ic_switch_on.png",
                         width: 60,
                         height: 44,
                       ),
                     ),
-
                   ),
                 ),
               ),
@@ -637,41 +663,36 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   }
 
   Future<void> saveInfoUser() async {
-    if(!pr.isShowing())
-      await pr.show();
+    if (!pr.isShowing()) await pr.show();
     user.email = _emailController.text.toString();
-    var param = jsonEncode(<String, String>{
-      'email': _emailController.text.toString()
-
-    });
+    var param =
+        jsonEncode(<String, String>{'email': _emailController.text.toString()});
 
     APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
-            (value) async {
-
-          var loginModel = LoginModel.fromJson(value);
-          if (loginModel.statusCode == 200) {
-            await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-            await SPref.instance.set("info_login", json.encode(loginModel.data));
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return WillPopScope(
-                      onWillPop: () {
-                        return Future.value(false);
-                      },
-                      child: NormalDialogBox(
-                          descriptions: "Cập nhật thông tin thành công",
-                          onClicked: () {
-                            Navigator.pop(context);
-                            setState(() {
-                              showButtonSave = false;
-                            });
-                          }
-                      ));
-                });
-            // Get.offAllNamed("/home");
-          }
-        }, onError: (error) async {
+        (value) async {
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: NormalDialogBox(
+                      descriptions: "Cập nhật thông tin thành công",
+                      onClicked: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          showButtonSave = false;
+                        });
+                      }));
+            });
+        // Get.offAllNamed("/home");
+      }
+    }, onError: (error) async {
       var statuscode = error.toString();
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
@@ -685,6 +706,23 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       }
     });
     await pr.hide();
+  }
+
+  Future<void> deleteAccount() async {
+    await pr.show();
+    APIManager.getAPICallNeedToken(RemoteServices.deleteUserURL).then(
+            (value) async {
+          pr.hide();
+          if (value["status_code"] == 200) {
+            await SPref.instance.set("token", "");
+            await SPref.instance.set("info_login", "");
+            Get.offAllNamed("/login"
+                "");
+          }
+        }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
   }
 
 }
