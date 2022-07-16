@@ -26,7 +26,7 @@ import 'package:step_bank/util.dart';
 import 'package:http/http.dart' as http;
 import '../../models/biometrics_model.dart';
 import '../../themes.dart';
-import 'package:the_apple_sign_in/the_apple_sign_in.dart';
+import 'package:the_apple_sign_in/the_apple_sign_in.dart' as apple;
 
 import 'authService.dart';
 
@@ -53,7 +53,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Future<bool> _isAvailableFuture = TheAppleSignIn.isAvailable();
+  final Future<bool> _isAvailableFuture = apple.TheAppleSignIn.isAvailable();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isPasswordVisible = true;
@@ -407,6 +407,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         //     color: Mytheme.kBackgroundColor,
                         //     onClicked: () => {}),
                         const SizedBox(height: 10),
+
+                      if (Platform.isIOS) ...[
+                        apple.AppleSignInButton(
+                          style: apple.ButtonStyle.black,
+                          buttonText: "Đăng nhập bằng Apple",
+                          onPressed: () => _signInWithApple(context),
+                        ),
+                        const SizedBox(height: 5),
+                        ],
+
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
@@ -440,19 +451,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _loginFacebook();
                               },
                             ),
-                            if (Platform.isIOS) ...[
-                              const Image(
-                                image: AssetImage('assets/images/img_col.png'),
-                                fit: BoxFit.fill,
-                                width: 2,
-                              ),
-                              IconButton(
-                                icon: SvgPicture.asset("assets/svg/apple-icon.svg"),
-                                // tooltip: 'Increase volume by 10',
-                                iconSize: 50,
-                                onPressed: () => _signInWithApple(context),
-                              ),
-                            ],
 
                           ],
                         ),
@@ -665,7 +663,7 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final authService = Provider.of<AuthService>(context, listen: false);
       final user = await authService.signInWithApple(
-          scopes: [Scope.email, Scope.fullName]);
+          scopes: [apple.Scope.email, apple.Scope.fullName]);
       print('uid: ${user.uid} ---- email: ${user.email}');
       doLoginBySocial(
           user.email.toString(), user.uid.toString(), "2");
