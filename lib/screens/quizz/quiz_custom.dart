@@ -86,765 +86,845 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: Mytheme.kBackgroundColor,
-              body: Column(
-                children: <Widget>[
-                  AppbarWidget(
-                    text: Constants.nameCourseTemp,
-                    onClicked: () {
-                      Navigator.of(context).pop(true);
-                    },
-                  ),
-                  Expanded(
-                    flex: 11,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: Constants.kDefaultPadding,
-                        ),
-                        padding: EdgeInsets.only(top: 20),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.kBackgroundColor,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: Constants.nameCourseTemp,
+                  onClicked: () {
+                    Navigator.of(context).pop(true);
+                  },
+                ),
+                Expanded(
+                  flex: 11,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: Constants.kDefaultPadding,
+                      ),
+                      padding: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Mytheme.color_0xFF003A8C,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              tutorialQuestion(),
+                              textAlign: TextAlign.left,
                               style: const TextStyle(
-                                fontSize: 18,
-                                color: Mytheme.color_0xFF003A8C,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: Mytheme.color_0xFFA9B0D1,
+                                fontWeight: FontWeight.normal,
                                 fontFamily: "OpenSans-SemiBold",
                               ),
                             ),
-                            const SizedBox(height: Constants.kDefaultPadding / 2),
-                            if (contentQuizz[index].type == 3) ...[
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    top: Constants.kDefaultPadding),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        for (var i = 0;
-                                        i < contentQuizz[index].answers!.length;
-                                        i++) ...[
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                if (checkQuestionAnswersed() == true)
-                                                  return;
-                                                statusButtonFinish = true;
-                                                for (var ii = 0;
-                                                ii <
-                                                    contentQuizz[index]
-                                                        .answers!
-                                                        .length;
-                                                ii++) {
-                                                  contentQuizz[index]
-                                                      .answers![ii]
-                                                      .isSelect = false;
-                                                }
-                                                contentQuizz[index]
-                                                    .answers![i]
-                                                    .isSelect =
-                                                !contentQuizz[index]
-                                                    .answers![i]
-                                                    .isSelect!;
-                                                _answers =
-                                                contentQuizz[index].answers![i];
-                                              });
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 0, left: 0, right: 10),
-                                              child: Container(
-                                                width: 150,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: getTheRightColorType3(
-                                                        checkQuestionStatus,
-                                                        contentQuizz[index]
-                                                            .answers![i]),
-                                                    width: 1,
-                                                  ),
-                                                  borderRadius:
-                                                  BorderRadius.circular(8),
-                                                  color: getTheRightColorForBg(
-                                                      checkQuestionStatus,
-                                                      contentQuizz[index]
-                                                          .answers![i]),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey
-                                                          .withOpacity(0.5),
-                                                      spreadRadius: 1,
-                                                      blurRadius: 7,
-                                                      offset: const Offset(0,
-                                                          3), // changes position of shadow
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.asset(urlIconType3(
-                                                        checkQuestionStatus,
-                                                        i,
-                                                        contentQuizz[index]
-                                                            .answers![i]
-                                                            .isCorrect ??
-                                                            0)),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Text(
-                                                      contentQuizz[index]
-                                                          .answers![i]
-                                                          .answerText ??
-                                                          "",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Mytheme
-                                                            .colorBgButtonLogin,
-                                                        fontWeight: FontWeight.w600,
-                                                        fontFamily:
-                                                        "OpenSans-Semibold",
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ] else if (contentQuizz[index].type == 4) ...[
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    top: Constants.kDefaultPadding),
-                                alignment: Alignment.center,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        for (var i = 0;
-                                        i < contentQuizz[index].answers!.length;
-                                        i++) ...[
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 0, left: 0, right: 10),
-                                            child: Draggable<Answers>(
-                                              maxSimultaneousDrags:
+                          ),
+
+                          const SizedBox(height: Constants.kDefaultPadding / 2),
+                          if (contentQuizz[index].type == 3) ...[
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: Constants.kDefaultPadding),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      for (var i = 0;
+                                          i <
                                               contentQuizz[index]
-                                                  .answers![i]
-                                                  .isSelect ==
-                                                  true
-                                                  ? 0
-                                                  : 1,
-                                              data: contentQuizz[index].answers![i],
-                                              child: Container(
-                                                width: 80,
-                                                height: 80,
-                                                decoration: contentQuizz[index]
-                                                    .answers![i]
-                                                    .isSelect ==
-                                                    false
-                                                    ? BoxDecoration(
-                                                    border: Border.all(
-                                                      color: Mytheme
-                                                          .color_0xFFA7ABC3,
-                                                      width: 1,
-                                                    ),
-                                                    borderRadius:
-                                                    BorderRadius.circular(8),
-                                                    color: Colors.white)
-                                                    : BoxDecoration(
-                                                    color: Colors.white),
-                                                child: contentQuizz[index]
-                                                    .answers![i]
-                                                    .isSelect ==
-                                                    false
-                                                    ? Image.network(
-                                                  contentQuizz[index]
-                                                      .answers![i]
-                                                      .answerFile ??
-                                                      "",
-                                                  fit: BoxFit.fill,
-                                                  width: 50,
-                                                  loadingBuilder:
-                                                      (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                      loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                      child:
-                                                      CircularProgressIndicator(
-                                                        value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                            null
-                                                            ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                            loadingProgress
-                                                                .expectedTotalBytes!
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                                    : Container(
-                                                  width: 80,
-                                                  height: 80,
-                                                  child: SvgPicture.asset(
-                                                      "assets/svg/border_drap.svg"),
-                                                ),
-                                              ),
-                                              feedback: Container(
-                                                width: 80,
-                                                height: 80,
-                                                child: contentQuizz[index]
-                                                    .answers![i]
-                                                    .isSelect ==
-                                                    false
-                                                    ? Image.network(
-                                                  contentQuizz[index]
-                                                      .answers![i]
-                                                      .answerFile ??
-                                                      "",
-                                                  fit: BoxFit.fill,
-                                                  width: 50,
-                                                  loadingBuilder:
-                                                      (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                      loadingProgress) {
-                                                    if (loadingProgress ==
-                                                        null) {
-                                                      return child;
-                                                    }
-                                                    return Center(
-                                                      child:
-                                                      CircularProgressIndicator(
-                                                        value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                            null
-                                                            ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                            loadingProgress
-                                                                .expectedTotalBytes!
-                                                            : null,
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                                    : Container(
-                                                  width: 80,
-                                                  height: 80,
-                                                  child: SvgPicture.asset(
-                                                      "assets/svg/border_drap.svg"),
-                                                ),
-                                              ),
-                                              childWhenDragging: Container(
-                                                width: 80,
-                                                height: 80,
-                                                child: SvgPicture.asset(
-                                                    "assets/svg/border_drap.svg"),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                    ),
-                                    Row(
-                                      children: [
-                                        for (var i = 0;
-                                        i < listAnswersDragg.length;
-                                        i++) ...[
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 0, left: 0, right: 10),
-                                            child: DragTarget<Answers>(
-                                              builder: (context, accepted, rejected) {
-                                                return Container(
-                                                  width: 80,
-                                                  height: 80,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                        color: getTheRightColorBorderType4(
-                                                            checkQuestionStatus,
-                                                            listAnswersDragg[i]
-                                                                .selectIsCorrect ??
-                                                                0),
-                                                        width: 1,
-                                                      ),
-                                                      borderRadius:
-                                                      BorderRadius.circular(8),
-                                                      color:
-                                                      Mytheme.kBackgroundColor),
-                                                  child: Stack(
-                                                    children: [
-                                                      listAnswersDragg[i].isSelect == true ? Image.network(
-                                                        listAnswersDragg[i].answerFileTemp ?? "",
-                                                        fit: BoxFit.fill,
-                                                        loadingBuilder: (BuildContext
-                                                        context,
-                                                            Widget child,
-                                                            ImageChunkEvent?
-                                                            loadingProgress) {
-                                                          if (loadingProgress ==
-                                                              null) {
-                                                            return child;
-                                                          }
-                                                          return Center(
-                                                            child:
-                                                            CircularProgressIndicator(
-                                                              value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                                  null
-                                                                  ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                                  loadingProgress
-                                                                      .expectedTotalBytes!
-                                                                  : null,
-                                                            ),
-                                                          );
-                                                        },
-                                                      ) : Container(),
-                                                      if(checkQuestionStatus)...[
-                                                        Align(
-                                                            alignment: Alignment.topRight,
-                                                            child: SvgPicture.asset(getIconCheckType4(listAnswersDragg[i].selectIsCorrect ??0))
-                                                        ),
-                                                      ],
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                              onWillAccept: (data) {
-                                                if (listAnswersDragg[i].isSelect ==
-                                                    true) {
-                                                  return false;
-                                                } else {
-                                                  return true;
-                                                }
-                                              },
-                                              onAccept: (data) {
-                                                setState(() {
-                                                  for (var position = 0;
-                                                  position <
+                                                  .answers!
+                                                  .length;
+                                          i++) ...[
+                                        InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              if (checkQuestionAnswersed() ==
+                                                  true) return;
+                                              statusButtonFinish = true;
+                                              for (var ii = 0;
+                                                  ii <
                                                       contentQuizz[index]
                                                           .answers!
                                                           .length;
-                                                  position++) {
-                                                    if (data.id ==
-                                                        contentQuizz[index]
-                                                            .answers![position]
-                                                            .id) {
-                                                      contentQuizz[index]
-                                                          .answers![position]
-                                                          .isSelect = true;
-                                                      break;
-                                                    }
-                                                  }
-
-                                                  listAnswersDragg[i].answerFileTemp =
-                                                      data.answerFile;
-                                                  listAnswersDragg[i].isSelect = true;
-                                                  listAnswersDragg[i].ordering = data.ordering;
-                                                  listAnswersDragg[i].id = data.id;
-
-
-                                                  bool checkStatus = false;
-                                                  for (var position = 0;
-                                                  position <
-                                                      listAnswersDragg.length;
-                                                  position++) {
-                                                    if (listAnswersDragg[position]
-                                                        .isSelect ==
-                                                        true) {
-                                                      checkStatus = true;
-                                                    } else {
-                                                      checkStatus = false;
-                                                      break;
-                                                    }
-                                                  }
-
-                                                  if (checkStatus == true) {
-                                                    statusButtonFinish = true;
-                                                  }
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ] else ...[
-                              for (var i = 0;
-                              i < contentQuizz[index].answers!.length;
-                              i++) ...[
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      if (checkQuestionAnswersed() == true) return;
-                                      statusButtonFinish = true;
-                                      anserSelect == i;
-                                      if (contentQuizz[index].type == 1) {
-                                        for (var ii = 0;
-                                        ii < contentQuizz[index].answers!.length;
-                                        ii++) {
-                                          contentQuizz[index].answers![ii].isSelect =
-                                          false;
-                                        }
-                                        contentQuizz[index].answers![i].isSelect =
-                                        !contentQuizz[index]
-                                            .answers![i]
-                                            .isSelect!;
-                                        _answers = contentQuizz[index].answers![i];
-                                      } else if (contentQuizz[index].type == 2) {
-                                        contentQuizz[index].answers![i].isSelect =
-                                        !contentQuizz[index]
-                                            .answers![i]
-                                            .isSelect!;
-                                        if (contentQuizz[index]
-                                            .answers![i]
-                                            .isSelect ==
-                                            true) {
-                                          _listAnswers
-                                              .add(contentQuizz[index].answers![i]);
-                                        } else {
-                                          _listAnswers.remove(
-                                              contentQuizz[index].answers![i]);
-                                        }
-                                      }
-                                      contentQuizz;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        top: Constants.kDefaultPadding),
-                                    padding: const EdgeInsets.all(
-                                        Constants.kDefaultPadding),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                          color: getTheRightColor(checkQuestionStatus,
-                                              contentQuizz[index].answers![i])),
-                                      color: getTheRightColorForBg(
-                                          checkQuestionStatus,
-                                          contentQuizz[index].answers![i]),
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 7,
-                                          offset: const Offset(
-                                              0, 3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        if (contentQuizz[index].type == 1) ...[
-                                          SvgPicture.asset(urlIconRadio(
-                                              checkQuestionStatus,
-                                              contentQuizz[index].answers![i],
-                                              i)),
-                                        ] else ...[
-                                          SvgPicture.asset(urlIconRadioMutil(
-                                              checkQuestionStatus, i)),
-                                        ],
-                                        Expanded(
+                                                  ii++) {
+                                                contentQuizz[index]
+                                                    .answers![ii]
+                                                    .isSelect = false;
+                                              }
+                                              contentQuizz[index]
+                                                      .answers![i]
+                                                      .isSelect =
+                                                  !contentQuizz[index]
+                                                      .answers![i]
+                                                      .isSelect!;
+                                              _answers = contentQuizz[index]
+                                                  .answers![i];
+                                            });
+                                          },
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 0, left: 10, right: 0),
-                                            child: Text(
-                                              "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Mytheme.colorBgButtonLogin,
-                                                fontWeight: FontWeight.w400,
-                                                fontFamily: "OpenSans-Regular",
+                                                bottom: 0, left: 0, right: 10),
+                                            child: Container(
+                                              width: 150,
+                                              height: 150,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: getTheRightColorType3(
+                                                      checkQuestionStatus,
+                                                      contentQuizz[index]
+                                                          .answers![i]),
+                                                  width: 1,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: getTheRightColorForBg(
+                                                    checkQuestionStatus,
+                                                    contentQuizz[index]
+                                                        .answers![i]),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.5),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 7,
+                                                    offset: const Offset(0,
+                                                        3), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset(urlIconType3(
+                                                      checkQuestionStatus,
+                                                      i,
+                                                      contentQuizz[index]
+                                                              .answers![i]
+                                                              .isCorrect ??
+                                                          0)),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    contentQuizz[index]
+                                                            .answers![i]
+                                                            .answerText ??
+                                                        "",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Mytheme
+                                                          .colorBgButtonLogin,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontFamily:
+                                                          "OpenSans-Semibold",
+                                                    ),
+                                                  )
+                                                ],
                                               ),
                                             ),
                                           ),
                                         ),
-                                        if (getTheRightIcon(checkQuestionStatus,
-                                            contentQuizz[index].answers![i])
-                                            .isNotEmpty) ...[
-                                          Container(
-                                            width: 26,
-                                            height: 26,
-                                            child: SvgPicture.asset(getTheRightIcon(
-                                                checkQuestionStatus,
-                                                contentQuizz[index].answers![i])),
-                                          ),
-                                        ],
                                       ],
-                                    ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ] else if (contentQuizz[index].type == 4) ...[
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: Constants.kDefaultPadding),
+                              alignment: Alignment.center,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      for (var i = 0;
+                                          i <
+                                              contentQuizz[index]
+                                                  .answers!
+                                                  .length;
+                                          i++) ...[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 0, left: 0, right: 10),
+                                          child: Draggable<Answers>(
+                                            maxSimultaneousDrags:
+                                                contentQuizz[index]
+                                                            .answers![i]
+                                                            .isSelect ==
+                                                        true
+                                                    ? 0
+                                                    : 1,
+                                            data:
+                                                contentQuizz[index].answers![i],
+                                            child: Container(
+                                              width: 80,
+                                              height: 80,
+                                              decoration: contentQuizz[index]
+                                                          .answers![i]
+                                                          .isSelect ==
+                                                      false
+                                                  ? BoxDecoration(
+                                                      border: Border.all(
+                                                        color: Mytheme
+                                                            .color_0xFFA7ABC3,
+                                                        width: 1,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: Colors.white)
+                                                  : BoxDecoration(
+                                                      color: Colors.white),
+                                              child: contentQuizz[index]
+                                                          .answers![i]
+                                                          .isSelect ==
+                                                      false
+                                                  ? Image.network(
+                                                      contentQuizz[index]
+                                                              .answers![i]
+                                                              .answerFile ??
+                                                          "",
+                                                      fit: BoxFit.fill,
+                                                      width: 50,
+                                                      loadingBuilder: (BuildContext
+                                                              context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                        if (loadingProgress ==
+                                                            null) {
+                                                          return child;
+                                                        }
+                                                        return Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: loadingProgress
+                                                                        .expectedTotalBytes !=
+                                                                    null
+                                                                ? loadingProgress
+                                                                        .cumulativeBytesLoaded /
+                                                                    loadingProgress
+                                                                        .expectedTotalBytes!
+                                                                : null,
+                                                          ),
+                                                        );
+                                                      },
+                                                    )
+                                                  : Container(
+                                                      width: 80,
+                                                      height: 80,
+                                                      child: SvgPicture.asset(
+                                                          "assets/svg/border_drap.svg"),
+                                                    ),
+                                            ),
+                                            feedback: Container(
+                                              width: 80,
+                                              height: 80,
+                                              child: contentQuizz[index]
+                                                          .answers![i]
+                                                          .isSelect ==
+                                                      false
+                                                  ? Image.network(
+                                                      contentQuizz[index]
+                                                              .answers![i]
+                                                              .answerFile ??
+                                                          "",
+                                                      fit: BoxFit.fill,
+                                                      width: 50,
+                                                      loadingBuilder: (BuildContext
+                                                              context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                        if (loadingProgress ==
+                                                            null) {
+                                                          return child;
+                                                        }
+                                                        return Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: loadingProgress
+                                                                        .expectedTotalBytes !=
+                                                                    null
+                                                                ? loadingProgress
+                                                                        .cumulativeBytesLoaded /
+                                                                    loadingProgress
+                                                                        .expectedTotalBytes!
+                                                                : null,
+                                                          ),
+                                                        );
+                                                      },
+                                                    )
+                                                  : Container(
+                                                      width: 80,
+                                                      height: 80,
+                                                      child: SvgPicture.asset(
+                                                          "assets/svg/border_drap.svg"),
+                                                    ),
+                                            ),
+                                            childWhenDragging: Container(
+                                              width: 80,
+                                              height: 80,
+                                              child: SvgPicture.asset(
+                                                  "assets/svg/border_drap.svg"),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ],
-                            const SizedBox(height: 20),
-                            Visibility(
-                              maintainSize: true,
-                              maintainAnimation: true,
-                              maintainState: true,
-                              visible: checkQuestionStatus,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Giải thích: ${contentQuizz[index].suggest.toString()}",
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Mytheme.color_82869E,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "OpenSans-Regular",
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.1,
+                                  ),
+                                  Row(
+                                    children: [
+                                      for (var i = 0;
+                                          i < listAnswersDragg.length;
+                                          i++) ...[
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 0, left: 0, right: 10),
+                                          child: DragTarget<Answers>(
+                                            builder:
+                                                (context, accepted, rejected) {
+                                              return Container(
+                                                width: 80,
+                                                height: 80,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                      color: getTheRightColorBorderType4(
+                                                          checkQuestionStatus,
+                                                          listAnswersDragg[i]
+                                                                  .selectIsCorrect ??
+                                                              0),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: Mytheme
+                                                        .kBackgroundColor),
+                                                child: Stack(
+                                                  children: [
+                                                    listAnswersDragg[i]
+                                                                .isSelect ==
+                                                            true
+                                                        ? Image.network(
+                                                            listAnswersDragg[i]
+                                                                    .answerFileTemp ??
+                                                                "",
+                                                            fit: BoxFit.fill,
+                                                            loadingBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    Widget
+                                                                        child,
+                                                                    ImageChunkEvent?
+                                                                        loadingProgress) {
+                                                              if (loadingProgress ==
+                                                                  null) {
+                                                                return child;
+                                                              }
+                                                              return Center(
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  value: loadingProgress
+                                                                              .expectedTotalBytes !=
+                                                                          null
+                                                                      ? loadingProgress
+                                                                              .cumulativeBytesLoaded /
+                                                                          loadingProgress
+                                                                              .expectedTotalBytes!
+                                                                      : null,
+                                                                ),
+                                                              );
+                                                            },
+                                                          )
+                                                        : Container(),
+                                                    if (checkQuestionStatus) ...[
+                                                      Align(
+                                                          alignment: Alignment
+                                                              .topRight,
+                                                          child: SvgPicture.asset(
+                                                              getIconCheckType4(
+                                                                  listAnswersDragg[
+                                                                              i]
+                                                                          .selectIsCorrect ??
+                                                                      0))),
+                                                    ],
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            onWillAccept: (data) {
+                                              if (listAnswersDragg[i]
+                                                      .isSelect ==
+                                                  true) {
+                                                return false;
+                                              } else {
+                                                return true;
+                                              }
+                                            },
+                                            onAccept: (data) {
+                                              setState(() {
+                                                for (var position = 0;
+                                                    position <
+                                                        contentQuizz[index]
+                                                            .answers!
+                                                            .length;
+                                                    position++) {
+                                                  if (data.id ==
+                                                      contentQuizz[index]
+                                                          .answers![position]
+                                                          .id) {
+                                                    contentQuizz[index]
+                                                        .answers![position]
+                                                        .isSelect = true;
+                                                    break;
+                                                  }
+                                                }
+
+                                                listAnswersDragg[i]
+                                                        .answerFileTemp =
+                                                    data.answerFile;
+                                                listAnswersDragg[i].isSelect =
+                                                    true;
+                                                listAnswersDragg[i].ordering =
+                                                    data.ordering;
+                                                listAnswersDragg[i].id =
+                                                    data.id;
+
+                                                bool checkStatus = false;
+                                                for (var position = 0;
+                                                    position <
+                                                        listAnswersDragg.length;
+                                                    position++) {
+                                                  if (listAnswersDragg[position]
+                                                          .isSelect ==
+                                                      true) {
+                                                    checkStatus = true;
+                                                  } else {
+                                                    checkStatus = false;
+                                                    break;
+                                                  }
+                                                }
+
+                                                if (checkStatus == true) {
+                                                  statusButtonFinish = true;
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ] else ...[
+                            for (var i = 0;
+                                i < contentQuizz[index].answers!.length;
+                                i++) ...[
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (checkQuestionAnswersed() == true)
+                                      return;
+                                    statusButtonFinish = true;
+                                    anserSelect == i;
+                                    if (contentQuizz[index].type == 1) {
+                                      for (var ii = 0;
+                                          ii <
+                                              contentQuizz[index]
+                                                  .answers!
+                                                  .length;
+                                          ii++) {
+                                        contentQuizz[index]
+                                            .answers![ii]
+                                            .isSelect = false;
+                                      }
+                                      contentQuizz[index].answers![i].isSelect =
+                                          !contentQuizz[index]
+                                              .answers![i]
+                                              .isSelect!;
+                                      _answers =
+                                          contentQuizz[index].answers![i];
+                                    } else if (contentQuizz[index].type == 2) {
+                                      contentQuizz[index].answers![i].isSelect =
+                                          !contentQuizz[index]
+                                              .answers![i]
+                                              .isSelect!;
+                                      if (contentQuizz[index]
+                                              .answers![i]
+                                              .isSelect ==
+                                          true) {
+                                        _listAnswers.add(
+                                            contentQuizz[index].answers![i]);
+                                      } else {
+                                        _listAnswers.remove(
+                                            contentQuizz[index].answers![i]);
+                                      }
+                                    }
+                                    contentQuizz;
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: Constants.kDefaultPadding),
+                                  padding: const EdgeInsets.all(
+                                      Constants.kDefaultPadding),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                        color: getTheRightColor(
+                                            checkQuestionStatus,
+                                            contentQuizz[index].answers![i])),
+                                    color: getTheRightColorForBg(
+                                        checkQuestionStatus,
+                                        contentQuizz[index].answers![i]),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      if (contentQuizz[index].type == 1) ...[
+                                        SvgPicture.asset(urlIconRadio(
+                                            checkQuestionStatus,
+                                            contentQuizz[index].answers![i],
+                                            i)),
+                                      ] else ...[
+                                        SvgPicture.asset(urlIconRadioMutil(
+                                            checkQuestionStatus, i)),
+                                      ],
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 0, left: 10, right: 0),
+                                          child: Text(
+                                            "${i + 1}. ${contentQuizz[index].answers![i].answerText}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorBgButtonLogin,
+                                              fontWeight: FontWeight.w400,
+                                              fontFamily: "OpenSans-Regular",
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      if (getTheRightIcon(checkQuestionStatus,
+                                              contentQuizz[index].answers![i])
+                                          .isNotEmpty) ...[
+                                        Container(
+                                          width: 26,
+                                          height: 26,
+                                          child: SvgPicture.asset(
+                                              getTheRightIcon(
+                                                  checkQuestionStatus,
+                                                  contentQuizz[index]
+                                                      .answers![i])),
+                                        ),
+                                      ],
+                                    ],
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ],
-                        ),
+                          const SizedBox(height: 20),
+                          Visibility(
+                            maintainSize: true,
+                            maintainAnimation: true,
+                            maintainState: true,
+                            visible: checkQuestionStatus,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                contentQuizz[index]
+                                        .suggest
+                                        .toString()
+                                        .isNotEmpty
+                                    ? "Giải thích: ${contentQuizz[index].suggest.toString()}"
+                                    : "",
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Mytheme.color_82869E,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "OpenSans-Regular",
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      color: Mytheme.kBackgroundColor,
-                      child: Padding(
-                        padding:
-                        const EdgeInsets.only(bottom: 0, left: 0, right: 0),
-                        child: Column(
-                          children: [
-                            const Align(
-                              child: Image(
-                                image: AssetImage(
-                                    'assets/images/img_line_horizone.png'),
-                                fit: BoxFit.fill,
-                              ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Mytheme.kBackgroundColor,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(bottom: 0, left: 0, right: 0),
+                      child: Column(
+                        children: [
+                          const Align(
+                            child: Image(
+                              image: AssetImage(
+                                  'assets/images/img_line_horizone.png'),
+                              fit: BoxFit.fill,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 0, left: 16, right: 16),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                      flex: 1,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(8),
-                                                side: const BorderSide(
-                                                    color: Mytheme
-                                                        .colorBgButtonLogin)),
-                                            primary: Mytheme.kBackgroundColor,
-                                            minimumSize: Size(
-                                                MediaQuery.of(context).size.width,
-                                                44)),
-                                        child: const Text(
-                                          "Trở về",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Mytheme.colorBgButtonLogin,
-                                              fontFamily: "OpenSans-SemiBold",
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (index > 0) {
-                                              index = index - 1;
-                                            }
-                                            if (checkQuestionAnswersed() == true) {
-                                              checkQuestionStatus = true;
-                                              statusButtonFinish = true;
-                                              buttonNext = "Tiếp tục";
-                                            } else {
-                                              statusButtonFinish = false;
-                                              checkQuestionStatus = false;
-                                            }
-                                          });
-                                        },
-                                      )),
-                                  SizedBox(
-                                    height: 100,
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                      flex: 1,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 0, left: 16, right: 16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(8),
-                                              // side: const BorderSide(color: Colors.red)
-                                            ),
-                                            primary: statusButtonFinish == false
-                                                ? Mytheme.color_DCDEE9
-                                                : Mytheme.colorBgButtonLogin,
-                                            minimumSize: Size(
-                                                MediaQuery.of(context).size.width,
-                                                44)),
-                                        child: Text(
-                                          buttonNext,
-                                          style: TextStyle(
-                                              color: statusButtonFinish == false
-                                                  ? Mytheme.color_0xFFA7ABC3
-                                                  : Mytheme.kBackgroundColor,
-                                              fontSize: 16,
-                                              fontFamily: "OpenSans-SemiBold",
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (statusButtonFinish) {
-                                              if (checkQuestionAnswersed() ==
-                                                  false) {
-                                                if (contentQuizz[index].type == 1) {
-                                                  checkQuestion();
-                                                } else if (contentQuizz[index]
-                                                    .type ==
-                                                    3) {
-                                                  checkQuestion();
-                                                } else if (contentQuizz[index]
-                                                    .type ==
-                                                    4) {
-                                                  checkQuestionType4();
-                                                } else {
-                                                  checkQuestionMutil();
-                                                }
-                                                buttonNext = "Tiếp tục";
+                                                  BorderRadius.circular(8),
+                                              side: const BorderSide(
+                                                  color: Mytheme
+                                                      .colorBgButtonLogin)),
+                                          primary: Mytheme.kBackgroundColor,
+                                          minimumSize: Size(
+                                              MediaQuery.of(context).size.width,
+                                              44)),
+                                      child: const Text(
+                                        "Trở về",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontFamily: "OpenSans-SemiBold",
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (index > 0) {
+                                            index = index - 1;
+                                          }
+                                          if (checkQuestionAnswersed() ==
+                                              true) {
+                                            checkQuestionStatus = true;
+                                            statusButtonFinish = true;
+                                            buttonNext = "Tiếp tục";
+                                          } else {
+                                            statusButtonFinish = false;
+                                            checkQuestionStatus = false;
+                                          }
+                                        });
+                                      },
+                                    )),
+                                SizedBox(
+                                  height: 100,
+                                  width: 30,
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            // side: const BorderSide(color: Colors.red)
+                                          ),
+                                          primary: statusButtonFinish == false
+                                              ? Mytheme.color_DCDEE9
+                                              : Mytheme.colorBgButtonLogin,
+                                          minimumSize: Size(
+                                              MediaQuery.of(context).size.width,
+                                              44)),
+                                      child: Text(
+                                        buttonNext,
+                                        style: TextStyle(
+                                            color: statusButtonFinish == false
+                                                ? Mytheme.color_0xFFA7ABC3
+                                                : Mytheme.kBackgroundColor,
+                                            fontSize: 16,
+                                            fontFamily: "OpenSans-SemiBold",
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (statusButtonFinish) {
+                                            if (checkQuestionAnswersed() ==
+                                                false) {
+                                              if (contentQuizz[index].type ==
+                                                  1) {
+                                                checkQuestion();
+                                              } else if (contentQuizz[index]
+                                                      .type ==
+                                                  3) {
+                                                checkQuestion();
+                                              } else if (contentQuizz[index]
+                                                      .type ==
+                                                  4) {
+                                                checkQuestionType4();
+                                              } else {
+                                                checkQuestionMutil();
+                                              }
+                                              buttonNext = "Tiếp tục";
+                                              return;
+                                            } else {
+                                              if (index ==
+                                                  contentQuizz.length - 1) {
+                                                Result _dataResult = Result();
+                                                print(finish());
+                                                _dataResult.result = finish();
+                                                _dataResult.numOfCorrectAns =
+                                                    _numOfCorrectAns;
+                                                _dataResult.listQuestion =
+                                                    listQuestion;
+                                                Get.offAndToNamed(
+                                                    "/resultQuizScreen",
+                                                    arguments: _dataResult);
                                                 return;
                                               } else {
-                                                if (index ==
-                                                    contentQuizz.length - 1) {
-                                                  Result _dataResult = Result();
-                                                  print(finish());
-                                                  _dataResult.result = finish();
-                                                  _dataResult.numOfCorrectAns =
-                                                      _numOfCorrectAns;
-                                                  _dataResult.listQuestion =
-                                                      listQuestion;
-                                                  Get.offAndToNamed(
-                                                      "/resultQuizScreen",
-                                                      arguments: _dataResult);
-                                                  return;
-                                                } else {
-                                                  buttonNext = "Hoàn thành";
-                                                  index = index + 1;
-                                                  if (contentQuizz[index].type ==    4) {
-                                                    // listAnswersDragg.clear();
-                                                    if (listStoreQuestionDrap.isNotEmpty) {
-                                                      for (var i = 0; i < listStoreQuestionDrap.length; i++) {
-                                                        if(listStoreQuestionDrap[i].idQuestion == contentQuizz[index].id) {
-                                                          listAnswersDragg = listStoreQuestionDrap[i].listAnswersDragg!;
-                                                          break;
-                                                        }
-                                                      }
-                                                    } else {
-                                                      for (int i = 0;
-                                                      i <
+                                                buttonNext = "Hoàn thành";
+                                                index = index + 1;
+                                                if (contentQuizz[index].type ==
+                                                    4) {
+                                                  // listAnswersDragg.clear();
+                                                  if (listStoreQuestionDrap
+                                                      .isNotEmpty) {
+                                                    for (var i = 0;
+                                                        i <
+                                                            listStoreQuestionDrap
+                                                                .length;
+                                                        i++) {
+                                                      if (listStoreQuestionDrap[
+                                                                  i]
+                                                              .idQuestion ==
                                                           contentQuizz[index]
-                                                              .answers!
-                                                              .length;
-                                                      i++) {
-                                                        QuestionDrap an =
-                                                        QuestionDrap(
-                                                          id: contentQuizz[index]
-                                                              .answers![i]
-                                                              .id,
-                                                          isCorrect:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .isCorrect,
-                                                          answerFile:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .answerFile,
-                                                          answerFileTemp:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .answerFileTemp,
-                                                          answerText:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .answerText,
-                                                          isSelect:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .isSelect,
-                                                          selectIsCorrect:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .selectIsCorrect,
-                                                          ordering:
-                                                          contentQuizz[index]
-                                                              .answers![i]
-                                                              .ordering,
-                                                        );
-                                                        listAnswersDragg.add(an);
+                                                              .id) {
+                                                        listAnswersDragg =
+                                                            listStoreQuestionDrap[
+                                                                    i]
+                                                                .listAnswersDragg!;
+                                                        break;
                                                       }
                                                     }
-                                                  }
-
-                                                  if (checkQuestionAnswersed() ==
-                                                      true) {
-                                                    buttonNext = "Tiếp tục";
-                                                    checkQuestionStatus = true;
-                                                    statusButtonFinish = true;
                                                   } else {
-                                                    statusButtonFinish = false;
-                                                    checkQuestionStatus = false;
+                                                    for (int i = 0;
+                                                        i <
+                                                            contentQuizz[index]
+                                                                .answers!
+                                                                .length;
+                                                        i++) {
+                                                      QuestionDrap an =
+                                                          QuestionDrap(
+                                                        id: contentQuizz[index]
+                                                            .answers![i]
+                                                            .id,
+                                                        isCorrect:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .isCorrect,
+                                                        answerFile:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .answerFile,
+                                                        answerFileTemp:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .answerFileTemp,
+                                                        answerText:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .answerText,
+                                                        isSelect:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .isSelect,
+                                                        selectIsCorrect:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .selectIsCorrect,
+                                                        ordering:
+                                                            contentQuizz[index]
+                                                                .answers![i]
+                                                                .ordering,
+                                                      );
+                                                      listAnswersDragg.add(an);
+                                                    }
                                                   }
+                                                }
+
+                                                if (checkQuestionAnswersed() ==
+                                                    true) {
+                                                  buttonNext = "Tiếp tục";
+                                                  checkQuestionStatus = true;
+                                                  statusButtonFinish = true;
+                                                } else {
+                                                  statusButtonFinish = false;
+                                                  checkQuestionStatus = false;
                                                 }
                                               }
                                             }
-                                          });
-                                        },
-                                      ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                          }
+                                        });
+                                      },
+                                    ))
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            )),
+                ),
+              ],
+            ),
+          )),
     );
+  }
+
+  String tutorialQuestion(){
+    if(contentQuizz[index].type == 1 || contentQuizz[index].type == 3) {
+      return "Đây là câu hỏi chỉ có một lựa chọn";
+    } else if(contentQuizz[index].type == 1 || contentQuizz[index].type == 2) {
+      return "Đây là câu hỏi có nhiều lựa chọn";
+    }
+    return "";
   }
 
   void checkQuestionType4() {
@@ -876,8 +956,8 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     listSubmitQuizData.add(submitQuizData);
     listQuestion.add(Question(isCorrect: status, id: contentQuizz[index].id));
     listStoreQuestionDrap.add(StoreQuestionDrap(
-      idQuestion: contentQuizz[index].id, listAnswersDragg: listAnswersDragg
-    ));
+        idQuestion: contentQuizz[index].id,
+        listAnswersDragg: listAnswersDragg));
     setState(() {
       contentQuizz[index].isAnswers = true;
       checkQuestionStatus = true;
@@ -968,14 +1048,14 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
     var statusNoAnswer = true;
 
     for (var i = 0; i < data!.length; i++) {
-      if(data[i].isCorrect == 1) {
+      if (data[i].isCorrect == 1) {
         statusNoAnswer = false;
         break;
       }
     }
 
-    if(statusNoAnswer) {
-      _numOfCorrectAns++;
+    if (statusNoAnswer) {
+      // _numOfCorrectAns++;
       for (var i = 0; i < data.length; i++) {
         for (var ii = 0; ii < _listAnswers.length; ii++) {
           if (data[i].id == _listAnswers[ii].id) {
@@ -1002,7 +1082,6 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
         }
       }
     }
-
 
     if (_listAnswers.length == 1 && !statusNoAnswer) {
       status = false;

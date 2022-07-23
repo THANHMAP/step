@@ -267,7 +267,7 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
     if (_dataResult.numOfCorrectAns! >= _dataResult.listQuestion!.length / 2) {
       return "Chúc mừng!\n Bạn đã đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     } else {
-      return "Rát tiếc!\n Bạn chỉ đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
+      return "Rất tiếc!\n Bạn chỉ đúng ${_dataResult.numOfCorrectAns!}/${_dataResult.listQuestion!.length} câu hỏi";
     }
   }
 

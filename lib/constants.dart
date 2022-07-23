@@ -13,6 +13,7 @@ class Constants{
   static const double avatarRadius =45;
   static List<ContentQuizz>? questionsGlobals = null;
   static ToolData? toolData;
+  static String nameLesson = "";
   static List<DataLesson>? lessonListTemp;
   static String nameCourseTemp = "";
   static bool selectDefault = true;

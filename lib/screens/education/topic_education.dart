@@ -40,7 +40,6 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
   @override
   void initState() {
     super.initState();
-    Constants.nameCourseTemp = _educationData.name ?? "";
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -183,9 +182,9 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
 
 
   String numberLesson(int number) {
-    if (number < 10) {
-      return "0$number";
-    }
+    // if (number < 10) {
+    //   return "0$number";
+    // }
 
     return "$number";
   }
@@ -325,6 +324,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                             finish: dataLessonModel.dataLesson?[i].numberFinish ?? 0,
                             total: dataLessonModel.dataLesson?[i].totalPart ?? 0,
                             onClicked: () {
+                              Constants.nameCourseTemp = dataLessonModel.name ?? "";
                               Constants.lessonListTemp = dataLessonModel.dataLesson;
                               trackingLesson(dataLessonModel.dataLesson?[i].id ?? 0);
                               // _lessonList[i].nameCourse = _educationData.name;

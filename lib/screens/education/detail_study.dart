@@ -324,6 +324,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
           alignment: Alignment.centerLeft,
           child: Text(
             _studyData.name.toString(),
+            textAlign: TextAlign.justify,
             style: const TextStyle(
               fontSize: 24,
               color: Mytheme.colorTextSubTitle,
