@@ -37,14 +37,6 @@ enum _SupportState {
   unsupported,
 }
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
-  scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -77,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
-    _handleSignOut();
     if (Platform.isAndroid) {
       platform = "Android";
     } else if (Platform.isIOS) {
@@ -94,15 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
     loadCheckBiometrics();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
-      setState(() {
-        _currentUser = account;
-      });
-      if (_currentUser != null) {
-        doLoginBySocial(_currentUser!.email, _currentUser!.id, "1");
-      }
-    });
-    _googleSignIn.signInSilently();
 
     auth.isDeviceSupported().then((isSupported) {
       // setState(() => _supportState = isSupported ? _SupportState.supported : _SupportState.unsupported),
@@ -201,31 +183,6 @@ class _LoginScreenState extends State<LoginScreen> {
         () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
-  String? _pickFirstNamedContact(Map<String, dynamic> data) {
-    final List<dynamic>? connections = data['connections'] as List<dynamic>?;
-    final Map<String, dynamic>? contact = connections?.firstWhere(
-      (dynamic contact) => contact['names'] != null,
-      orElse: () => null,
-    ) as Map<String, dynamic>?;
-    if (contact != null) {
-      final Map<String, dynamic>? name = contact['names'].firstWhere(
-        (dynamic name) => name['displayName'] != null,
-        orElse: () => null,
-      ) as Map<String, dynamic>?;
-      if (name != null) {
-        return name['displayName'] as String?;
-      }
-    }
-    return null;
-  }
-
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-    } catch (error) {
-      print(error);
-    }
-  }
 
   void _loginFacebook() async {
     final result = await FacebookAuth.instance
@@ -239,8 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print(userData['email'].toString());
     }
   }
-
-  Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   @override
   Widget build(BuildContext context) {
@@ -437,7 +392,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               iconSize: 50,
                               onPressed: () async {
                                 // _handleSignIn();
-                                // signInWithGoogle();
                                 _signInWithGoogle(context);
                               },
                             ),
@@ -681,30 +635,13 @@ class _LoginScreenState extends State<LoginScreen> {
       final authService = Provider.of<AuthService>(context, listen: false);
       final user = await authService.signInWithGoogle(context: context);
       print('_signInWithGoogle uid: ${user?.uid} ---- email: ${user?.email}');
-      // doLoginBySocial(
-      //     user.email.toString(), user.uid.toString(), "2");
+      if(user != null) {
+        doLoginBySocial(user.email.toString(), user.uid.toString(), "1");
+      }
     } catch (e) {
       // TODO: Show alert here
       print(e);
     }
-  }
-
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-
-    log('datacredential: $credential');
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
 }
