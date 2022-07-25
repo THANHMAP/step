@@ -217,6 +217,10 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                     ),
                                                     onPressed: () {
                                                       if(indexPlan < 4) {
+                                                        if(_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                          return;
+                                                        }
                                                         setState(() {
                                                           indexPlan = indexPlan + 1;
                                                           imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
@@ -227,7 +231,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                             curve:Curves.fastOutSlowIn //scroll type
                                                         );
                                                       } else {
-
                                                         if(_namePlantBusinessController.text.isEmpty) {
                                                           Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
                                                         } else {
@@ -1478,7 +1481,10 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   InkWell(
                     onTap: () {
                       var thunhap = _thuNhapController.text;
-                      var sotien = _soTienController.text.replaceAll(',', '');
+                      var sotien = "0";
+                      if(_soTienController.text.isNotEmpty) {
+                        sotien = _soTienController.text.replaceAll(',', '');
+                      }
                       setState(() {
                         dataUsers.add(DataUsers(
                             key: thunhap,
@@ -1661,6 +1667,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                         setState(() {
                           dataUsers[position].value = thunhap.replaceAll(",", "");
                         });
+                      } else {
+                        dataUsers[position].value = "0";
                       }
                       Navigator.pop(context, "");
                     },

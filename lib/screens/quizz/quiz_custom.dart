@@ -551,10 +551,11 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                               InkWell(
                                 onTap: () {
                                   setState(() {
-                                    if (checkQuestionAnswersed() == true)
+                                    if (checkQuestionAnswersed() == true) {
                                       return;
+                                    }
                                     statusButtonFinish = true;
-                                    anserSelect == i;
+                                    anserSelect = i;
                                     if (contentQuizz[index].type == 1) {
                                       for (var ii = 0;
                                           ii <
@@ -1211,7 +1212,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
   String urlIconRadio(bool checkQuestion, Answers answers, int index) {
     if (!checkQuestion) {
       if (anserSelect == index) {
-        return "assets/svg/ic_radio_no_select.svg";
+        return "assets/svg/radio_button_checked.svg";
       } else {
         return "assets/svg/ic_radio_no_select.svg";
       }

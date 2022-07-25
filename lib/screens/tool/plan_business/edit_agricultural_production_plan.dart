@@ -250,6 +250,10 @@ class _EditAgriculturalProductionPlanToolScreenState
                                                     ),
                                                     onPressed: () {
                                                       if (indexPlan < 3) {
+                                                        if(_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                          return;
+                                                        }
                                                         setState(() {
                                                           indexPlan = indexPlan + 1;
                                                           imgHeader =
@@ -1373,7 +1377,10 @@ class _EditAgriculturalProductionPlanToolScreenState
                   InkWell(
                     onTap: () {
                       var thunhap = _thuNhapController.text;
-                      var sotien = _soTienController.text.replaceAll(',', '');
+                      var sotien = "0";
+                      if(_soTienController.text.isNotEmpty) {
+                        sotien = _soTienController.text.replaceAll(',', '');
+                      }
                       setState(() {
                         if (edit) {
                           dataUsers[position].key = thunhap;

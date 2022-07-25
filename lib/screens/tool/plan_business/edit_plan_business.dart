@@ -219,6 +219,10 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                                                     ),
                                                     onPressed: () {
                                                       if(indexPlan < 4) {
+                                                        if(_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                          return;
+                                                        }
                                                         setState(() {
                                                           indexPlan = indexPlan + 1;
                                                           imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
@@ -1541,7 +1545,10 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                   InkWell(
                     onTap: () {
                       var thunhap = _thuNhapController.text;
-                      var sotien = _soTienController.text.replaceAll(',', '');
+                      var sotien = "0";
+                      if(_soTienController.text.isNotEmpty) {
+                        sotien = _soTienController.text.replaceAll(',', '');
+                      }
                       setState(() {
                         if (edit) {
                           dataUsers[position].key = thunhap;

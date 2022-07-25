@@ -886,7 +886,15 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
               moneyHasSave = dataUsers[i].value.toString();
               moneyHasSaveRoot = dataUsers[i].value.toString();
             }else if(dataUsers[i].key == "day_end"){
-              dayEnd = dataUsers[i].value.toString();
+              var data = dataUsers[i].value.toString();
+              if(data.isNotEmpty) {
+                var days = data.split("-");
+                if(days.length == 3){
+                  dayEnd = formatDate(int.parse(days[0].toString()) , int.parse(days[1].toString()), int.parse(days[2].toString()));
+                }
+              }
+
+
             }
           }
         });
