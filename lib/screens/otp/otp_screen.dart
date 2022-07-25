@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -28,6 +29,8 @@ class _OtpScreenState extends State<OtpScreen> {
   String phone = "";
   late ProgressDialog pr;
   int typeScreen = 0;
+  Timer? _timer;
+  int _start = 120;
 
   @override
   void initState() {
@@ -48,6 +51,7 @@ class _OtpScreenState extends State<OtpScreen> {
       title = StringText.text_restore_password;
     }
     _phoneController.addListener(() => setState(() {}));
+    startTimer();
   }
 
   @override
@@ -127,18 +131,18 @@ class _OtpScreenState extends State<OtpScreen> {
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-                                Image(
+                              children: [
+                                const Image(
                                   image:
                                   AssetImage('assets/images/icon_info.png'),
                                   fit: BoxFit.fill,
                                   width: 13,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(left: 5),
+                                  padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    StringText.text_introduction_get_otp,
-                                    style: TextStyle(
+                                    StringText.text_introduction_get_otp + " $_start",
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       color: Mytheme.colorTextSubTitle,
                                       fontWeight: FontWeight.w400,
@@ -206,6 +210,7 @@ class _OtpScreenState extends State<OtpScreen> {
         (value) async {
       await pr.hide();
       if (value['status_code'] == 200) {
+        startTimer();
         Get.snackbar("Thông báo", "Mã OTP đã được gửi lại");
       } else {
         Utils.showAlertDialogOneButton(context, value['message'].toString());
@@ -224,6 +229,31 @@ class _OtpScreenState extends State<OtpScreen> {
         Utils.showAlertDialogOneButton(context, error);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void startTimer() {
+    _timer?.cancel();
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
   }
 
   Future<void> validateOtp(String phone) async {

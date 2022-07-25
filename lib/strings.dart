@@ -19,7 +19,7 @@ class StringText {
   static const text_code_otp = "Mã OTP";
   static const text_get_code_otp_again = "Lấy lại mã OTP";
   static const text_input_code_otp = "Nhập mã OTP";
-  static const text_introduction_get_otp = "Nhập mã OTP trong vòng 120s";
+  static const text_introduction_get_otp = "Nhập mã OTP trong vòng";
   static const text_continue = "Tiếp tục";
   static const text_create_password_new = "Thiết lập mật khẩu mới";
   static const text_regestion_password_1 = "Lưu ý: Mật khẩu phải thoả mãn các điều kiện sau ";

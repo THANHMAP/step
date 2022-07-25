@@ -103,12 +103,16 @@ class CardContentTopicWidget extends StatelessWidget {
 
   String urlIcon(int type){
     if(type == 1){
-      return "assets/svg/ic_file.svg";
+      return "assets/svg/text.svg";
     } else if(type == 5){
-      return "assets/svg/ic_quiz.svg";
+      return "assets/svg/question.svg";
     } else if(type == 2){
-      return "assets/svg/ic_video.svg";
+      return "assets/svg/video.svg";
+    } else if(type == 6) {
+      return "assets/svg/audio.svg";
+    } else if(type == 4) {
+      return "assets/svg/play_circle_outline.svg";
     }
-    return "assets/svg/ic_file.svg";
+    return "assets/svg/slideShare.svg";
   }
 }

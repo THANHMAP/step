@@ -1610,6 +1610,9 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       lastDate: DateTime(2050),
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
+      cancelText: "Hủy bỏ",
+      confirmText: "Cập nhật",
+      titleText: "Chọn ngày",
       looping: true,
     );
     if(datePicked != null) {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -435,7 +436,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               // tooltip: 'Increase volume by 10',
                               iconSize: 50,
                               onPressed: () {
-                                _handleSignIn();
+                                // _handleSignIn();
+                                signInWithGoogle();
                               },
                             ),
                             const Image(
@@ -671,6 +673,24 @@ class _LoginScreenState extends State<LoginScreen> {
       // TODO: Show alert here
       print(e);
     }
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    log('datacredential: $credential');
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
 }

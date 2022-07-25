@@ -684,6 +684,9 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                           dateFormat: "dd-MMMM-yyyy",
                                           locale: DateTimePickerLocale.en_us,
                                           looping: true,
+                                          cancelText: "Hủy bỏ",
+                                          confirmText: "Cập nhật",
+                                          titleText: "Chọn ngày",
                                         );
                                         if(datePicked != null) {
                                           setState(() {
@@ -1027,6 +1030,9 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: true,
+      cancelText: "Hủy bỏ",
+      confirmText: "Cập nhật",
+      titleText: "Chọn ngày",
     );
     if(datePicked != null) {
       setState(() {

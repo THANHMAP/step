@@ -463,6 +463,9 @@ class _AccountScreenState extends State<AccountScreen> {
       dateFormat: "dd-MMMM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: true,
+      cancelText: "Hủy bỏ",
+      confirmText: "Cập nhật",
+      titleText: "Chọn ngày",
     );
     if(datePicked != null) {
       setState(() {
