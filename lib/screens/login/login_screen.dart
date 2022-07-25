@@ -435,9 +435,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               Image.asset("assets/images/icon_google.png"),
                               // tooltip: 'Increase volume by 10',
                               iconSize: 50,
-                              onPressed: () {
+                              onPressed: () async {
                                 // _handleSignIn();
-                                signInWithGoogle();
+                                // signInWithGoogle();
+                                _signInWithGoogle(context);
                               },
                             ),
                             const Image(
@@ -669,6 +670,19 @@ class _LoginScreenState extends State<LoginScreen> {
       print('uid: ${user.uid} ---- email: ${user.email}');
       doLoginBySocial(
           user.email.toString(), user.uid.toString(), "2");
+    } catch (e) {
+      // TODO: Show alert here
+      print(e);
+    }
+  }
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      final user = await authService.signInWithGoogle(context: context);
+      print('_signInWithGoogle uid: ${user?.uid} ---- email: ${user?.email}');
+      // doLoginBySocial(
+      //     user.email.toString(), user.uid.toString(), "2");
     } catch (e) {
       // TODO: Show alert here
       print(e);
