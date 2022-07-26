@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>105597937164-7pucs2g5301ir3lejg0mi2rlaq3tno3m.apps.googleusercontent.com</string>
+	<string>1013762676213-bi66je868qpo5a1m9kol7ecbhriuq94p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.105597937164-7pucs2g5301ir3lejg0mi2rlaq3tno3m</string>
+	<string>com.googleusercontent.apps.1013762676213-bi66je868qpo5a1m9kol7ecbhriuq94p</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>105597937164-bfu90a1sfkb91oagr6de1r7odgr0opqp.apps.googleusercontent.com</string>
+	<string>1013762676213-qf6kkgv9tn5mnd03ohvrmhqhh955sofo.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyADT5MMSTxAMP0Gj16fHWuqs-ErCXaqYoc</string>
+	<string>AIzaSyBifSopJUFYvH3Wm3SRE_WiONuGparVW1c</string>
 	<key>GCM_SENDER_ID</key>
-	<string>105597937164</string>
+	<string>1013762676213</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.step.bank.step</string>
 	<key>PROJECT_ID</key>
-	<string>step-bank-35e30</string>
+	<string>co-opsmart</string>
 	<key>STORAGE_BUCKET</key>
-	<string>step-bank-35e30.appspot.com</string>
+	<string>co-opsmart.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:105597937164:ios:ce91efb5b600c73db6b029</string>
+	<string>1:1013762676213:ios:9a38308c88053883cabcbc</string>
 </dict>
 </plist>
