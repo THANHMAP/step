@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -1491,6 +1492,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
       dataCalculator.date = showDay();
+      print("calculatorLaiDuNoGiamDan  ${dataCalculator.date}");
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc
@@ -1543,6 +1545,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
       DataCalculator dataCalculator = DataCalculator();
       dataCalculator.collapsed = false;
       dataCalculator.date = showDay();
+      print("calculatorLaiPhang  ${dataCalculator.date}");
       var lai = 0;
       var noGocHangThang = 0;
       // tinh trả nợ gốc
@@ -1635,6 +1638,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                 }
               }
               calculatorLaiDuNoGiamDan();
+              currentDate = dateFirst;
               calculatorLaiPhang();
             });
           }

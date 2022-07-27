@@ -260,36 +260,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
           // ),
         ),
         Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for(var i = 0; i < listMedal.length; i++)...[
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 0, left: 10, right: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.network(
-                          listMedal[i].image ?? ""),
-                      Text(
-                        listMedal[i].name ?? "",
-                        style:  TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.colorBgButtonLogin,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semi Bold",
-                        ),
-                        textAlign: TextAlign.center,
+          child:SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for(var i = 0; i < listMedal.length; i++)...[
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 0, left: 10, right: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.network(
+                              listMedal[i].image ?? ""),
+                          Text(
+                            listMedal[i].name ?? "",
+                            style:  TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorBgButtonLogin,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semi Bold",
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
 
-                ),
-              ],
+                    ),
+                  ],
 
-            ],
-          ),
+                ],
+              ),
+          )
+
         ),
       ],
     );

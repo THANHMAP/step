@@ -1262,9 +1262,35 @@ class _AccountScreenState extends State<AccountScreen> {
             Container(
               width: 125.0,
               height: 125.0,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(user.avatar.toString()),
+              decoration: BoxDecoration(
+                color: Colors.black26.withOpacity(0.15), // border color
+                shape: BoxShape.circle,
               ),
+              child: Padding(
+                padding: EdgeInsets.all(3), // border width
+                child: Container( // or ClipRRect if you need to clip the content
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white, // inner circle color
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Tải ảnh lên",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Mytheme.color_82869E,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "OpenSans-Regular",
+                      ),
+                    ),
+                  ),// inner content
+                ),
+              ),
+
+              // child: CircleAvatar(
+              //   backgroundImage: NetworkImage(user.avatar.toString()),
+              // ),
             ),
           ],
           Padding(

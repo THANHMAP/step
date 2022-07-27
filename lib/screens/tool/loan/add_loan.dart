@@ -89,7 +89,7 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
+                                  padding:  EdgeInsets.only(
                                       top: 30, left: 24, right: 24, bottom: 24),
                                   child: Column(
                                     children: [
@@ -124,9 +124,24 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                                                 _nameLoanController.clear(),
                                             textController: _nameLoanController),
                                       ),
+                                      const SizedBox(height: 5),
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          "Vui lòng liên hệ với cán bộ tín dụng tại Quỹ hoặc Ngân hàng để biết danh mục hồ sơ chính xác cần chuẩn bị",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
+
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [

@@ -64,27 +64,28 @@ class _FAQScreenState extends State<FAQScreen> {
                           text: StringText.text_faq,
                           onClicked: () => Get.back(),
                         ),
-                        Padding(
-                          padding:
-                          const EdgeInsets.only(top: 10, left: 20, right: 20),
-                          child: Container(
-                            child: TextField(
-                              controller: faqEditingController,
-                              decoration: InputDecoration(
-                                  labelText: "Search",
-                                  hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
-                              onChanged: (value) {
-                                setState(() {
-                                  onSearchTextChanged(value);
-                                });
-                              },
-                            ),
-                          ),
-                        ),
+                        // hive search box
+                        // Padding(
+                        //   padding:
+                        //   const EdgeInsets.only(top: 10, left: 20, right: 20),
+                        //   child: Container(
+                        //     child: TextField(
+                        //       controller: faqEditingController,
+                        //       decoration: InputDecoration(
+                        //           labelText: "Search",
+                        //           hintText: "Search",
+                        //           prefixIcon: Icon(Icons.search),
+                        //           border: OutlineInputBorder(
+                        //               borderRadius:
+                        //               BorderRadius.all(Radius.circular(25.0)))),
+                        //       onChanged: (value) {
+                        //         setState(() {
+                        //           onSearchTextChanged(value);
+                        //         });
+                        //       },
+                        //     ),
+                        //   ),
+                        // ),
                         Expanded(
                           child: SingleChildScrollView(
                             child: Padding(
