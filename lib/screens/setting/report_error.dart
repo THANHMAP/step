@@ -30,6 +30,7 @@ class _ReportScreenState extends State<ReportScreen> {
   late ProgressDialog pr;
   var _image;
   var imagePicker;
+
   @override
   void initState() {
     super.initState();
@@ -48,167 +49,152 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: Mytheme.kBackgroundColor,
-              body: Column(
-                children: <Widget>[
-                  AppbarWidget(
-                    text: StringText.text_report_title,
-                    onClicked: () => Get.back(),
-                  ),
-                  Expanded(
-                    flex: 9,
-                    child: SingleChildScrollView(
-                      child:  Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                            EdgeInsets.only(top: 30, left: 24, right: 24,  bottom: MediaQuery.of(context).viewInsets.bottom),
-                            child: Column(
-                              children: [
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Tên lỗi",
-                                    textAlign: TextAlign.left,
-                                    style: Mytheme.textSubTitle,
-                                  ),
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.kBackgroundColor,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: StringText.text_report_title,
+                  onClicked: () => Get.back(),
+                ),
+                Expanded(
+                  flex: 9,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 30,
+                              left: 24,
+                              right: 24,
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Tên lỗi",
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
                                 ),
-                                const SizedBox(height: 10),
-                                SizedBox(
-                                  child: TextFieldWidget(
-                                      keyboardType: TextInputType.text,
-                                      inputFormatters: <TextInputFormatter>[
-                                        FilteringTextInputFormatter
-                                            .singleLineFormatter
-                                      ],
-                                      textInputAction: TextInputAction.next,
-                                      obscureText: false,
-                                      hintText: "Tên lỗi",
-                                      // labelText: "Phone number",
-                                      // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                      suffixIcon: Icons.close,
-                                      clickSuffixIcon: () => _nameController.clear(),
-                                      textController: _nameController),
-                                ),
-                                const SizedBox(height: 30),
-                                const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Nội dung",
-                                    textAlign: TextAlign.left,
-                                    style: Mytheme.textSubTitle,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-
-                                SizedBox(
-                                  child: TextFieldWidget(
-                                      keyboardType: TextInputType.multiline,
-                                      // inputFormatters: <TextInputFormatter>[
-                                      //   FilteringTextInputFormatter
-                                      //       .singleLineFormatter
-                                      // ],
-                                      textInputAction: TextInputAction.newline,
-                                      obscureText: false,
-                                      hintText: "Nội dung lỗi",
-                                      // labelText: "Phone number",
-                                      // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
-                                      suffixIcon: Icons.close,
-                                      clickSuffixIcon: () =>
-                                          _contentController.clear(),
-                                      textController: _contentController),
-                                ),
-                                const SizedBox(height: 10),
-                                loadImage(),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                        padding:
-                        const EdgeInsets.only(bottom: 30, left: 24, right: 24),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                // side: const BorderSide(color: Colors.red)
                               ),
-                              primary: Mytheme.colorBgButtonLogin,
-                              minimumSize:
-                              Size(MediaQuery.of(context).size.width, 44)),
-                          child: const Text(
-                            "Gửi báo cáo lỗi",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "OpenSans-Regular",
-                                fontWeight: FontWeight.bold),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                child: TextFieldWidget(
+                                    keyboardType: TextInputType.text,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter
+                                          .singleLineFormatter
+                                    ],
+                                    textInputAction: TextInputAction.next,
+                                    obscureText: false,
+                                    hintText: "Tên lỗi",
+                                    // labelText: "Phone number",
+                                    // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                    suffixIcon: Icons.close,
+                                    clickSuffixIcon: () =>
+                                        _nameController.clear(),
+                                    textController: _nameController),
+                              ),
+                              const SizedBox(height: 30),
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "Nội dung",
+                                  textAlign: TextAlign.left,
+                                  style: Mytheme.textSubTitle,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                child: TextFieldWidget(
+                                    keyboardType: TextInputType.multiline,
+                                    // inputFormatters: <TextInputFormatter>[
+                                    //   FilteringTextInputFormatter
+                                    //       .singleLineFormatter
+                                    // ],
+                                    textInputAction: TextInputAction.newline,
+                                    obscureText: false,
+                                    hintText: "Nội dung lỗi",
+                                    // labelText: "Phone number",
+                                    // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                                    suffixIcon: Icons.close,
+                                    clickSuffixIcon: () =>
+                                        _contentController.clear(),
+                                    textController: _contentController),
+                              ),
+                              const SizedBox(height: 10),
+                              loadImage(),
+                            ],
                           ),
-                          onPressed: () {
-                            sendReport();
-                          },
-                        )),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            )),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 30, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize:
+                                Size(MediaQuery.of(context).size.width, 44)),
+                        child: const Text(
+                          "Gửi báo cáo lỗi",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          sendReport();
+                        },
+                      )),
+                ),
+              ],
+            ),
+          )),
     );
   }
 
   Widget loadImage() {
     return Stack(
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(0),
-          child: _image != null
-              ? Image.file(
-            _image,
-            fit: BoxFit.fill,
-            height: 125.0,
-            width: 125.0,
-          )
-              : Image.asset(
-            "assets/images/no_image.png",
-            fit: BoxFit.fill,
-            height: 125.0,
-            width: 125.0,
-          ),
-        ),
-
-        Padding(
-          padding:
-          const EdgeInsets.only(top: 70, left: 84, bottom: 8, right: 0),
-          child: InkWell(
-            onTap: () async {
-              XFile image = await imagePicker.pickImage(
-                  source: ImageSource.gallery,
-                  imageQuality: 50,
-                  preferredCameraDevice: CameraDevice.front);
-              setState(() {
-                _image = File(image.path);
-              });
-            },
-            child: Container(
-              height: 44,
-              width: 44,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/ic_camera.png"),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+        InkWell(
+          onTap: () async {
+            XFile image = await imagePicker.pickImage(
+                source: ImageSource.gallery,
+                imageQuality: 50,
+                preferredCameraDevice: CameraDevice.front);
+            setState(() {
+              _image = File(image.path);
+            });
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(0),
+            child: _image != null
+                ? Image.file(
+                    _image,
+                    fit: BoxFit.fill,
+                    height: 200.0,
+                  )
+                : Image.asset(
+                    "assets/images/noimage.png",
+                    fit: BoxFit.fill,
+                    height: 200.0,
+                  ),
           ),
         ),
       ],
@@ -220,10 +206,13 @@ class _ReportScreenState extends State<ReportScreen> {
     if (_nameController.text.isNotEmpty && _contentController.text.isNotEmpty) {
       titleError = _nameController.text;
       contentError = _contentController.text;
-      if(_image != null) {
+      if (_image != null) {
         saveImageWithFile(_image, titleError, contentError);
       } else {
-        var param = jsonEncode(<String, String>{'name': titleError, 'content': contentError,});
+        var param = jsonEncode(<String, String>{
+          'name': titleError,
+          'content': contentError,
+        });
         await pr.show();
         APIManager.postAPICallNeedToken(RemoteServices.reportErrorURL, param)
             .then((value) async {
@@ -236,32 +225,32 @@ class _ReportScreenState extends State<ReportScreen> {
                       onWillPop: () {
                         return Future.value(false);
                       },
-                      child:  NormalDialogBox(
+                      child: NormalDialogBox(
                           descriptions: StringText.text_report_success,
                           onClicked: () {
                             Get.back();
-                          }
-                      ));
+                          }));
                 });
           } else {
             await pr.hide();
-            Utils.showAlertDialogOneButton(context, value['message'].toString());
+            Utils.showAlertDialogOneButton(
+                context, value['message'].toString());
           }
         }, onError: (error) async {
           await pr.hide();
           Utils.showError(error.toString(), context);
         });
       }
-
     } else {
       Utils.showAlertDialogOneButton(context, "Vui lòng điền dây dủ thông tin");
     }
   }
 
-
   Future<void> saveImageWithFile(File file, name, nd) async {
     await pr.show();
-    APIManager.uploadImageHTTPWithParam(file, name, nd, RemoteServices.reportErrorURL).then((value) async {
+    APIManager.uploadImageHTTPWithParam(
+            file, name, nd, RemoteServices.reportErrorURL)
+        .then((value) async {
       showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -269,13 +258,12 @@ class _ReportScreenState extends State<ReportScreen> {
                 onWillPop: () {
                   return Future.value(false);
                 },
-                child:  NormalDialogBox(
+                child: NormalDialogBox(
                     descriptions: StringText.text_report_success,
                     onClicked: () {
                       Get.back();
                       Get.back();
-                    }
-                ));
+                    }));
           });
     }, onError: (error) async {
       var statuscode = error.toString();
@@ -292,5 +280,4 @@ class _ReportScreenState extends State<ReportScreen> {
     });
     await pr.hide();
   }
-
 }

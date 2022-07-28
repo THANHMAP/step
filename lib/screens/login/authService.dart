@@ -103,7 +103,7 @@ class AuthService {
     return user;
   }
 
-  static Future<void> signOut({required BuildContext context}) async {
+  Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {

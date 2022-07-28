@@ -101,55 +101,59 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
                                   children: List.generate(
                                       _dataResult.listQuestion!.length, (index) {
                                     return SizedBox(
-                                      width: 300,
+                                      width: 350,
                                       height: 100,
-                                      child: Card(
-                                        color: _dataResult.listQuestion![index]
-                                            .isCorrect ==
-                                            true
-                                            ? Mytheme.color_0xFF30CD60
-                                            : Mytheme.color_0xFFE6706C,
-                                        elevation: 4,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(10)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                          // crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 12,
-                                                  left: 16,
-                                                  bottom: 18,
-                                                  right: 5),
-                                              child: SvgPicture.asset(_dataResult
-                                                  .listQuestion![index]
-                                                  .isCorrect ==
-                                                  true
-                                                  ? "assets/svg/ic_correct.svg"
-                                                  : "assets/svg/ic_wrong.svg"),
-                                            ),
-                                            Padding(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Card(
+                                          color: _dataResult.listQuestion![index]
+                                              .isCorrect ==
+                                              true
+                                              ? Mytheme.color_0xFF30CD60
+                                              : Mytheme.color_0xFFE6706C,
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(10)),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 12,
-                                                    left: 0,
+                                                    left: 10,
                                                     bottom: 18,
-                                                    right: 0),
-                                                child: Text(
-                                                  "Câu ${index + 1}",
-                                                  textAlign: TextAlign.end,
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
-                                                    color: Mytheme.kBackgroundColor,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-SemiBold",
-                                                  ),
-                                                )),
-                                          ],
+                                                    right: 5),
+                                                child: SvgPicture.asset(_dataResult
+                                                    .listQuestion![index]
+                                                    .isCorrect ==
+                                                    true
+                                                    ? "assets/svg/ic_correct.svg"
+                                                    : "assets/svg/ic_wrong.svg"),
+                                              ),
+                                              Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      top: 12,
+                                                      left: 0,
+                                                      bottom: 18,
+                                                      right: 0),
+                                                  child: Text(
+                                                    "Câu ${index + 1}",
+                                                    textAlign: TextAlign.end,
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      color: Mytheme.kBackgroundColor,
+                                                      fontWeight: FontWeight.w600,
+                                                      fontFamily: "OpenSans-SemiBold",
+                                                    ),
+                                                  )),
+                                            ],
+                                          ),
                                         ),
                                       ),
+
                                     );
                                   })),
                             ),

@@ -821,6 +821,7 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                                                 return;
                                               } else {
                                                 buttonNext = "Hoàn thành";
+                                                anserSelect = 10;
                                                 index = index + 1;
                                                 if (contentQuizz[index].type ==
                                                     4) {

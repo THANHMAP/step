@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 import 'package:step_bank/compoment/button_wiget.dart';
 import 'package:step_bank/compoment/button_wiget_border.dart';
@@ -20,6 +21,7 @@ import 'package:step_bank/strings.dart';
 import '../../compoment/dialog_nomal.dart';
 import '../../themes.dart';
 import '../../util.dart';
+import '../login/authService.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, this.controller}) : super(key: key);
@@ -216,6 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   descriptions:
                                                   "Đăng xuất khỏi tài khoản này?",
                                                   onClickedConfirm: () async {
+                                                    _signOutWithGoogle(context);
                                                     await SPref.instance.set("token", "");
                                                     await SPref.instance.set("info_login", "");
                                                     Get.offAllNamed("/login"
@@ -242,6 +245,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             )),
     );
+  }
+
+  Future<void> _signOutWithGoogle(BuildContext context) async {
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      final user = await authService.signOut(context: context);
+    } catch (e) {
+      // TODO: Show alert here
+      print(e);
+    }
   }
 
   headerLayout() {

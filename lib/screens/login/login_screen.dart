@@ -69,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     Utils.portraitModeOnly();
+
     if (Platform.isAndroid) {
       platform = "Android";
     } else if (Platform.isIOS) {
@@ -392,6 +393,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               iconSize: 50,
                               onPressed: () async {
                                 // _handleSignIn();
+
                                 _signInWithGoogle(context);
                               },
                             ),
@@ -534,6 +536,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }, onError: (error) async {
       var statuscode = error.toString();
+      _signOutWithGoogle(context);
       if (statuscode.contains("Unauthorised:")) {
         var unauthorised = "Unauthorised:";
         var test = statuscode.substring(unauthorised.length, statuscode.length);
@@ -638,6 +641,16 @@ class _LoginScreenState extends State<LoginScreen> {
       if(user != null) {
         doLoginBySocial(user.email.toString(), user.uid.toString(), "1");
       }
+    } catch (e) {
+      // TODO: Show alert here
+      print(e);
+    }
+  }
+
+  Future<void> _signOutWithGoogle(BuildContext context) async {
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      final user = await authService.signOut(context: context);
     } catch (e) {
       // TODO: Show alert here
       print(e);

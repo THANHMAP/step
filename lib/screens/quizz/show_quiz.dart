@@ -275,7 +275,7 @@ class _ShowQuizScreenState extends State<ShowQuizScreen> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Giải thích: ${contentQuizz[index].suggest.toString()}",
+                                  contentQuizz[index].suggest.toString().isNotEmpty ?  "Giải thích: ${contentQuizz[index].suggest.toString()}" : "",
                                   style: const TextStyle(
                                     fontSize: 14,
                                     color: Mytheme.color_82869E,

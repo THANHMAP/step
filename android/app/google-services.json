@@ -37,6 +37,13 @@
             {
               "client_id": "1013762676213-peg0nmq6i1femubfo3t02gmcvn7jn0q7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1013762676213-bi66je868qpo5a1m9kol7ecbhriuq94p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.step.bank.step"
+              }
             }
           ]
         }
