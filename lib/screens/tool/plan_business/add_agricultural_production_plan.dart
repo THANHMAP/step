@@ -1318,17 +1318,25 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                   InkWell(
                     onTap: () {
                       var thunhap = _thuNhapController.text;
-                      var sotien = "0";
+                      var sotien = "";
                       if(_soTienController.text.isNotEmpty) {
                         sotien = _soTienController.text.replaceAll(',', '');
                       }
-                      setState(() {
-                        dataUsers.add(DataUsers(
-                            key: thunhap,
-                            value: sotien,
-                            type: typeObj
-                        ));
-                      });
+                      if(sotien.isEmpty || thunhap.isEmpty) {
+                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+                        return;
+                      }
+
+                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+                        setState(() {
+                          dataUsers.add(DataUsers(
+                              key: thunhap,
+                              value: sotien,
+                              type: typeObj
+                          ));
+                        });
+                      }
+
                       _thuNhapController.clear();
                       _soTienController.clear();
                       print(thunhap);

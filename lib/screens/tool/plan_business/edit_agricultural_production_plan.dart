@@ -1377,19 +1377,25 @@ class _EditAgriculturalProductionPlanToolScreenState
                   InkWell(
                     onTap: () {
                       var thunhap = _thuNhapController.text;
-                      var sotien = "0";
+                      var sotien = "";
                       if(_soTienController.text.isNotEmpty) {
                         sotien = _soTienController.text.replaceAll(',', '');
                       }
-                      setState(() {
-                        if (edit) {
-                          dataUsers[position].key = thunhap;
-                          dataUsers[position].value = sotien;
-                        } else {
-                          dataUsers.add(DataUsers(
-                              key: thunhap, value: sotien, type: typeObj));
-                        }
-                      });
+                      if(sotien.isEmpty || thunhap.isEmpty) {
+                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+                        return;
+                      }
+                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+                        setState(() {
+                          if (edit) {
+                            dataUsers[position].key = thunhap;
+                            dataUsers[position].value = sotien;
+                          } else {
+                            dataUsers.add(DataUsers(
+                                key: thunhap, value: sotien, type: typeObj));
+                          }
+                        });
+                      }
                       _thuNhapController.clear();
                       _soTienController.clear();
                       print(thunhap);

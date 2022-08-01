@@ -342,7 +342,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                       Expanded(
                                         flex: 1,
                                         child: Text(
-                                          convert(dataManage[i].itemList![po].date ?? "").replaceAll("-", "/"),
+                                          dataManage[i].itemList![po].date ?? "",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
@@ -825,7 +825,10 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                 ),
                                 onPressed: () {
 
-
+                                  if(_moneyController.text.isEmpty) {
+                                    Utils.showError("Vui lòng nhập số tiền", context);
+                                    return;
+                                  }
 
                                   var text = "";
                                   if(selectItem) {

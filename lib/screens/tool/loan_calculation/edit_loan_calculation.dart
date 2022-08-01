@@ -1461,15 +1461,24 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
 
   String showDay(){
     var dates = currentDate.split("/");
+    var day = int.parse(dates[0]);
     var month = int.parse(dates[1]);
     var year = int.parse(dates[2]);
+    var tempDay = day.toString();
     month = month + 1;
+    if(day < 10) {
+      tempDay = "0$day";
+    }
     if(month > 12) {
       month = month - 12;
       year = year + 1;
     }
+    var tempMonth = month.toString();
+    if(month < 10) {
+      tempMonth = "0$month";
+    }
     currentDate = "${dates[0]}/${month}/${year}";
-    return "${dates[0]}/${month}/${year}";
+    return "${tempDay}/${tempMonth}/${year}";
   }
 
   var noGocTrathangtruoc;
