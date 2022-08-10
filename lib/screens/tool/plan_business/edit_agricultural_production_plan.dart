@@ -474,7 +474,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/diem_manh.svg"),
+          child: SvgPicture.asset("assets/svg/diem_manh.svg", height: 100, fit: BoxFit.fill)
         ),
         const SizedBox(height: 10),
         const Align(
@@ -512,7 +512,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg"),
+          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg", height: 80, fit: BoxFit.fill)
         ),
       ],
     );
@@ -556,7 +556,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg"),
+          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg", height: 130, fit: BoxFit.fill)
         ),
         const SizedBox(height: 10),
         const Align(
@@ -594,7 +594,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg"),
+          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg", height: 40, fit: BoxFit.fill)
         ),
       ],
     );
@@ -638,7 +638,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg"),
+          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg", height: 60, fit: BoxFit.fill)
         ),
         const Align(
           alignment: Alignment.centerLeft,
@@ -675,7 +675,7 @@ class _EditAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg"),
+          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg", height: 60, fit: BoxFit.fill)
         ),
       ],
     );
@@ -779,7 +779,7 @@ class _EditAgriculturalProductionPlanToolScreenState
                     "Xác định các nguồn thu hoạt động sản xuất kinh doanh. Bạn có thể tham khảo các loại thu nhập được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh của mình",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
                       fontFamily: "OpenSans-Regular",
@@ -989,7 +989,7 @@ class _EditAgriculturalProductionPlanToolScreenState
                     "Xác định các loại chi phí ban đầu. Bạn có thể tham khảo các loại chi phí được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất nông nghiệp",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
                       fontFamily: "OpenSans-Regular",

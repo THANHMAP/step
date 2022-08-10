@@ -27,10 +27,12 @@ class AddAgriculturalProductionPlanToolScreen extends StatefulWidget {
   const AddAgriculturalProductionPlanToolScreen({Key? key}) : super(key: key);
 
   @override
-  _AddAgriculturalProductionPlanToolScreenState createState() => _AddAgriculturalProductionPlanToolScreenState();
+  _AddAgriculturalProductionPlanToolScreenState createState() =>
+      _AddAgriculturalProductionPlanToolScreenState();
 }
 
-class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgriculturalProductionPlanToolScreen>
+class _AddAgriculturalProductionPlanToolScreenState
+    extends State<AddAgriculturalProductionPlanToolScreen>
     with SingleTickerProviderStateMixin {
   TextEditingController _namePlantBusinessController = TextEditingController();
   TextEditingController _whoAreYouController = TextEditingController();
@@ -60,8 +62,10 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
   void initState() {
     super.initState();
     data = Constants.toolData!;
-    scrollController.addListener(() { //scroll listener
-      double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+    scrollController.addListener(() {
+      //scroll listener
+      double showoffset =
+          10.0; //Back to top botton will show on scroll offset 10.0
 
       // if(scrollController.offset > showoffset){
       //   showbtn = true;
@@ -92,232 +96,296 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Mytheme.colorBgMain,
-            body: Column(
-              children: <Widget>[
-                AppbarWidget(
-                  text: "Kế hoạch sản xuất nông nghiệp",
-                  onClicked: () {
-                    Navigator.of(context).pop(false);
-                  },
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Padding(
-                      padding:  EdgeInsets.only(
-                          top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 0, left: 0, right: 0),
-                                  child: Column(
-                                    children: [
-                                      SvgPicture.asset(imgHeader, width: 450,),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 20, left: 16, right: 16, bottom: 10),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-
-                                            Visibility(
-                                              visible: indexPlan == 0 ? true : false,
-                                              child:  layouIndex1(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 1 ? true : false,
-                                              child:  layouIndex2(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 2 ? true : false,
-                                              child:  layouIndex3(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 3 ? true : false,
-                                              child:  layouIndex4(),
-                                            ),
-
-                                            Container(
-                                              margin:EdgeInsets.only(top: 60),
-                                              child: Column(
-                                                children: [
-                                                  Visibility(
-                                                    visible: indexPlan == 0 ? false : true,
-                                                    child:  InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          indexPlan = indexPlan - 1;
-                                                          imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                          alignment: Alignment.center,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius: BorderRadius.circular(8),
-                                                              border: Border.all(color: Mytheme.colorBgButtonLogin)
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
-                                                            child: Text(
-                                                              "Quay lại",
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Mytheme.color_434657,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontFamily: "OpenSans-Semibold",
-                                                              ),
-                                                            ),
-                                                          )
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          // side: const BorderSide(color: Colors.red)
-                                                        ),
-                                                        primary: Mytheme.colorBgButtonLogin,
-                                                        minimumSize:
-                                                        Size(MediaQuery.of(context).size.width, 44)),
-                                                    child: Text(
-                                                      indexPlan == 3 ? "Lưu" :"Tiếp tục",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontFamily: "OpenSans-Regular",
-                                                          fontWeight: FontWeight.bold),
-                                                    ),
-                                                    onPressed: () {
-                                                      if(indexPlan < 3) {
-                                                        if(_namePlantBusinessController.text.isEmpty) {
-                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                          return;
-                                                        }
-                                                        setState(() {
-                                                          indexPlan = indexPlan + 1;
-                                                          imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
-                                                        });
-                                                        scrollController.animateTo( //go to top of scroll
-                                                            0,  //scroll offset to go
-                                                            duration: Duration(milliseconds: 500), //duration of scroll
-                                                            curve:Curves.fastOutSlowIn //scroll type
-                                                        );
-                                                      } else {
-                                                        if(_namePlantBusinessController.text.isEmpty) {
-                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                        } else {
-                                                          StoreDataTool storeDataTool = StoreDataTool();
-                                                          storeDataTool.title =
-                                                              _namePlantBusinessController
-                                                                  .text;
-                                                          storeDataTool.toolId =
-                                                              data.id;
-                                                          storeDataTool.type =
-                                                          2; // 2 plan business
-
-                                                          //bạn là ai
-                                                          dataUsers.add(DataUsers(
-                                                            key: "ban_la_ai",
-                                                            value: _whoAreYouController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //trong cay nuoi con gi
-                                                          dataUsers.add(DataUsers(
-                                                            key: "trong_cay_nuoi_gi",
-                                                            value: _trongCayNuoiConGiController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //nha cung cap dich vu
-                                                          dataUsers.add(DataUsers(
-                                                            key: "nha_cung_cap_dich_vu",
-                                                            value: _nhaCungCapDichVuController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //nguon nhan cong
-                                                          dataUsers.add(DataUsers(
-                                                            key: "nguon_nhan_cong",
-                                                            value: _nguonNhanCongController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //ban cho ai
-                                                          dataUsers.add(DataUsers(
-                                                            key: "ban_cho_ai",
-                                                            value: _banChoAiController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //ban nhu the nào
-                                                          dataUsers.add(DataUsers(
-                                                            key: "ban_nhu_the_nao",
-                                                            value: _banNhuTheNaoController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-                                                          storeDataTool.dataUsers =
-                                                              dataUsers;
-                                                          saveItemTool(jsonEncode(
-                                                              storeDataTool));
-                                                        }
-                                                      }
-
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Mytheme.colorBgMain,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: "Kế hoạch sản xuất nông nghiệp",
+                onClicked: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 0, left: 0, right: 0),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      imgHeader,
+                                      width: 450,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20,
+                                          left: 16,
+                                          right: 16,
+                                          bottom: 10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 0 ? true : false,
+                                            child: layouIndex1(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 1 ? true : false,
+                                            child: layouIndex2(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 2 ? true : false,
+                                            child: layouIndex3(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 3 ? true : false,
+                                            child: layouIndex4(),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 60),
+                                            child: Column(
+                                              children: [
+                                                Visibility(
+                                                  visible: indexPlan == 0
+                                                      ? false
+                                                      : true,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan =
+                                                            indexPlan - 1;
+                                                        imgHeader =
+                                                            "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
                                                     },
+                                                    child: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            border: Border.all(
+                                                                color: Mytheme
+                                                                    .colorBgButtonLogin)),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 10,
+                                                                  bottom: 10,
+                                                                  left: 0,
+                                                                  right: 0),
+                                                          child: Text(
+                                                            "Quay lại",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Mytheme
+                                                                  .color_434657,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontFamily:
+                                                                  "OpenSans-Semibold",
+                                                            ),
+                                                          ),
+                                                        )),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                const SizedBox(height: 10),
+                                                ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            // side: const BorderSide(color: Colors.red)
+                                                          ),
+                                                          primary: Mytheme
+                                                              .colorBgButtonLogin,
+                                                          minimumSize: Size(
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width,
+                                                              44)),
+                                                  child: Text(
+                                                    indexPlan == 3
+                                                        ? "Lưu"
+                                                        : "Tiếp tục",
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily:
+                                                            "OpenSans-Regular",
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  onPressed: () {
+                                                    if (indexPlan < 3) {
+                                                      if (_namePlantBusinessController
+                                                          .text.isEmpty) {
+                                                        Utils.showError(
+                                                            "Bạn chưa nhập tên cho kế hoạch",
+                                                            context);
+                                                        return;
+                                                      }
+                                                      setState(() {
+                                                        indexPlan =
+                                                            indexPlan + 1;
+                                                        imgHeader =
+                                                            "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                      });
+                                                      scrollController
+                                                          .animateTo(
+                                                              //go to top of scroll
+                                                              0,
+                                                              //scroll offset to go
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              //duration of scroll
+                                                              curve: Curves
+                                                                  .fastOutSlowIn //scroll type
+                                                              );
+                                                    } else {
+                                                      if (_namePlantBusinessController
+                                                          .text.isEmpty) {
+                                                        Utils.showError(
+                                                            "Bạn chưa nhập tên cho kế hoạch",
+                                                            context);
+                                                      } else {
+                                                        StoreDataTool
+                                                            storeDataTool =
+                                                            StoreDataTool();
+                                                        storeDataTool.title =
+                                                            _namePlantBusinessController
+                                                                .text;
+                                                        storeDataTool.toolId =
+                                                            data.id;
+                                                        storeDataTool.type =
+                                                            2; // 2 plan business
+
+                                                        //bạn là ai
+                                                        dataUsers.add(DataUsers(
+                                                          key: "ban_la_ai",
+                                                          value:
+                                                              _whoAreYouController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+
+                                                        //trong cay nuoi con gi
+                                                        dataUsers.add(DataUsers(
+                                                          key:
+                                                              "trong_cay_nuoi_gi",
+                                                          value:
+                                                              _trongCayNuoiConGiController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+
+                                                        //nha cung cap dich vu
+                                                        dataUsers.add(DataUsers(
+                                                          key:
+                                                              "nha_cung_cap_dich_vu",
+                                                          value:
+                                                              _nhaCungCapDichVuController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+
+                                                        //nguon nhan cong
+                                                        dataUsers.add(DataUsers(
+                                                          key:
+                                                              "nguon_nhan_cong",
+                                                          value:
+                                                              _nguonNhanCongController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+
+                                                        //ban cho ai
+                                                        dataUsers.add(DataUsers(
+                                                          key: "ban_cho_ai",
+                                                          value:
+                                                              _banChoAiController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+
+                                                        //ban nhu the nào
+                                                        dataUsers.add(DataUsers(
+                                                          key:
+                                                              "ban_nhu_the_nao",
+                                                          value:
+                                                              _banNhuTheNaoController
+                                                                  .text,
+                                                          type: 0,
+                                                        ));
+                                                        storeDataTool
+                                                                .dataUsers =
+                                                            dataUsers;
+                                                        saveItemTool(jsonEncode(
+                                                            storeDataTool));
+                                                      }
+                                                    }
+                                                  },
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      //
-
-                                    ],
-                                  ),
+                                    ),
+                                    //
+                                  ],
                                 ),
-
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
-
-
 
   layouIndex1() {
     return Column(
@@ -340,8 +408,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           child: TextFieldWidget(
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
+                FilteringTextInputFormatter.singleLineFormatter
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
@@ -349,11 +416,9 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _namePlantBusinessController.clear(),
+              clickSuffixIcon: () => _namePlantBusinessController.clear(),
               textController: _namePlantBusinessController),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -384,16 +449,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _whoAreYouController.clear(),
+              clickSuffixIcon: () => _whoAreYouController.clear(),
               textController: _whoAreYouController),
         ),
         const SizedBox(height: 10),
         Align(
-          alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/diem_manh.svg"),
+          alignment: Alignment.topLeft,
+          child: SvgPicture.asset("assets/svg/diem_manh.svg", height: 100, fit: BoxFit.fill)
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -424,16 +487,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _trongCayNuoiConGiController.clear(),
+              clickSuffixIcon: () => _trongCayNuoiConGiController.clear(),
               textController: _trongCayNuoiConGiController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg"),
+          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg", height: 80, fit: BoxFit.fill)
         ),
-
       ],
     );
   }
@@ -470,16 +531,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _nhaCungCapDichVuController.clear(),
+              clickSuffixIcon: () => _nhaCungCapDichVuController.clear(),
               textController: _nhaCungCapDichVuController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg"),
+          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg", height: 130, fit: BoxFit.fill)
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -510,16 +569,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _nguonNhanCongController.clear(),
+              clickSuffixIcon: () => _nguonNhanCongController.clear(),
               textController: _nguonNhanCongController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg"),
+          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg", height: 40, fit: BoxFit.fill)
         ),
-
       ],
     );
   }
@@ -556,17 +613,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _banChoAiController.clear(),
+              clickSuffixIcon: () => _banChoAiController.clear(),
               textController: _banChoAiController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg"),
+          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg", height: 60, fit: BoxFit.fill)
         ),
-
-
         const Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -596,19 +650,17 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _banNhuTheNaoController.clear(),
+              clickSuffixIcon: () => _banNhuTheNaoController.clear(),
               textController: _banNhuTheNaoController),
         ),
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg"),
+          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg", height: 60, fit: BoxFit.fill)
         ),
       ],
     );
   }
-
 
   layouIndex4() {
     return Column(
@@ -618,7 +670,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           children: [
             Expanded(
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     selectDefault = true;
                     typeObj = 2;
@@ -629,19 +681,20 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                   child: Text(
                     "Chi phí ban đầu",
                     textAlign: TextAlign.left,
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                      color: selectDefault
+                          ? Mytheme.colorBgButtonLogin
+                          : Mytheme.color_82869E,
                       fontWeight: FontWeight.w600,
                       fontFamily: "OpenSans-SemiBold",
                     ),
                   ),
                 ),
               ),
-
             ),
             Expanded(
-              child: InkWell (
+              child: InkWell(
                 onTap: () {
                   setState(() {
                     selectDefault = false;
@@ -653,16 +706,17 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                   child: Text(
                     "Thu nhập",
                     textAlign: TextAlign.left,
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                      color: !selectDefault
+                          ? Mytheme.colorBgButtonLogin
+                          : Mytheme.color_82869E,
                       fontWeight: FontWeight.w600,
                       fontFamily: "OpenSans-SemiBold",
                     ),
                   ),
                 ),
               ),
-
             )
           ],
         ),
@@ -670,31 +724,34 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child:  Align(
+              child: Align(
                   alignment: Alignment.center,
                   child: Divider(
                     thickness: 2,
-                    color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                  )
-              ),
+                    color: selectDefault
+                        ? Mytheme.colorBgButtonLogin
+                        : Mytheme.color_82869E,
+                  )),
             ),
             Expanded(
-              child:  Align(
+              child: Align(
                   alignment: Alignment.center,
                   child: Divider(
                     thickness: 2,
-                    color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                  )
-              ),
+                    color: !selectDefault
+                        ? Mytheme.colorBgButtonLogin
+                        : Mytheme.color_82869E,
+                  )),
             )
           ],
         ),
 
         // type thu nhap
         Visibility(
-          visible: !selectDefault ? true: false,
+          visible: !selectDefault ? true : false,
           child: Padding(
-            padding: const EdgeInsets.only( bottom: 30, top: 10, left: 16, right: 16),
+            padding:
+                const EdgeInsets.only(bottom: 30, top: 10, left: 16, right: 16),
             child: Column(
               children: [
                 Align(
@@ -703,11 +760,10 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                     "Xác định các nguồn thu hoạt động sản xuất kinh doanh. Bạn có thể tham khảo các loại thu nhập được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh của mình",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
@@ -723,14 +779,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                       fontSize: 14,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
-
-                for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 1)...[
+                for (var i = 0; i < dataUsers.length; i++) ...[
+                  if (dataUsers[i].type == 1) ...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -746,13 +800,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
-                                  child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                  child: SvgPicture.asset(
+                                      "assets/svg/ic_delete.svg"),
                                 ),
                               ],
                             ),
                           ),
                           Expanded(
-                            flex:2,
+                            flex: 2,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
                               decoration: BoxDecoration(
@@ -771,56 +826,51 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                       fontSize: 16,
                                       color: Mytheme.colorTextSubTitle,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                                      fontFamily: "OpenSans-Regular",
                                     ),
                                   ),
                                 ),
                               ),
-
-                            ),),
+                            ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                showDialogEditTool(
-                                    dataUsers[i]
-                                        .value ??
-                                        "0",
-                                    i);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    formNum(dataUsers[i].value ?? "0"),
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                              height: 44,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.colorTextDivider,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialogEditTool(
+                                      dataUsers[i].value ?? "0", i);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),)
+                          )
                         ],
                       ),
                     ),
                   ],
                 ],
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: InkWell(
@@ -845,8 +895,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Container(
                       height: 108,
                       decoration: BoxDecoration(
@@ -858,7 +907,8 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 7,
-                            offset: const Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -874,8 +924,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                 fontSize: 16,
                                 color: Mytheme.color_82869E,
                                 fontWeight: FontWeight.w400,
-                                fontFamily:
-                                "OpenSans-Regular",
+                                fontFamily: "OpenSans-Regular",
                               ),
                             ),
                           ),
@@ -891,15 +940,13 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                 fontSize: 24,
                                 color: Mytheme.colorBgButtonLogin,
                                 fontWeight: FontWeight.w600,
-                                fontFamily:
-                                "OpenSans-SemiBold",
+                                fontFamily: "OpenSans-SemiBold",
                               ),
                             ),
                           ),
                         ],
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
@@ -907,9 +954,10 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
 
         // chi phí ban dau
         Visibility(
-          visible: selectDefault ? true: false,
+          visible: selectDefault ? true : false,
           child: Padding(
-            padding: const EdgeInsets.only( bottom: 30, top: 10, left: 16, right: 16),
+            padding:
+                const EdgeInsets.only(bottom: 30, top: 10, left: 16, right: 16),
             child: Column(
               children: [
                 Align(
@@ -918,11 +966,10 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                     "Xác định các loại chi phí ban đầu. Bạn có thể tham khảo các loại chi phí được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất nông nghiệp",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
@@ -938,14 +985,12 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                       fontSize: 14,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
-
-                for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 2)...[
+                for (var i = 0; i < dataUsers.length; i++) ...[
+                  if (dataUsers[i].type == 2) ...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -961,13 +1006,14 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
-                                  child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                  child: SvgPicture.asset(
+                                      "assets/svg/ic_delete.svg"),
                                 ),
                               ],
                             ),
                           ),
                           Expanded(
-                            flex:2,
+                            flex: 2,
                             child: Container(
                               margin: const EdgeInsets.only(right: 10.0),
                               decoration: BoxDecoration(
@@ -986,58 +1032,51 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                       fontSize: 16,
                                       color: Mytheme.colorTextSubTitle,
                                       fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                                      fontFamily: "OpenSans-Regular",
                                     ),
                                   ),
                                 ),
                               ),
-
-                            ),),
+                            ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: InkWell(
-                              onTap: (){
-                                showDialogEditTool(
-                                    dataUsers[i]
-                                        .value ??
-                                        "0",
-                                    i);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    formNum(dataUsers[i].value ?? "0"),
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                              height: 44,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.colorTextDivider,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialogEditTool(
+                                      dataUsers[i].value ?? "0", i);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-
-
-                          ),)
+                          )
                         ],
                       ),
                     ),
                   ],
                 ],
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: InkWell(
@@ -1062,8 +1101,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Container(
                       height: 108,
                       decoration: BoxDecoration(
@@ -1075,7 +1113,8 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 7,
-                            offset: const Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -1091,8 +1130,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                 fontSize: 16,
                                 color: Mytheme.color_82869E,
                                 fontWeight: FontWeight.w400,
-                                fontFamily:
-                                "OpenSans-Regular",
+                                fontFamily: "OpenSans-Regular",
                               ),
                             ),
                           ),
@@ -1108,29 +1146,26 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                                 fontSize: 24,
                                 color: Mytheme.colorBgButtonLogin,
                                 fontWeight: FontWeight.w600,
-                                fontFamily:
-                                "OpenSans-SemiBold",
+                                fontFamily: "OpenSans-SemiBold",
                               ),
                             ),
                           ),
                         ],
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
         ),
-
       ],
     );
   }
 
   String calculatorTotalType2() {
     int total = 0;
-    for(var i =0; i < dataUsers.length; i++) {
-      if(dataUsers[i].type == 2) {
-        total = total + int.parse(dataUsers[i].value??"0");
+    for (var i = 0; i < dataUsers.length; i++) {
+      if (dataUsers[i].type == 2) {
+        total = total + int.parse(dataUsers[i].value ?? "0");
       }
     }
     return "${formNum(total.toString())} VNĐ";
@@ -1138,9 +1173,9 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
 
   String calculatorTotalType1() {
     int total = 0;
-    for(var i =0; i < dataUsers.length; i++) {
-      if(dataUsers[i].type == 1) {
-        total = total + int.parse(dataUsers[i].value??"0");
+    for (var i = 0; i < dataUsers.length; i++) {
+      if (dataUsers[i].type == 1) {
+        total = total + int.parse(dataUsers[i].value ?? "0");
       }
     }
     return "${formNum(total.toString())} VNĐ";
@@ -1154,13 +1189,13 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
-            (value) async {
-          pr.hide();
-          if (value['status_code'] == 200) {
-            showDialogSuccess();
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj)
+        .then((value) async {
+      pr.hide();
+      if (value['status_code'] == 200) {
+        showDialogSuccess();
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -1172,7 +1207,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
     return (to.difference(from).inHours / 24).round();
   }
 
-  showDialogSuccess(){
+  showDialogSuccess() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1181,17 +1216,17 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                 return Future.value(false);
               },
               child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công kế hoạch SXNN của mình!",
+                title:
+                    "Chúc mừng bạn đã tạo thành công kế hoạch SXNN của mình!",
                 descriptions:
-                "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần.",
+                    "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần.",
                 textButton: "Tiếp tục",
                 onClickedConfirm: () {
                   Get.back(result: true);
                   Get.back(result: true);
                 },
               ));
-        }
-    );
+        });
   }
 
   showDialogAddItemTool() async {
@@ -1212,8 +1247,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
               child: contentBox(context),
             ),
           );
-        }
-    );
+        });
   }
 
   contentBox(context) {
@@ -1221,10 +1255,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
       alignment: Alignment.center,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
-              top: 0,
-              right: 0,
-              bottom: Constants.padding),
+          padding: EdgeInsets.only(top: 0, right: 0, bottom: Constants.padding),
           margin: EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
@@ -1241,18 +1272,16 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
             children: <Widget>[
               Padding(
                 padding:
-                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
                 child: Column(
                   children: [
                     TextField(
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
+                        labelText: typeObj == 2 ? 'Chi phí' : 'Thu nhập',
                       ),
-                      onChanged: (value) {
-
-                      },
+                      onChanged: (value) {},
                     ),
                     SizedBox(
                       height: 34,
@@ -1281,9 +1310,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                     )
                   ],
                 ),
-
               ),
-
               SizedBox(
                 height: 34,
               ),
@@ -1302,8 +1329,8 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                      ),
+                          border:
+                              Border.all(color: Mytheme.colorBgButtonLogin)),
                       child: const Text(
                         "Hủy",
                         style: TextStyle(
@@ -1319,21 +1346,19 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                     onTap: () {
                       var thunhap = _thuNhapController.text;
                       var sotien = "";
-                      if(_soTienController.text.isNotEmpty) {
+                      if (_soTienController.text.isNotEmpty) {
                         sotien = _soTienController.text.replaceAll(',', '');
                       }
-                      if(sotien.isEmpty || thunhap.isEmpty) {
-                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+                      if (sotien.isEmpty || thunhap.isEmpty) {
+                        Utils.showError(
+                            "Vui lòng nhập đầy đủ thông tin", context);
                         return;
                       }
 
-                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+                      if (sotien.isNotEmpty && thunhap.isNotEmpty) {
                         setState(() {
                           dataUsers.add(DataUsers(
-                              key: thunhap,
-                              value: sotien,
-                              type: typeObj
-                          ));
+                              key: thunhap, value: sotien, type: typeObj));
                         });
                       }
 
@@ -1377,18 +1402,18 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
       'tool_id': data.id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.sampleDataURL, param).then(
-            (value) async {
-          pr.hide();
-          var data = DataSampleTool.fromJson(value);
-          if (data.statusCode == 200) {
-            setState(() {
-              for (var i = 0; i < data.data!.length; i++) {
-                dataUsers.add(DataUsers(
-                    key: data.data![i].name, value: "0", type: data.data![i].type));
-              }
-            });
+        (value) async {
+      pr.hide();
+      var data = DataSampleTool.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          for (var i = 0; i < data.data!.length; i++) {
+            dataUsers.add(DataUsers(
+                key: data.data![i].name, value: "0", type: data.data![i].type));
           }
-        }, onError: (error) async {
+        });
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -1443,7 +1468,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
             children: <Widget>[
               Padding(
                 padding:
-                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
                 child: Column(
                   children: [
                     TextField(
@@ -1493,7 +1518,7 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border:
-                          Border.all(color: Mytheme.colorBgButtonLogin)),
+                              Border.all(color: Mytheme.colorBgButtonLogin)),
                       child: const Text(
                         "Hủy",
                         style: TextStyle(
@@ -1510,7 +1535,8 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
                       var thunhap = _editMoneyController.text;
                       if (thunhap.isNotEmpty) {
                         setState(() {
-                          dataUsers[position].value = thunhap.replaceAll(",", "");
+                          dataUsers[position].value =
+                              thunhap.replaceAll(",", "");
                         });
                       } else {
                         dataUsers[position].value = "0";
@@ -1546,5 +1572,4 @@ class _AddAgriculturalProductionPlanToolScreenState extends State<AddAgricultura
       ],
     );
   }
-
 }

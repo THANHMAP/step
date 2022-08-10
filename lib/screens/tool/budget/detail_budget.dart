@@ -235,7 +235,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                               "Hãy nhập nguồn thu của bạn. Bạn có thể điều chỉnh các nguồn thu này nếu cần",
                                               textAlign: TextAlign.left,
                                               style: const TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 13,
                                                 color: Mytheme.color_82869E,
                                                 fontWeight: FontWeight.w400,
                                                 fontFamily: "OpenSans-Regular",
@@ -490,7 +490,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                               "Hãy nhập các chi phí của bạn. Bạn có thể điều chỉnh các chi phí này nếu cần",
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 13,
                                                 color: Mytheme.color_82869E,
                                                 fontWeight: FontWeight.w400,
                                                 fontFamily: "OpenSans-Regular",

@@ -1468,7 +1468,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
       year = year + 1;
     }
     currentDate = "${dates[0]}/${month}/${year}";
-    return "${dates[0]}/${month}/${year}";
+    return "${month}/${year}";
   }
   var noGocTrathangtruoc;
 

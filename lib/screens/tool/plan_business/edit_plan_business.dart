@@ -464,7 +464,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
             "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
             textAlign: TextAlign.left,
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 13,
               color: Mytheme.color_82869E,
               fontWeight: FontWeight.w400,
               fontFamily: "OpenSans-Regular",
@@ -509,7 +509,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/svg_hint_text_plan.svg"),
+          child: SvgPicture.asset("assets/svg/svg_hint_text_plan.svg", height: 120, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -589,7 +589,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg"),
+          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg", height: 120, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -630,7 +630,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg"),
+          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg", height: 120, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -670,7 +670,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg"),
+          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg", height: 60, fit: BoxFit.fill)
         ),
 
       ],
@@ -716,7 +716,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nhiem_vu.svg"),
+          child: SvgPicture.asset("assets/svg/liet_ke_nhiem_vu.svg", height: 190, fit: BoxFit.fill)
         ),
       ],
     );
@@ -761,7 +761,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg"),
+          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 190, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -801,7 +801,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg"),
+          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 100, fit: BoxFit.fill)
         ),
 
       ],
@@ -901,7 +901,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                     "Xác định các nguồn thu của động sản xuất kinh doanh. Bạn có thể tham khảo các loại thu nhập được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh của mình",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
                       fontFamily:
@@ -1120,7 +1120,7 @@ class _EditPlaneBusinessToolScreenState extends State<EditPlaneBusinessToolScree
                     "Xác định các loại chi phí ban đầu. Bạn có thể tham khảo các loại chi phí được ví dụ ở đây và điều chỉnh cho phù hợp với hoạt động sản xuất kinh doanh.",
                     textAlign: TextAlign.left,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
                       fontFamily:
