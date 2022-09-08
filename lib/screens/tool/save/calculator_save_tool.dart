@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -211,9 +212,17 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                       ),
                                       const SizedBox(height: 10),
                                       TextField(
-                                        keyboardType: TextInputType.number,
+                                        keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
                                         inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter.digitsOnly
+                                          FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                                          TextInputFormatter.withFunction((oldValue, newValue) {
+                                            try {
+                                              final text = newValue.text;
+                                              if (text.isNotEmpty) double.parse(text);
+                                              return newValue;
+                                            } catch (e) {}
+                                            return oldValue;
+                                          }),
                                         ],
                                         obscureText: false,
                                         controller: _numberPercentController,
@@ -448,7 +457,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                             showResult = true;
                             var goc = int.parse(_moneyPaymentController.text.replaceAll(",", ""));
                             var month = int.parse(_numberMonthController.text);
-                            var precent = int.parse(_numberPercentController.text)/100;
+                            var precent = (double.parse(_numberPercentController.text)/100);
                             var result = ((goc*month*precent)/12).round();
                             setState(() {
                               interest_amount = result;

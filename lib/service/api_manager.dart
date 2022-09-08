@@ -40,6 +40,28 @@ class APIManager {
     return responseJson;
   }
 
+  static Future<dynamic> getAPICallNoNeedToken(String url) async {
+    print("Calling API: $url");
+    var responseJson;
+    try {
+      var response = await client.get(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+      ).timeout(const Duration(seconds: 15),onTimeout : () {
+        throw TimeoutException('The connection has timed out, Please try again!');
+      });
+      responseJson = _response(response);
+      if (kDebugMode) {
+        print(responseJson);
+      }
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
   static Future<dynamic> postAPICallNeedToken(String url, dynamic param) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
@@ -123,7 +145,7 @@ class APIManager {
       request.headers.addAll(headers);
       request.fields['name'] = name;
       request.fields['content'] = nd;
-      request.files.add(await http.MultipartFile.fromPath('avatar', file.path));
+      request.files.add(await http.MultipartFile.fromPath('error_image', file.path));
       var response = await http.Response.fromStream(await request.send());
 
       responseJson = _response(response);

@@ -201,8 +201,18 @@ class _ViewCalculatorLoanToolScreenState extends State<ViewCalculatorLoanToolScr
                                                   ),
                                                   const SizedBox(height: 10),
                                                   TextField(
-                                                    keyboardType: TextInputType.number,
-                                                    inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                                    keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                                                    inputFormatters: <TextInputFormatter>[
+                                                      FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                                                      TextInputFormatter.withFunction((oldValue, newValue) {
+                                                        try {
+                                                          final text = newValue.text;
+                                                          if (text.isNotEmpty) double.parse(text);
+                                                          return newValue;
+                                                        } catch (e) {}
+                                                        return oldValue;
+                                                      }),
+                                                    ],
                                                     obscureText: false,
                                                     controller: _tyLeLaiXuatController,
                                                     enabled: true,

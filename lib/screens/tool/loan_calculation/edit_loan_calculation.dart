@@ -225,8 +225,18 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                                                     ),
                                                     const SizedBox(height: 10),
                                                     TextField(
-                                                      keyboardType: TextInputType.number,
-                                                      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+                                                      keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                                                      inputFormatters: <TextInputFormatter>[
+                                                        FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                                                        TextInputFormatter.withFunction((oldValue, newValue) {
+                                                          try {
+                                                            final text = newValue.text;
+                                                            if (text.isNotEmpty) double.parse(text);
+                                                            return newValue;
+                                                          } catch (e) {}
+                                                          return oldValue;
+                                                        }),
+                                                      ],
                                                       obscureText: false,
                                                       controller: _tyLeLaiXuatController,
                                                       enabled: true,
@@ -1494,7 +1504,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
     var soTienGoc = int.parse(_moneyLoanRootController.text.replaceAll(",", ""));
     var soLanTraGoc = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienGocController.text);
     var soLanTraLai = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienLaiController.text);
-    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100);
+    var phanTramLaiHangThang = (double.parse(_tyLeLaiXuatController.text)/100);
     // var phanTramLaiHangThang = int.parse(_tyLeLaiXuatController.text);
     var noGocConLai = soTienGoc;
     for (int i = 0; i < soThangVay; i++) {
@@ -1547,7 +1557,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
     var soTienGoc = int.parse(_moneyLoanRootController.text.replaceAll(",", ""));
     var soLanTraGoc = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienGocController.text);
     var soLanTraLai = int.parse(_kyHanVayController.text)/int.parse(_numberMonthTienLaiController.text);
-    var phanTramLaiHangThang = (int.parse(_tyLeLaiXuatController.text)/100)/12;
+    var phanTramLaiHangThang = (double.parse(_tyLeLaiXuatController.text)/100)/12;
 
     var noGocConLai = soTienGoc;
     for (int i = 0; i < soThangVay; i++) {

@@ -11,9 +11,9 @@ import 'package:step_bank/models/sent_otp.dart';
 class RemoteServices {
 
   static var client = http.Client();
-  static var baseURL = 'https://co-opsmart.vn';
+  // static var baseURL = 'https://co-opsmart.vn';
   // static var baseURL = 'https://staging.co-opsmart.vn';
-  // static var baseURL = "https://internal.co-opsmart.vn";
+  static var baseURL = "https://internal.co-opsmart.vn";
   static var signInURL = '$baseURL/api/v1/user/login';
   static var validatePhoneURL = '$baseURL/api/v1/user/validate-phone';
   static var getOtpURL = '$baseURL/api/v1/user/get-otp';
@@ -76,5 +76,6 @@ class RemoteServices {
   static var numberNotificationURL = '$baseURL/api/v1/setting/number-notification';
 
   static var deleteUserURL = '$baseURL/api/v1/user/delete';
+  static var getListCredit = '$baseURL/api/v1/setting/list-credit';
 
 }
