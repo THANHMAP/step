@@ -56,6 +56,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
       phone = Get.arguments.toString().split(":")[1];
       title = StringText.text_create_password;
       textButton = StringText.text_register_button;
+      creditList?.add(CreditData(id: 0, name: "Chọn Quỹ"));
       Future.delayed(Duration.zero, () {
         loadCredit();
       });
@@ -100,7 +101,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                                 const Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    "Chọn ngân hàng/ quỹ tín dụng",
+                                    "Chọn tên Quỹ TDND/Chi nhánh ngân hàng HTX",
                                     textAlign: TextAlign.left,
                                     style: Mytheme.textSubTitle,
                                   ),
@@ -265,18 +266,23 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
   Future<void> loadCredit() async {
     await pr.show();
     APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit).then((value) async {
-
-      Future.delayed(const Duration(seconds: 2), () async {
-        await pr.hide();
+      Future.delayed(Duration(seconds:0)).then((value) {
+        pr.hide().whenComplete(() {
+          print(pr.isShowing());
+        });
       });
-
         var creditModel = CreditModel.fromJson(value);
         if(creditModel.statusCode == 200){
           setState(() {
-            creditList = creditModel.data;
+            for(var item in creditModel.data!) {
+              creditList?.add(item);
+            }
+            // creditList = creditModel.data;
           });
         }
+
     });
+
 
   }
 
@@ -453,19 +459,19 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                         alignment: Alignment.center,
                         child: Stack(
                           children: <Widget>[
-                            const Center(
-                              child: Text(
-                                "Chọn ngân hàng/ quỹ tín dụng",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Mytheme.color_434657,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-Semibold",
-                                  // decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
+                            // const Center(
+                            //   child: Text(
+                            //     "Chọn tên Quỹ TDND/Chi nhánh ngân hàng HTX",
+                            //     textAlign: TextAlign.center,
+                            //     style: TextStyle(
+                            //       fontSize: 18,
+                            //       color: Mytheme.color_434657,
+                            //       fontWeight: FontWeight.w600,
+                            //       fontFamily: "OpenSans-Semibold",
+                            //       // decoration: TextDecoration.underline,
+                            //     ),
+                            //   ),
+                            // ),
                             Align(
                                 alignment: Alignment.centerRight,
                                 child: SizedBox(

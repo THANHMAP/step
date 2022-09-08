@@ -49,10 +49,10 @@ class _ScromVideoScreenState extends State<ScromVideoScreen> {
       isDismissible: false,
     );
     SystemChrome.setPreferredOrientations([
-      // DeviceOrientation.portraitUp,
-      // DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
       DeviceOrientation.landscapeLeft,
-      // DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeRight,
     ]);
     WidgetsFlutterBinding.ensureInitialized();
 
