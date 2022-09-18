@@ -40,6 +40,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
   List<CreditData>? creditList = <CreditData>[];
   List<CreditData> _tempCreditList = [];
   int currentIndex = 0;
+  int idCredit = 0;
 
   @override
   void initState() {
@@ -57,8 +58,8 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
       title = StringText.text_create_password;
       textButton = StringText.text_register_button;
       creditList?.add(CreditData(id: 0, name: "Chọn Quỹ"));
-      Future.delayed(Duration.zero, () {
-        loadCredit();
+      Future.delayed(Duration(seconds: 0), () {
+        loadListCredit();
       });
 
     } else {
@@ -221,19 +222,19 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
     String? password, passwordConfirm;
     if (_passwordController.text.isNotEmpty &&
         _passwordConfirmController.text.isNotEmpty) {
-      await pr.show();
+      await pr?.show();
       password = _passwordController.text;
       passwordConfirm = _passwordConfirmController.text;
       var param = jsonEncode(<String, String>{
         'phone': phone,
         'password': password,
         'password_confirm': passwordConfirm,
-        'credit_fund_id' : creditList![currentIndex].id.toString(),
+        'credit_fund_id' : idCredit.toString(),
       });
       if (password == passwordConfirm) {
         APIManager.postAPICallNoNeedToken(RemoteServices.signUpOTPURL, param)
             .then((value) async {
-          await pr.hide();
+          await pr?.hide();
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -247,11 +248,11 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
                     ));
               });
         }, onError: (error) async {
-          await pr.hide();
+          await pr?.hide();
           Utils.showError(error.toString(), context);
         });
       } else {
-        await pr.hide();
+        await pr?.hide();
         Utils.showAlertDialogOneButton(
             context, "Mật khẩu không giống nhau. Vui lòng nhập lại");
         // Get.snackbar("Thông báo", "Mật khẩu không giống nhau. Vui lòng nhập lại");
@@ -263,34 +264,65 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
     }
   }
   
-  Future<void> loadCredit() async {
-    await pr.show();
-    APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit).then((value) async {
-      Future.delayed(Duration(seconds:0)).then((value) {
-        pr.hide().whenComplete(() {
-          print(pr.isShowing());
-        });
-      });
+  Future loadCredit() async {
+   await pr.show();
+   await APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit).then((value) async {
         var creditModel = CreditModel.fromJson(value);
         if(creditModel.statusCode == 200){
+          for(var item in creditModel.data!) {
+            creditList?.add(item);
+          }
           setState(() {
+            creditList;
+            Future.delayed(Duration(seconds: 2), () async {
+              await pr.hide();
+            });
+          });
+        } else {
+          await pr.hide();
+        }
+    },onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  Future<void> loadListCredit() async {
+    await pr.show();
+    APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit).then(
+            (value) async {
+          var creditModel = CreditModel.fromJson(value);
+          if(creditModel.statusCode == 200){
             for(var item in creditModel.data!) {
               creditList?.add(item);
             }
-            // creditList = creditModel.data;
+            setState(() {
+              creditList;
+            });
+          }
+          Future.delayed(Duration(seconds: 2)).then((value) {
+            if (pr.isShowing())
+              pr.hide().whenComplete(() {
+                print("error");
+              });
           });
-        }
-
+        }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
     });
-
-
   }
+
+  // Future fetchCredit() async {
+  //   await pr?.show();
+  //   final response = await APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit);
+  //
+  // }
 
   Future<void> updatePassword() async {
     String? password, passwordConfirm;
     if (_passwordController.text.isNotEmpty &&
         _passwordConfirmController.text.isNotEmpty) {
-      await pr.show();
+      await pr?.show();
       password = _passwordController.text;
       passwordConfirm = _passwordConfirmController.text;
       var param = jsonEncode(<String, String>{
@@ -302,7 +334,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
         APIManager.postAPICallNoNeedToken(
                 RemoteServices.forgotPasswordURL, param)
             .then((value) async {
-          await pr.hide();
+          await pr?.hide();
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -317,11 +349,11 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
               });
 
         }, onError: (error) async {
-          await pr.hide();
+          await pr?.hide();
           Utils.showError(error.toString(), context);
         });
       } else {
-        await pr.hide();
+        await pr?.hide();
         Utils.showAlertDialogOneButton(
             context, "Mật khẩu không giống nhau. Vui lòng nhập lại");
         // Get.snackbar("Thông báo", "Mật khẩu không giống nhau. Vui lòng nhập lại");
@@ -553,13 +585,23 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
     return _searchList;
   }
 
+  int getIndexCredit(int idCredit) {
+    int index = 0;
+    for (int i = 0; i < creditList!.length; i++) {
+      if(creditList![i].id == idCredit) {
+        return index = i;
+      }
+    }
+    return index;
+  }
+
   Widget _showBottomSheetCityWithSearch(
       int index, List<CreditData> listOfCities) {
     return InkWell(
       onTap: () {
         setState(() {
-          // currentIndex = listOfCities[index].id!;
-          currentIndex = index;
+          idCredit = listOfCities[index].id!;
+          currentIndex = getIndexCredit(idCredit);
           Navigator.of(context).pop();
         });
       },
@@ -603,5 +645,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
       ),
     );
   }
+
+
 
 }

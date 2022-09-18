@@ -27,6 +27,7 @@ import 'package:step_bank/shared/SPref.dart';
 
 import '../../compoment/button_wiget.dart';
 import '../../compoment/dialog_nomal.dart';
+import '../../models/CreditModel.dart';
 import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
@@ -47,6 +48,7 @@ class _AccountScreenState extends State<AccountScreen> {
   final TextEditingController _userBodController = TextEditingController();
   TextEditingController cityEditingController = TextEditingController();
   TextEditingController providerEditingController = TextEditingController();
+  TextEditingController creditEditingController = TextEditingController();
   bool _isDisableUsername = true;
   bool _isDisableDob = true;
   String urlActionUsername = "assets/images/ic_edit.png";
@@ -69,6 +71,10 @@ class _AccountScreenState extends State<AccountScreen> {
   int currentSexIndex = 0;
   int currentCityIndex = 0;
   int currentWardIndex = 0;
+  List<CreditData>? creditList = <CreditData>[];
+  List<CreditData> _tempCreditList = [];
+  int currentIndex = 0;
+  int idCredit = 0;
   final TextEditingController textController = new TextEditingController();
   var imagePicker;
   var _image;
@@ -84,12 +90,12 @@ class _AccountScreenState extends State<AccountScreen> {
       isDismissible: false,
     );
     Utils.portraitModeOnly();
-    loadSharedPrefs();
+    futureWait();
     _userBodController.text = user.dob.toString();
     _usernameController.text = user.name.toString();
     _usernameController.addListener(() => setState(() {}));
-    loadGroup();
-    loadCity();
+
+
   }
 
   @override
@@ -124,6 +130,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           cityUser(),
                           districtUser(),
                           memberUser(),
+                          creditUser(),
                           const SizedBox(height: 40),
                           Padding(
                             padding: const EdgeInsets.only(
@@ -1369,11 +1376,10 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Future<void> loadGroup() async {
-    await pr.show();
+  Future loadGroup() async {
+    if(!pr.isShowing()) pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.listUserGroupURL).then(
         (value) async {
-      await pr.hide();
       var userGroup = UserGroupModel.fromJson(value);
       if (userGroup.statusCode == 200) {
         setState(() {
@@ -1383,21 +1389,27 @@ class _AccountScreenState extends State<AccountScreen> {
         });
       }
     }, onError: (error) async {
-      await pr.hide();
+      Future.delayed(Duration(seconds: 0)).then((value) {
+        pr.hide().whenComplete(() {
+          print("error");
+        });
+      });
       Utils.showError(error.toString(), context);
     });
   }
 
-  Future<void> loadCity() async {
+  Future loadCity() async {
     final String response = await rootBundle.loadString('assets/city.json');
     final data = await json.decode(response);
     var listCitys = CityModel.fromJson(data);
     setState(() {
       cityData = listCitys.data!;
     });
+    return 3;
   }
 
-  loadSharedPrefs() async {
+  Future loadSharedPrefs() async {
+    if(!pr.isShowing()) pr.show();
     try {
       var isLogged = await SPref.instance.get("info_login");
       var response = json.decode(isLogged.toString());
@@ -1413,14 +1425,23 @@ class _AccountScreenState extends State<AccountScreen> {
         }
 
         _usernameController.text = user.name.toString();
+        if( user.creditFundId != null) {
+          idCredit = user.creditFundId!;
+        } else {
+          currentIndex = 0;
+        }
         user.userGroup?.forEach((element) {
           selectedUserGroupList.add(int.parse(element.id.toString()));
         });
       });
       print(response);
     } on FetchDataException catch (e) {
+      pr.hide().whenComplete(() {
+        print("error");
+      });
       print('error caught: $e');
     }
+    return 1;
   }
 
   Color getColor(Set<MaterialState> states) {
@@ -1630,7 +1651,8 @@ class _AccountScreenState extends State<AccountScreen> {
       'groups': selectedUserGroupList
           .toString()
           .replaceAll('[', '')
-          .replaceAll(']', '')
+          .replaceAll(']', ''),
+      'credit_fund_id': idCredit.toString(),
     });
 
     APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
@@ -1696,4 +1718,309 @@ class _AccountScreenState extends State<AccountScreen> {
     });
     await pr.hide();
   }
+
+  Future<void> loadCredit() async {
+    if(!pr.isShowing()) await pr.show();
+    APIManager.getAPICallNoNeedToken(RemoteServices.getListCredit).then((value) async {
+      var creditModel = CreditModel.fromJson(value);
+      if(creditModel.statusCode == 200){
+        setState(() {
+          creditList = creditModel.data;
+          currentIndex = getIndexCredit(idCredit);
+        });
+      }
+      Future.delayed(Duration(seconds: 2)).then((value) {
+        if (pr.isShowing())
+          pr.hide().whenComplete(() {
+            print("error");
+          });
+      });
+    },onError: (error) async {
+      Future.delayed(Duration(seconds: 0)).then((value) {
+        pr.hide().whenComplete(() {
+          print("error");
+        });
+      });
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  creditUser() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
+      child: InkWell(
+        onTap: () {
+          _creditModalBottomSheet(context);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // const Expanded(
+              //   flex: 1,
+              //   child: Padding(
+              //     padding:
+              //     EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+              //     child: Text(
+              //       "Ngân hàng / quỹ tín dụng",
+              //       textAlign: TextAlign.start,
+              //       style: TextStyle(
+              //         fontSize: 16,
+              //         color: Mytheme.colorBgButtonLogin,
+              //         fontWeight: FontWeight.w600,
+              //         fontFamily: "OpenSans-Semibold",
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 5, left: 5, right: 5, bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                           currentIndex != 0 ?creditList![currentIndex].name.toString(): "Chọn tên Quỹ TDND/Chi nhánh ngân hàng HTX",
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.color_82869E,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "OpenSans-Regular",
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 40,
+                          child: IconButton(
+                            icon:
+                            Image.asset("assets/images/ic_arrow_down.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 0,
+                            onPressed: () {
+                              _creditModalBottomSheet(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+
+  void _creditModalBottomSheet(context) {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.zero,
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.zero,
+              topRight: Radius.circular(10)),
+        ),
+        context: context,
+        isScrollControlled: true,
+        builder: (context) {
+          return  MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * .68,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 38,
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            // const Center(
+                            //   child: Text(
+                            //     "Chọn tên Quỹ TDND/Chi nhánh ngân hàng HTX",
+                            //     textAlign: TextAlign.center,
+                            //     style: TextStyle(
+                            //       fontSize: 18,
+                            //       color: Mytheme.color_434657,
+                            //       fontWeight: FontWeight.w600,
+                            //       fontFamily: "OpenSans-Semibold",
+                            //       // decoration: TextDecoration.underline,
+                            //     ),
+                            //   ),
+                            // ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon:
+                                    Image.asset("assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          child: TextField(
+                            controller: creditEditingController,
+                            decoration: InputDecoration(
+                                labelText: "Search",
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(25.0)))),
+                            onChanged: (value) {
+                              setState(() {
+                                _tempCreditList = _buildSearchCreditList(value);
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          height: 468,
+                          child: Stack(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: (_tempCreditList.isNotEmpty)
+                                    ? _tempCreditList.length
+                                    : creditList!.length,
+                                itemBuilder: (context, index) {
+                                  return (_tempCreditList.isNotEmpty)
+                                      ? _showBottomSheetCreditWithSearch(
+                                      index, _tempCreditList)
+                                      : _showBottomSheetCreditWithSearch(
+                                      index, creditList!);
+                                  //   ListTile(
+                                  //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
+                                  // );
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          );
+        });
+  }
+
+  List<CreditData> _buildSearchCreditList(String userSearchTerm) {
+    List<CreditData> _searchList = [];
+
+    for (int i = 0; i < creditList!.length; i++) {
+      String name = creditList![i].name.toString();
+      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
+        _searchList.add(creditList![i]);
+      }
+    }
+    return _searchList;
+  }
+
+  int getIndexCredit(int idCredit) {
+    int index = 0;
+    for (int i = 0; i < creditList!.length; i++) {
+      if(creditList![i].id == idCredit) {
+        return index = i;
+      }
+    }
+    return index;
+  }
+
+  Widget _showBottomSheetCreditWithSearch(
+      int index, List<CreditData> listOfCities) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          idCredit = listOfCities[index].id!;
+          currentIndex = getIndexCredit(idCredit);
+          Navigator.of(context).pop();
+        });
+      },
+      child: Container(
+        height: 60,
+        color: currentIndex == index
+            ? Mytheme.color_DCDEE9
+            : Mytheme.kBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                listOfCities[index].name.toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Mytheme.color_434657,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "OpenSans-Semibold",
+                  // decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+
+            // di chuyen item tối cuối
+            const Spacer(),
+            Visibility(
+              visible:
+              currentIndex == index ? true : false,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Image(
+                    image: AssetImage('assets/images/img_check.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future futureWait() async {
+    return Future.wait([
+      Future.delayed(const Duration(seconds: 1), () => loadSharedPrefs()),
+      Future.delayed(const Duration(seconds: 2), () => loadCity()),
+      Future.delayed(const Duration(seconds: 3), () => loadGroup()),
+      Future.delayed(const Duration(seconds: 4), () =>  loadCredit()),
+    ]);
+  }
+
 }

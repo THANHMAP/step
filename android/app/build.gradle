@@ -52,7 +52,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.step.bank.step_bank"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -85,8 +85,10 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
+}
 
-
+configurations.all {
+    exclude group: 'com.google.android.gms', module: 'play-services-safetynet'
 }
 
 gradle.projectsEvaluated {
