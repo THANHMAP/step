@@ -100,40 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     _checkBiometrics();
     _getAvailableBiometrics();
-    // loadData();
-    final newVersion = NewVersion(
-      iOSId: 'com.step.bank.step',
-      androidId: 'com.step.bank.step_bank',
-    );
 
-    const simpleBehavior = true;
-
-    if (simpleBehavior) {
-      advancedStatusCheck(newVersion);
-    }
-
-  }
-
-  advancedStatusCheck(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
-    if (status != null) {
-      if(status.canUpdate) {
-        newVersion.showUpdateDialog(
-          context: context,
-          versionStatus: status,
-          dialogTitle: "Update!!!",
-          dialogText: "Please update your app from "+"${status.localVersion}"+ " to "+ "${status.storeVersion}",
-          allowDismissal: false,
-            dismissAction: ()
-            {
-              SystemNavigator.pop();
-            },
-            updateButtonText: "Let's Update"
-        );
-      }
-      print("app version on Device "+"${status.localVersion}");
-      print("app version on store "+"${status.storeVersion}");
-    }
   }
 
   void login() async {
