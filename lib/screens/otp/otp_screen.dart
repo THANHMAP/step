@@ -267,7 +267,8 @@ class _OtpScreenState extends State<OtpScreen> {
         await pr.hide();
         if (value['status_code'] == 200) {
           if (typeScreen == 0) {
-            Get.offAndToNamed('/updatePassword', arguments: "register:$phone");
+            Get.offAndToNamed('/creditScreen', arguments: "register:$phone");
+            // Get.offAndToNamed('/updatePassword', arguments: "register:$phone");
           } else {
             Get.offAndToNamed('/updatePassword', arguments: "forgot:$phone");
           }

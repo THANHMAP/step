@@ -3,8 +3,10 @@ import 'dart:ffi';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:new_version/new_version.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import '../../service/local_notification_service.dart';
@@ -43,14 +45,44 @@ class _SplashPageState extends State<SplashPage> {
       // }
     });
 
+    final newVersion = NewVersion(
+      iOSId: 'com.step.bank.step',
+      androidId: 'com.step.bank.step_bank',
+    );
+
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       final router = event.data["router"];
       print(router);
     });
 
     Future.delayed(const Duration(seconds: 2), () {
-      load();
+      advancedStatusCheck(newVersion);
     });
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      if (status.canUpdate) {
+        newVersion.showUpdateDialog(
+            context: context,
+            versionStatus: status,
+            dialogTitle: "Cập nhật ứng dụng!!!",
+            dialogText: "Vui lòng cập nhật ứng dụng từ version " +
+                "${status.localVersion}" +
+                " to " +
+                "${status.storeVersion}",
+            allowDismissal: false,
+            dismissAction: () {
+              SystemNavigator.pop();
+            },
+            updateButtonText: "Let's Update");
+      } else {
+        load();
+      }
+      print("app version on Device " + "${status.localVersion}");
+      print("app version on store " + "${status.storeVersion}");
+    }
   }
 
   void load() async {

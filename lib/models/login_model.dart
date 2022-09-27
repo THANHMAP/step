@@ -38,6 +38,7 @@ class UserData {
   bool? loginFinger;
   String? avatar;
   int? creditFundId;
+  String? creditFundName;
   List<UserGroup>? userGroup;
   String? createdAt;
   String? accessToken;
@@ -55,6 +56,7 @@ class UserData {
         this.loginFinger,
         this.avatar,
         this.creditFundId,
+        this.creditFundName,
         this.userGroup,
         this.createdAt,
         this.accessToken});
@@ -72,6 +74,7 @@ class UserData {
     loginFinger = json['login_finger'];
     avatar = json['avatar'];
     creditFundId = json['credit_fund_id'];
+    creditFundName = json['credit_fund_name'];
     if (json['user_group'] != null) {
       userGroup = <UserGroup>[];
       json['user_group'].forEach((v) {
@@ -96,6 +99,7 @@ class UserData {
     data['login_finger'] = this.loginFinger;
     data['avatar'] = this.avatar;
     data['credit_fund_id'] = this.creditFundId;
+    data['credit_fund_name'] = this.creditFundName;
     if (this.userGroup != null) {
       data['user_group'] = this.userGroup!.map((v) => v.toJson()).toList();
     }

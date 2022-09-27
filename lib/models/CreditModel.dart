@@ -2,7 +2,7 @@ class CreditModel {
   bool? statusError;
   int? statusCode;
   String? message;
-  List<CreditData>? data;
+  Data? data;
 
   CreditModel({this.statusError, this.statusCode, this.message, this.data});
 
@@ -10,12 +10,7 @@ class CreditModel {
     statusError = json['status_error'];
     statusCode = json['status_code'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <CreditData>[];
-      json['data'].forEach((v) {
-        data!.add(new CreditData.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -24,8 +19,89 @@ class CreditModel {
     data['status_code'] = this.statusCode;
     data['message'] = this.message;
     if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
+  List<CreditData>? data;
+  Meta? meta;
+
+  Data({this.data, this.meta});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      data = <CreditData>[];
+      json['data'].forEach((v) {
+        data!.add(new CreditData.fromJson(v));
+      });
+    }
+    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
+    if (this.meta != null) {
+      data['meta'] = this.meta!.toJson();
+    }
+    return data;
+  }
+}
+
+class Meta {
+  Pagination? pagination;
+
+  Meta({this.pagination});
+
+  Meta.fromJson(Map<String, dynamic> json) {
+    pagination = json['pagination'] != null
+        ? new Pagination.fromJson(json['pagination'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.pagination != null) {
+      data['pagination'] = this.pagination!.toJson();
+    }
+    return data;
+  }
+}
+
+class Pagination {
+  int? total;
+  int? count;
+  int? perPage;
+  int? currentPage;
+  int? totalPages;
+
+  Pagination(
+      {this.total,
+        this.count,
+        this.perPage,
+        this.currentPage,
+        this.totalPages});
+
+  Pagination.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    count = json['count'];
+    perPage = json['per_page'];
+    currentPage = json['current_page'];
+    totalPages = json['total_pages'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total'] = this.total;
+    data['count'] = this.count;
+    data['per_page'] = this.perPage;
+    data['current_page'] = this.currentPage;
+    data['total_pages'] = this.totalPages;
     return data;
   }
 }

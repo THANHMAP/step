@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:new_version/new_version.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,6 +101,39 @@ class _LoginScreenState extends State<LoginScreen> {
     _checkBiometrics();
     _getAvailableBiometrics();
     // loadData();
+    final newVersion = NewVersion(
+      iOSId: 'com.step.bank.step',
+      androidId: 'com.step.bank.step_bank',
+    );
+
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      advancedStatusCheck(newVersion);
+    }
+
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      if(status.canUpdate) {
+        newVersion.showUpdateDialog(
+          context: context,
+          versionStatus: status,
+          dialogTitle: "Update!!!",
+          dialogText: "Please update your app from "+"${status.localVersion}"+ " to "+ "${status.storeVersion}",
+          allowDismissal: false,
+            dismissAction: ()
+            {
+              SystemNavigator.pop();
+            },
+            updateButtonText: "Let's Update"
+        );
+      }
+      print("app version on Device "+"${status.localVersion}");
+      print("app version on store "+"${status.storeVersion}");
+    }
   }
 
   void login() async {

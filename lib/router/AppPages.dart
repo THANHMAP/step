@@ -53,6 +53,8 @@ import '../screens/notification/notification.dart';
 import '../screens/notification/notification_new.dart';
 import '../screens/notification/notification_schedule_tool.dart';
 import '../screens/quizz/quiz_custom.dart';
+import '../screens/register/credit_info_screen.dart';
+import '../screens/register/credit_screen.dart';
 import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
 import '../screens/tool/flow_money/add_flow_money.dart';
@@ -426,6 +428,16 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.audioScreen,
       page: () => const AudioScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.creditScreen,
+      page: () => const CreditScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.creditInfoScreen,
+      page: () => const CreditInfoScreen(),
     ),
   ];
 }
