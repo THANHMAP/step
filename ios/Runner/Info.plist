@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FacebookAppID</key>
 	<string>3169695366684934</string>
 	<key>FacebookClientToken</key>
@@ -64,9 +64,9 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs location access when opened to use the app's weather display</string>
+	<string>This app needs location access when opened to use the app&apos;s weather display</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs location access when opened to use the app's weather display</string>
+	<string>This app needs location access when opened to use the app&apos;s weather display</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need microphone access for uploading videos or bug</string>
 	<key>NSPhotoLibraryUsageDescription</key>

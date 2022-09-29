@@ -72,11 +72,12 @@ class _SplashPageState extends State<SplashPage> {
                 "${status.localVersion}" +
                 " to " +
                 "${status.storeVersion}",
-            allowDismissal: false,
+            allowDismissal: true,
+            dismissButtonText: "Thoát",
             dismissAction: () {
-              SystemNavigator.pop();
+              load();
             },
-            updateButtonText: "Let's Update");
+            updateButtonText: "Cập nhật");
       } else {
         load();
       }

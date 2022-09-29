@@ -56,9 +56,14 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
   }
 
   void _scrollListener() {
-    print(controller.position.extentAfter);
-    if (controller.position.extentAfter == 0.0) {
-      loadListCredittest();
+    if (controller.position.atEdge) {
+      bool isTop = controller.position.pixels == 0;
+      if (isTop) {
+        print('At the top');
+      } else {
+        print('At the bottom');
+        loadListCredittest();
+      }
     }
   }
 

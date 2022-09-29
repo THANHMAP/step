@@ -461,7 +461,7 @@ class _MyDialogState extends State<MyDialog> {
       title: Text(progressData),
       actions: <Widget>[
         progressValue == 1.0
-            ? RaisedButton(
+            ? ElevatedButton(
                 child: Text('Done'),
                 onPressed: () {
                   // TODO write your function to open file
