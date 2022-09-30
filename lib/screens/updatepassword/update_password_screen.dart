@@ -51,7 +51,6 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
     if (Get.arguments.toString().contains("register:")) {
       typeScreen = 0;
       phone = Get.arguments.toString().split(":")[1];
-      idCredit = Get.arguments.toString().split(":")[2];
       title = StringText.text_create_password;
       textButton = StringText.text_register_button;
     } else {

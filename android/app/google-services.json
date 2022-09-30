@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1013762676213-tqgkbruffnrl8hoc20qgkpu73qkd7p7s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.step.bank.step_bank",
+            "certificate_hash": "5638c2c5d8e97a86615d0022fcdce79ca02e742f"
+          }
+        },
+        {
           "client_id": "1013762676213-peg0nmq6i1femubfo3t02gmcvn7jn0q7.apps.googleusercontent.com",
           "client_type": 3
         }
