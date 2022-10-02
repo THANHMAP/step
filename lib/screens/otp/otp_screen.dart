@@ -226,7 +226,7 @@ class _OtpScreenState extends State<OtpScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
     });
   }
@@ -287,7 +287,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Utils.showAlertDialogOneButton(context, message);
         } else {
           print("Error == $error");
-          Utils.showAlertDialogOneButton(context, error);
+          Utils.showAlertDialogOneButton(context, error.toString());
         }
       });
     } else {

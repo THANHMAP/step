@@ -205,7 +205,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                           ),
                                         ),
                                         Text(
-                                          formNum(moneySaveTarget),
+                                          "${formNum(moneySaveTarget)} VNĐ",
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Mytheme.colorBgButtonLogin,

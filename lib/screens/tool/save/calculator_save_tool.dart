@@ -21,6 +21,7 @@ import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
+import 'dart:math' as math;
 
 class CalculatorSaveMoneyScreen extends StatefulWidget {
   const CalculatorSaveMoneyScreen({Key? key}) : super(key: key);
@@ -213,7 +214,10 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                       TextField(
                                         keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
                                         inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                                          // WhitelistingTextInputFormatter(RegExp(r'^\d+\.?\d{0,2}')),
+                                          // ReplaceCommaFormatter(),
+                                          FilteringTextInputFormatter.deny(',', replacementString: '.'),
+                                          FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d{0,2})')),
                                           TextInputFormatter.withFunction((oldValue, newValue) {
                                             try {
                                               final text = newValue.text;
@@ -222,6 +226,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                             } catch (e) {}
                                             return oldValue;
                                           }),
+
                                         ],
                                         obscureText: false,
                                         controller: _numberPercentController,
@@ -497,9 +502,17 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
       Utils.showError(error.toString(), context);
     });
   }
+}
 
-
-
-
-
+class ReplaceCommaFormatter extends TextInputFormatter {
+@override
+TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+    ) {
+  return TextEditingValue(
+    text: newValue.text.replaceAll(',', '.'),
+    selection: newValue.selection,
+  );
+}
 }

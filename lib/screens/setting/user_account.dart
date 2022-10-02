@@ -1805,7 +1805,7 @@ class _AccountScreenState extends State<AccountScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
     });
     await pr.hide();
@@ -1832,7 +1832,7 @@ class _AccountScreenState extends State<AccountScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
     });
     await pr.hide();

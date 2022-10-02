@@ -275,7 +275,7 @@ class _ReportScreenState extends State<ReportScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
     });
     await pr.hide();

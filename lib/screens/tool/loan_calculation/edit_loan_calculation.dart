@@ -227,7 +227,8 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                                                     TextField(
                                                       keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
                                                       inputFormatters: <TextInputFormatter>[
-                                                        FilteringTextInputFormatter.allow(RegExp(r"[0-9.]")),
+                                                        FilteringTextInputFormatter.deny(',', replacementString: '.'),
+                                                        FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d{0,2})')),
                                                         TextInputFormatter.withFunction((oldValue, newValue) {
                                                           try {
                                                             final text = newValue.text;

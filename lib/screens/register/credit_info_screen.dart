@@ -28,6 +28,7 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
   TextEditingController creditEditingController = TextEditingController();
   List<CreditData> _tempCreditList = [];
   int currentIndex = 0;
+  int currentIndexTemp = -1;
   int idCredit = 0;
   late ScrollController controller;
   int page = 1;
@@ -101,6 +102,7 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
                                           Radius.circular(25.0)))),
                               onChanged: (value) {
                                 setState(() {
+                                  currentIndexTemp = -1;
                                   _tempCreditList =
                                       _buildSearchCreditList(value);
                                 });
@@ -123,7 +125,7 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
                                       : creditList!.length,
                                   itemBuilder: (context, index) {
                                     return (_tempCreditList.isNotEmpty)
-                                        ? _showBottomSheetCityWithSearch(
+                                        ? _showBottomSheetWithSearch(
                                         index, _tempCreditList)
                                         : _showBottomSheetCityWithSearch(
                                         index, creditList!);
@@ -204,7 +206,6 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
           idCredit = listOfCities[index].id!;
           Constants.nameCreditTemp = listOfCities[index].name!;
           currentIndex = getIndexCredit(idCredit);
-
         });
       },
       child: Container(
@@ -234,6 +235,57 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
             const Spacer(),
             Visibility(
               visible: currentIndex == index ? true : false,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Image(
+                    image: AssetImage('assets/images/img_check.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _showBottomSheetWithSearch(
+      int index, List<CreditData> listOfCities) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          idCredit = listOfCities[index].id!;
+          Constants.nameCreditTemp = listOfCities[index].name!;
+          currentIndex = getIndexCredit(idCredit);
+          currentIndexTemp = index;
+        });
+      },
+      child: Container(
+        height: 60,
+        color: currentIndexTemp == index
+            ? Mytheme.color_DCDEE9
+            : Mytheme.kBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                listOfCities[index].name.toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Mytheme.color_434657,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "OpenSans-Semibold",
+                  // decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+
+            // di chuyen item tối cuối
+            const Spacer(),
+            Visibility(
+              visible: currentIndexTemp == index ? true : false,
               child: const Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: Image(

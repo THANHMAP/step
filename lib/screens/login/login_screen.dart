@@ -511,7 +511,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Utils.showAlertDialogOneButton(context, message);
         } else {
           print("Error == $error");
-          Utils.showAlertDialogOneButton(context, error);
+          Utils.showAlertDialogOneButton(context, error.toString());
         }
       });
     }
@@ -546,7 +546,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
       await pr.hide();
     });
@@ -579,7 +579,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils.showAlertDialogOneButton(context, message);
       } else {
         print("Error == $error");
-        Utils.showAlertDialogOneButton(context, error);
+        Utils.showAlertDialogOneButton(context, error.toString());
       }
     });
     await pr.hide();
