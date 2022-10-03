@@ -95,69 +95,67 @@ class _AccountScreenState extends State<AccountScreen> {
     _userBodController.text = user.dob.toString();
     _usernameController.text = user.name.toString();
     _usernameController.addListener(() => setState(() {}));
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Mytheme.colorBgMain,
-            body: Column(
-              children: <Widget>[
-                AppbarWidget(
-                  text: "Thông tin cá nhân",
-                  onClicked: () {
-                    Navigator.of(context).pop(false);
-                  },
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          loadImage(user),
-                          infoUser(),
-                          sexUser(),
-                          birthUser(),
-                          cityUser(),
-                          districtUser(),
-                          memberUser(),
-                          creditUser(),
-                          const SizedBox(height: 40),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 10, left: 24, right: 24, bottom: 24),
-                            child: ButtonWidget(
-                                text: StringText.text_save,
-                                color: Mytheme.colorBgButtonLogin,
-                                onClicked: () => {
-                                  // saveInfoUser()
-                                  if (_image != null)
-                                    {
-                                      saveImage(_image),
-                                    }
-                                  else
-                                    {saveInfoUser()}
-                                }),
-                          ),
-                        ],
-                      ),
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Mytheme.colorBgMain,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: "Thông tin cá nhân",
+                onClicked: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        loadImage(user),
+                        infoUser(),
+                        sexUser(),
+                        birthUser(),
+                        cityUser(),
+                        districtUser(),
+                        memberUser(),
+                        creditUser(),
+                        const SizedBox(height: 40),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 24, right: 24, bottom: 24),
+                          child: ButtonWidget(
+                              text: StringText.text_save,
+                              color: Mytheme.colorBgButtonLogin,
+                              onClicked: () => {
+                                    // saveInfoUser()
+                                    if (_image != null)
+                                      {
+                                        saveImage(_image),
+                                      }
+                                    else
+                                      {saveInfoUser()}
+                                  }),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 
@@ -356,7 +354,7 @@ class _AccountScreenState extends State<AccountScreen> {
         onTap: () async {
           showDatePicker();
         },
-        child:  Container(
+        child: Container(
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
@@ -378,7 +376,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 flex: 2,
                 child: Padding(
                   padding:
-                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     "Ngày sinh",
                     textAlign: TextAlign.start,
@@ -422,8 +420,8 @@ class _AccountScreenState extends State<AccountScreen> {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding:
-                  const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                  padding: const EdgeInsets.only(
+                      top: 0, left: 6, bottom: 0, right: 0),
                   child: IconButton(
                     icon: Image.asset(urlActionBirthday),
                     // tooltip: 'Increase volume by 10',
@@ -458,7 +456,6 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
       ),
-
     );
   }
 
@@ -475,17 +472,14 @@ class _AccountScreenState extends State<AccountScreen> {
       confirmText: "Cập nhật",
       titleText: "Chọn ngày",
     );
-    if(datePicked != null) {
+    if (datePicked != null) {
       setState(() {
-        _date =
-        '${datePicked.day}-${datePicked.month}-${datePicked.year}';
+        _date = '${datePicked.day}-${datePicked.month}-${datePicked.year}';
         _userBodController.text =
-        '${datePicked.day}-${datePicked.month}-${datePicked.year}';
+            '${datePicked.day}-${datePicked.month}-${datePicked.year}';
       });
     }
-
   }
-
 
   cityUser() {
     return Padding(
@@ -765,9 +759,9 @@ class _AccountScreenState extends State<AccountScreen> {
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
       child: InkWell(
         onTap: () {
-          Get.toNamed("/creditInfoScreen")?. then((value) {
+          Get.toNamed("/creditInfoScreen")?.then((value) {
             print(value);
-            if(value) {
+            if (value) {
               setState(() {
                 textUserCredit = Constants.nameCreditTemp;
                 idCredit = int.parse(Constants.idCreditTemp);
@@ -845,9 +839,9 @@ class _AccountScreenState extends State<AccountScreen> {
                           // tooltip: 'Increase volume by 10',
                           iconSize: 0,
                           onPressed: () {
-                            Get.toNamed("/creditInfoScreen")?. then((value) {
+                            Get.toNamed("/creditInfoScreen")?.then((value) {
                               print(value);
-                              if(value) {
+                              if (value) {
                                 setState(() {
                                   textUserCredit = Constants.nameCreditTemp;
                                   idCredit = int.parse(Constants.idCreditTemp);
@@ -881,103 +875,103 @@ class _AccountScreenState extends State<AccountScreen> {
         context: context,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .33,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 38,
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: <Widget>[
-                              const Center(
-                                child: Text(
-                                  "Chọn Giới tính",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Mytheme.color_434657,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                    // decoration: TextDecoration.underline,
-                                  ),
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * .33,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 38,
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Text(
+                                "Chọn Giới tính",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_434657,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                  // decoration: TextDecoration.underline,
                                 ),
                               ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    width: 40,
-                                    child: IconButton(
-                                      icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ))
-                            ],
-                          ),
+                            ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
+                          ],
                         ),
-                        for (var i = 0; i < sexList.length; i++) ...[
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                currentSexIndex = i;
-                                this.setState(() {
-                                  user.gender = currentSexIndex;
-                                });
+                      ),
+                      for (var i = 0; i < sexList.length; i++) ...[
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              currentSexIndex = i;
+                              this.setState(() {
+                                user.gender = currentSexIndex;
                               });
-                            },
-                            child: Container(
-                              height: 60,
-                              color: currentSexIndex == i
-                                  ? Mytheme.color_DCDEE9
-                                  : Mytheme.kBackgroundColor,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: Text(
-                                      sexList[i],
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.color_434657,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-Semibold",
-                                        // decoration: TextDecoration.underline,
-                                      ),
+                            });
+                          },
+                          child: Container(
+                            height: 60,
+                            color: currentSexIndex == i
+                                ? Mytheme.color_DCDEE9
+                                : Mytheme.kBackgroundColor,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: Text(
+                                    sexList[i],
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.color_434657,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-Semibold",
+                                      // decoration: TextDecoration.underline,
                                     ),
                                   ),
+                                ),
 
-                                  // di chuyen item tối cuối
-                                  const Spacer(),
-                                  Visibility(
-                                    visible: currentSexIndex == i ? true : false,
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(right: 16),
-                                      child: Image(
-                                          image: AssetImage(
-                                              'assets/images/img_check.png'),
-                                          fit: BoxFit.fill),
-                                    ),
+                                // di chuyen item tối cuối
+                                const Spacer(),
+                                Visibility(
+                                  visible: currentSexIndex == i ? true : false,
+                                  child: const Padding(
+                                    padding: EdgeInsets.only(right: 16),
+                                    child: Image(
+                                        image: AssetImage(
+                                            'assets/images/img_check.png'),
+                                        fit: BoxFit.fill),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ],
-                    ),
+                    ],
                   ),
-                );
-              }),
+                ),
+              );
+            }),
           );
         });
   }
@@ -995,110 +989,110 @@ class _AccountScreenState extends State<AccountScreen> {
         context: context,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .48,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 48,
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: <Widget>[
-                              const Center(
-                                child: Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 60, right: 60),
-                                  child: Text(
-                                    "Chọn Thành viên / khách hàng của tổ chức tín dụng",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Mytheme.color_434657,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-Semibold",
-                                      // decoration: TextDecoration.underline,
-                                    ),
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * .48,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 48,
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 60, right: 60),
+                                child: Text(
+                                  "Chọn Thành viên / khách hàng của tổ chức tín dụng",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Mytheme.color_434657,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-Semibold",
+                                    // decoration: TextDecoration.underline,
                                   ),
                                 ),
                               ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    width: 40,
-                                    child: IconButton(
-                                      icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ))
-                            ],
-                          ),
+                            ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
+                          ],
                         ),
-                        if (userGroupData != null) ...[
-                          for (var i = 0; i < userGroupData!.length; i++) ...[
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  if (!selectedUserGroupList
-                                      .contains(userGroupData![i].id)) {
-                                    selectedUserGroupList
-                                        .add(userGroupData![i].id!);
-                                  } else {
-                                    selectedUserGroupList
-                                        .remove(userGroupData![i].id);
-                                  }
-                                });
+                      ),
+                      if (userGroupData != null) ...[
+                        for (var i = 0; i < userGroupData!.length; i++) ...[
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                if (!selectedUserGroupList
+                                    .contains(userGroupData![i].id)) {
+                                  selectedUserGroupList
+                                      .add(userGroupData![i].id!);
+                                } else {
+                                  selectedUserGroupList
+                                      .remove(userGroupData![i].id);
+                                }
+                              });
 
-                                this.setState(() {
-                                  selectedUserGroupList;
-                                  textUserGroup = _userGroupValue(
-                                      selectedUserGroupList, userGroupData!);
-                                });
-                              },
-                              child: Container(
-                                height: 60,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 30),
-                                      child: SvgPicture.asset(!selectedUserGroupList
-                                          .contains(userGroupData![i].id)
-                                          ? "assets/svg/ic_not_check_gray.svg"
-                                          : "assets/svg/checkbox_check_correct.svg"),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: Text(
-                                        userGroupData![i].name.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.color_434657,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-Semibold",
-                                          // decoration: TextDecoration.underline,
-                                        ),
+                              this.setState(() {
+                                selectedUserGroupList;
+                                textUserGroup = _userGroupValue(
+                                    selectedUserGroupList, userGroupData!);
+                              });
+                            },
+                            child: Container(
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30),
+                                    child: SvgPicture.asset(!selectedUserGroupList
+                                            .contains(userGroupData![i].id)
+                                        ? "assets/svg/ic_not_check_gray.svg"
+                                        : "assets/svg/checkbox_check_correct.svg"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 16),
+                                    child: Text(
+                                      userGroupData![i].name.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.color_434657,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                        // decoration: TextDecoration.underline,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ],
                       ],
-                    ),
+                    ],
                   ),
-                );
-              }),
+                ),
+              );
+            }),
           );
         });
   }
@@ -1115,7 +1109,7 @@ class _AccountScreenState extends State<AccountScreen> {
         context: context,
         isScrollControlled: true,
         builder: (context) {
-          return  MediaQuery(
+          return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
             child: StatefulBuilder(builder: (BuildContext context,
                 StateSetter setState /*You can rename this!*/) {
@@ -1148,8 +1142,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                 child: SizedBox(
                                   width: 40,
                                   child: IconButton(
-                                    icon:
-                                    Image.asset("assets/images/ic_close.png"),
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -1168,8 +1162,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                 hintText: "Search",
                                 prefixIcon: Icon(Icons.search),
                                 border: OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(25.0)))),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(25.0)))),
                             onChanged: (value) {
                               setState(() {
                                 _tempListCity = _buildSearchCityList(value);
@@ -1191,9 +1185,9 @@ class _AccountScreenState extends State<AccountScreen> {
                                 itemBuilder: (context, index) {
                                   return (_tempListCity.isNotEmpty)
                                       ? _showBottomSheetCityWithSearch(
-                                      index, _tempListCity)
+                                          index, _tempListCity)
                                       : _showBottomSheetCityWithSearch(
-                                      index, cityData);
+                                          index, cityData);
                                   //   ListTile(
                                   //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
                                   // );
@@ -1225,99 +1219,99 @@ class _AccountScreenState extends State<AccountScreen> {
         isScrollControlled: true,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .68,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 38,
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: <Widget>[
-                              const Center(
-                                child: Text(
-                                  "Chọn Quận / huyện",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Mytheme.color_434657,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                    // decoration: TextDecoration.underline,
-                                  ),
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * .68,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 38,
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Text(
+                                "Chọn Quận / huyện",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_434657,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                  // decoration: TextDecoration.underline,
                                 ),
                               ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    width: 40,
-                                    child: IconButton(
-                                      icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ))
+                            ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          child: TextField(
+                            controller: providerEditingController,
+                            decoration: const InputDecoration(
+                                labelText: "Search",
+                                hintText: "Search",
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(25.0)))),
+                            onChanged: (value) {
+                              setState(() {
+                                _tempProvidersData =
+                                    _buildSearchProviderList(value);
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          height: 468,
+                          child: Stack(
+                            children: [
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: (_tempProvidersData.isNotEmpty)
+                                    ? _tempProvidersData.length
+                                    : _providersData.length,
+                                itemBuilder: (context, index) {
+                                  return (_tempProvidersData.isNotEmpty)
+                                      ? _showBottomSheetProviderWithSearch(
+                                          index, _tempProvidersData)
+                                      : _showBottomSheetProviderWithSearch(
+                                          index, _providersData);
+                                  //   ListTile(
+                                  //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
+                                  // );
+                                },
+                              )
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            child: TextField(
-                              controller: providerEditingController,
-                              decoration: const InputDecoration(
-                                  labelText: "Search",
-                                  hintText: "Search",
-                                  prefixIcon: Icon(Icons.search),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(25.0)))),
-                              onChanged: (value) {
-                                setState(() {
-                                  _tempProvidersData =
-                                      _buildSearchProviderList(value);
-                                });
-                              },
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: SizedBox(
-                            height: 468,
-                            child: Stack(
-                              children: [
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: (_tempProvidersData.isNotEmpty)
-                                      ? _tempProvidersData.length
-                                      : _providersData.length,
-                                  itemBuilder: (context, index) {
-                                    return (_tempProvidersData.isNotEmpty)
-                                        ? _showBottomSheetProviderWithSearch(
-                                        index, _tempProvidersData)
-                                        : _showBottomSheetProviderWithSearch(
-                                        index, _providersData);
-                                    //   ListTile(
-                                    //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
-                                    // );
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                );
-              }),
+                ),
+              );
+            }),
           );
         });
   }
@@ -1375,6 +1369,16 @@ class _AccountScreenState extends State<AccountScreen> {
                       width: 125.0,
                     ),
             ),
+          ] else if (user.avatar.toString().isNotEmpty) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(60.0),
+              child: Image.network(
+                user.avatar.toString(),
+                fit: BoxFit.fill,
+                height: 125.0,
+                width: 125.0,
+              ),
+            ),
           ] else ...[
             Container(
               width: 125.0,
@@ -1385,7 +1389,8 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               child: Padding(
                 padding: EdgeInsets.all(3), // border width
-                child: Container( // or ClipRRect if you need to clip the content
+                child: Container(
+                  // or ClipRRect if you need to clip the content
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white, // inner circle color
@@ -1401,7 +1406,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         fontFamily: "OpenSans-Regular",
                       ),
                     ),
-                  ),// inner content
+                  ), // inner content
                 ),
               ),
 
@@ -1437,7 +1442,6 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ],
       );
-      ;
     }
     return Stack(
       children: <Widget>[
@@ -1487,7 +1491,7 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future loadGroup() async {
-    if(!pr.isShowing()) pr.show();
+    if (!pr.isShowing()) pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.listUserGroupURL).then(
         (value) async {
       var userGroup = UserGroupModel.fromJson(value);
@@ -1520,7 +1524,7 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   Future loadSharedPrefs() async {
-    if(!pr.isShowing()) pr.show();
+    if (!pr.isShowing()) pr.show();
     try {
       var isLogged = await SPref.instance.get("info_login");
       var response = json.decode(isLogged.toString());
@@ -1536,13 +1540,13 @@ class _AccountScreenState extends State<AccountScreen> {
         }
 
         _usernameController.text = user.name.toString();
-        if( user.creditFundId != null) {
+        if (user.creditFundId != null) {
           idCredit = user.creditFundId!;
         } else {
           idCredit = 0;
         }
 
-        if(idCredit == 0) {
+        if (idCredit == 0) {
           textUserCredit = "Bạn chưa là thành viên của quỹ";
         } else {
           textUserCredit = user.creditFundName!;
@@ -1845,5 +1849,4 @@ class _AccountScreenState extends State<AccountScreen> {
       Future.delayed(const Duration(seconds: 3), () => loadGroup()),
     ]);
   }
-
 }
