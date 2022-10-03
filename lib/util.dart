@@ -1,8 +1,13 @@
 import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:provider/provider.dart';
 import 'package:step_bank/compoment/dialog_nomal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:step_bank/screens/login/authService.dart';
+import 'package:step_bank/shared/SPref.dart';
 
 class Utils {
   static showAlertDialogOneButton(BuildContext context, String message) {
@@ -40,14 +45,18 @@ class Utils {
     ]);
   }
 
-  static showError(String error, BuildContext context) {
+  static showError(String error, BuildContext context) async {
     var statuscode = error.toString();
     if (statuscode.contains("Unauthorised:")) {
-      var unauthorised = "Unauthorised:";
-      var test = statuscode.substring(unauthorised.length, statuscode.length);
-      var response = json.decode(test.toString());
-      var message = response["message"];
-      Utils.showAlertDialogOneButton(context, message);
+      // var unauthorised = "Unauthorised:";
+      // var test = statuscode.substring(unauthorised.length, statuscode.length);
+      // var response = json.decode(test.toString());
+      // var message = response["message"];
+      // Utils.showAlertDialogOneButton(context, message);
+      await SPref.instance.set("token", "");
+      await SPref.instance.set("info_login", "");
+      Get.offAllNamed("/login"
+          "");
     } else if (statuscode.contains("Invalid_Request:")) {
       var unauthorised = "Invalid_Request:";
       var test = statuscode.substring(unauthorised.length, statuscode.length);
@@ -57,6 +66,16 @@ class Utils {
     } else {
       print("Error == $error");
       Utils.showAlertDialogOneButton(context, error.toString());
+    }
+  }
+
+  Future<void> _signOutWithGoogle(BuildContext context) async {
+    try {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      final user = await authService.signOut(context: context);
+    } catch (e) {
+      // TODO: Show alert here
+      print(e);
     }
   }
 
