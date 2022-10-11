@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -586,8 +587,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       BorderRadius.all(Radius.circular(25.0)))),
                               onChanged: (value) {
                                 setState(() {
-                                  _tempProvidersData =
-                                      _buildSearchProviderList(value);
+                                  onSearchTextChanged(value);
                                 });
                               },
                             ),
@@ -607,7 +607,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                     return (_tempProvidersData.isNotEmpty)
                                         ? _showBottomSheetProviderWithSearch(
                                         index, _tempProvidersData)
-                                        : _showBottomSheetProviderWithSearch(
+                                        : _showBottomSheetProviderWithNoSearch(
                                         index, _providersData);
                                     //   ListTile(
                                     //   title: Text('${(_tempListCity.isNotEmpty) ? _tempListCity[index].name : cityData[index].name}'),
@@ -736,7 +736,7 @@ class _ContactScreenState extends State<ContactScreen> {
         });
   }
 
-  Widget _showBottomSheetProviderWithSearch(
+  Widget _showBottomSheetProviderWithNoSearch(
       int index, List<Provinces> listOfProvinces) {
     return InkWell(
       onTap: () {
@@ -786,6 +786,70 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
       ),
     );
+  }
+
+  Widget _showBottomSheetProviderWithSearch(
+      int index, List<Provinces> listOfProvinces) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          Navigator.of(context).pop();
+          selectCity = false;
+          currentProviderIndex = getIndexProvider(int.parse(listOfProvinces[index].id.toString()));
+          getListContact(currentCreditIndex.toString(), "",
+              listOfProvinces[index].id ?? "0");
+          providerEditingController.clear();
+          _tempProvidersData.clear();
+        });
+      },
+      child: Container(
+        height: 60,
+        color: currentProviderIndex == index
+            ? Mytheme.color_DCDEE9
+            : Mytheme.kBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Text(
+                listOfProvinces[index].name.toString(),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Mytheme.color_434657,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: "OpenSans-Semibold",
+                  // decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+
+            // di chuyen item tối cuối
+            const Spacer(),
+            Visibility(
+              visible: currentProviderIndex == index ? true : false,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Image(
+                    image: AssetImage('assets/images/img_check.png'),
+                    fit: BoxFit.fill),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  int getIndexProvider(int idProvider) {
+    int index = 0;
+    for (int i = 0; i < _providersData.length; i++) {
+      if (int.parse(_providersData[i].id.toString()) == idProvider) {
+        return index = i;
+      }
+    }
+    return index;
   }
 
   List<CityData> _buildSearchCityList(String userSearchTerm) {
@@ -979,4 +1043,22 @@ class _ContactScreenState extends State<ContactScreen> {
       Utils.showError(error.toString(), context);
     });
   }
+
+  onSearchTextChanged(String text) async {
+    _tempProvidersData.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in _providersData) {
+      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        if (kDebugMode) {
+          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+        }
+        _tempProvidersData.add(info);
+      }
+    }
+    setState(() {});
+  }
+
 }
