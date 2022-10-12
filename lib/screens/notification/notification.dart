@@ -96,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   }
                 },
                 child: Container(
-                  height: 90,
+                  height: 100,
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Colors.white,
@@ -127,7 +127,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         color: Mytheme.colorTextSubTitle,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: "OpenSans-Regular",
