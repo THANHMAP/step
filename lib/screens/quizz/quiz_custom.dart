@@ -110,14 +110,18 @@ class _QuizCustomScreenState extends State<QuizCustomScreen> {
                       padding: EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
-                          Text(
-                            "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Mytheme.color_0xFF003A8C,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "OpenSans-SemiBold",
-                            ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                "Câu ${index + 1}.${contentQuizz[index].questionText.toString()}",
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_0xFF003A8C,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-SemiBold",
+                                ),
+                              ),
                           ),
                           Align(
                             alignment: Alignment.centerLeft,

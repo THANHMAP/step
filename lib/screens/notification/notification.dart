@@ -127,7 +127,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 14,
                                         color: Mytheme.colorTextSubTitle,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: "OpenSans-Regular",

@@ -296,7 +296,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                 Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
-                                                    formNum(total.toString()),
+                                                    "${formNum(total.toString())} vnđ",
                                                     textAlign: TextAlign.left,
                                                     style: const TextStyle(
                                                       fontSize: 24,
