@@ -795,11 +795,19 @@ class _ContactScreenState extends State<ContactScreen> {
         setState(() {
           Navigator.of(context).pop();
           selectCity = false;
-          currentProviderIndex = getIndexProvider(int.parse(listOfProvinces[index].id.toString()));
-          getListContact(currentCreditIndex.toString(), "",
-              listOfProvinces[index].id ?? "0");
-          providerEditingController.clear();
-          _tempProvidersData.clear();
+          currentProviderIndex = 0;
+          if(_tempProvidersData.isNotEmpty && providerEditingController.text.toString().isNotEmpty) {
+            var idProvider = listOfProvinces[index];
+            for(int i = 0; i < _providersData.length; i++) {
+              if(idProvider.id == _providersData[i].id) {
+                currentProviderIndex = i;
+              }
+            }
+            getListContact(currentCreditIndex.toString(), "",
+                listOfProvinces[index].id ?? "0");
+            providerEditingController.clear();
+            _tempProvidersData.clear();
+          }
         });
       },
       child: Container(
@@ -842,15 +850,6 @@ class _ContactScreenState extends State<ContactScreen> {
     );
   }
 
-  int getIndexProvider(int idProvider) {
-    int index = 0;
-    for (int i = 0; i < _providersData.length; i++) {
-      if (int.parse(_providersData[i].id.toString()) == idProvider) {
-        return index = i;
-      }
-    }
-    return index;
-  }
 
   List<CityData> _buildSearchCityList(String userSearchTerm) {
     List<CityData> _searchList = [];
