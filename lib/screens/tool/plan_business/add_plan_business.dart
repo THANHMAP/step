@@ -423,14 +423,18 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
         const Align(
           alignment: Alignment.centerLeft,
-          child: Text(
-            "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
-            textAlign: TextAlign.left,
-            style: const TextStyle(
-              fontSize: 13,
-              color: Mytheme.color_82869E,
-              fontWeight: FontWeight.w400,
-              fontFamily: "OpenSans-Regular",
+          child: Padding(
+            padding: EdgeInsets.only(
+              top:8),
+            child: Text(
+              "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 13,
+                color: Mytheme.color_82869E,
+                fontWeight: FontWeight.w400,
+                fontFamily: "OpenSans-Regular",
+              ),
             ),
           ),
         ),
@@ -552,7 +556,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg", height: 120, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg", height: 100, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -593,7 +597,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg", height: 120, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg", height: 110, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -633,7 +637,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg", height: 60, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg", height: 50, fit: BoxFit.fill)
         ),
 
       ],
@@ -724,7 +728,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 190, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 180, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -764,7 +768,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 100, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 90, fit: BoxFit.fill)
         ),
 
       ],

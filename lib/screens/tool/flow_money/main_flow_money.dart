@@ -146,6 +146,21 @@ class _MainFlowMoneyScreenState extends State<MainFlowMoneyScreen>
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 25, left: 20, right: 20, bottom: 0
+            ),
+            child: const Text(
+                'Dưới đây là các sổ ghi chép dòng tiền mà bạn đã tạo, hãy cập nhật các chi tiêu và thu nhập của từng sổ nhé',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Mytheme.color_0xFF002766,
+                  fontFamily: "OpenSans-Regular",
+                  fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           if (_listItemToolData.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
@@ -356,7 +371,8 @@ class _MainFlowMoneyScreenState extends State<MainFlowMoneyScreen>
         builder: (BuildContext context) {
           return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: WillPopScope(
+              child:
+              WillPopScope(
                   onWillPop: () {
                     return Future.value(false);
                   },
@@ -375,7 +391,4 @@ class _MainFlowMoneyScreenState extends State<MainFlowMoneyScreen>
           );
         });
   }
-
-
-
 }

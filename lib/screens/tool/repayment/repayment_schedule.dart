@@ -146,10 +146,24 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.only(
+                top: 15,left: 17,right: 20
+            ),
+            child: Text('Tại đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai',
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: "OpenSans-Regular",
+                fontWeight: FontWeight.bold,
+                color: Mytheme.color_0xFF002766,
+              ),
+            ),
+          ),
           if (_listItemToolData.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
-                  top: 20, left: 16, right: 16, bottom: 0),
+                  top: 10, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
                   for (var i = 0; i < _listItemToolData.length; i++) ...[
@@ -207,7 +221,7 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
                   alignment: Alignment.centerLeft,
                   child: Text(
                     data?.name ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 23,
                       color: Mytheme.colorBgButtonLogin,
                       fontWeight: FontWeight.w700,
@@ -239,8 +253,7 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
                     padding: const EdgeInsets.only(right: 10),
                     child: SvgPicture.asset("assets/svg/ic_add.svg"),
                   ),
-
-                  Text(
+                  const Text(
                     "Tạo lịch mới",
                     style: TextStyle(
                         fontSize: 16,

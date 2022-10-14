@@ -109,6 +109,20 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           headerLayout(),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                                top: 25, left: 33, right: 35
+                            ),
+                              child: Text('Dưới đây là các ngân sách mà bạn đã tạo, hãy kiểm tra lại chi tiêu và điều chỉnh ngân sách nếu cần thiết nhé.',
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "OpenSans-Regular",
+                                  fontWeight: FontWeight.bold,
+                                  color: Mytheme.color_0xFF002766,
+                                ),
+                              ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
                             child: Column(
@@ -250,8 +264,6 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
-
-
                             ],
                           ),
 

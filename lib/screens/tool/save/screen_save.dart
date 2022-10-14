@@ -118,6 +118,19 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(
+                                      top: 22, left: 33, right: 23, bottom: 0),
+                                  child:
+                                  Text(
+                                      'Dưới dây là kế hoạch tiết kiệm mà bạn đã đạt ra, hãy kiểm tra và cố gắng đạt được mục tiêu nhé',
+                                      style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "OpenSans-Regular",
+                                      fontWeight: FontWeight.bold,
+                                      ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
                                       top: 0, left: 16, right: 16, bottom: 0),
                                   child: Column(
                                     children: [
@@ -252,26 +265,35 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                     });
                   },
                   child: Container(
-                      margin: EdgeInsets.all(10),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                      ),
-                      child: Padding(
-                        padding:
-                        const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
-                        child: Text(
-                          "Tính lãi tiết kiệm",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Mytheme.color_434657,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-Semibold",
+                    margin: EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Mytheme.colorBgButtonLogin,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Mytheme.colorBgButtonLogin)
+                    ),
+                    child: Padding(
+                      padding:
+                      const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: SvgPicture.asset("assets/svg/ic_add.svg"),
                           ),
-                        ),
-                      )
+                          const Text(
+                            "Tính lãi tiết kiệm",
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
 

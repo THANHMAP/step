@@ -32,8 +32,8 @@ class StringText {
   static const text_register_button = "Đăng ký tài khoản";
   static const text_change_password_success = "Thay đổi mật khẩu thành công";
   static const text_register_acc_success = "Đăng ký tài khoản thành công";
-  static const text_i_need = "Tôi cần...";
-  static const text_all_tool = "Tất cả công cụ";
+  static const text_i_need = "Công cụ nổi bật";
+  static const text_all_tool = "Tất cả";
   static const text_news = "Tin tức";
   static const text_news_more = "Xem thêm tin tức";
   static const text_all = "Tất cả";

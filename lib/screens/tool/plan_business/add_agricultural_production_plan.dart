@@ -455,7 +455,7 @@ class _AddAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.topLeft,
-          child: SvgPicture.asset("assets/svg/diem_manh.svg", height: 100, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/diem_manh.svg", height: 80, fit: BoxFit.fill)
         ),
         const SizedBox(height: 10),
         const Align(
@@ -493,7 +493,7 @@ class _AddAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg", height: 80, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg", height: 70, fit: BoxFit.fill)
         ),
       ],
     );
@@ -537,7 +537,7 @@ class _AddAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg", height: 130, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg", height: 120, fit: BoxFit.fill)
         ),
         const SizedBox(height: 10),
         const Align(
@@ -575,7 +575,7 @@ class _AddAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg", height: 40, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg", height: 35, fit: BoxFit.fill)
         ),
       ],
     );
@@ -619,7 +619,7 @@ class _AddAgriculturalProductionPlanToolScreenState
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg", height: 60, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg", height: 55, fit: BoxFit.fill)
         ),
         const Align(
           alignment: Alignment.centerLeft,

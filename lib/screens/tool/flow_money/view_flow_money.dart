@@ -448,7 +448,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                                 padding:
                                                 const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
                                                 child: Text(
-                                                  "Báo cáo chi tiêu tháng",
+                                                  "Xem báo cáo dòng tiền",
                                                   style: TextStyle(
                                                     fontSize: 16,
                                                     color: Mytheme.color_434657,

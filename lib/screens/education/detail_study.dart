@@ -116,26 +116,26 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                             if (_studyData.type == 1) ...[
                               typeText(),
                             ],
-                            Container(
-                              margin: const EdgeInsets.only(left: 20.0),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "Tài liệu",
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Mytheme.colorTextSubTitle,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: "OpenSans-Regular",
-                                      ),
-                                    ),
-                                  ),
-                                  Divider(color: Colors.black),
-                                ],
-                              ),
-                            ),
+                            // Container(
+                            //   margin: const EdgeInsets.only(left: 20.0),
+                            //   child: Column(
+                            //     children: [
+                            //       Align(
+                            //         alignment: Alignment.centerLeft,
+                            //         child: Text(
+                            //           "Tài liệu",
+                            //           style: const TextStyle(
+                            //             fontSize: 16,
+                            //             color: Mytheme.colorTextSubTitle,
+                            //             fontWeight: FontWeight.w400,
+                            //             fontFamily: "OpenSans-Regular",
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Divider(color: Colors.black),
+                            //     ],
+                            //   ),
+                            // ),
                             for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
                               Padding(
                                 padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),

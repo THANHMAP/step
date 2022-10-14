@@ -380,7 +380,7 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                                                       "assets/svg/ic_add_blue.svg"),
                                                 ),
                                                 Text(
-                                                  "Thêm danh mục",
+                                                  "Thêm hồ sơ",
                                                   style: TextStyle(
                                                       fontSize:
                                                       16,
@@ -551,8 +551,8 @@ class _AddLoanScreenState extends State<AddLoanScreen>
                                                       .asset(
                                                       "assets/svg/ic_add_blue.svg"),
                                                 ),
-                                                Text(
-                                                  "Thêm danh mục",
+                                                const Text(
+                                                  "Thêm hồ sơ",
                                                   style: TextStyle(
                                                       fontSize:
                                                       16,

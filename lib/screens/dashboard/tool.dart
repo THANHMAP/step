@@ -73,11 +73,27 @@ class _ToolScreenState extends State<ToolScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-
                           Padding(
                             padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
                             child: Column(
                               children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 25, left: 20, right: 20, bottom: 0
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Dưới đây là các công cụ bạn có thể sử dụng hàng ngày: ghi chép dòng tiền, quản lý tiết kiệm, tính toán khoản vay.... để giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình. Nếu cần thông tin chi tiết về một sản phẩm hoặc dịch vụ tài chính cụ thể, hãy liên hệ với cán bộ tín dụng của Quỹ TDND/ngân hàng nhé.',
+                                      textAlign: TextAlign.justify,
+                                      style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: "OpenSans-Regular",
+                                      fontWeight: FontWeight.bold,
+                                        color: Mytheme.color_0xFF002766,
+                                    ),
+                                    ),
+                                  ),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       top: 0, left: 0, right: 0, bottom: 0),
@@ -115,6 +131,23 @@ class _ToolScreenState extends State<ToolScreen> {
                   top: 16, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
+                  const Padding(
+                    padding: EdgeInsets.only(top: 10, left: 5, right: 0, bottom: 5),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                          'Lập kế hoạch tài chính',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Mytheme.color_0xFF003A8C,
+                          fontFamily: "OpenSans-Regular",
+                          fontWeight: FontWeight.bold,
+
+                      ),
+                    ),
+                  ),
+                  ),
                   for (var i = 0; i < _toolList.length; i++) ...[
                     const SizedBox(height: 15),
                     CardEducatonWidget(
@@ -126,7 +159,35 @@ class _ToolScreenState extends State<ToolScreen> {
                             arguments: _toolList[i]);
                       },
                     ),
-                  ]
+                  ],
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20, left: 5, right: 0, bottom: 10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Quy trình đăng ký và quản lý khoản vay',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Mytheme.color_0xFF003A8C,
+                          fontFamily: "OpenSans-Regular",
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  for (var i = 4; i < _toolList.length; i++) ...[
+                    const SizedBox(height: 15),
+                    CardEducatonWidget(
+                      title: _toolList[i].name,
+                      numberLesson: "",
+                      linkUrl: _toolList[i].icon,
+                      onClicked: () {
+                        Get.toNamed('/introductionToolScreen',
+                            arguments: _toolList[i]);
+                      },
+                    ),
+                  ],
                 ],
               ),
             ),

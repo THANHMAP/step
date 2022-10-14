@@ -99,7 +99,6 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                     } else {
                       Navigator.of(context).pop(false);
                     }
-
                   },
                 ),
                 Expanded(
@@ -124,7 +123,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                           child: Text(
                                             "Tên khoản vay",
                                             textAlign: TextAlign.left,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16,
                                               color: Mytheme.colorTextSubTitle,
                                               fontWeight: FontWeight.w600,
@@ -153,7 +152,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                           child: Text(
                                             "Số tiền bạn cần vay ( Nợ gốc )",
                                             textAlign: TextAlign.left,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16,
                                               color: Mytheme.colorTextSubTitle,
                                               fontWeight: FontWeight.w600,
@@ -209,7 +208,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                       child: Text(
                                                         "Tỷ lệ lãi suất năm",
                                                         textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontSize: 16,
                                                           color: Mytheme.colorTextSubTitle,
                                                           fontWeight: FontWeight.w600,
@@ -267,7 +266,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                       child: Text(
                                                         "Kỳ hạn vay",
                                                         textAlign: TextAlign.left,
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontSize: 16,
                                                           color: Mytheme.colorTextSubTitle,
                                                           fontWeight: FontWeight.w600,
@@ -321,6 +320,25 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                             ),
                                           ),
                                         ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                              top:5
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Trả nợ gốc mấy tháng 1 lần ?',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Mytheme.color_82869E,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily:
+                                                "OpenSans-Regular",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         const SizedBox(height: 10),
                                         TextField(
                                           keyboardType: TextInputType.number,
@@ -363,6 +381,25 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                             ),
                                           ),
                                         ),
+                                        const Padding(
+                                          padding: EdgeInsets.only(
+                                              top:5
+                                          ),
+                                          child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Trả nợ lãi mấy tháng 1 lần ?',
+                                              textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Mytheme.color_82869E,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily:
+                                                "OpenSans-Regular",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         const SizedBox(height: 10),
                                         TextField(
                                           keyboardType: TextInputType.number,
@@ -396,7 +433,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                           child: Text(
                                             "Ngày vay",
                                             textAlign: TextAlign.left,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontSize: 16,
                                               color: Mytheme.colorTextSubTitle,
                                               fontWeight: FontWeight.w600,
@@ -431,7 +468,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                   child: Text(
                                                     dateFirst,
                                                     textAlign: TextAlign.start,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 16,
                                                       color: Mytheme.colorBgButtonLogin,
                                                       fontWeight: FontWeight.w600,
@@ -480,12 +517,12 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
-                                                  Align(
+                                                  const Align(
                                                     alignment: Alignment.center,
                                                     child: Text(
                                                       "Cuối kỳ gửi tiết kiệm, bạn nhận được:",
                                                       textAlign: TextAlign.left,
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         fontSize: 16,
                                                         color: Mytheme.color_82869E,
                                                         fontWeight: FontWeight.w400,
@@ -525,14 +562,14 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                Expanded(
+                                                                const Expanded(
                                                                   flex: 2,
                                                                   child: Align(
                                                                     alignment: Alignment.centerLeft,
                                                                     child: Text(
                                                                       "Tiền lãi",
                                                                       textAlign: TextAlign.left,
-                                                                      style: const TextStyle(
+                                                                      style: TextStyle(
                                                                         fontSize: 16,
                                                                         color: Mytheme.color_82869E,
                                                                         fontWeight: FontWeight.w400,
@@ -564,14 +601,14 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                             ),
                                                             Row(
                                                               children: [
-                                                                Expanded(
+                                                                const Expanded(
                                                                   flex: 2,
                                                                   child: Align(
                                                                     alignment: Alignment.centerLeft,
                                                                     child: Text(
                                                                       "Tiền gốc",
                                                                       textAlign: TextAlign.left,
-                                                                      style: const TextStyle(
+                                                                      style: TextStyle(
                                                                         fontSize: 16,
                                                                         color: Mytheme.color_82869E,
                                                                         fontWeight: FontWeight.w400,
@@ -950,10 +987,9 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                         Visibility(
                                           visible: !selectDefault ? true : false,
                                           child:  Padding(
-                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
+                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 5),
                                             child: Column(
                                               children: [
-
                                                 Container(
                                                   height: 108,
                                                   decoration: BoxDecoration(
@@ -972,12 +1008,12 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      Align(
+                                                      const Align(
                                                         alignment: Alignment.center,
                                                         child: Text(
                                                           "Bạn sẽ cần trả tổng tiền lãi",
                                                           textAlign: TextAlign.left,
-                                                          style: const TextStyle(
+                                                          style: TextStyle(
                                                             fontSize: 16,
                                                             color: Mytheme.color_82869E,
                                                             fontWeight: FontWeight.w400,
@@ -986,7 +1022,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 10,
                                                       ),
                                                       Align(
@@ -1009,19 +1045,49 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
 
                                                 for (int i = 0; i < listLaiGiamDan.length; i++) ...[
                                                   layoutLai(true, listLaiGiamDan[i]),
-                                                ]
+                                                ],
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top:8),
+                                                  child: ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          // side: const BorderSide(color: Colors.red)
+                                                        ),
+                                                        primary: Mytheme.colorBgButtonLogin,
+                                                        minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                                                    child: const Text(
+                                                      "Tính lại kế hoạch",
+                                                      style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
+                                                    ),
+                                                    onPressed: () {
+                                                      if(displayCalculation) {
+                                                        setState(() {
+                                                          displayCalculation = false;
+                                                          _kyHanVayController.clear();
+                                                          _moneyLoanRootController.clear();
+                                                          _nameLoanController.clear();
+                                                          _numberLaiSuatController.clear();
+                                                          _numberMonthTienLaiController.clear();
+                                                          _tyLeLaiXuatController.clear();
+                                                          _numberMonthTienGocController.clear();
+                                                        });
+                                                      } else {
+                                                      }
+                                                    },
+                                                  ),
+                                                )
                                               ],
                                             ),
-                                          ),),
-
+                                          ),
+                                        ),
                                         // lãi phẳng
                                         Visibility(
                                           visible: selectDefault ? true : false,
                                           child:  Padding(
-                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 16),
+                                            padding: const EdgeInsets.only( bottom: 30, top: 0, left: 0, right: 5),
                                             child: Column(
                                               children: [
-
                                                 Container(
                                                   height: 108,
                                                   decoration: BoxDecoration(
@@ -1040,12 +1106,12 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
-                                                      Align(
+                                                      const Align(
                                                         alignment: Alignment.center,
                                                         child: Text(
                                                           "Bạn sẽ cần trả tổng tiền lãi",
                                                           textAlign: TextAlign.left,
-                                                          style: const TextStyle(
+                                                          style: TextStyle(
                                                             fontSize: 16,
                                                             color: Mytheme.color_82869E,
                                                             fontWeight: FontWeight.w400,
@@ -1054,7 +1120,7 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 10,
                                                       ),
                                                       Align(
@@ -1077,12 +1143,41 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
 
                                                 for (int i = 0; i < listLaiPhang.length; i++) ...[
                                                   layoutLai(true, listLaiPhang[i]),
-                                                ]
+                                                ],
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top:8),
+                                                  child: ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              // side: const BorderSide(color: Colors.red)
+                                                            ),
+                                                            primary: Mytheme.colorBgButtonLogin,
+                                                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                                                        child: const Text(
+                                                          "Tính lại kế hoạch",
+                                                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
+                                                        ),
+                                                        onPressed: () {
+                                                          if(displayCalculation) {
+                                                            setState(() {
+                                                              displayCalculation = false;
+                                                              _kyHanVayController.clear();
+                                                              _moneyLoanRootController.clear();
+                                                              _nameLoanController.clear();
+                                                              _numberLaiSuatController.clear();
+                                                              _numberMonthTienLaiController.clear();
+                                                              _tyLeLaiXuatController.clear();
+                                                              _numberMonthTienGocController.clear();
+                                                            });
+                                                          } else {
+                                                          }
+                                                        },
+                                                      ),
+                                                ),
                                               ],
                                             ),
                                           ),),
-
-
                                       ],
                                     ),
                                   ),
@@ -1099,7 +1194,8 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                 ),
                 Expanded(
                   flex: 1,
-                  child: Padding(
+                  child:
+                  Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 20, left: 24, right: 24),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
