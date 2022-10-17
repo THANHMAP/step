@@ -32,8 +32,8 @@ class StringText {
   static const text_register_button = "Đăng ký tài khoản";
   static const text_change_password_success = "Thay đổi mật khẩu thành công";
   static const text_register_acc_success = "Đăng ký tài khoản thành công";
-  static const text_i_need = "Tôi cần...";
-  static const text_all_tool = "Tất cả công cụ";
+  static const text_i_need = "Công cụ nổi bật";
+  static const text_all_tool = "Tất cả";
   static const text_news = "Tin tức";
   static const text_news_more = "Xem thêm tin tức";
   static const text_all = "Tất cả";
@@ -46,4 +46,15 @@ class StringText {
   static const text_report_success = "Báo cáo lỗi thành công";
   static const text_faq = "Câu hỏi thường gặp";
   static const text_next_lesson = "Bài tiếp";
+  static const text_weather="Công cụ, bài học và tin tức giúp bạn ra quyết định tài chính mỗi ngày.";
+  static const text_tool="Dưới đây là các công cụ bạn có thể sử dụng hàng ngày: ghi chép dòng tiền, quản lý tiết kiệm, tính toán khoản vay.... để giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình. Nếu cần thông tin chi tiết về một sản phẩm hoặc dịch vụ tài chính cụ thể, hãy liên hệ với cán bộ tín dụng của Quỹ TDND/ngân hàng nhé.";
+  static const text_records="Dưới đây là các sổ ghi chép dòng tiền mà bạn đã tạo, hãy cập nhật các chi tiêu và thu nhập của từng sổ nhé";
+  static const text_calculation="Dưới dây là kế hoạch tiết kiệm mà bạn đã đặt ra, hãy kiểm tra và cố gắng đạt được mục tiêu nhé";
+  static const text_budget="Dưới đây là các ngân sách mà bạn đã tạo, hãy kiểm tra lại chi tiêu và điều chỉnh ngân sách nếu cần thiết nhé.";
+  static const text_manufacturing="Dưới đây là các kế hoạch sản xuất kinh doanh mà bạn đã tạo, hãy hoàn thành chúng trước khi thực hiện dự án của bạn nhé";
+  static const text_loan_calculation="Dưới đây là các mô phỏng khoản vay mà bạn đã tạo, hãy kiểm ra hoặc tính toán lại để lựa chọn sản phẩm vay vốn phù hợp với bạn nhé";
+  static const text_loans_profile="Dưới đây là các Danh mục hồ sơ vay vốn mà bạn đang chuẩn bị, theo yêu cầu của Quỹ hoặc Ngân hàng. Khi đã có được một giấy tờ nào đó, đừng quên đánh dấu vào ô vuông trước tên của hồ sơ để dễ dàng theo dõi nhé.";
+  static const text_appointment_reminder="Tại đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai";
+  static const text_savings_calculation="Số tiền nhận được cuối kỳ chưa đủ theo kế hoạch của bạn? Hãy thử thay đổi số tiền tiết kiệm ban đầu hoặc số tháng gửi tiết kiệm và tính toán lại nhé.";
+  static const text_interest_rate="Nhập mức lãi suất tham khảo của các tổ chức tín dụng/ngân hàng mà bạn có ý định gửi tiền";
 }

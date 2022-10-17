@@ -10,6 +10,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 
 import 'package:step_bank/compoment/textfield_widget.dart';
+import 'package:step_bank/strings.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_confirm.dart';
 import '../../../constants.dart';
@@ -202,11 +203,27 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                         child: Text(
                                           "Lãi suất 1 năm",
                                           textAlign: TextAlign.left,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 16,
                                             color: Mytheme.colorTextSubTitle,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                          top:5
+                                        ),
+                                        child: Text(
+                                            StringText.text_interest_rate,
+                                          textAlign: TextAlign.justify,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily:
+                                            "OpenSans-Regular",
                                           ),
                                         ),
                                       ),
@@ -268,18 +285,19 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                               ),
                                             ],
                                           ),
+
                                           child: Padding(
                                             padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16 ),
                                             child:  Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
 
-                                                Align(
+                                                const Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     "Cuối kỳ gửi tiết kiệm, bạn nhận được:",
                                                     textAlign: TextAlign.left,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontSize: 16,
                                                       color: Mytheme.color_82869E,
                                                       fontWeight: FontWeight.w400,
@@ -326,14 +344,14 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              Expanded(
+                                                              const Expanded(
                                                                 flex: 2,
                                                                 child: Align(
                                                                   alignment: Alignment.centerLeft,
                                                                   child: Text(
                                                                     "Tiền lãi",
                                                                     textAlign: TextAlign.left,
-                                                                    style: const TextStyle(
+                                                                    style: TextStyle(
                                                                       fontSize: 16,
                                                                       color: Mytheme.color_82869E,
                                                                       fontWeight: FontWeight.w400,
@@ -369,14 +387,14 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Expanded(
+                                                              const Expanded(
                                                                 flex: 2,
                                                                 child:  Align(
                                                                   alignment: Alignment.centerLeft,
                                                                   child: Text(
                                                                     "Tiền gốc",
                                                                     textAlign: TextAlign.left,
-                                                                    style: const TextStyle(
+                                                                    style: TextStyle(
                                                                       fontSize: 16,
                                                                       color: Mytheme.color_82869E,
                                                                       fontWeight: FontWeight.w400,
@@ -404,27 +422,38 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                                                   ),
                                                                 ),
                                                               )
-
                                                             ],
                                                           ),
                                                         ],
                                                       ),
                                                     )
                                                 ),
-
-
-
                                               ],
                                             ),
                                           ),
-
                                         ),
                                       ),
-
+                                      Visibility(
+                                        visible: showResult,
+                                        child: const Padding(
+                                          padding: EdgeInsets.only(
+                                            top:20,left: 6,right: 6,bottom: 0
+                                          ),
+                                          child: Text(
+                                              StringText.text_savings_calculation,
+                                            textAlign: TextAlign.justify,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Mytheme.color_0xFF002766,
+                                              fontFamily: "OpenSans-Regular",
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -435,7 +464,8 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                 ),
                 Expanded(
                   flex: 1,
-                  child: Padding(
+                  child:
+                  Padding(
                       padding: const EdgeInsets.only(
                           top: 10, bottom: 20, left: 24, right: 24),
                       child: ElevatedButton(
@@ -447,7 +477,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                             primary: Mytheme.colorBgButtonLogin,
                             minimumSize:
                             Size(MediaQuery.of(context).size.width, 44)),
-                        child: Text(
+                        child: const Text(
                           "Tính toán",
                           style: TextStyle(
                               fontSize: 16,

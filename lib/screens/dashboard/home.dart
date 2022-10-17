@@ -221,6 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Stack(
                     children: <Widget>[
                       headerLayout(),
+
                       InkWell(
                         onTap: () {
                           Get.toNamed("/notificationScreen");
@@ -270,6 +271,33 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               )),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                            top: 50, left: 170, right: 50, bottom: 0,
+                        ),
+                        child: Text('Co-opSmart',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Mytheme.color_0xFF002766,
+                            fontFamily: "OpenSans-Regular",
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 75, left: 120, right: 65, bottom: 0,
+                        ),
+                        child: Text(StringText.text_weather,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontFamily: "OpenSans-Regular",
+                            fontWeight: FontWeight.bold,
+                            color: Mytheme.color_0xFF002766,
+                          ),
                         ),
                       ),
                       Padding(

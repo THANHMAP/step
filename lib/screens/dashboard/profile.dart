@@ -272,16 +272,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
           //   children: const <Widget>[],
           // ),
         ),
+        const Padding(
+          padding: EdgeInsets.only(
+            top:15,left: 10
+          ),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              'Các huy hiệu đạt được',
+              textAlign: TextAlign.center,
+              style:  TextStyle(
+                fontSize: 22,
+                color: Mytheme.colorBgButtonLogin,
+                fontWeight: FontWeight.w600,
+                fontFamily: "OpenSans-Semi Bold",
+              ),
+            ),
+          ),
+        ),
         Center(
-          child:SingleChildScrollView(
+          child:
+          SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child:Row(
+              child:
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   for(var i = 0; i < listMedal.length; i++)...[
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 10, bottom: 0, left: 10, right: 10),
+                          top: 40, bottom: 0, left: 10, right: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

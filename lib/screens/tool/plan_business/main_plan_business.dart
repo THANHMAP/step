@@ -146,10 +146,24 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.only(
+                top: 15, left: 15, right: 17
+            ),
+            child: Text(StringText.text_manufacturing,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 15,
+                fontFamily: "OpenSans-Regular",
+                fontWeight: FontWeight.bold,
+                color: Mytheme.color_0xFF002766,
+              ),
+            ),
+          ),
           if (_listItemToolData.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
-                  top: 20, left: 16, right: 16, bottom: 0),
+                  top: 10, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
                   for (var i = 0; i < _listItemToolData.length; i++) ...[
@@ -257,7 +271,7 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                       margin: EdgeInsets.all(10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Mytheme.colorBgButtonLogin,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Mytheme.colorBgButtonLogin)
                       ),
@@ -270,13 +284,13 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
-                              child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                              child: SvgPicture.asset("assets/svg/ic_add.svg"),
                             ),
                             Text(
                               "Lập kế hoạch kinh doanh",
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Mytheme.color_434657,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "OpenSans-Semibold",
                               ),
@@ -300,7 +314,7 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                       margin: EdgeInsets.all(10),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Mytheme.colorBgButtonLogin,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Mytheme.colorBgButtonLogin)
                       ),
@@ -313,20 +327,19 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 10),
-                              child: SvgPicture.asset("assets/svg/ic_add_blue.svg"),
+                              child: SvgPicture.asset("assets/svg/ic_add.svg"),
                             ),
                             Text(
                               "Lập kế hoạch sản xuất nông nghiệp",
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Mytheme.color_434657,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "OpenSans-Semibold",
                               ),
                             ),
                           ],
                         ),
-
                       )
                   ),
                 ),

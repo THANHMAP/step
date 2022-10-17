@@ -145,10 +145,24 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
+          const Padding(
+            padding: EdgeInsets.only(
+                top: 15, left: 15, right: 20
+            ),
+            child: Text(StringText.text_loans_profile,
+              textAlign: TextAlign.justify,
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: "OpenSans-Regular",
+                fontWeight: FontWeight.bold,
+                color: Mytheme.color_0xFF002766,
+              ),
+            ),
+          ),
           if (_listItemToolData.isNotEmpty) ...[
             Padding(
               padding: const EdgeInsets.only(
-                  top: 20, left: 16, right: 16, bottom: 0),
+                  top: 10, left: 16, right: 16, bottom: 0),
               child: Column(
                 children: [
                   for (var i = 0; i < _listItemToolData.length; i++) ...[

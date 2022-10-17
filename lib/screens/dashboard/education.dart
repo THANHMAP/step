@@ -143,7 +143,7 @@ class _EducationScreenState extends State<EducationScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Các khái niệm cơ bản",
                           style: TextStyle(
                             fontSize: 20,
@@ -153,7 +153,7 @@ class _EducationScreenState extends State<EducationScreen> {
                             // decoration: TextDecoration.underline,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         SizedBox(

@@ -105,7 +105,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                       const Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          "Mục tiêu tiết kiệm của bạn",
+                                          "Bạn tiết kiệm để làm gì",
                                           textAlign: TextAlign.left,
                                           style: const TextStyle(
                                             fontSize: 16,
@@ -242,6 +242,24 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                             ),
                                           );
                                         },
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(
+                                          top:15,bottom: 5
+                                        ),
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              'Bạn muốn tiết kiệm trong bao lâu:',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.colorTextSubTitle,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-SemiBold",
+                                            ),
+                                          ),
+                                        ),
                                       ),
 
                                       //

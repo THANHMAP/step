@@ -73,7 +73,17 @@ class _MyToolScreenState extends State<MyToolScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-
+                          const Padding(
+                            padding: EdgeInsets.only(top: 25),
+                              child: Text('Dưới đây là các công cụ mà bạn đang sử dụng',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: "OpenSans-Regular",
+                                  fontWeight: FontWeight.bold,
+                                  color: Mytheme.color_0xFF002766,
+                                ),
+                              ),
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
                             child: Column(

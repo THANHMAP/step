@@ -131,28 +131,28 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selectDefault = false;
-                                          });
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Tài liệu",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: "OpenSans-SemiBold",
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
+                                    // Expanded(
+                                    //   child: InkWell(
+                                    //     onTap: () {
+                                    //       setState(() {
+                                    //         selectDefault = false;
+                                    //       });
+                                    //     },
+                                    //     child: Align(
+                                    //       alignment: Alignment.center,
+                                    //       child: Text(
+                                    //         "Tài liệu",
+                                    //         textAlign: TextAlign.left,
+                                    //         style: TextStyle(
+                                    //           fontSize: 16,
+                                    //           color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                    //           fontWeight: FontWeight.w600,
+                                    //           fontFamily: "OpenSans-SemiBold",
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                                 Row(
@@ -166,14 +166,14 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                             color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
                                           )),
                                     ),
-                                    Expanded(
-                                      child: Align(
-                                          alignment: Alignment.center,
-                                          child: Divider(
-                                            thickness: 2,
-                                            color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                                          )),
-                                    )
+                                    // Expanded(
+                                    //   child: Align(
+                                    //       alignment: Alignment.center,
+                                    //       child: Divider(
+                                    //         thickness: 2,
+                                    //         color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                                    //       )),
+                                    // )
                                   ],
                                 ),
                                 Visibility(
