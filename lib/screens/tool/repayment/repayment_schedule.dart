@@ -150,7 +150,7 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
             padding: EdgeInsets.only(
                 top: 15,left: 17,right: 20
             ),
-            child: Text('Tại đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai',
+            child: Text(StringText.text_appointment_reminder,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 15,

@@ -146,12 +146,12 @@ class _MainFlowMoneyScreenState extends State<MainFlowMoneyScreen>
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
+          const Padding(
+            padding: EdgeInsets.only(
                 top: 25, left: 20, right: 20, bottom: 0
             ),
-            child: const Text(
-                'Dưới đây là các sổ ghi chép dòng tiền mà bạn đã tạo, hãy cập nhật các chi tiêu và thu nhập của từng sổ nhé',
+            child: Text(
+                StringText.text_records,
               textAlign: TextAlign.justify,
               style: TextStyle(
                   fontSize: 16,

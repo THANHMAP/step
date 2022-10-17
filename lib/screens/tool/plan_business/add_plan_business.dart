@@ -728,7 +728,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 180, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 175, fit: BoxFit.fill)
         ),
 
         const SizedBox(height: 10),
@@ -768,7 +768,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         const SizedBox(height: 10),
         Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 90, fit: BoxFit.fill)
+          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 85, fit: BoxFit.fill)
         ),
 
       ],

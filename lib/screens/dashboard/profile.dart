@@ -274,7 +274,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         const Padding(
           padding: EdgeInsets.only(
-            top:10,left: 20
+            top:15,left: 10
           ),
           child: Align(
             alignment: Alignment.center,
@@ -282,7 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               'Các huy hiệu đạt được',
               textAlign: TextAlign.center,
               style:  TextStyle(
-                fontSize: 16,
+                fontSize: 22,
                 color: Mytheme.colorBgButtonLogin,
                 fontWeight: FontWeight.w600,
                 fontFamily: "OpenSans-Semi Bold",
@@ -301,7 +301,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   for(var i = 0; i < listMedal.length; i++)...[
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 30, bottom: 0, left: 10, right: 10),
+                          top: 40, bottom: 0, left: 10, right: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

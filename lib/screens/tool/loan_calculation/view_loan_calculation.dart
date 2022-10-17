@@ -474,12 +474,12 @@ class _ViewCalculatorLoanToolScreenState extends State<ViewCalculatorLoanToolScr
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
-                                                Align(
+                                                const Align(
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     "Cuối kỳ gửi tiết kiệm, bạn nhận được:",
                                                     textAlign: TextAlign.left,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontSize: 16,
                                                       color: Mytheme.color_82869E,
                                                       fontWeight: FontWeight.w400,
@@ -519,14 +519,14 @@ class _ViewCalculatorLoanToolScreenState extends State<ViewCalculatorLoanToolScr
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              Expanded(
+                                                              const Expanded(
                                                                 flex: 2,
                                                                 child: Align(
                                                                   alignment: Alignment.centerLeft,
                                                                   child: Text(
                                                                     "Tiền lãi",
                                                                     textAlign: TextAlign.left,
-                                                                    style: const TextStyle(
+                                                                    style: TextStyle(
                                                                       fontSize: 16,
                                                                       color: Mytheme.color_82869E,
                                                                       fontWeight: FontWeight.w400,
@@ -558,14 +558,14 @@ class _ViewCalculatorLoanToolScreenState extends State<ViewCalculatorLoanToolScr
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Expanded(
+                                                              const Expanded(
                                                                 flex: 2,
                                                                 child: Align(
                                                                   alignment: Alignment.centerLeft,
                                                                   child: Text(
                                                                     "Tiền gốc",
                                                                     textAlign: TextAlign.left,
-                                                                    style: const TextStyle(
+                                                                    style: TextStyle(
                                                                       fontSize: 16,
                                                                       color: Mytheme.color_82869E,
                                                                       fontWeight: FontWeight.w400,

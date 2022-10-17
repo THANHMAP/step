@@ -10,6 +10,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 
 import 'package:step_bank/compoment/textfield_widget.dart';
+import 'package:step_bank/strings.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_confirm.dart';
 import '../../../constants.dart';
@@ -215,7 +216,7 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                           top:5
                                         ),
                                         child: Text(
-                                            'Nhập mức lãi suất tham khảo của các tổ chức tín dụng/ngân hàng mà bạn có ý định gửi tiền',
+                                            StringText.text_interest_rate,
                                           textAlign: TextAlign.justify,
                                           style: TextStyle(
                                             fontSize: 12,
@@ -439,14 +440,13 @@ class _CalculatorSaveMoneyScreenState extends State<CalculatorSaveMoneyScreen>
                                             top:20,left: 6,right: 6,bottom: 0
                                           ),
                                           child: Text(
-                                              'Số tiền nhận được cuối kỳ chưa đủ theo kế hoạch của bạn? Hãy thử thay đổi số tiền tiết kiệm ban đầu hoặc số tháng gửi tiết kiệm và tính toán lại nhé.',
+                                              StringText.text_savings_calculation,
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Mytheme.color_0xFF002766,
                                               fontFamily: "OpenSans-Regular",
                                               fontWeight: FontWeight.bold,
-                                              fontStyle: FontStyle.italic,
                                             ),
                                           ),
                                         ),

@@ -150,7 +150,7 @@ class _MainLoanCalculatorToolScreenState extends State<MainLoanCalculatorToolScr
             padding: EdgeInsets.only(
                 top: 15,left: 17,right: 20
             ),
-            child: Text('Dưới đây là các mô phỏng khoản vay mà bạn đã tạo, hãy kiểm ra hoặc tính toán lại để lựa chọn sản phẩm vay vốn phù hợp với bạn nhé',
+            child: Text(StringText.text_loan_calculation,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 15,

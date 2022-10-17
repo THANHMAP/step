@@ -116,12 +116,12 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                             const EdgeInsets.only(top: 0, left: 0, right: 0),
                             child: Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
+                                const Padding(
+                                  padding: EdgeInsets.only(
                                       top: 22, left: 33, right: 23, bottom: 0),
                                   child:
                                   Text(
-                                      'Dưới dây là kế hoạch tiết kiệm mà bạn đã đạt ra, hãy kiểm tra và cố gắng đạt được mục tiêu nhé',
+                                      StringText.text_calculation,
                                       style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: "OpenSans-Regular",

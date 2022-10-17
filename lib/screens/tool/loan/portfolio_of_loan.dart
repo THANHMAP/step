@@ -145,11 +145,11 @@ class _PortfolioOfLoanScreenState extends State<PortfolioOfLoanScreen> with Widg
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
+          const Padding(
+            padding: EdgeInsets.only(
                 top: 15, left: 15, right: 20
             ),
-            child: const Text('Dưới đây là các Danh mục hồ sơ vay vốn mà bạn đang chuẩn bị, theo yêu cầu của Quỹ hoặc Ngân hàng. Khi đã có được một giấy tờ nào đó, đừng quên đánh dấu vào ô vuông trước tên của hồ sơ để dễ dàng theo dõi nhé.',
+            child: Text(StringText.text_loans_profile,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 14,

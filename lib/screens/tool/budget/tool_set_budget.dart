@@ -113,7 +113,7 @@ class _ToolBudgetScreenState extends State<ToolBudgetScreen> with WidgetsBinding
                             padding: EdgeInsets.only(
                                 top: 25, left: 33, right: 35
                             ),
-                              child: Text('Dưới đây là các ngân sách mà bạn đã tạo, hãy kiểm tra lại chi tiêu và điều chỉnh ngân sách nếu cần thiết nhé.',
+                              child: Text(StringText.text_budget,
                                 textAlign: TextAlign.justify,
                                 style: TextStyle(
                                   fontSize: 15,

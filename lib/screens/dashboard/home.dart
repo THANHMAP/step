@@ -273,11 +273,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               )),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
+                      const Padding(
+                        padding: EdgeInsets.only(
                             top: 50, left: 170, right: 50, bottom: 0,
                         ),
-                        child: const Text('Co-opSmart',
+                        child: Text('Co-opSmart',
                           style: TextStyle(
                             fontSize: 17,
                             color: Mytheme.color_0xFF002766,
@@ -286,11 +286,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
+                      const Padding(
+                        padding: EdgeInsets.only(
                           top: 75, left: 120, right: 65, bottom: 0,
                         ),
-                        child: const Text('Công cụ, bài học và tin tức giúp bạn ra quyết định tài chính mỗi ngày.',
+                        child: Text(StringText.text_weather,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             fontSize: 13,

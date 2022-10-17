@@ -83,7 +83,7 @@ class _ToolScreenState extends State<ToolScreen> {
                                   ),
                                   child: Align(
                                     alignment: Alignment.center,
-                                    child: Text('Dưới đây là các công cụ bạn có thể sử dụng hàng ngày: ghi chép dòng tiền, quản lý tiết kiệm, tính toán khoản vay.... để giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình. Nếu cần thông tin chi tiết về một sản phẩm hoặc dịch vụ tài chính cụ thể, hãy liên hệ với cán bộ tín dụng của Quỹ TDND/ngân hàng nhé.',
+                                    child: Text(StringText.text_tool,
                                       textAlign: TextAlign.justify,
                                       style: TextStyle(
                                       fontSize: 15,
@@ -136,7 +136,7 @@ class _ToolScreenState extends State<ToolScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                          'Lập kế hoạch tài chính',
+                        'Lập kế hoạch tài chính',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           fontSize: 18,
@@ -148,7 +148,7 @@ class _ToolScreenState extends State<ToolScreen> {
                     ),
                   ),
                   ),
-                  for (var i = 0; i < _toolList.length; i++) ...[
+                  for (var i = 0; i < (_toolList.length - 3); i++) ...[
                     const SizedBox(height: 15),
                     CardEducatonWidget(
                       title: _toolList[i].name,
@@ -217,7 +217,7 @@ class _ToolScreenState extends State<ToolScreen> {
           child: Container(
             width: 216,
             child: Column(
-              children: [
+              children: const [
                 Text(
                   "Các khái niệm kinh doanh cơ bản",
                   style: TextStyle(

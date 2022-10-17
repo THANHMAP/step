@@ -148,9 +148,9 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
         children: [
           const Padding(
             padding: EdgeInsets.only(
-                top: 15, left: 15, right: 22
+                top: 15, left: 15, right: 17
             ),
-            child: Text('Dưới đây là các kế hoạch sản xuất kinh doanh mà bạn đã tạo, hãy hoàn thành chúng trước khi thực hiện dự án của bạn nhé',
+            child: Text(StringText.text_manufacturing,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 15,
