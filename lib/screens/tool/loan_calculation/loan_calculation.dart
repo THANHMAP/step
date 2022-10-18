@@ -1064,13 +1064,13 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                       if(displayCalculation) {
                                                         setState(() {
                                                           displayCalculation = false;
-                                                          _kyHanVayController.clear();
-                                                          _moneyLoanRootController.clear();
-                                                          _nameLoanController.clear();
-                                                          _numberLaiSuatController.clear();
-                                                          _numberMonthTienLaiController.clear();
-                                                          _tyLeLaiXuatController.clear();
-                                                          _numberMonthTienGocController.clear();
+                                                          // _kyHanVayController.clear();
+                                                          // _moneyLoanRootController.clear();
+                                                          // _nameLoanController.clear();
+                                                          // _numberLaiSuatController.clear();
+                                                          // _numberMonthTienLaiController.clear();
+                                                          // _tyLeLaiXuatController.clear();
+                                                          // _numberMonthTienGocController.clear();
                                                         });
                                                       } else {
                                                       }
@@ -1162,13 +1162,13 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                                                           if(displayCalculation) {
                                                             setState(() {
                                                               displayCalculation = false;
-                                                              _kyHanVayController.clear();
-                                                              _moneyLoanRootController.clear();
-                                                              _nameLoanController.clear();
-                                                              _numberLaiSuatController.clear();
-                                                              _numberMonthTienLaiController.clear();
-                                                              _tyLeLaiXuatController.clear();
-                                                              _numberMonthTienGocController.clear();
+                                                              // _kyHanVayController.clear();
+                                                              // _moneyLoanRootController.clear();
+                                                              // _nameLoanController.clear();
+                                                              // _numberLaiSuatController.clear();
+                                                              // _numberMonthTienLaiController.clear();
+                                                              // _tyLeLaiXuatController.clear();
+                                                              // _numberMonthTienGocController.clear();
                                                             });
                                                           } else {
                                                           }

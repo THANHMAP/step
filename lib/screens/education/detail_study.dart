@@ -136,22 +136,22 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
                             //     ],
                             //   ),
                             // ),
-                            for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
-                                child: CardContentTopicWidget(
-                                  title: _studyData.exerciseData![i].name,
-                                  type: 1,
-                                  hideImageRight: false,
-                                  onClicked: () async {
-                                    downloadFile(
-                                        "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
-                                        _studyData.exerciseData![i].name.toString(),
-                                        "mp4");
-                                  },
-                                ),
-                              ),
-                            ]
+                            // for (var i = 0; i < _studyData.exerciseData!.length; i++) ...[
+                            //   Padding(
+                            //     padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 12),
+                            //     child: CardContentTopicWidget(
+                            //       title: _studyData.exerciseData![i].name,
+                            //       type: 1,
+                            //       hideImageRight: false,
+                            //       onClicked: () async {
+                            //         downloadFile(
+                            //             "https://firebasestorage.googleapis.com/v0/b/angel-study-circle.appspot.com/o/big_buck_bunny_720p_5mb.mp4?alt=media&token=64180039-5e62-4aa5-8e18-b1bb7b33bcc3",
+                            //             _studyData.exerciseData![i].name.toString(),
+                            //             "mp4");
+                            //       },
+                            //     ),
+                            //   ),
+                            // ]
                           ],
                         ),
                       ),
