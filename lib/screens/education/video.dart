@@ -152,21 +152,21 @@ class _VideoScreenState extends State<VideoScreen> {
                     margin: const EdgeInsets.only(left: 20.0),
                     child: Column(
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Tài liệu",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Mytheme.colorTextSubTitle,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "OpenSans-Regular",
-                            ),
-                          ),
-                        ),
-                        Divider(
-                            color: Colors.black
-                        ),
+                        // Align(
+                        //   alignment: Alignment.centerLeft,
+                        //   child: Text(
+                        //     "Tài liệu",
+                        //     style: const TextStyle(
+                        //       fontSize: 16,
+                        //       color: Mytheme.colorTextSubTitle,
+                        //       fontWeight: FontWeight.w400,
+                        //       fontFamily: "OpenSans-Regular",
+                        //     ),
+                        //   ),
+                        // ),
+                        // Divider(
+                        //     color: Colors.black
+                        // ),
                       ],
                     ),
                   ),

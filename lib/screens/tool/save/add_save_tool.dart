@@ -250,7 +250,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                              'Bạn muốn tiết kiệm trong bao lâu:',
+                                              'Bạn muốn tiết kiệm trong bao lâu?',
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                               fontSize: 16,
