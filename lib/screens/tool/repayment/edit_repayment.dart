@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
@@ -58,6 +56,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
     "12 tháng"
   ];
   int currentRepaymentCycleIndex = 0;
+  int repaymentNumber = 0;
   String dateFirst = "";
   final minDate = DateTime.now();
   String userId = Get.arguments.toString();
@@ -65,6 +64,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   String currentDate = "";
   String dayRepaymentDate = "";
   String nextRepaymentDate = "";
+  bool hideButton = true;
 
   @override
   void initState() {
@@ -718,89 +718,92 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 20, left: 24, right: 24),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            // side: const BorderSide(color: Colors.red)
-                          ),
-                          primary: Mytheme.colorBgButtonLogin,
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width, 44)),
-                      child: Text(
-                        !showEdit ? "Sửa" : "Lưu",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () {
-                        if (!showEdit) {
-                          if(checkDateFirst()) {
-                            return;
-                          }
-                          setState(() {
-                            showEdit = true;
-                          });
-                        } else {
-                          if (_nameRepaymentController.text.isEmpty) {
-                            Utils.showError("Bạn chưa nhập tên", context);
+              Visibility(
+                visible: !hideButton,
+                child: Expanded(
+                  flex: 1,
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, bottom: 20, left: 24, right: 24),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              // side: const BorderSide(color: Colors.red)
+                            ),
+                            primary: Mytheme.colorBgButtonLogin,
+                            minimumSize:
+                                Size(MediaQuery.of(context).size.width, 44)),
+                        child: Text(
+                          !showEdit ? "Sửa" : "Lưu",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "OpenSans-Regular",
+                              fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          if (!showEdit) {
+                            // if(checkDateFirst()) {
+                            //   return;
+                            // }
+                            setState(() {
+                              showEdit = true;
+                            });
                           } else {
-                            UpdateDataTool updateDataTool = UpdateDataTool();
-                            updateDataTool.title =
-                                _nameRepaymentController.text;
-                            updateDataTool.userToolId = int.parse(userId);
-                            updateDataTool.type = 1;
-                            List<UpdateDataToolUsers>? listData = [];
-                            //so tien can thanh toan moi kì
-                            listData.add(UpdateDataToolUsers(
-                              key: "payment_amount",
-                              value: _moneyPaymentController.text
-                                  .replaceAll(',', ''),
-                              type: 1,
-                            ));
+                            if (_nameRepaymentController.text.isEmpty) {
+                              Utils.showError("Bạn chưa nhập tên", context);
+                            } else {
+                              UpdateDataTool updateDataTool = UpdateDataTool();
+                              updateDataTool.title =
+                                  _nameRepaymentController.text;
+                              updateDataTool.userToolId = int.parse(userId);
+                              updateDataTool.type = 1;
+                              List<UpdateDataToolUsers>? listData = [];
+                              //so tien can thanh toan moi kì
+                              listData.add(UpdateDataToolUsers(
+                                key: "payment_amount",
+                                value: _moneyPaymentController.text
+                                    .replaceAll(',', ''),
+                                type: 1,
+                              ));
 
-                            //Chu kì trả nợ
-                            listData.add(UpdateDataToolUsers(
-                              key: "repayment_cycle",
-                              value: _listRepaymentCycle[
-                                  currentRepaymentCycleIndex],
-                              type: currentRepaymentCycleIndex,
-                            ));
+                              //Chu kì trả nợ
+                              listData.add(UpdateDataToolUsers(
+                                key: "repayment_cycle",
+                                value: _listRepaymentCycle[
+                                    currentRepaymentCycleIndex],
+                                type: currentRepaymentCycleIndex,
+                              ));
 
-                            //số lần trả nợ
-                            listData.add(UpdateDataToolUsers(
-                              key: "repayment_number",
-                              value: _numberPaymentController.text,
-                              type: 3,
-                            ));
+                              //số lần trả nợ
+                              listData.add(UpdateDataToolUsers(
+                                key: "repayment_number",
+                                value: _numberPaymentController.text,
+                                type: 3,
+                              ));
 
-                            //ngày trả nợ
-                            listData.add(UpdateDataToolUsers(
-                              key: "repayment_day",
-                              value: dateFirst,
-                              type: 4,
-                            ));
+                              //ngày trả nợ
+                              listData.add(UpdateDataToolUsers(
+                                key: "repayment_day",
+                                value: dateFirst,
+                                type: 4,
+                              ));
 
-                            //ngày nhận thông báo trả nợ
-                            listData.add(UpdateDataToolUsers(
-                              key: "repayment_number_day",
-                              value: _numberDayController.text,
-                              type: 5,
-                            ));
+                              //ngày nhận thông báo trả nợ
+                              listData.add(UpdateDataToolUsers(
+                                key: "repayment_number_day",
+                                value: _numberDayController.text,
+                                type: 5,
+                              ));
 
-                            updateDataTool.dataUsers = listData;
-                            print(jsonEncode(updateDataTool));
-                            saveItemTool(jsonEncode(updateDataTool));
+                              updateDataTool.dataUsers = listData;
+                              print(jsonEncode(updateDataTool));
+                              saveItemTool(jsonEncode(updateDataTool));
+                            }
                           }
-                        }
-                      },
-                    )),
+                        },
+                      )),
+                ),
               ),
             ],
           ),
@@ -1003,7 +1006,8 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
 
   bool checkDateFirst() {
     var stringDateStart = dateFirst.split("-");
-    var stringDateEnd = DateFormat("dd-MM-yyyy").format(DateTime.now()).split("-");
+    var stringDateEnd =
+        DateFormat("dd-MM-yyyy").format(DateTime.now()).split("-");
     final dayStart = DateTime(int.parse(stringDateStart[2]),
         int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
     final dayEnd = DateTime(int.parse(stringDateEnd[2]),
@@ -1013,6 +1017,24 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       return false;
     }
     return true;
+  }
+
+  String nextDay() {
+    var now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    var stringDateFirstTemp = dateFirst.split("-");
+    var dayTemp = int.parse(stringDateFirstTemp[0]);
+    var monthTemp = int.parse(stringDateFirstTemp[1]);
+    var yearTemp = int.parse(stringDateFirstTemp[2]);
+    var date = DateTime(yearTemp, monthTemp, dayTemp);
+
+    for (var i = 0; i < repaymentNumber; i++) {
+      var newDate = DateTime(date.year, date.month + currentRepaymentCycleIndex + 1, date.day);
+      date = newDate;
+      if(now.compareTo(newDate) <= 0){
+        return DateFormat("dd-MM-yyyy").format(newDate);
+      }
+    }
+    return "";
   }
 
   int daysBetween(DateTime from, DateTime to) {
@@ -1080,7 +1102,6 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       pr.hide();
       var data = DetailTool.fromJson(value);
       if (data.statusCode == 200) {
-        loadNextRepaymentDateTool(id);
         setState(() {
           dataUsers = data.data!.dataUsers!;
           _nameRepaymentController.text = data.data!.name!;
@@ -1092,6 +1113,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
               currentRepaymentCycleIndex = dataUsers[i].type!;
             } else if (dataUsers[i].key == "repayment_number") {
               _numberPaymentController.text = dataUsers[i].value.toString();
+              repaymentNumber = int.parse(dataUsers[i].value.toString());
             } else if (dataUsers[i].key == "repayment_day") {
               dateFirst = dataUsers[i].value.toString();
               currentDate = dateFirst;
@@ -1100,6 +1122,8 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
               _numberDayController.text = dataUsers[i].value.toString();
             }
           }
+          hideButton = checkDateFirst();
+          nextRepaymentDate = nextDay();
         });
       }
     }, onError: (error) async {

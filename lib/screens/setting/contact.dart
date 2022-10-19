@@ -696,7 +696,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       BorderRadius.all(Radius.circular(25.0)))),
                               onChanged: (value) {
                                 setState(() {
-                                  _tempListCity = _buildSearchCityList(value);
+                                  onSearchCityTextChanged(value);
                                 });
                               },
                             ),
@@ -1055,6 +1055,23 @@ class _ContactScreenState extends State<ContactScreen> {
           print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
         }
         _tempProvidersData.add(info);
+      }
+    }
+    setState(() {});
+  }
+
+  onSearchCityTextChanged(String text) async {
+    _tempListCity.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in cityData) {
+      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        if (kDebugMode) {
+          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+        }
+        _tempListCity.add(info);
       }
     }
     setState(() {});

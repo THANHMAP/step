@@ -1361,8 +1361,8 @@ class _CalculatorLoanToolScreenState extends State<CalculatorLoanToolScreen> wit
                         ),
                       ),
                       Text(
-                        // dataCalculator.noGocConLai ?? "0",
-                        dataCalculator.tongTienPhaiTra ?? "0",
+                        dataCalculator.noGocConLai ?? "0",
+                        // dataCalculator.tongTienPhaiTra ?? "0",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 16,

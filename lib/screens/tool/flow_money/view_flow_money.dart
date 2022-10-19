@@ -1036,6 +1036,12 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                             return Center(
                                               child: Text(
                                                 !selectItem ? cashOut[index]: cashIn[index],
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Mytheme.colorBgButtonLogin,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontFamily: "OpenSans-Semibold",
+                                                ),
                                               ),
                                             );
                                           },
@@ -1088,6 +1094,12 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                               return Center(
                                                 child: Text(
                                                   !selectItem ? cashOut[index]: cashIn[index],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Mytheme.colorBgButtonLogin,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: "OpenSans-Semibold",
+                                                  ),
                                                 ),
                                               );
                                             },

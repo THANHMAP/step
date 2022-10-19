@@ -321,10 +321,10 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 12, left: 16, bottom: 18, right: 0),
+                                                  top: 12, left: 5, bottom: 18, right: 0),
                                               child: Text(
                                                 listItemTienVao[i].name ?? "",
                                                 textAlign: TextAlign.start,
@@ -338,7 +338,7 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Padding(
                                               padding: EdgeInsets.only(
                                                   top: 12, left: 16, bottom: 18, right: 10),
@@ -484,10 +484,10 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 12, left: 16, bottom: 18, right: 0),
+                                                  top: 12, left: 5, bottom: 18, right: 0),
                                               child: Text(
                                                 listItemTienRa[i].name ?? "",
                                                 textAlign: TextAlign.start,
@@ -501,10 +501,10 @@ class _DetailReportFlowMoneyScreenState extends State<DetailReportFlowMoneyScree
                                             ),
                                           ),
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Padding(
                                               padding: EdgeInsets.only(
-                                                  top: 12, left: 16, bottom: 18, right: 10),
+                                                  top: 12, left: 5, bottom: 18, right: 10),
                                               child: Text(
                                                 formNum(listItemTienRa[i].total ?? ""),
                                                 textAlign: TextAlign.right,
