@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:diacritic/diacritic.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -1166,7 +1167,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         Radius.circular(25.0)))),
                             onChanged: (value) {
                               setState(() {
-                                _tempListCity = _buildSearchCityList(value);
+                                onSearchCityTextChanged(value);
                               });
                             },
                           ),
@@ -1275,8 +1276,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         Radius.circular(25.0)))),
                             onChanged: (value) {
                               setState(() {
-                                _tempProvidersData =
-                                    _buildSearchProviderList(value);
+                                onSearchProviderTextChanged(value);
                               });
                             },
                           ),
@@ -1678,28 +1678,38 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  List<CityData> _buildSearchCityList(String userSearchTerm) {
-    List<CityData> _searchList = [];
-
-    for (int i = 0; i < cityData.length; i++) {
-      String name = cityData[i].name.toString();
-      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
-        _searchList.add(cityData[i]);
+  onSearchCityTextChanged(String text) async {
+    _tempListCity.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in cityData) {
+      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        if (kDebugMode) {
+          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+        }
+        _tempListCity.add(info);
       }
     }
-    return _searchList;
+    setState(() {});
   }
 
-  List<Provinces> _buildSearchProviderList(String userSearchTerm) {
-    List<Provinces> _searchList = [];
-
-    for (int i = 0; i < _providersData.length; i++) {
-      String name = _providersData[i].name.toString();
-      if (name.toLowerCase().contains(userSearchTerm.toLowerCase())) {
-        _searchList.add(_providersData[i]);
+  onSearchProviderTextChanged(String text) async {
+    _tempProvidersData.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    for (var info in _providersData) {
+      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+        if (kDebugMode) {
+          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+        }
+        _tempProvidersData.add(info);
       }
     }
-    return _searchList;
+    setState(() {});
   }
 
   String _nameCity(int cityId) {
