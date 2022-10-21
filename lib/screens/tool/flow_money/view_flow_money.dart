@@ -996,7 +996,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                           ),
                           const SizedBox(height: 10),
                           Container(
-                            height: 55,
+                            height: 75,
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               color: Mytheme.colorTextDivider,
