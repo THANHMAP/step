@@ -121,7 +121,10 @@ class _VideoScreenState extends State<VideoScreen> {
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () {
+              Utils.portraitModeOnly();
+              Navigator.of(context).pop();
+            },
           ),
         ),
         body: Column(

@@ -64,9 +64,9 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Why is my app authenticating using face id?</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs location access when opened to use the app&apos;s weather display</string>
+	<string>This app needs location access when opened to use the app's weather display</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs location access when opened to use the app&apos;s weather display</string>
+	<string>This app needs location access when opened to use the app's weather display</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need microphone access for uploading videos or bug</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -82,16 +82,16 @@
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
