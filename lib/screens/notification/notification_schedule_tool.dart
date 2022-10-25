@@ -373,6 +373,7 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
                   numberDay = dataUsers[i].value.toString();
                 }
               }
+              nextRepaymentDate = nextDay();
             });
           }
         }, onError: (error) async {
@@ -381,24 +382,22 @@ class _NotificationRepaymentScreenState extends State<NotificationRepaymentScree
     });
   }
 
-  Future<void> loadNextRepaymentDateTool(String id) async {
-    // await pr.show();
-    var param = jsonEncode(<String, String>{
-      'user_tool_id': id,
-    });
-    APIManager.postAPICallNeedToken(RemoteServices.nextRepaymentDateToolURL, param)
-        .then((value) async {
-      pr.hide();
-      var data = NextRepaymentDate.fromJson(value);
-      if (data.statusCode == 200 && data.data != null) {
-        setState(() {
-          nextRepaymentDate = data.data?.nextRepaymentDate ?? "";
-        });
+  String nextDay() {
+    var now = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    var stringDateFirstTemp = dateFirst.split("-");
+    var dayTemp = int.parse(stringDateFirstTemp[0]);
+    var monthTemp = int.parse(stringDateFirstTemp[1]);
+    var yearTemp = int.parse(stringDateFirstTemp[2]);
+    var date = DateTime(yearTemp, monthTemp, dayTemp);
+
+    for (var i = 0; i < int.parse(repaymentNumber); i++) {
+      var newDate = DateTime(date.year, date.month + currentRepaymentCycleIndex + 1, date.day);
+      date = newDate;
+      if(now.compareTo(newDate) <= 0){
+        return DateFormat("dd-MM-yyyy").format(newDate);
       }
-    }, onError: (error) async {
-      pr.hide();
-      Utils.showError(error.toString(), context);
-    });
+    }
+    return "";
   }
 
   bool showFirst() {
