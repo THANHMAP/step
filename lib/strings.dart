@@ -54,7 +54,7 @@ class StringText {
   static const text_manufacturing="Dưới đây là các kế hoạch sản xuất kinh doanh mà bạn đã tạo, hãy hoàn thành chúng trước khi thực hiện dự án của bạn nhé";
   static const text_loan_calculation="Dưới đây là các mô phỏng khoản vay mà bạn đã tạo, hãy kiểm ra hoặc tính toán lại để lựa chọn sản phẩm vay vốn phù hợp với bạn nhé";
   static const text_loans_profile="Dưới đây là các Danh mục hồ sơ vay vốn mà bạn đang chuẩn bị, theo yêu cầu của Quỹ hoặc Ngân hàng. Khi đã có được một giấy tờ nào đó, đừng quên đánh dấu vào ô vuông trước tên của hồ sơ để dễ dàng theo dõi nhé.";
-  static const text_appointment_reminder="Tại đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai";
+  static const text_appointment_reminder="Dưới đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai";
   static const text_savings_calculation="Số tiền nhận được cuối kỳ chưa đủ theo kế hoạch của bạn? Hãy thử thay đổi số tiền tiết kiệm ban đầu hoặc số tháng gửi tiết kiệm và tính toán lại nhé.";
   static const text_interest_rate="Nhập mức lãi suất tham khảo của các tổ chức tín dụng/ngân hàng mà bạn có ý định gửi tiền";
 }

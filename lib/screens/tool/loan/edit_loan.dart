@@ -388,7 +388,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                       "assets/svg/ic_add_blue.svg"),
                                                 ),
                                                 Text(
-                                                  "Thêm danh mục",
+                                                  "Thêm hồ sơ",
                                                   style: TextStyle(
                                                       fontSize:
                                                       16,
@@ -560,7 +560,7 @@ class _EditLoanScreenState extends State<EditLoanScreen>
                                                       "assets/svg/ic_add_blue.svg"),
                                                 ),
                                                 Text(
-                                                  "Thêm danh mục",
+                                                  "Thêm hồ sơ",
                                                   style: TextStyle(
                                                       fontSize:
                                                       16,
