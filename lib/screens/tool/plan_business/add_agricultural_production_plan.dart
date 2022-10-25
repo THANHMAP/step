@@ -13,6 +13,7 @@ import 'package:step_bank/compoment/textfield_widget.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_confirm.dart';
 import '../../../compoment/dialog_success.dart';
+import '../../../compoment/text_widget.dart';
 import '../../../constants.dart';
 import '../../../models/tool/data_sample.dart';
 import '../../../models/tool/item_tool.dart';
@@ -453,9 +454,13 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _whoAreYouController),
         ),
         const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.topLeft,
-          child: SvgPicture.asset("assets/svg/diem_manh.svg", height: 80, fit: BoxFit.fill)
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: TextWidget(
+            text0: " - Điểm mạnh, kinh nghiệm và điểm lợi thế của bạn",
+            text1: " - Sản xuất theo định hướng thị trường hay theo kinh nghiệm và nguồn lực sẵn có?",
+            text2: " - Bạn sẽ sản xuất cho tiêu dùng của gia đình hay để bán sản phẩm ra thị trường?",
+          ),
         ),
         const SizedBox(height: 10),
         const Align(
@@ -491,9 +496,14 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _trongCayNuoiConGiController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nuoi_con_gi.svg", height: 70, fit: BoxFit.fill)
+          child: TextWidget4(
+            text0: "Sản phẩm dự kiến sản xuất: ",
+            text1: "  - Diện tích trồng trọt?",
+            text2: "  - Quy mô chăn nuôi?",
+            text3: "  - Sản lượng hiện tại, sản lượng dự kiến là bao nhiêu?",
+          ),
         ),
       ],
     );
@@ -535,9 +545,14 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _nhaCungCapDichVuController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nhung_nha_cung_cap.svg", height: 120, fit: BoxFit.fill)
+          child: TextWidget4(
+            text0: " - Công ty/người sản xuất tại địa phương/đại lý vật tư nông nghiệp?",
+            text1: " - Mua nguyên vật liệu như thế nào: đến cửa hàng? Giao hàng tại nhà?",
+            text2: " - Mua giống cây trồng/vật nuôi như thế nào?",
+            text3: " - Mua thức ăn, thuốc chữa bệnh, phân bón,… ở đâu và như thế nào?",
+          ),
         ),
         const SizedBox(height: 10),
         const Align(
@@ -573,9 +588,22 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _nguonNhanCongController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/nguon_nhan_cong.svg", height: 35, fit: BoxFit.fill)
+          child: Padding(
+            padding: EdgeInsets.only(
+                top:8),
+            child: Text(
+              "Bạn sẽ sử dụng nguồn nhân công trong gia đình hay sẽ thuê nhân công nhân bên ngoài",
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Mytheme.color_82869E,
+                fontWeight: FontWeight.w400,
+                fontFamily: "OpenSans-Regular",
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -617,9 +645,12 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _banChoAiController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_cho_ai_va_di_dau.svg", height: 55, fit: BoxFit.fill)
+          child: TextWidget5(
+            text0: " - Bán tại nhà? Mang ra chợ?",
+            text1: " - Bán cho người thu gom/lái buôn/công ty/người tiêu dùng cuối cùng?",
+          ),
         ),
         const Align(
           alignment: Alignment.centerLeft,
@@ -654,9 +685,13 @@ class _AddAgriculturalProductionPlanToolScreenState
               textController: _banNhuTheNaoController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/ban_hang_nhu_the_nao.svg", height: 60, fit: BoxFit.fill)
+          child: TextWidget(
+            text0: " - Bạn bán một phần hay toàn bộ sản lượng?",
+            text1: " - Ai là người quyết định giá bán? ",
+            text2: " - Thời điểm bán hàng tốt nhất?",
+          ),
         ),
       ],
     );

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
+import 'package:step_bank/compoment/text_widget.dart';
 
 import 'package:step_bank/compoment/textfield_widget.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
@@ -140,7 +141,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-
                                             Visibility(
                                               visible: indexPlan == 0 ? true : false,
                                               child:  layouIndex1(),
@@ -430,7 +430,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
               textAlign: TextAlign.left,
               style: const TextStyle(
-                fontSize: 13,
+                fontSize: 12,
                 color: Mytheme.color_82869E,
                 fontWeight: FontWeight.w400,
                 fontFamily: "OpenSans-Regular",
@@ -474,10 +474,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _idealPlanBusinessController),
         ),
         const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/svg_hint_text_plan.svg", height: 120, fit: BoxFit.fill)
-        ),
+         const RichTextWidget(
+              text0: "- Tên ",
+              text1: "- ngắn gọn và dễ nhớ",
+              text2: "- Sứ mệnh ",
+              text3: "- 1 hoặc 2 câu ngắn trả lời về sản phẩm, cách thức kinh doanh, bán hàng cho ai và ở đâu",
+              text4: "- Tầm nhìn ",
+              text5: "- điều mà hoạt động kinh doanh của bạn muốn đạt được",
+              text6: "- Giá trị ",
+              text7: "- những điều quan trọng với hoạt động kinh doanh của bạn, điều mà bạn muốn mọi người nhớ",
+            ),
 
         const SizedBox(height: 10),
         const Align(
@@ -554,9 +560,15 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _khachHangCuaBanController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/khach_hang_cua_ban_la_ai_hit.svg", height: 100, fit: BoxFit.fill)
+          child: TextWidget1(
+            text0: "Miêu tả về khách hàng của bạn:",
+            text1: "  - Họ là ai ( lứa tuổi, thu nhập...)",
+            text2: "  - Thói quen tiêu dùng của họ?",
+            text3: "  - Họ sống ở đâu? Làm việc chỗ nào? Họ có thể tiếp cận các sản phẩm/dịch vụ như thế này ở đâu?",
+            text4: "  - Bao giờ họ sẽ mua/sử dụng các sản phẩm/dịch vụ",
+          ),
         ),
 
         const SizedBox(height: 10),
@@ -595,9 +607,17 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
         ),
 
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/doi_thu_canh_tranh.svg", height: 110, fit: BoxFit.fill)
+          child: TextWidget3(
+            text0: "Phân tích các đối thủ cạnh tranh:",
+            text1: "  - Họ là ai?",
+            text2: "  - Họ cung cấp những gì?",
+            text3: "  - Họ bán ở mức giá nào?",
+            text4: "  - Các điểm mạnh và điểm yếu của họ",
+            text5: "  - Họ nổi tiếng về điều gì?",
+            text6: "  - Bạn muốn trở nên giống ai nhất?",
+          ),
         ),
 
         const SizedBox(height: 10),
@@ -635,15 +655,26 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _theManhCanhTranhController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/the_manh_canh_tranh.svg", height: 50, fit: BoxFit.fill)
+          child: Padding(
+            padding: EdgeInsets.only(
+                top:8),
+            child: Text(
+              "Bằng cách nào bạn có thể trở nên khác biệt so với các đối thủ cạnh tranh: nên là một giải pháp bền vững mà người khác khó có thể học theo",
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Mytheme.color_82869E,
+                fontWeight: FontWeight.w400,
+                fontFamily: "OpenSans-Regular",
+              ),
+            ),
+          ),
         ),
-
       ],
     );
   }
-
   layouIndex3() {
     return Column(
       children: [
@@ -681,9 +712,17 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _cachTiepThiSanPhamController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nhiem_vu.svg", height: 190, fit: BoxFit.fill)
+          child: TextWidget3(
+            text0: "Cách mà bạn định tiếp thị sản phẩm và dịch vụ:",
+            text1: "   - Cung cấp các sản phẩm/dịch vụ chất lượng tốt như thế nào?",
+            text2: "   - Các dịch vụ hậu mãi được thực hiện ra sao?",
+            text3: "   - Mức giá bán sản phẩm/dịch vụ của bạn?",
+            text4: "   - Sản phẩm và dịch vụ có được cung cấp vào thời gian và địa điểm phù hợp không?",
+            text5: "   - Khách hàng tiềm năng biết đến bạn qua các nguồn/kênh nào?",
+            text6: "   - Bạn dự định trao đổi với khách hàng như thế nào? Bạn sẽ nói gì với họ?",
+          ),
         ),
       ],
     );
@@ -726,9 +765,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _lietKeNhiemVuController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/quan_ly_chung.svg", height: 175, fit: BoxFit.fill)
+          child: TextWidget2(
+            text0: " - Quản lý chung: lập kế hoạch chung, điều phối các hoạt động và phân tích hiệu quả",
+            text1: " - Hành chính: các nhiệm vụ liên quan đến tài chính (VD: kế toán)",
+            text2: " - Marketing: triển khai các kế hoạch tiếp thị",
+            text3: " - Bán hàng và dịch vụ hậu mãi: các công việc cần thực hiện để tăng thu nhập",
+            text4: " - Sản xuất và quản lý chất lượng: giám sát việc sản xuất, quản lý chất lượng và phân phối sản phẩm",
+            text5: " - Nghiên cứu và phát triển: lên ý tưởng, nghiên cứu và tạo ra các sản phẩm dịch vụ mới",
+          ),
         ),
 
         const SizedBox(height: 10),
@@ -766,9 +812,13 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               textController: _lietKeNguonLucController),
         ),
         const SizedBox(height: 10),
-        Align(
+        const Align(
           alignment: Alignment.centerLeft,
-          child: SvgPicture.asset("assets/svg/liet_ke_nguon_luc.svg", height: 85, fit: BoxFit.fill)
+          child: TextWidget(
+            text0: " - Nguồn thông tin: các văn bản liên quan đến triển khai kinh doanh",
+            text1: " - Nguồn nhân lực: người thực hiện các công việc",
+            text2: " - Nguồn nguyên liệu vật liệu: trang thiết bị, nguyên vật liệu cần thiết để sản xuất và bán các sản phẩm, dịch vụ",
+          ),
         ),
 
       ],
