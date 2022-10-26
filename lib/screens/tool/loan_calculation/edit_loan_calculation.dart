@@ -1267,7 +1267,8 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                         ),
                       ),
                       Text(
-                        dataCalculator.noGocConLai ?? "0",
+                        dataCalculator.tongTienPhaiTra ?? "0",
+                        // dataCalculator.noGocConLai ?? "0",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 16,

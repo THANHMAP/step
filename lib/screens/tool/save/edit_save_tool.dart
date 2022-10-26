@@ -507,23 +507,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
 
                                               InkWell(
                                                 onTap: () {
-                                                  var stringDateStart = dateFirst.split("-");
-                                                  var stringDateEnd = dateEnd.split("-");
-                                                  final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
-                                                  final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
-                                                  final differenceDay = daysBetween(dayStart, dayEnd);
-                                                  if(differenceDay <= 0) {
-                                                    Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
-                                                    return;
-                                                  }
-                                                  var calculatorWeek = int.parse(_numberWeekController.text)*7;
-                                                  var solantietkiem = (differenceDay/calculatorWeek).toInt();
-                                                  var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
-                                                  var result = (soTienCanTietKiem/solantietkiem).round();
-                                                  // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
-                                                  setState(() {
-                                                    moneySave = result.round();
-                                                  });
+                                                  calculatorSaveMoney();
                                                 },
                                                 child: Container(
                                                     margin: EdgeInsets.all(10),
@@ -656,6 +640,25 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
     );
   }
 
+  calculatorSaveMoney() {
+    var stringDateStart = dateFirst.split("-");
+    var stringDateEnd = dateEnd.split("-");
+    final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+    final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+    final differenceDay = daysBetween(dayStart, dayEnd);
+    if(differenceDay <= 0) {
+      Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+      return;
+    }
+    var calculatorWeek = int.parse(_numberWeekController.text)*7;
+    var solantietkiem = (differenceDay/calculatorWeek)..round();
+    var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
+    var result = (soTienCanTietKiem/solantietkiem).round();
+    // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+    setState(() {
+      moneySave = result.round();
+    });
+  }
 
   repaymentCycle() {
     return Padding(
@@ -890,6 +893,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                   dateEnd = dataUsers[i].value.toString();
                 }
               }
+              calculatorSaveMoney();
             });
           }
         }, onError: (error) async {
