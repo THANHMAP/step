@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 import 'package:step_bank/models/position_leader_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../compoment/item_leader_board.dart';
 import '../../compoment/item_leader_position_board.dart';
 import '../../models/city_model.dart';
@@ -43,6 +44,7 @@ class _ContactScreenState extends State<ContactScreen> {
   int currentContactIndex = 0;
   int currentContactId = 0;
   bool selectCity = true;
+  bool selectPhone=true;
 
   List<String> creditList = ["Ngân hàng hợp tác xã", "Quỹ tín dụng"];
   int currentCreditIndex = 1;
@@ -87,7 +89,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   height: 20,
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 0,
                   child: Container(
                     color: Mytheme.colorBgMain,
                     child: Column(
@@ -127,7 +129,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 20),
                     child: SingleChildScrollView(
                       child:  Container(
                         color: Mytheme.colorTextDivider,
@@ -195,7 +197,14 @@ class _ContactScreenState extends State<ContactScreen> {
                                     ),
                                     Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
+                                      child:TextButton(onPressed: () async {
+                                        var url = Uri.parse("tel:${_listContact[i].phone.toString()}");
+                                        if (await canLaunchUrl(url)) {
+                                        await launchUrl(url);
+                                        } else {
+                                        throw 'Could not launch $url';
+                                        }
+                                      }, child: Text(
                                         _listContact[i].phone ?? "",
                                         // textAlign: TextAlign.start,
                                         style: const TextStyle(
@@ -205,7 +214,9 @@ class _ContactScreenState extends State<ContactScreen> {
                                           fontFamily: "OpenSans-SemiBold",
                                         ),
                                       ),
+                                      ),
                                     ),
+
                                     SizedBox(
                                       height: 5,
                                     ),
@@ -785,6 +796,27 @@ class _ContactScreenState extends State<ContactScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _showPhone(
+      int index){
+    return InkWell(
+      onTap: () {
+        setState(() {
+          Navigator.of(context).pop();
+          selectPhone = false;
+          currentContactIndex = 0;
+            var idPhone = _listContact[index];
+            for(int i = 0; i < _listContact.length; i++) {
+              if(idPhone.phone == _listContact[i].phone) {
+                currentContactIndex = i;
+              }
+            }
+            getListContact(currentContactIndex.toString(), "",
+                _listContact[index].phone ?? "0");
+        });
+      },
     );
   }
 
