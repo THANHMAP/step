@@ -1103,100 +1103,100 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 20, left: 24, right: 24),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              // side: const BorderSide(color: Colors.red)
-                            ),
-                            primary: Mytheme.colorBgButtonLogin,
-                            minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-                        child: Text(
-                          displayCalculation ? "Lưu" : "Tính toán",
-                          style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {
-                          if (displayCalculation) {
-                            if(_nameLoanController.text.isEmpty) {
-                              Utils.showError("Bạn chưa nhập tên khoản vay", context);
-                            } else {
-                              UpdateDataTool updateDataTool = UpdateDataTool();
-                              updateDataTool.title = _nameLoanController.text;
-                              updateDataTool.userToolId = int.parse(itemToolData!.id
-                                  .toString());
-                              updateDataTool.type = 1;
-                              List<UpdateDataToolUsers>? listData = [];
-
-
-                              //số tiền bạn cần vay
-                              listData.add(UpdateDataToolUsers(
-                                key: "tien_can_vay",
-                                value: _moneyLoanRootController.text.replaceAll(
-                                    ",", ""),
-                                type: 0,
-                              ));
-
-                              //ty le lãi xuất năm
-                              listData.add(UpdateDataToolUsers(
-                                key: "ty_le_lai_suat",
-                                value: _tyLeLaiXuatController.text,
-                                type: 0,
-                              ));
-
-                              //kỳ hạn vay
-                              listData.add(UpdateDataToolUsers(
-                                key: "ky_han_vay",
-                                value: _kyHanVayController.text,
-                                type: 0,
-                              ));
-
-                              //phan kỳ trả tiền gốc
-                              listData.add(UpdateDataToolUsers(
-                                key: "phan_ky_tien_goc",
-                                value: _numberMonthTienGocController.text,
-                                type: 0,
-                              ));
-
-                              //phan kỳ trả tiền lãi
-                              listData.add(UpdateDataToolUsers(
-                                key: "phan_ky_tien_goc",
-                                value: _numberMonthTienLaiController.text,
-                                type: 0,
-                              ));
-
-                              //ngày vay
-                              listData.add(UpdateDataToolUsers(
-                                key: "ngay_vay",
-                                value: dateFirst,
-                                type: 0,
-                              ));
-
-                              updateDataTool.dataUsers = listData;
-                              print(jsonEncode(updateDataTool));
-                              saveItemTool(jsonEncode(updateDataTool));
-                            }
-                          } else {
-                            setState(() {
-                              displayCalculation = true;
-                            });
-
-                            currentDate = dateFirst;
-                            calculatorLaiDuNoGiamDan();
-                            currentDate = dateFirst;
-                            calculatorLaiPhang();
-                            return;
-                          }
-
-
-
-
-                        },
-                      )),
-                ),
+                // Expanded(
+                //   flex: 1,
+                //   child: Padding(
+                //       padding: const EdgeInsets.only(top: 10, bottom: 20, left: 24, right: 24),
+                //       child: ElevatedButton(
+                //         style: ElevatedButton.styleFrom(
+                //             shape: RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(8),
+                //               // side: const BorderSide(color: Colors.red)
+                //             ),
+                //             primary: Mytheme.colorBgButtonLogin,
+                //             minimumSize: Size(MediaQuery.of(context).size.width, 44)),
+                //         child: Text(
+                //           displayCalculation ? "Lưu" : "Tính toán",
+                //           style: TextStyle(fontSize: 16, fontFamily: "OpenSans-Regular", fontWeight: FontWeight.bold),
+                //         ),
+                //         onPressed: () {
+                //           if (displayCalculation) {
+                //             if(_nameLoanController.text.isEmpty) {
+                //               Utils.showError("Bạn chưa nhập tên khoản vay", context);
+                //             } else {
+                //               UpdateDataTool updateDataTool = UpdateDataTool();
+                //               updateDataTool.title = _nameLoanController.text;
+                //               updateDataTool.userToolId = int.parse(itemToolData!.id
+                //                   .toString());
+                //               updateDataTool.type = 1;
+                //               List<UpdateDataToolUsers>? listData = [];
+                //
+                //
+                //               //số tiền bạn cần vay
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "tien_can_vay",
+                //                 value: _moneyLoanRootController.text.replaceAll(
+                //                     ",", ""),
+                //                 type: 0,
+                //               ));
+                //
+                //               //ty le lãi xuất năm
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "ty_le_lai_suat",
+                //                 value: _tyLeLaiXuatController.text,
+                //                 type: 0,
+                //               ));
+                //
+                //               //kỳ hạn vay
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "ky_han_vay",
+                //                 value: _kyHanVayController.text,
+                //                 type: 0,
+                //               ));
+                //
+                //               //phan kỳ trả tiền gốc
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "phan_ky_tien_goc",
+                //                 value: _numberMonthTienGocController.text,
+                //                 type: 0,
+                //               ));
+                //
+                //               //phan kỳ trả tiền lãi
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "phan_ky_tien_goc",
+                //                 value: _numberMonthTienLaiController.text,
+                //                 type: 0,
+                //               ));
+                //
+                //               //ngày vay
+                //               listData.add(UpdateDataToolUsers(
+                //                 key: "ngay_vay",
+                //                 value: dateFirst,
+                //                 type: 0,
+                //               ));
+                //
+                //               updateDataTool.dataUsers = listData;
+                //               print(jsonEncode(updateDataTool));
+                //               saveItemTool(jsonEncode(updateDataTool));
+                //             }
+                //           } else {
+                //             setState(() {
+                //               displayCalculation = true;
+                //             });
+                //
+                //             currentDate = dateFirst;
+                //             calculatorLaiDuNoGiamDan();
+                //             currentDate = dateFirst;
+                //             calculatorLaiPhang();
+                //             return;
+                //           }
+                //
+                //
+                //
+                //
+                //         },
+                //       )),
+                // ),
               ],
             ),
           ),
