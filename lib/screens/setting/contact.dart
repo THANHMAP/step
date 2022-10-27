@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 import 'package:step_bank/models/position_leader_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../compoment/item_leader_board.dart';
 import '../../compoment/item_leader_position_board.dart';
 import '../../models/city_model.dart';
@@ -87,7 +88,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   height: 20,
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 0,
                   child: Container(
                     color: Mytheme.colorBgMain,
                     child: Column(
@@ -127,7 +128,7 @@ class _ContactScreenState extends State<ContactScreen> {
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 30),
                     child: SingleChildScrollView(
                       child:  Container(
                         color: Mytheme.colorTextDivider,
@@ -195,7 +196,14 @@ class _ContactScreenState extends State<ContactScreen> {
                                     ),
                                     Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
+                                      child:TextButton(onPressed: () async {
+                                        var url = Uri.parse("tel:${_listContact[i].phone.toString()}");
+                                        if (await canLaunchUrl(url)) {
+                                          await launchUrl(url);
+                                        } else {
+                                          throw 'Could not launch $url';
+                                        }
+                                      }, child: Text(
                                         _listContact[i].phone ?? "",
                                         // textAlign: TextAlign.start,
                                         style: const TextStyle(
@@ -204,6 +212,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                           fontWeight: FontWeight.w600,
                                           fontFamily: "OpenSans-SemiBold",
                                         ),
+                                      ),
                                       ),
                                     ),
                                     SizedBox(
