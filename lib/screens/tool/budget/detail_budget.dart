@@ -15,6 +15,7 @@ import '../../../models/tool/store_data_tool_model.dart';
 import '../../../models/tool_model.dart';
 import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
+import '../../../strings.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
 
@@ -41,6 +42,8 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
   bool showCalculator = true;
   bool showBudget = false;
   bool selectDefault = true;
+
+  int typeTextWarning = 0;
 
   @override
   void initState() {
@@ -914,7 +917,7 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
                                                   ),
                                                   Expanded(
                                                       child: Text(
-                                                        "Bạn có thể sử dụng số tiền này cho các khoản chi tiêu ngoài dự kiến hoặc tiết kiệm cho tương lai.",
+                                                        textWarning(typeTextWarning)==1?"${StringText.text_set_a_budget1}":"${StringText.text_set_a_budget2}",
                                                         style: TextStyle(
                                                             fontSize: 12,
                                                             fontFamily:
@@ -1385,6 +1388,18 @@ class _DetailBudgetScreenState extends State<DetailBudgetScreen>
       }
     }
     return "${formNum(totalType2.toString())} VNĐ";
+  }
+
+  int textWarning(int typeTextWarning){
+    int typeTextWarning=0;
+    setState(() {
+      if((totalType1-totalType2)>0){
+        typeTextWarning=1;
+      }else{
+        typeTextWarning=2;
+      }
+    });
+    return typeTextWarning;
   }
 
   String calculatorTotal() {

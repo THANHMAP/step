@@ -57,4 +57,6 @@ class StringText {
   static const text_appointment_reminder="Dưới đây, bạn sẽ tìm thấy tất cả lời nhắc mà bạn đã lên kế hoạch trong quá khứ. Bạn luôn có thể tạo lời nhắc thanh toán phí dịch vụ, hoàn trả khoản vay hoặc bất kỳ khoản thanh toán quan trọng nào trong tương lai";
   static const text_savings_calculation="Số tiền nhận được cuối kỳ chưa đủ theo kế hoạch của bạn? Hãy thử thay đổi số tiền tiết kiệm ban đầu hoặc số tháng gửi tiết kiệm và tính toán lại nhé.";
   static const text_interest_rate="Nhập mức lãi suất tham khảo của các tổ chức tín dụng/ngân hàng mà bạn có ý định gửi tiền";
+  static const text_set_a_budget1="Bạn có thể sử dụng số tiền này cho các khoản chi tiêu ngoài dự kiến hoặc tiết kiệm cho tương lai.";
+  static const text_set_a_budget2="Chú ý: Bạn đang chi tiêu nhiều hơn thu nhập. Nợ quá nhiều so với chi trả có khả năng rất nguy hiểm. Bạn hãy thử cắt giảm chi tiêu hoặc tạo thêm thu nhập nhé.";
 }
