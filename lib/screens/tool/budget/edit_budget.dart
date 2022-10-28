@@ -16,6 +16,7 @@ import '../../../models/tool/update_data_tool.dart';
 import '../../../models/tool_model.dart';
 import '../../../service/api_manager.dart';
 import '../../../service/remote_service.dart';
+import '../../../strings.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
 
@@ -39,6 +40,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
   int totalType1 = 0;
   int totalType2 = 0;
   late ToolData data;
+  int typeTextWarning = 0;
   bool showCalculator = true;
   bool showBudget = false;
   String userId = Get.arguments.toString();
@@ -840,7 +842,7 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
                                                     child: SvgPicture.asset("assets/svg/ic_infomation.svg"),
                                                   ),
                                                   Expanded(child: Text(
-                                                    "Bạn có thể sử dụng số tiền này cho các khoản chi tiêu ngoài dự kiến hoặc tiết kiệm cho tương lai.",
+                                                    textWarning(typeTextWarning)==1?"${StringText.text_set_a_budget1}":"${StringText.text_set_a_budget2}",
                                                     style: TextStyle(
                                                         fontSize: 12,
                                                         fontFamily: "OpenSans-Regular",
@@ -1194,6 +1196,18 @@ class _EditBudgetScreenState extends State<EditBudgetScreen>
       }
     }
     return "${formNum(totalType2.toString())} VNĐ";
+  }
+
+  int textWarning(int typeTextWarning){
+    int typeTextWarning=0;
+    setState(() {
+      if((totalType1-totalType2)>0){
+        typeTextWarning=1;
+      }else{
+        typeTextWarning=2;
+      }
+    });
+    return typeTextWarning;
   }
 
   String calculatorTotal() {
