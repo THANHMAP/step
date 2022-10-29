@@ -4,6 +4,7 @@ import 'dart:io' as io;
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
@@ -42,8 +43,22 @@ class _VideoScreenState extends State<VideoScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
-    Utils.portraitModeOnly();
+
+    // Step 3
     initializePlayer();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    // _videoPlayerController1.addListener(() {
+    //   _chewieController.deviceOrientationsAfterFullScreen =
+    //   if(_chewieController!.isFullScreen == false) {
+    //     SystemChrome.setPreferredOrientations([
+    //       DeviceOrientation.portraitUp,
+    //       DeviceOrientation.portraitDown,
+    //     ]);
+    //   }
+    // });
   }
 
   @override
@@ -74,7 +89,10 @@ class _VideoScreenState extends State<VideoScreen> {
       autoPlay: true,
       looping: false,
       allowFullScreen: true,
-
+      deviceOrientationsAfterFullScreen: [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
       // Try playing around with some of these other options:
 
       // showControls: false,
@@ -89,6 +107,7 @@ class _VideoScreenState extends State<VideoScreen> {
       ),
       // autoInitialize: true,
     );
+
   }
 
   int currPlayIndex = 0;
