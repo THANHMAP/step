@@ -89,7 +89,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                   child: Column(
                                     children: [
                                       Text(
-                                        _lessonData?.name.toString() ?? "",
+                                        "${index+1}. ${_lessonData?.name.toString() ?? ""}",
                                         style: const TextStyle(
                                           fontSize: 24,
                                           color: Mytheme.colorTextSubTitle,
