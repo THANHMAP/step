@@ -79,6 +79,12 @@ class Utils {
     }
   }
 
+  static bool isPhoneNoValid(String? check) {
+    if (check == null) return false;
+    final regExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+    return regExp.hasMatch(check);
+  }
+
   // static showDialogNormal(BuildContext context, VoidCallback? onClicked) {
   //   showDialog(
   //       context: context,
