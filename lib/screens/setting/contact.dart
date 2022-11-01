@@ -1081,21 +1081,9 @@ class _ContactScreenState extends State<ContactScreen> {
     setState(() {});
   }
 
-  String validateMobile(String value) {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
-      return 'Please enter mobile number';
-    }
-    else if (!regExp.hasMatch(value)) {
-      return 'Please enter valid mobile number';
-    }
-    return value;
-  }
-
   phoneNumber(int i) async {
-      var url = Uri.parse("tel:${_listContact[i].phone.toString()}");
-      if(Utils.isPhoneNoValid(_listContact[i].phone.toString())){
+      var url = Uri.parse("tel:${_listContact[i].phone?.replaceAll(' ', '').toString()}");
+      if(Utils.isPhoneNoValid(_listContact[i].phone?.replaceAll(' ', '').toString())){
         await launchUrl(url);
       }else {
         throw 'Enter Valid Phone Number';
