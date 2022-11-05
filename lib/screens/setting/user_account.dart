@@ -73,7 +73,7 @@ class _AccountScreenState extends State<AccountScreen> {
   String textUserGroup = "";
   String textUserCredit = "";
   List<String> sexList = ["Nam", "Nữ", "Khác"];
-  int currentSexIndex = 0;
+  int currentSexIndex = 1;
   int currentCityIndex = 0;
   int currentWardIndex = 0;
   int idCredit = 0;
@@ -1530,7 +1530,9 @@ class _AccountScreenState extends State<AccountScreen> {
       var response = json.decode(isLogged.toString());
       setState(() {
         user = UserData.fromJson(response);
-        currentSexIndex = user.gender ?? 0;
+        if (user.gender != null) {
+          currentSexIndex = user.gender! - 1;
+        }
         currentCityIndex = user.cityId ?? 0;
         currentWardIndex = user.provinceId ?? 0;
         if (!user.dob.toString().isNotEmpty) {
@@ -1549,7 +1551,8 @@ class _AccountScreenState extends State<AccountScreen> {
         if (idCredit == 0) {
           textUserCredit = "Bạn chưa là thành viên của quỹ";
         } else {
-          textUserCredit = user.creditFundName!;
+          Constants.nameCreditTemp = user.creditFundName!;
+          textUserCredit = Constants.nameCreditTemp;
         }
 
         user.userGroup?.forEach((element) {
@@ -1768,7 +1771,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Future<void> saveInfoUser() async {
     if (!pr.isShowing()) await pr.show();
     user.name = _usernameController.text;
-    user.gender = currentSexIndex;
+    user.gender = currentSexIndex + 1;
     user.dob = _userBodController.text;
     user.cityId = currentCityIndex;
     user.provinceId = currentWardIndex;
@@ -1792,6 +1795,8 @@ class _AccountScreenState extends State<AccountScreen> {
         (value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
+        print("thanhtest ${loginModel.data}");
+        loginModel.data?.creditFundName = Constants.nameCreditTemp;
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
         showDialog(
@@ -1832,9 +1837,6 @@ class _AccountScreenState extends State<AccountScreen> {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
         saveInfoUser();
-        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
-        await SPref.instance.set("info_login", json.encode(loginModel.data));
-        // saveInfoUser();
       }
     }, onError: (error) async {
       var statuscode = error.toString();

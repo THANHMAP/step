@@ -224,6 +224,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       InkWell(
                         onTap: () {
+                          setState(() {
+                            totalNotification = 0;
+                          });
                           Get.toNamed("/notificationScreen");
                         },
                         child: Align(
