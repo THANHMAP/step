@@ -31,12 +31,11 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
   int currentIndexTemp = -1;
   int idCredit = 0;
   late ScrollController controller;
-  int page = 1;
-  int totalPage = 0;
 
   @override
   void initState() {
     super.initState();
+    String cityId = Get.arguments.toString();
     Utils.portraitModeOnly();
     pr = ProgressDialog(
       context,
@@ -44,9 +43,8 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
       isDismissible: false,
     );
     controller = ScrollController()..addListener(_scrollListener);
-    creditList?.add(CreditData(id: 0, name: "Bạn chưa là thành viên của quỹ"));
     Future.delayed(Duration.zero, () {
-      loadListCredittest();
+      loadListCredittest(cityId);
     });
   }
 
@@ -63,7 +61,7 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
         print('At the top');
       } else {
         print('At the bottom');
-        loadListCredittest();
+        // loadListCredittest();
       }
     }
   }
@@ -299,20 +297,23 @@ class _CreditInfoScreenScreenState extends State<CreditInfoScreen> {
     );
   }
 
-  Future<void> loadListCredittest() async {
-    var param = jsonEncode(<String, String>{'page': page.toString()});
+  Future<void> loadListCredittest(String cityId) async {
+    var param = jsonEncode(<String, String>{'city_id': cityId});
     await pr.show();
     APIManager.postAPICallNoNeedToken(RemoteServices.getListCredit, param).then(
             (value) async {
           await pr.hide();
           if (value['status_code'] == 200) {
             var creditModel = CreditModel.fromJson(value);
-            totalPage = creditModel.data!.meta!.pagination!.totalPages!;
-            page = page + 1;
-
             setState(() {
               for (var item in creditModel.data!.data!) {
                 creditList?.add(item);
+              }
+              if (creditList != null && creditList!.isNotEmpty) {
+                idCredit = creditList![0].id!;
+                Constants.nameCreditTemp = creditList![0].name!;
+                currentIndex = getIndexCredit(idCredit);
+                currentIndexTemp = 0;
               }
             });
           } else {

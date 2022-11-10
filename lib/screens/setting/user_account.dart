@@ -760,16 +760,21 @@ class _AccountScreenState extends State<AccountScreen> {
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
       child: InkWell(
         onTap: () {
-          Get.toNamed("/creditInfoScreen")?.then((value) {
-            print(value);
-            if (value) {
-              setState(() {
-                textUserCredit = Constants.nameCreditTemp;
-                idCredit = int.parse(Constants.idCreditTemp);
-              });
-            }
-            // _reload();
-          });
+          if (currentCityIndex != 0) {
+            Get.toNamed("/creditInfoScreen", arguments: currentCityIndex.toString())?.then((value) {
+              print(value);
+              if (value) {
+                setState(() {
+                  textUserCredit = Constants.nameCreditTemp;
+                  idCredit = int.parse(Constants.idCreditTemp);
+                });
+              }
+              // _reload();
+            });
+          } else {
+            Utils.showAlertDialogOneButton(context, "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
+          }
+
         },
         child: Container(
           // height: 100,
@@ -840,16 +845,20 @@ class _AccountScreenState extends State<AccountScreen> {
                           // tooltip: 'Increase volume by 10',
                           iconSize: 0,
                           onPressed: () {
-                            Get.toNamed("/creditInfoScreen")?.then((value) {
-                              print(value);
-                              if (value) {
-                                setState(() {
-                                  textUserCredit = Constants.nameCreditTemp;
-                                  idCredit = int.parse(Constants.idCreditTemp);
-                                });
-                              }
-                              // _reload();
-                            });
+                            if (currentCityIndex != 0) {
+                              Get.toNamed("/creditInfoScreen", arguments: currentCityIndex.toString())?.then((value) {
+                                print(value);
+                                if (value) {
+                                  setState(() {
+                                    textUserCredit = Constants.nameCreditTemp;
+                                    idCredit = int.parse(Constants.idCreditTemp);
+                                  });
+                                }
+                                // _reload();
+                              });
+                            } else {
+                              Utils.showAlertDialogOneButton(context, "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
+                            }
                           },
                         ),
                       ),
