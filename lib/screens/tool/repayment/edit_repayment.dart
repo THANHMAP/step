@@ -1034,7 +1034,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
         return DateFormat("dd-MM-yyyy").format(newDate);
       }
     }
-    return "";
+    return "Đã kết thúc";
   }
 
   int daysBetween(DateTime from, DateTime to) {

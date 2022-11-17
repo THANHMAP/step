@@ -616,7 +616,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _authenticate();
     } else {
       Utils.showAlertDialogOneButton(
-          context, "Vui lòng đang nhập và mở chức năng này trong cài đặt");
+          context, "Vui lòng đăng nhập và mở chức năng này trong cài đặt");
     }
   }
 
