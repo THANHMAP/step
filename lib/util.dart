@@ -48,15 +48,19 @@ class Utils {
   static showError(String error, BuildContext context) async {
     var statuscode = error.toString();
     if (statuscode.contains("Unauthorised:")) {
-      // var unauthorised = "Unauthorised:";
-      // var test = statuscode.substring(unauthorised.length, statuscode.length);
-      // var response = json.decode(test.toString());
-      // var message = response["message"];
-      // Utils.showAlertDialogOneButton(context, message);
-      await SPref.instance.set("token", "");
-      await SPref.instance.set("info_login", "");
-      Get.offAllNamed("/login"
-          "");
+      var unauthorised = "Unauthorised:";
+      var test = statuscode.substring(unauthorised.length, statuscode.length);
+      var response = json.decode(test.toString());
+      var statusCode = response["status_code"];
+      var message = response["message"];
+      if (statusCode == 500) {
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        await SPref.instance.set("token", "");
+        await SPref.instance.set("info_login", "");
+        Get.offAllNamed("/login"
+            "");
+      }
     } else if (statuscode.contains("Invalid_Request:")) {
       var unauthorised = "Invalid_Request:";
       var test = statuscode.substring(unauthorised.length, statuscode.length);
