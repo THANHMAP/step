@@ -130,10 +130,13 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       loadImage(user),
-                      const SizedBox(height: 20),
-                      phoneUser(),
-                      const SizedBox(height: 10),
-                      passwordUser(),
+                      if (user.phone?.isNotEmpty == true)...[
+                        const SizedBox(height: 20),
+                        phoneUser(),
+
+                        const SizedBox(height: 10),
+                        passwordUser(),
+                       ],
                       const SizedBox(height: 10),
                       emailUser(),
                       const SizedBox(height: 10),
