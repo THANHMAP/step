@@ -1027,6 +1027,10 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
     var yearTemp = int.parse(stringDateFirstTemp[2]);
     var date = DateTime(yearTemp, monthTemp, dayTemp);
 
+    if (repaymentNumber == 1) {
+      return "Đã kết thúc";
+    }
+
     for (var i = 0; i < repaymentNumber; i++) {
       var newDate = DateTime(date.year, date.month + currentRepaymentCycleIndex + 1, date.day);
       date = newDate;
