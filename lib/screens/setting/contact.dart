@@ -31,7 +31,7 @@ class _ContactScreenState extends State<ContactScreen> {
   TextEditingController cityEditingController = TextEditingController();
   TextEditingController wardEditingController = TextEditingController();
   TextEditingController providerEditingController = TextEditingController();
-
+  Future<void>? _launched;
   List<CityData> _tempListCity = [];
 
   // city
@@ -194,20 +194,22 @@ class _ContactScreenState extends State<ContactScreen> {
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child:TextButton(onPressed: () async {
-                                        phoneNumber(i);
-                                      }, child: Text(
-                                        _listContact[i].phone ?? "",
-                                        // textAlign: TextAlign.start,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-SemiBold",
+                                    InkWell(
+                                      onTap: () {
+                                        _launched = makePhoneCall(_listContact[i].phone.toString());
+                                      },
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          _listContact[i].phone?.trim() ?? "",
+                                          // textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.colorTextSubTitle,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
                                         ),
-                                      ),
                                       ),
                                     ),
                                     SizedBox(
@@ -1081,12 +1083,20 @@ class _ContactScreenState extends State<ContactScreen> {
     setState(() {});
   }
 
-  phoneNumber(int i) async {
-      var url = Uri.parse("tel:${_listContact[i].phone?.replaceAll(' ', '').toString()}");
-      if(Utils.isPhoneNoValid(_listContact[i].phone?.replaceAll(' ', '').toString())){
-        await launchUrl(url);
-      }else {
-        throw 'Enter Valid Phone Number';
-      }
+  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
+
+  // phoneNumber(int i) {
+  //     var url = Uri.parse("tel:${_listContact[i].phone?.replaceAll(' ', '').toString()}");
+  //     if(Utils.isPhoneNoValid(_listContact[i].phone?.replaceAll(' ', '').toString())){
+  //       await launchUrl(url);
+  //     }else {
+  //       throw 'Enter Valid Phone Number';
+  //     }
+  // }
 }

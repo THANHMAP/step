@@ -490,12 +490,14 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                 ),
               ),
             ),
+
+
             Expanded(
               flex: 1,
               child: Padding(
                 padding:
                     const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
-                child: IconButton(
+                child: user.phone?.isNotEmpty == false ? null : IconButton(
                   icon: Image.asset(urlActionUsername),
                   // tooltip: 'Increase volume by 10',
                   iconSize: 50,

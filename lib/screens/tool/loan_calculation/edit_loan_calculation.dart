@@ -1490,7 +1490,7 @@ class _EditCalculatorLoanToolScreenState extends State<EditCalculatorLoanToolScr
       tempMonth = "0$month";
     }
     currentDate = "${dates[0]}/${month}/${year}";
-    return "${tempDay}/${tempMonth}/${year}";
+    return "${tempMonth}/${year}";
   }
 
   var noGocTrathangtruoc;
