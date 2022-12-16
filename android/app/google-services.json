@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1013762676213-2ho6n4eqp88ncjj4n8aunk83ps8djoaq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.step.bank.step_bank",
+            "certificate_hash": "a310e272faabbfc07896dfc13a00c6bcbfda2773"
+          }
+        },
+        {
+          "client_id": "1013762676213-7326pitprrchn3deutrnnt00ati5pes0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.step.bank.step_bank",
+            "certificate_hash": "eef0c6fad1306458d73b763e5eec820e7ae03681"
+          }
+        },
+        {
           "client_id": "1013762676213-peg0nmq6i1femubfo3t02gmcvn7jn0q7.apps.googleusercontent.com",
           "client_type": 3
         }

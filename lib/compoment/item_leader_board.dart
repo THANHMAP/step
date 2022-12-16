@@ -38,7 +38,7 @@ class ItemLeaderBoardWidget extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 16, left: 20, bottom: 18, right: 0),
@@ -63,7 +63,7 @@ class ItemLeaderBoardWidget extends StatelessWidget {
                         fit: BoxFit.fill,
                         image: NetworkImage(avatar.toString())))),
             Expanded(
-              flex: 4,
+              flex: 5,
               child: Padding(
                 padding: const EdgeInsets.only(
                     top: 16, left: 10, bottom: 18, right: 0),

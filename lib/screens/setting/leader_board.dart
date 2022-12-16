@@ -84,7 +84,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
 
                 if(dataPosition != null) ...[
                   Expanded(
-                    flex: 1,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 0),
                       child: Column(

@@ -85,73 +85,6 @@ class _NewsScreenState extends State<NewsScreen> {
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: [
-          //     Container(
-          //       alignment: Alignment.center,
-          //       margin: EdgeInsets.all(10),
-          //       height: 40,
-          //       width: 73,
-          //       decoration: BoxDecoration(
-          //         color: Mytheme.color_BCBFD6,
-          //         borderRadius: BorderRadius.circular(8),
-          //         boxShadow: [
-          //           BoxShadow(
-          //             color: Colors.grey.withOpacity(0.5), //color of shadow
-          //             spreadRadius: 1, //spread radius
-          //             blurRadius: 7, // blur radius
-          //             offset: Offset(0, 3), // changes position of shadow
-          //             //first paramerter of offset is left-right
-          //             //second parameter is top to down
-          //           ),
-          //           //you can set more BoxShadow() here
-          //         ],
-          //       ),
-          //       child: Text(
-          //         StringText.text_all,
-          //         style: TextStyle(
-          //           fontSize: 16,
-          //           color: Mytheme.color_434657,
-          //           fontWeight: FontWeight.w600,
-          //           fontFamily: "OpenSans-Semibold",
-          //         ),
-          //       ),
-          //     ),
-          //     // Container(
-          //     //   alignment: Alignment.center,
-          //     //   margin: EdgeInsets.all(10),
-          //     //   height: 40,
-          //     //   width: 101,
-          //     //   decoration: BoxDecoration(
-          //     //     color: Colors.white,
-          //     //     borderRadius: BorderRadius.circular(8),
-          //     //     boxShadow: [
-          //     //       BoxShadow(
-          //     //         color: Colors.grey.withOpacity(0.5), //color of shadow
-          //     //         spreadRadius: 1, //spread radius
-          //     //         blurRadius: 7, // blur radius
-          //     //         offset: Offset(0, 3), // changes position of shadow
-          //     //         //first paramerter of offset is left-right
-          //     //         //second parameter is top to down
-          //     //       ),
-          //     //       //you can set more BoxShadow() here
-          //     //     ],
-          //     //   ),
-          //     //   child: Text(
-          //     //     StringText.text_not_read,
-          //     //     style: TextStyle(
-          //     //       fontSize: 16,
-          //     //       color: Mytheme.color_434657,
-          //     //       fontWeight: FontWeight.w600,
-          //     //       fontFamily: "OpenSans-Semibold",
-          //     //     ),
-          //     //   ),
-          //     // ),
-          //   ],
-          // ),
-          // const SizedBox(height: 10),
           if (newsList != null) ...[
             for (var i = 0; i < newsList!.length; i++) ...[
               InkWell(
@@ -215,7 +148,7 @@ class _NewsScreenState extends State<NewsScreen> {
                                       ),
                                     )),
                               ),
-                              const SizedBox(height: 10),
+                              // const SizedBox(height: 20),
                               Flexible(
                                   child: Align(
                                       alignment: Alignment.topLeft,

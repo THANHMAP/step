@@ -33,82 +33,93 @@ class ItemLeaderPositionBoardWidget extends StatelessWidget {
           shape: BoxShape.rectangle,
           color: Colors.white,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 20, bottom: 18, right: 0),
-                child: Text(
-                  "$numberStt",
-                  // textAlign: TextAlign.start,
-                  style:  TextStyle(
-                    fontSize: 24,
-                    color: getColorText(),
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "OpenSans-SemiBold",
-                  ),
-                ),
-              ),
-            ),
-            Container(
-                width: 43.0,
-                height: 43.0,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(avatar.toString())))),
-            Expanded(
-              flex: 4,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 16, left: 10, bottom: 18, right: 0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
+            Padding(
+              padding: const EdgeInsets.all(0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 20, bottom: 10, right: 0),
                       child: Text(
-                        name ?? "",
+                        "$numberStt",
                         // textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Mytheme.colorTextSubTitle,
+                        style:  TextStyle(
+                          fontSize: 24,
+                          color: getColorText(),
                           fontWeight: FontWeight.w600,
                           fontFamily: "OpenSans-SemiBold",
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 0, left: 0, bottom: 0, right: 10),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "$score điểm",
-                    style:  TextStyle(
-                      fontSize: 16,
-                      color: getColorText(),
-                      fontWeight: FontWeight.w600,
-                      fontFamily: "OpenSans-SemiBold",
+                  ),
+                  Container(
+                      width: 40.0,
+                      height: 40.0,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: NetworkImage(avatar.toString())))),
+                  Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, bottom: 10, right: 0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              name ?? "",
+                              // textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Mytheme.colorTextSubTitle,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: "OpenSans-SemiBold",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 0, left: 0, bottom: 0, right: 10),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "$score điểm",
+                          style:  TextStyle(
+                            fontSize: 16,
+                            color: getColorText(),
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "OpenSans-SemiBold",
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
+
           ],
         ),
+
       ),
     );
   }
