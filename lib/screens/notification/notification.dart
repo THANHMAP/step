@@ -17,6 +17,7 @@ import 'package:step_bank/strings.dart';
 import 'package:intl/intl.dart';
 import '../../themes.dart';
 import '../../util.dart';
+import '../news/web_view_news.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -46,36 +47,37 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              backgroundColor: Mytheme.colorBgMain,
-              body: Column(
-                children: <Widget>[
-                  AppbarWidget(
-                    text: "Thông báo",
-                    onClicked: () {
-                      Navigator.of(context).pop(false);
-                    },
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 15, right: 15, bottom: 70),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            newsLayout(),
-                          ],
-                        ),
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Mytheme.colorBgMain,
+            body: Column(
+              children: <Widget>[
+                AppbarWidget(
+                  text: "Thông báo",
+                  onClicked: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 15, right: 15, bottom: 70),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          newsLayout(),
+                        ],
                       ),
                     ),
-                  )
-                ],
-              ),
-            )),
+                  ),
+                )
+              ],
+            ),
+          )),
     );
   }
 
@@ -84,15 +86,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
       padding: const EdgeInsets.only(top: 0, left: 0, right: 0),
       child: Column(
         children: [
-
           if (dataListNotification != null) ...[
             for (var i = 0; i < dataListNotification!.length; i++) ...[
               InkWell(
                 onTap: () {
-                  if(dataListNotification![i].type == "NEWS") {
-                      Get.toNamed("/notificationNewScreen", arguments: dataListNotification![i].data?.newId);
-                  } else if(dataListNotification![i].type == "REPAYMENT_SCHEDULE_TOOL") {
-                      Get.toNamed("/notificationRepaymentScreen", arguments: dataListNotification![i].data?.userToolId);
+                  if (dataListNotification![i].type == "NEWS") {
+                    loadDetailNew(
+                        dataListNotification![i].data?.newId.toString() ?? "");
+                    // Get.toNamed("/notificationNewScreen", arguments: dataListNotification![i].data?.newId);
+                  } else if (dataListNotification![i].type ==
+                      "REPAYMENT_SCHEDULE_TOOL") {
+                    Get.toNamed("/notificationRepaymentScreen",
+                        arguments: dataListNotification![i].data?.userToolId);
                   }
                 },
                 child: Container(
@@ -116,7 +121,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 20, right: 10),
+                          padding: const EdgeInsets.only(
+                              top: 10, left: 20, right: 10),
                           child: Column(
                             children: [
                               Flexible(
@@ -138,7 +144,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   child: Align(
                                       alignment: Alignment.topLeft,
                                       child: Text(
-                                        convert(dataListNotification?[i].createdAt ?? ""),
+                                        convert(dataListNotification?[i]
+                                                .createdAt ??
+                                            ""),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -171,13 +179,37 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   Future<void> loadNotification() async {
     await pr.show();
-    APIManager.getAPICallNeedToken(RemoteServices.listNotificationURL).then((value) async {
+    APIManager.getAPICallNeedToken(RemoteServices.listNotificationURL).then(
+        (value) async {
       await pr.hide();
       var notificationData = NotificationModel.fromJson(value);
       if (notificationData.statusCode == 200) {
         setState(() {
           dataListNotification = notificationData.data;
         });
+      }
+    }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  Future<void> loadDetailNew(String id) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'new_id': id,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.newDetailURL, param).then(
+        (value) async {
+      await pr.hide();
+      if (value["status_code"] == 200) {
+        var data = NewsData.fromJson(value["data"]);
+        pushNewScreen(
+          context,
+          screen: WebViewNewsScreen(url: data.linkDetail),
+          withNavBar: false,
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
       }
     }, onError: (error) async {
       await pr.hide();

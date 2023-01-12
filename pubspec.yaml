@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 2.5.9+37
+version: 2.6.0+39
 
 
 
@@ -76,9 +76,13 @@ dependencies:
   flutter_holo_date_picker: ^1.0.3
   provider: ^6.0.0
   the_apple_sign_in: ^1.1.1
-  new_version: ^0.3.1
   url_launcher: ^6.1.6
   device_preview: ^1.1.0
+  package_info_plus: ^1.0.6
+  http: ^0.13.5
+  html: ^0.15.1
+  collection: ^1.16.0
+  firebase_remote_config: ^1.0.3
 dependency_overrides:
   flutter_inappwebview:
     git: https://github.com/CodeEagle/flutter_inappwebview

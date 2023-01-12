@@ -1,15 +1,17 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:new_version/new_version.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import '../../service/local_notification_service.dart';
+import '../../service/new_version.dart';
 import '../../themes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -20,9 +22,30 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  var versionFireBase = "";
+  final RemoteConfig _remoteConfig = RemoteConfig.instance;
+  Future<void> _initConfig() async {
+    await _remoteConfig.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(
+          seconds: 1), // a fetch will wait up to 10 seconds before timing out
+      minimumFetchInterval: const Duration(
+          seconds:
+          10), // fetch parameters will be cached for a maximum of 1 hour
+    ));
+
+    _fetchConfig();
+  }
+
+  // Fetching, caching, and activating remote config
+  void _fetchConfig() async {
+    await _remoteConfig.fetchAndActivate();
+    versionFireBase = _remoteConfig.getString('version');
+    print("test firebase version ${versionFireBase}");
+  }
+
   @override
   void initState() {
-    super.initState();
+    _initConfig();
     LocalNotificationService.initNotification(context);
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       print(message);
@@ -45,7 +68,7 @@ class _SplashPageState extends State<SplashPage> {
       // }
     });
 
-    final newVersion = NewVersion(
+    final newVersion = NewVersionPlus(
       iOSId: 'com.step.bank.step',
       androidId: 'com.step.bank.step_bank',
     );
@@ -58,31 +81,71 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 2), () {
       advancedStatusCheck(newVersion);
     });
+
+    super.initState();
   }
 
-  advancedStatusCheck(NewVersion newVersion) async {
-    final status = await newVersion.getVersionStatus();
-    if (status != null) {
-      if (status.canUpdate) {
-        newVersion.showUpdateDialog(
-            context: context,
-            versionStatus: status,
-            dialogTitle: "Cập nhật ứng dụng!!!",
-            dialogText: "Vui lòng cập nhật ứng dụng từ version " +
-                "${status.localVersion}" +
-                " to " +
-                "${status.storeVersion}",
-            allowDismissal: true,
-            dismissButtonText: "Thoát",
-            dismissAction: () {
-              load();
-            },
-            updateButtonText: "Cập nhật");
-      } else {
+  advancedStatusCheck(NewVersionPlus newVersion) async {
+    try {
+      final status = await newVersion.getVersionStatus();
+      if (status != null) {
+        if (status.canUpdate) {
+          newVersion.showUpdateDialog(
+              context: context,
+              versionStatus: status,
+              dialogTitle: "Cập nhật ứng dụng!!!",
+              dialogText: "Vui lòng cập nhật ứng dụng từ version " +
+                  "${status.localVersion}" +
+                  " to " +
+                  "${status.storeVersion}",
+              allowDismissal: true,
+              dismissButtonText: "Thoát",
+              dismissAction: () {
+                load();
+              },
+              updateButtonText: "Cập nhật");
+        } else {
+          load();
+        }
+        print("app version on Device " + "${status.localVersion}");
+        print("app version on store " + "${status.storeVersion}");
+      }
+    } catch (e) {
+      try {
+        final status = await newVersion.getFirebaseVersion(versionFireBase);
+        if (status != null) {
+          if (status.canUpdate) {
+            newVersion.showUpdateDialog(
+                context: context,
+                versionStatus: status,
+                dialogTitle: "Cập nhật ứng dụng!!!",
+                dialogText: "Vui lòng cập nhật ứng dụng từ version " +
+                    "${status.localVersion}" +
+                    " to " +
+                    "${status.storeVersion}",
+                allowDismissal: true,
+                dismissButtonText: "Thoát",
+                dismissAction: () {
+                  load();
+                },
+                updateButtonText: "Cập nhật");
+          } else {
+            load();
+          }
+          print("app version on Device " + "${status.localVersion}");
+          print("app version on store " + "${status.storeVersion}");
+        }
+      } catch (e) {
         load();
       }
-      print("app version on Device " + "${status.localVersion}");
-      print("app version on store " + "${status.storeVersion}");
+    }
+  }
+
+  void checkVersionByFirebase(NewVersionPlus newVersion) async {
+    try {
+
+    } catch (e) {
+
     }
   }
 

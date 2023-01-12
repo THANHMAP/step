@@ -13,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:new_version/new_version.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -196,6 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
       doLoginBySocial(
           userData['email'].toString(), userData['id'].toString(), "2");
       print(userData['email'].toString());
+    } else {
+      Utils.showAlertDialogOneButton(context, "Có lỗi xảy ra. Vui lòng thử lại");
     }
   }
 
@@ -641,6 +642,8 @@ class _LoginScreenState extends State<LoginScreen> {
       print('_signInWithGoogle uid: ${user?.uid} ---- email: ${user?.email}');
       if(user != null) {
         doLoginBySocial(user.email.toString(), user.uid.toString(), "1");
+      } else {
+        Utils.showAlertDialogOneButton(context, "Có lỗi xảy ra. Vui lòng thử lại");
       }
     } catch (e) {
       // TODO: Show alert here
