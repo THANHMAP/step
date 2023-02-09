@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' show Platform;
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart' show parse;
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -54,7 +57,7 @@ class VersionStatus {
   });
 }
 
-class NewVersionPlus {
+class NewVersion {
   /// An optional value that can override the default packageName when
   /// attempting to reach the Apple App Store. This is useful if your app has
   /// a different package name in the App Store.
@@ -71,43 +74,24 @@ class NewVersionPlus {
   /// See http://en.wikipedia.org/wiki/ ISO_3166-1_alpha-2 for a list of ISO Country Codes.
   final String? iOSAppStoreCountry;
 
-  /// Only affects Android Play Store lookup: The two-letter country code for the store you want to search.
-  /// Provide a value here if your app is only available outside the US.
-  /// For example: US. The default is US.
-  /// See http://en.wikipedia.org/wiki/ ISO_3166-1_alpha-2 for a list of ISO Country Codes.
-  /// see https://www.ibm.com/docs/en/radfws/9.6.1?topic=overview-locales-code-pages-supported
-  final String? androidPlayStoreCountry;
-
   /// An optional value that will force the plugin to always return [forceAppVersion]
   /// as the value of [storeVersion]. This can be useful to test the plugin's behavior
   /// before publishng a new version.
   final String? forceAppVersion;
 
-  NewVersionPlus({
+  NewVersion({
     this.androidId,
     this.iOSId,
     this.iOSAppStoreCountry,
     this.forceAppVersion,
-    this.androidPlayStoreCountry,
   });
 
   /// This checks the version status, then displays a platform-specific alert
   /// with buttons to dismiss the update alert, or go to the app store.
-  showAlertIfNecessary({
-    required BuildContext context,
-    LaunchModeVersion launchModeVersion = LaunchModeVersion.normal,
-  }) async {
+  showAlertIfNecessary({required BuildContext context}) async {
     final VersionStatus? versionStatus = await getVersionStatus();
-    final launchMode = launchModeVersion == LaunchModeVersion.external
-        ? LaunchMode.externalApplication
-        : LaunchMode.platformDefault;
-
     if (versionStatus != null && versionStatus.canUpdate) {
-      showUpdateDialog(
-        context: context,
-        versionStatus: versionStatus,
-        launchMode: launchMode,
-      );
+      showUpdateDialog(context: context, versionStatus: versionStatus);
     }
   }
 
@@ -123,14 +107,8 @@ class NewVersionPlus {
     } else {
       debugPrint(
           'The target platform "${Platform.operatingSystem}" is not yet supported by this package.');
-      return null;
     }
   }
-
-  /// This function attempts to clean local version strings so they match the MAJOR.MINOR.PATCH
-  /// versioning pattern, so they can be properly compared with the store version.
-  String _getCleanVersion(String version) =>
-      RegExp(r'\d+\.\d+(\.\d+)?').stringMatch(version) ?? '0.0.0';
 
   /// check version from firebase
   Future<VersionStatus?> getFirebaseVersion(String versionFirebaseConfig) async {
@@ -143,11 +121,22 @@ class NewVersionPlus {
       releaseNotes: "",
     );
   }
+
+  Future<String> getVersionLocal()  async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return _getCleanVersion(packageInfo.version);
+  }
+
+  /// This function attempts to clean local version strings so they match the MAJOR.MINOR.PATCH
+  /// versioning pattern, so they can be properly compared with the store version.
+  String _getCleanVersion(String version) =>
+      RegExp(r'\d+\.\d+\.\d+').stringMatch(version) ?? '0.0.0';
+
   /// iOS info is fetched by using the iTunes lookup API, which returns a
   /// JSON document.
   Future<VersionStatus?> _getiOSStoreVersion(PackageInfo packageInfo) async {
     final id = iOSId ?? packageInfo.packageName;
-    final parameters = {"bundleId": id};
+    final parameters = {"bundleId": "$id"};
     if (iOSAppStoreCountry != null) {
       parameters.addAll({"country": iOSAppStoreCountry!});
     }
@@ -176,8 +165,8 @@ class NewVersionPlus {
   Future<VersionStatus?> _getAndroidStoreVersion(
       PackageInfo packageInfo) async {
     final id = androidId ?? packageInfo.packageName;
-    final uri = Uri.https("play.google.com", "/store/apps/details",
-        {"id": id.toString(), "hl": androidPlayStoreCountry ?? "en_US"});
+    final uri =
+    Uri.https("play.google.com", "/store/apps/details", {"id": "$id", "hl": "en"});
     final response = await http.get(uri);
     if (response.statusCode != 200) {
       throw Exception("Invalid response code: ${response.statusCode}");
@@ -202,24 +191,6 @@ class NewVersionPlus {
       releaseNotes: releaseNotes?.replaceAll(expRemoveSc, ''),
     );
   }
-
-  /// Update action fun
-  /// show modal
-  void _updateActionFunc({
-    required String appStoreLink,
-    required bool allowDismissal,
-    required BuildContext context,
-    LaunchMode launchMode = LaunchMode.platformDefault,
-  }) {
-    launchAppStore(
-      appStoreLink,
-      launchMode: launchMode,
-    );
-    if (allowDismissal) {
-      Navigator.of(context, rootNavigator: true).pop();
-    }
-  }
-
   /// Shows the user a platform-specific alert about the app update. The user
   /// can dismiss the alert or proceed to the app store.
   ///
@@ -235,7 +206,7 @@ class NewVersionPlus {
     bool allowDismissal = true,
     String dismissButtonText = 'Maybe Later',
     VoidCallback? dismissAction,
-    LaunchMode launchMode = LaunchMode.platformDefault,
+    VoidCallback? action,
   }) async {
     final dialogTitleWidget = Text(dialogTitle);
     final dialogTextWidget = Text(
@@ -244,26 +215,23 @@ class NewVersionPlus {
     );
 
     final updateButtonTextWidget = Text(updateButtonText);
+    final updateAction = () {
+      action!();
+      launchAppStore(versionStatus.appStoreLink);
+      if (allowDismissal) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    };
 
     List<Widget> actions = [
       Platform.isAndroid
           ? TextButton(
-        onPressed: () => _updateActionFunc(
-          allowDismissal: allowDismissal,
-          context: context,
-          appStoreLink: versionStatus.appStoreLink,
-          launchMode: launchMode,
-        ),
         child: updateButtonTextWidget,
+        onPressed: updateAction,
       )
           : CupertinoDialogAction(
-        onPressed: () => _updateActionFunc(
-          allowDismissal: allowDismissal,
-          context: context,
-          appStoreLink: versionStatus.appStoreLink,
-          launchMode: launchMode,
-        ),
         child: updateButtonTextWidget,
+        onPressed: updateAction,
       ),
     ];
 
@@ -274,12 +242,12 @@ class NewVersionPlus {
       actions.add(
         Platform.isAndroid
             ? TextButton(
-          onPressed: dismissAction,
           child: dismissButtonTextWidget,
+          onPressed: dismissAction,
         )
             : CupertinoDialogAction(
-          onPressed: dismissAction,
           child: dismissButtonTextWidget,
+          onPressed: dismissAction,
         ),
       );
     }
@@ -306,19 +274,12 @@ class NewVersionPlus {
   }
 
   /// Launches the Apple App Store or Google Play Store page for the app.
-  Future<void> launchAppStore(
-      String appStoreLink, {
-        LaunchMode launchMode = LaunchMode.platformDefault,
-      }) async {
+  Future<void> launchAppStore(String appStoreLink) async {
+    debugPrint(appStoreLink);
     if (await canLaunchUrl(Uri.parse(appStoreLink))) {
-      await launchUrl(
-        Uri.parse(appStoreLink),
-        mode: launchMode,
-      );
+      await launchUrl(Uri.parse(appStoreLink));
     } else {
       throw 'Could not launch appStoreLink';
     }
   }
 }
-
-enum LaunchModeVersion { normal, external }

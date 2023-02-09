@@ -23,6 +23,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   var versionFireBase = "";
+  var versionLocal = "";
   final RemoteConfig _remoteConfig = RemoteConfig.instance;
   Future<void> _initConfig() async {
     await _remoteConfig.setConfigSettings(RemoteConfigSettings(
@@ -68,7 +69,7 @@ class _SplashPageState extends State<SplashPage> {
       // }
     });
 
-    final newVersion = NewVersionPlus(
+    final newVersion = NewVersion(
       iOSId: 'com.step.bank.step',
       androidId: 'com.step.bank.step_bank',
     );
@@ -78,14 +79,24 @@ class _SplashPageState extends State<SplashPage> {
       print(router);
     });
 
+    getVersionLocal(newVersion);
+
     Future.delayed(const Duration(seconds: 2), () {
       advancedStatusCheck(newVersion);
     });
 
     super.initState();
+
   }
 
-  advancedStatusCheck(NewVersionPlus newVersion) async {
+  getVersionLocal(NewVersion newVersion) async {
+    versionLocal = await newVersion.getVersionLocal() ?? "";
+    setState(() {
+      versionLocal;
+    });
+  }
+
+  advancedStatusCheck(NewVersion newVersion) async {
     try {
       final status = await newVersion.getVersionStatus();
       if (status != null) {
@@ -103,7 +114,11 @@ class _SplashPageState extends State<SplashPage> {
               dismissAction: () {
                 load();
               },
-              updateButtonText: "Cập nhật");
+              updateButtonText: "Cập nhật",
+              action: () {
+                load();
+              },
+          );
         } else {
           load();
         }
@@ -141,14 +156,6 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  void checkVersionByFirebase(NewVersionPlus newVersion) async {
-    try {
-
-    } catch (e) {
-
-    }
-  }
-
   void load() async {
     var isLogged = await SPref.instance.get("token");
     if (isLogged != null && isLogged.toString().isNotEmpty) {
@@ -174,7 +181,27 @@ class _SplashPageState extends State<SplashPage> {
             ),
           ),
           child: Center(
-            child: SvgPicture.asset("assets/svg/ic_logo.svg"),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: SvgPicture.asset("assets/svg/ic_logo.svg"),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 30, bottom: 10),
+                    child: Text("V $versionLocal",
+                      style: TextStyle(
+                        fontSize: 15,),
+                      ),
+                  ),
+
+                )
+              ],
+            ),
+            // child: SvgPicture.asset("assets/svg/ic_logo.svg"),
           ), /* add child content here */
         ),
       ),

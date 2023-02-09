@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -25,6 +26,7 @@ import 'package:step_bank/shared/SPref.dart';
 import 'package:step_bank/strings.dart';
 import 'package:step_bank/util.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../models/biometrics_model.dart';
 import '../../themes.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart' as apple;
@@ -186,7 +188,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   void _loginFacebook() async {
-    final result = await FacebookAuth.instance
+    final facebook = FacebookAuth.instance;
+    await facebook.logOut();
+    final result = await facebook
         .login(permissions: ["public_profile", "email"]);
     if (result.status == LoginStatus.success) {
       final userData = await FacebookAuth.i.getUserData(
@@ -445,6 +449,50 @@ class _LoginScreenState extends State<LoginScreen> {
                                     decoration: TextDecoration.underline,
                                   ),
                                 )),
+                          ],
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center ,//Center Row contents horizontally,
+                          crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: DefaultTextStyle(
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Mytheme.color_121212,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: "OpenSans-Regular",
+                                    // decoration: TextDecoration.underline,
+                                  ),
+                                  child: Wrap(
+                                    children: [
+                                      Text("  Bằng cách đăng nhập, bạn đã đồng ý với các "),
+                                      GestureDetector(
+                                        child: Text(
+                                          "điều khoản và chính sách bảo mật",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              decoration: TextDecoration.underline
+                                          ),
+                                        ),
+                                        onTap: () async {
+                                          try {
+                                            await launchUrlString("https://co-opsmart.vn/term/");
+                                          } catch (err) {
+
+                                          }
+                                        },
+                                      ),
+                                      Text("của chúng tôi"),
+                                    ],
+                                  ),
+                                ),
+                            ),
+                           )
+
                           ],
                         ),
                         const SizedBox(height: 10),
