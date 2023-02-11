@@ -157,13 +157,18 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void load() async {
-    var isLogged = await SPref.instance.get("token");
-    if (isLogged != null && isLogged.toString().isNotEmpty) {
-      Get.offAndToNamed('/home');
-      return;
+    var isLoginFirst = await SPref.instance.getBoolValuesSF("loginFirst");
+    if (isLoginFirst == null || !isLoginFirst) {
+      Get.offAndToNamed('/introductionScreen');
     } else {
-      Get.offAndToNamed('/login');
-      return;
+      var isLogged = await SPref.instance.get("token");
+      if (isLogged != null && isLogged.toString().isNotEmpty) {
+        Get.offAndToNamed('/home');
+        return;
+      } else {
+        Get.offAndToNamed('/login');
+        return;
+      }
     }
   }
 

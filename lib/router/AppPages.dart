@@ -48,6 +48,7 @@ import '../screens/education/course_screen.dart';
 import '../screens/education/detail_study.dart';
 import '../screens/education/scorm_video.dart';
 import '../screens/education/topic_education.dart';
+import '../screens/introduction/introduction_screen.dart';
 import '../screens/news/web_view_news.dart';
 import '../screens/notification/notification.dart';
 import '../screens/notification/notification_new.dart';
@@ -438,6 +439,10 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.creditInfoScreen,
       page: () => const CreditInfoScreen(),
+    ), GetPage(
+        transition: Transition.rightToLeft,
+        name: AppRoutes.introductionScreen,
+        page: () => const IntroductionScreenPage(),
     ),
   ];
 }
