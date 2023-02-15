@@ -35,7 +35,9 @@ class TopicEducationScreen extends StatefulWidget {
 class _TopicEducationScreenState extends State<TopicEducationScreen> {
   late ProgressDialog pr;
   List<DataLessonModel> _lessonList = [];
-  final EducationData _educationData = Get.arguments;
+  // final EducationData _educationData = Get.arguments;
+
+  final courseId = Get.arguments;
 
   @override
   void initState() {
@@ -47,7 +49,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
     );
     Utils.portraitModeOnly();
     Future.delayed(Duration.zero, () {
-      loadListEducation();
+      loadListEducation(courseId.toString());
     });
   }
 
@@ -63,7 +65,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
               body: Column(
                 children: <Widget>[
                   AppbarWidget(
-                    text: _educationData.name,
+                    text: "_educationData.name",
                     onClicked: () {
                       Navigator.of(context).pop(false);
                     },
@@ -189,10 +191,10 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
     return "$number";
   }
 
-  Future<void> loadListEducation() async {
+  Future<void> loadListEducation(String courseId) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
-      'course_id': _educationData.id.toString(),
+      'course_id': courseId,
     });
     APIManager.postAPICallNeedToken(RemoteServices.listLessonURL, param).then(
         (value) async {

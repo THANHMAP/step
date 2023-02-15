@@ -78,4 +78,7 @@ class RemoteServices {
   static var deleteUserURL = '$baseURL/api/v1/user/delete';
   static var getListCredit = '$baseURL/api/v1/setting/list-credit';
 
+  static var getListToolUsed = '$baseURL/api/v1/tool/last-used';
+  static var getListLessonLearned = '$baseURL/api/v1/education/lesson-learned';
+
 }

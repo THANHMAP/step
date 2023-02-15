@@ -125,8 +125,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     _itemToolData = Get.arguments;
     var month = DateTime.now().month;
     var year = DateTime.now().year;
-    for(int i = 0; i < _listYeah.length; i++) {
-      if(_listYeah[i].contains(year.toString())) {
+    for (int i = 0; i < _listYeah.length; i++) {
+      if (_listYeah[i].contains(year.toString())) {
         currentYear = i;
         break;
       }
@@ -142,7 +142,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     );
     Utils.portraitModeOnly();
     Future.delayed(Duration.zero, () {
-      loadDataDrawTool(_itemToolData?.id.toString() ?? "0", month.toString(), "");
+      loadDataDrawTool(
+          _itemToolData?.id.toString() ?? "0", month.toString(), "");
     });
   }
 
@@ -173,318 +174,392 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Mytheme.colorBgMain,
-            body: Column(
-              children: <Widget>[
-                AppbarWidget(
-                  text: _itemToolData?.name ?? "",
-                  onClicked: () {
-                    Navigator.of(context).pop(false);
-                  },
-                ),
-                Expanded(
-                  flex: 9,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 0, left: 0, right: 0, bottom: 70),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-
-                          SizedBox(height: 10),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectDefault = true;
-                                    });
-                                    loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
-                                  },
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Tháng",
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectDefault = false;
-                                    });
-                                    loadDataDrawTool(_itemToolData?.id.toString() ?? "0", "", _listYeah[currentYear].replaceAll("Năm ", ""));
-                                  },
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Năm",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: !selectDefault
-                                            ? Mytheme.colorBgButtonLogin
-                                            : Mytheme.color_82869E,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: "OpenSans-SemiBold",
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Mytheme.colorBgMain,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: _itemToolData?.name ?? "",
+                onClicked: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              Expanded(
+                flex: 9,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 0, left: 0, right: 0, bottom: 70),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectDefault = true;
+                                  });
+                                  loadDataDrawTool(
+                                      _itemToolData?.id.toString() ?? "0",
+                                      (currentMonthIndex + 1).toString(),
+                                      "");
+                                },
                                 child: Align(
-                                    alignment: Alignment.center,
-                                    child: Divider(
-                                      thickness: 2,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Tháng",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontSize: 16,
                                       color: selectDefault
                                           ? Mytheme.colorBgButtonLogin
                                           : Mytheme.color_82869E,
-                                    )),
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-SemiBold",
+                                    ),
+                                  ),
+                                ),
                               ),
-                              Expanded(
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectDefault = false;
+                                  });
+                                  loadDataDrawTool(
+                                      _itemToolData?.id.toString() ?? "0",
+                                      "",
+                                      _listYeah[currentYear]
+                                          .replaceAll("Năm ", ""));
+                                },
                                 child: Align(
-                                    alignment: Alignment.center,
-                                    child: Divider(
-                                      thickness: 2,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Năm",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16,
                                       color: !selectDefault
                                           ? Mytheme.colorBgButtonLogin
                                           : Mytheme.color_82869E,
-                                    )),
-                              )
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-SemiBold",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Divider(
+                                    thickness: 2,
+                                    color: selectDefault
+                                        ? Mytheme.colorBgButtonLogin
+                                        : Mytheme.color_82869E,
+                                  )),
+                            ),
+                            Expanded(
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Divider(
+                                    thickness: 2,
+                                    color: !selectDefault
+                                        ? Mytheme.colorBgButtonLogin
+                                        : Mytheme.color_82869E,
+                                  )),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 16, right: 16, bottom: 10),
+                          child: selectDefault ? month() : yeah(),
+                        ),
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
                             ],
                           ),
-
-                          Padding(padding: const EdgeInsets.only(
-                              top: 0, left: 16, right: 16, bottom: 10),
-                            child:  selectDefault ? month() : yeah(),
-                          ),
-
-
-                          Container(
-                            margin: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 16 ),
-                              child:  Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:
-                                    const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Tiền vào",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_82869E,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily:
-                                                    "OpenSans-Regular",
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-
-                                            Expanded(
-                                              flex: 3,
-                                              child:  Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Text(
-                                                  "${formNum(moneyHasSave.toString())} VND",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_82869E,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily:
-                                                    "OpenSans-Regular",
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child:  Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "Tiền ra",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_82869E,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily:
-                                                    "OpenSans-Regular",
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-
-                                            Expanded(
-                                              flex: 3,
-                                              child:  Align(
-                                                alignment: Alignment.centerRight,
-                                                child: Text(
-                                                  "${formNum(moneyTienRa.toString())} VND",
-                                                  textAlign: TextAlign.left,
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_82869E,
-                                                    fontWeight: FontWeight.w400,
-                                                    fontFamily:
-                                                    "OpenSans-Regular",
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-
-                                          ],
-                                        ),
-
-                                        Divider(
-                                            color: Mytheme.color_BCBFD6
-                                        ),
-
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Số dư",
-                                            textAlign: TextAlign.left,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              color: Mytheme.color_82869E,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily:
-                                              "OpenSans-Regular",
-                                            ),
-                                          ),
-                                        ),
-
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "${formNum((moneyHasSave - moneyTienRa).toString())} VND",
-                                            textAlign: TextAlign.left,
-                                            style: const TextStyle(
-                                              fontSize: 24,
-                                              color: Mytheme.colorBgButtonLogin,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily:
-                                              "OpenSans-SemiBold",
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.toNamed("/reportFlowMoneyScreen", arguments: _itemToolData?.id.toString() ?? "0");
-                                          },
-                                          child: Container(
-                                              margin: EdgeInsets.all(10),
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(8),
-                                                  border: Border.all(color: Mytheme.colorBgButtonLogin)
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
-                                                child: Text(
-                                                  "Xem báo cáo dòng tiền",
-                                                  style: TextStyle(
-                                                    fontSize: 16,
-                                                    color: Mytheme.color_434657,
-                                                    fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-Semibold",
-                                                  ),
-                                                ),
-                                              )
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          SizedBox(height: 10),
-
-                          for(var i = 0; i < dataManage.length; i++) ...[
-                            Row(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 16, left: 16, right: 16, bottom: 16),
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 16.0, right: 0.0),
-                                  child: Row(
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 10, bottom: 10, left: 10, right: 10),
+                                  child: Column(
                                     children: [
-                                      SvgPicture.asset(
-                                          "assets/svg/ic_calender.svg"),
-                                      SizedBox(width: 5,),
-                                      Text(
-                                        dataManage[i].name ?? "",
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Tiền vào",
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.color_82869E,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "${formNum(moneyHasSave.toString())} VND",
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.color_82869E,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Tiền ra",
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.color_82869E,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 3,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "${formNum(moneyTienRa.toString())} VND",
+                                                textAlign: TextAlign.left,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.color_82869E,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily:
+                                                      "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Divider(color: Mytheme.color_BCBFD6),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Số dư",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w400,
+                                            fontFamily: "OpenSans-Regular",
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "${formNum((moneyHasSave - moneyTienRa).toString())} VND",
+                                          textAlign: TextAlign.left,
+                                          style: const TextStyle(
+                                            fontSize: 24,
+                                            color: Mytheme.colorBgButtonLogin,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.toNamed("/reportFlowMoneyScreen",
+                                              arguments: _itemToolData?.id
+                                                      .toString() ??
+                                                  "0");
+                                        },
+                                        child: Container(
+                                            margin: EdgeInsets.all(10),
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: Mytheme
+                                                        .colorBgButtonLogin)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10,
+                                                  bottom: 10,
+                                                  left: 0,
+                                                  right: 0),
+                                              child: Text(
+                                                "Xem báo cáo dòng tiền",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.color_434657,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontFamily:
+                                                      "OpenSans-Semibold",
+                                                ),
+                                              ),
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        for (var i = 0; i < dataManage.length; i++) ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 16.0, right: 0.0),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                        "assets/svg/ic_calender.svg"),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      dataManage[i].name ?? "",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: Text(
+                                  "${formNum(calculatorTotalMonth(dataManage[i].itemList!))} VNĐ",
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Mytheme.colorBgButtonLogin,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: "OpenSans-SemiBold",
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          for (var po = 0;
+                              po < dataManage[i].itemList!.length;
+                              po++) ...[
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 16.0, right: 16.0, top: 10, bottom: 10),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.color_DCDEE9,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 7,
+                                    offset: const Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 12, right: 12, bottom: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        showDialogConfigDelete();
+                                        print("showDialogConfigDelete() ${dataManage[i].itemList![po].id}");
+                                        // setState(() {
+                                        //   dataUsers.removeAt(i);
+                                        // });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            child: SvgPicture.asset(
+                                                "assets/svg/ic_delete.svg"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        dataManage[i].itemList![po].note ?? "",
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Mytheme.colorTextSubTitle,
@@ -492,171 +567,117 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                           fontFamily: "OpenSans-Regular",
                                         ),
                                       ),
-                                    ],
-                                  ),
-
-                                ),
-                                Spacer(),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 16),
-                                  child:  Text(
-                                    "${formNum(calculatorTotalMonth(dataManage[i].itemList!))} VNĐ",
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorBgButtonLogin,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-SemiBold",
                                     ),
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                            for(var po = 0; po < dataManage[i].itemList!.length; po++)...[
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 16.0, right: 16.0, top: 10, bottom: 10),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Mytheme.color_DCDEE9,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        convert(
+                                            dataManage[i].itemList![po].date ??
+                                                ""),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                      ),
                                     ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        dataManage[i].itemList![po].type == 1
+                                            ? "+ ${formNum(dataManage[i].itemList![po].deposit ?? "0")}"
+                                            : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                                        textAlign: TextAlign.end,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Mytheme.colorTextSubTitle,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: "OpenSans-Regular",
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
-                                  child:  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          dataManage[i].itemList![po].note?? "",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          convert(dataManage[i].itemList![po].date ?? ""),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          dataManage[i].itemList![po].type == 1? "+ ${formNum(dataManage[i].itemList![po].deposit ?? "0")}" : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-
                               ),
-                            ],
-
+                            ),
                           ],
-
-
-
-
                         ],
-                      ),
+                      ],
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      // InkWell(
-                      //   onTap: () {
-                      //     Get.offAndToNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
-                      //   },
-                      //   child: Container(
-                      //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                      //       alignment: Alignment.center,
-                      //       decoration: BoxDecoration(
-                      //           color: Colors.white,
-                      //           borderRadius: BorderRadius.circular(8),
-                      //           border:
-                      //           Border.all(color: Mytheme.colorBgButtonLogin)),
-                      //       child: Padding(
-                      //         padding: const EdgeInsets.only(
-                      //             top: 10, bottom: 10, left: 16, right: 16),
-                      //         child: Text(
-                      //           "Sửa",
-                      //           style: TextStyle(
-                      //             fontSize: 16,
-                      //             color: Mytheme.color_434657,
-                      //             fontWeight: FontWeight.w600,
-                      //             fontFamily: "OpenSans-Semibold",
-                      //           ),
-                      //         ),
-                      //       )),
-                      // ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    // InkWell(
+                    //   onTap: () {
+                    //     Get.offAndToNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
+                    //   },
+                    //   child: Container(
+                    //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
+                    //       alignment: Alignment.center,
+                    //       decoration: BoxDecoration(
+                    //           color: Colors.white,
+                    //           borderRadius: BorderRadius.circular(8),
+                    //           border:
+                    //           Border.all(color: Mytheme.colorBgButtonLogin)),
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.only(
+                    //             top: 10, bottom: 10, left: 16, right: 16),
+                    //         child: Text(
+                    //           "Sửa",
+                    //           style: TextStyle(
+                    //             fontSize: 16,
+                    //             color: Mytheme.color_434657,
+                    //             fontWeight: FontWeight.w600,
+                    //             fontFamily: "OpenSans-Semibold",
+                    //           ),
+                    //         ),
+                    //       )),
+                    // ),
 
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 16, right: 16),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  // side: const BorderSide(color: Colors.red)
-                                ),
-                                primary: Mytheme.colorBgButtonLogin,
-                                minimumSize:
-                                Size(MediaQuery.of(context).size.width, 44)),
-                            child: Text(
-                              "Thêm giao dịch mới",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: "OpenSans-Regular",
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              selectItem = true;
-                              validate = false;
-                              _moneyController.clear();
-                              _noteController.clear();
-                              dates = formatDate(int.parse(DateTime.now().day.toString()), int.parse(DateTime.now().month.toString()), int.parse(DateTime.now().year.toString()));
-                              _sexEditModalBottomSheet(context);
-                            },
-                          )),
-                    ],
-                  ),
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 16, right: 16),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                // side: const BorderSide(color: Colors.red)
+                              ),
+                              primary: Mytheme.colorBgButtonLogin,
+                              minimumSize:
+                                  Size(MediaQuery.of(context).size.width, 44)),
+                          child: Text(
+                            "Thêm giao dịch mới",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            selectItem = true;
+                            validate = false;
+                            _moneyController.clear();
+                            _noteController.clear();
+                            dates = formatDate(
+                                int.parse(DateTime.now().day.toString()),
+                                int.parse(DateTime.now().month.toString()),
+                                int.parse(DateTime.now().year.toString()));
+                            _sexEditModalBottomSheet(context);
+                          },
+                        )),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 
@@ -679,194 +700,427 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         context: context,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) {
-                return SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        top: 20,
-                        left: 16,
-                        right: 16,
-                        bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height * .67,
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            height: 38,
-                            alignment: Alignment.center,
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: SizedBox(
-                                      width: 40,
-                                      child: IconButton(
-                                        icon: Image.asset(
-                                            "assets/images/ic_close.png"),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectItem = true;
-                                      _selectedFruit = 0;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 0.0, right: 16.0),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: selectItem
-                                          ? Mytheme.color_0xFFCCECFB
-                                          : Mytheme.kBackgroundColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: !selectItem
-                                          ? Border.all(
-                                          color: Mytheme.kBackgroundColor)
-                                          : null,
-                                      boxShadow: selectItem? null : [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 7,
-                                          offset: const Offset(
-                                              0, 3), // changes position of shadow
-                                        ),
-                                      ],
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 20,
+                      left: 16,
+                      right: 16,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * .75,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 38,
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon: Image.asset(
+                                          "assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, left: 12, right: 12, bottom: 16),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Thu nhập",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: selectItem
-                                                  ? Mytheme.color_0xFF2655A6
-                                                  : Mytheme.color_82869E,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: "OpenSans-SemiBold",
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectItem = false;
-                                      _selectedFruit = 0;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 0.0, right: 0.0),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: !selectItem ? Mytheme.color_0xFFCCECFB: Mytheme.kBackgroundColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: !selectItem ? null : Border.all(color: Mytheme.kBackgroundColor) ,
-                                      boxShadow: !selectItem? null : [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: 1,
-                                          blurRadius: 7,
-                                          offset: const Offset(
-                                              0, 3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 16, left: 12, right: 12, bottom: 16),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Chi tiêu",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: !selectItem ? Mytheme.color_0xFF2655A6 : Mytheme.color_82869E,
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: "OpenSans-SemiBold",
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              )
+                                  ))
                             ],
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Ngày",
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Mytheme.colorTextSubTitle,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-SemiBold",
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectItem = true;
+                                    _selectedFruit = 0;
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 0.0, right: 16.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: selectItem
+                                        ? Mytheme.color_0xFFCCECFB
+                                        : Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: !selectItem
+                                        ? Border.all(
+                                            color: Mytheme.kBackgroundColor)
+                                        : null,
+                                    boxShadow: selectItem
+                                        ? null
+                                        : [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16,
+                                        left: 12,
+                                        right: 12,
+                                        bottom: 16),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Thu nhập",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: selectItem
+                                                ? Mytheme.color_0xFF2655A6
+                                                : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 10),
-                          Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectItem = false;
+                                    _selectedFruit = 0;
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 0.0, right: 0.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: !selectItem
+                                        ? Mytheme.color_0xFFCCECFB
+                                        : Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: !selectItem
+                                        ? null
+                                        : Border.all(
+                                            color: Mytheme.kBackgroundColor),
+                                    boxShadow: !selectItem
+                                        ? null
+                                        : [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 1,
+                                              blurRadius: 7,
+                                              offset: const Offset(0,
+                                                  3), // changes position of shadow
+                                            ),
+                                          ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16,
+                                        left: 12,
+                                        right: 12,
+                                        bottom: 16),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Chi tiêu",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: !selectItem
+                                                ? Mytheme.color_0xFF2655A6
+                                                : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ],
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Ngày",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 3,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Mytheme.colorTextDivider,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 12, left: 16, bottom: 18, right: 0),
+                                  child: Text(
+                                    dates,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorBgButtonLogin,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-Semibold",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 0, left: 6, bottom: 0, right: 0),
+                                  child: IconButton(
+                                    icon: SvgPicture.asset(
+                                        "assets/svg/ic_calender.svg"),
+                                    // tooltip: 'Increase volume by 10',
+                                    iconSize: 50,
+                                    onPressed: () async {
+                                      var datePicked =
+                                          await DatePicker.showSimpleDatePicker(
+                                        context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1960),
+                                        lastDate: DateTime(2050),
+                                        dateFormat: "dd-MMMM-yyyy",
+                                        locale: DateTimePickerLocale.en_us,
+                                        looping: true,
+                                        cancelText: "Hủy bỏ",
+                                        confirmText: "Cập nhật",
+                                        titleText: "Chọn ngày",
+                                      );
+                                      if (datePicked != null) {
+                                        setState(() {
+                                          dates = formatDate(
+                                              int.parse(
+                                                  datePicked.day.toString()),
+                                              int.parse(
+                                                  datePicked.month.toString()),
+                                              int.parse(
+                                                  datePicked.year.toString()));
+                                          // dates = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Số tiền",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          obscureText: false,
+                          controller: _moneyController,
+                          enabled: true,
+                          textInputAction: TextInputAction.done,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              fillColor: const Color(0xFFEFF0FB),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              errorBorder: validate
+                                  ? OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1),
+                                      borderRadius: BorderRadius.circular(8))
+                                  : OutlineInputBorder(
+                                      // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(8)),
+                              errorText: validate
+                                  ? "Tiền rút ra không được lớn hơn tiền đang có"
+                                  : "",
+                              filled: true,
+                              hintText: "Nhập số tiền",
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFFA7ABC3)),
+                              isDense: true,
+                              // Added this
+                              contentPadding: EdgeInsets.all(8),
+                              // labelText: labelText,
+
+                              suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                      "assets/svg/ic_vnd.svg")),
+                              enabledBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                  borderRadius: BorderRadius.circular(8))),
+                          onChanged: (value) {
+                            value = '${formNum(
+                              value.replaceAll(',', ''),
+                            )}';
+                            _moneyController.value = TextEditingValue(
+                              text: value,
+                              selection: TextSelection.collapsed(
+                                offset: value.length,
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Danh mục",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Container(
+                          height: 65,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Mytheme.colorTextDivider,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: InkWell(
+                                  onTap: () {
+                                    _showDialog(
+                                      CupertinoPicker(
+                                        magnification: 1.22,
+                                        squeeze: 1.2,
+                                        useMagnifier: true,
+                                        itemExtent: _kItemExtent,
+                                        // This is called when selected item is changed.
+                                        onSelectedItemChanged:
+                                            (int selectedItem) {
+                                          setState(() {
+                                            _selectedFruit = selectedItem;
+                                          });
+                                        },
+                                        children: List<Widget>.generate(
+                                          !selectItem
+                                              ? cashOut.length
+                                              : cashIn.length,
+                                          (int index) {
+                                            return Center(
+                                              child: Text(
+                                                !selectItem
+                                                    ? cashOut[index]
+                                                    : cashIn[index],
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Mytheme
+                                                      .colorBgButtonLogin,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontFamily:
+                                                      "OpenSans-Semibold",
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   child: Padding(
                                     padding: EdgeInsets.only(
-                                        top: 12, left: 16, bottom: 18, right: 0),
+                                        top: 12,
+                                        left: 16,
+                                        bottom: 18,
+                                        right: 0),
                                     child: Text(
-                                      dates,
+                                      !selectItem
+                                          ? cashOut[_selectedFruit]
+                                          : cashIn[_selectedFruit],
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
                                         fontSize: 16,
@@ -877,148 +1131,18 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 0, left: 6, bottom: 0, right: 0),
-                                    child: IconButton(
-                                      icon: SvgPicture.asset(
-                                          "assets/svg/ic_calender.svg"),
-                                      // tooltip: 'Increase volume by 10',
-                                      iconSize: 50,
-                                      onPressed: () async {
-                                        var datePicked = await DatePicker.showSimpleDatePicker(
-                                          context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1960),
-                                          lastDate: DateTime(2050),
-                                          dateFormat: "dd-MMMM-yyyy",
-                                          locale: DateTimePickerLocale.en_us,
-                                          looping: true,
-                                          cancelText: "Hủy bỏ",
-                                          confirmText: "Cập nhật",
-                                          titleText: "Chọn ngày",
-                                        );
-                                        if(datePicked != null) {
-                                          setState(() {
-                                            dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
-                                            // dates = '${datePicked.day}/${datePicked.month}/${datePicked.year}';
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Số tiền",
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Mytheme.colorTextSubTitle,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-SemiBold",
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextField(
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            obscureText: false,
-                            controller: _moneyController,
-                            enabled: true,
-                            textInputAction: TextInputAction.done,
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: InputDecoration(
-                                fillColor: const Color(0xFFEFF0FB),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(8)),
-                                errorBorder: validate ? OutlineInputBorder(
-                                    borderSide: const BorderSide(color: Colors.red, width: 1),
-                                    borderRadius: BorderRadius.circular(8)) : OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(8)),
-                                errorText: validate ? "Tiền rút ra không được lớn hơn tiền đang có" : "",
-                                filled: true,
-                                hintText: "Nhập số tiền",
-                                hintStyle:
-                                const TextStyle(color: Color(0xFFA7ABC3)),
-                                isDense: true,
-                                // Added this
-                                contentPadding: EdgeInsets.all(8),
-                                // labelText: labelText,
-
-                                suffixIcon: IconButton(
-                                    onPressed: () {},
-                                    icon:
-                                    SvgPicture.asset("assets/svg/ic_vnd.svg")),
-                                enabledBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                    borderRadius: BorderRadius.circular(8)),
-                                focusedBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                    borderRadius: BorderRadius.circular(8))),
-                            onChanged: (value) {
-                              value = '${formNum(
-                                value.replaceAll(',', ''),
-                              )}';
-                              _moneyController.value = TextEditingValue(
-                                text: value,
-                                selection: TextSelection.collapsed(
-                                  offset: value.length,
-                                ),
-                              );
-                            },
-                          ),
-                          SizedBox(height: 10),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Danh mục",
-                              textAlign: TextAlign.left,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Mytheme.colorTextSubTitle,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-SemiBold",
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 75,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: InkWell(
-                                    onTap: () {
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 0, left: 6, bottom: 0, right: 0),
+                                  child: IconButton(
+                                    icon: SvgPicture.asset(
+                                        "assets/svg/arow_down.svg"),
+                                    // tooltip: 'Increase volume by 10',
+                                    iconSize: 50,
+                                    onPressed: () {
                                       _showDialog(
                                         CupertinoPicker(
                                           magnification: 1.22,
@@ -1026,152 +1150,165 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                           useMagnifier: true,
                                           itemExtent: _kItemExtent,
                                           // This is called when selected item is changed.
-                                          onSelectedItemChanged: (int selectedItem) {
+                                          onSelectedItemChanged:
+                                              (int selectedItem) {
                                             setState(() {
                                               _selectedFruit = selectedItem;
                                             });
                                           },
-                                          children:
-                                          List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
-                                            return Center(
-                                              child: Text(
-                                                !selectItem ? cashOut[index]: cashIn[index],
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Mytheme.colorBgButtonLogin,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: "OpenSans-Semibold",
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 12, left: 16, bottom: 18, right: 0),
-                                      child: Text(
-                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit],
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorBgButtonLogin,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: "OpenSans-Semibold",
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 0, left: 6, bottom: 0, right: 0),
-                                    child: IconButton(
-                                      icon: SvgPicture.asset(
-                                          "assets/svg/arow_down.svg"),
-                                      // tooltip: 'Increase volume by 10',
-                                      iconSize: 50,
-                                      onPressed: () {
-                                        _showDialog(
-                                          CupertinoPicker(
-                                            magnification: 1.22,
-                                            squeeze: 1.2,
-                                            useMagnifier: true,
-                                            itemExtent: _kItemExtent,
-                                            // This is called when selected item is changed.
-                                            onSelectedItemChanged: (int selectedItem) {
-                                              setState(() {
-                                                _selectedFruit = selectedItem;
-                                              });
-                                            },
-                                            children:
-                                            List<Widget>.generate(!selectItem ?cashOut.length : cashIn.length, (int index) {
+                                          children: List<Widget>.generate(
+                                            !selectItem
+                                                ? cashOut.length
+                                                : cashIn.length,
+                                            (int index) {
                                               return Center(
                                                 child: Text(
-                                                  !selectItem ? cashOut[index]: cashIn[index],
+                                                  !selectItem
+                                                      ? cashOut[index]
+                                                      : cashIn[index],
                                                   style: TextStyle(
                                                     fontSize: 15,
-                                                    color: Mytheme.colorBgButtonLogin,
+                                                    color: Mytheme
+                                                        .colorBgButtonLogin,
                                                     fontWeight: FontWeight.w600,
-                                                    fontFamily: "OpenSans-Semibold",
+                                                    fontFamily:
+                                                        "OpenSans-Semibold",
                                                   ),
                                                 ),
                                               );
                                             },
-                                            ),
                                           ),
-                                        );
-                                      },
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Ghi chú",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
                             ),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 40, bottom: 0, left: 0, right: 0),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      // side: const BorderSide(color: Colors.red)
-                                    ),
-                                    primary: Mytheme.colorBgButtonLogin,
-                                    minimumSize: Size(
-                                        MediaQuery.of(context).size.width, 44)),
-                                child: Text(
-                                  "Lưu thay đổi",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "OpenSans-Regular",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onPressed: () {
+                        ),
+                        const SizedBox(height: 10),
+                        TextField(
+                          keyboardType: TextInputType.text,
+                          // inputFormatters: <TextInputFormatter>[
+                          //   FilteringTextInputFormatter.digitsOnly
+                          // ],
+                          obscureText: false,
+                          controller: _noteController,
+                          enabled: true,
+                          textInputAction: TextInputAction.done,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              fillColor: const Color(0xFFEFF0FB),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              errorBorder: validate
+                                  ? OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: Colors.red, width: 1),
+                                      borderRadius: BorderRadius.circular(8))
+                                  : OutlineInputBorder(
+                                      // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                      borderRadius: BorderRadius.circular(8)),
+                              errorText: validate
+                                  ? "Tiền rút ra không được lớn hơn tiền đang có"
+                                  : "",
+                              filled: true,
+                              hintText: "Ghi chú về số tiền",
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFFA7ABC3)),
+                              isDense: true,
+                              // Added this
+                              contentPadding: EdgeInsets.all(8),
+                              // labelText: labelText,
 
-                                  if(_moneyController.text.isEmpty) {
-                                    Utils.showError("Vui lòng nhập số tiền", context);
-                                    return;
-                                  }
+                              // suffixIcon: IconButton(
+                              //     onPressed: () {},
+                              //     icon:
+                              //     SvgPicture.asset("assets/svg/ic_vnd.svg")),
+                              enabledBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 20, bottom: 5, left: 0, right: 0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    // side: const BorderSide(color: Colors.red)
+                                  ),
+                                  primary: Mytheme.colorBgButtonLogin,
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width, 44)),
+                              child: Text(
+                                "Lưu thay đổi",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: "OpenSans-Regular",
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                if (_moneyController.text.isEmpty) {
+                                  Utils.showError(
+                                      "Vui lòng nhập số tiền", context);
+                                  return;
+                                }
 
-                                  var text = "";
-                                  Navigator.of(context).pop();
-                                  if(selectItem) {
-                                    text = "1"; // thu nhap
-                                    addDataDrawTool(
-                                        _itemToolData?.id.toString() ?? "0",
-                                        text,
-                                        "0",
-                                        _moneyController.text.replaceAll(",", ""),
-                                        dates,
-                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
-                                    );
-                                  } else {
-                                    text = "2";
-                                    addDataDrawTool(
-                                        _itemToolData?.id.toString() ?? "0",
-                                        text,
-                                        _moneyController.text.replaceAll(",", ""),
-                                        "0",
-                                        dates,
-                                        !selectItem ? cashOut[_selectedFruit] : cashIn[_selectedFruit]
-                                    );
-                                  }
-
-
-                                },
-                              )),
-                        ],
-                      ),
+                                var text = "";
+                                Navigator.of(context).pop();
+                                if (selectItem) {
+                                  text = "1"; // thu nhap
+                                  addDataDrawTool(
+                                      _itemToolData?.id.toString() ?? "0",
+                                      text,
+                                      "0",
+                                      _moneyController.text.replaceAll(",", ""),
+                                      dates,
+                                      !selectItem
+                                          ? cashOut[_selectedFruit]
+                                          : cashIn[_selectedFruit],
+                                      _noteController.text);
+                                } else {
+                                  text = "2";
+                                  addDataDrawTool(
+                                      _itemToolData?.id.toString() ?? "0",
+                                      text,
+                                      _moneyController.text.replaceAll(",", ""),
+                                      "0",
+                                      dates,
+                                      !selectItem
+                                          ? cashOut[_selectedFruit]
+                                          : cashIn[_selectedFruit],
+                                      _noteController.text);
+                                }
+                              },
+                            )),
+                      ],
                     ),
                   ),
-                );
-              }),
+                ),
+              );
+            }),
           );
         });
   }
@@ -1212,29 +1349,25 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
         context: context,
-        builder: (BuildContext context) =>
-        MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-            child: Container(
-              height: 216,
-              padding: const EdgeInsets.only(top: 6.0),
-              // The Bottom margin is provided to align the popup above the system navigation bar.
-              margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
+        builder: (BuildContext context) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+              child: Container(
+                height: 216,
+                padding: const EdgeInsets.only(top: 6.0),
+                // The Bottom margin is provided to align the popup above the system navigation bar.
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                // Provide a background color for the popup.
+                color: CupertinoColors.systemBackground.resolveFrom(context),
+                // Use a SafeArea widget to avoid system overlaps.
+                child: SafeArea(
+                  top: false,
+                  child: child,
+                ),
               ),
-              // Provide a background color for the popup.
-              color: CupertinoColors.systemBackground.resolveFrom(context),
-              // Use a SafeArea widget to avoid system overlaps.
-              child: SafeArea(
-                top: false,
-                child: child,
-              ),
-            ),
-        )
-    );
+            ));
   }
-
-
 
   String formNum(String s) {
     return NumberFormat.decimalPattern().format(
@@ -1254,8 +1387,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
       if (data.statusCode == 200) {
         setState(() {
           dataUsers = data.data!.dataUsers!;
-          for(var i =0; i< dataUsers.length; i++) {
-            if(dataUsers[i].key == "money_has"){
+          for (var i = 0; i < dataUsers.length; i++) {
+            if (dataUsers[i].key == "money_has") {
               moneyHasSave = int.parse(dataUsers[i].value.toString());
               moneyHasSaveRoot = dataUsers[i].value.toString();
             }
@@ -1269,15 +1402,14 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     });
   }
 
-
   String formatDate(int day, int month, int year) {
     var tempDay = day.toString();
     var tempMonth = month.toString();
     var tempYear = year.toString();
-    if(day < 10) {
+    if (day < 10) {
       tempDay = "0$day";
     }
-    if(month < 10) {
+    if (month < 10) {
       tempMonth = "0$month";
     }
 
@@ -1285,30 +1417,29 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   }
 
   Future<void> addDataDrawTool(String user_tool_id, String type,
-      String withdraw, String deposit, String date, String note) async {
+      String withdraw, String deposit, String date, String note, String noteText) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
       "user_tool_id": user_tool_id,
-      "type":type,
-      "withdraw":withdraw,
+      "type": type,
+      "withdraw": withdraw,
       "deposit": deposit,
-      "date":date.replaceAll("/", "-"),
-      "note":note
+      "date": date.replaceAll("/", "-"),
+      "note": note,
+      "note_text": noteText
     });
     APIManager.postAPICallNeedToken(RemoteServices.storeWithDrawToolURL, param)
         .then((value) async {
       pr.hide();
       int statusCode = value['status_code'];
       if (statusCode == 200) {
-        if(selectDefault) {
-          loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
+        if (selectDefault) {
+          loadDataDrawTool(_itemToolData?.id.toString() ?? "0",
+              (currentMonthIndex + 1).toString(), "");
         } else {
-          loadDataDrawTool(
-              _itemToolData?.id.toString() ?? "0",
-              "",
+          loadDataDrawTool(_itemToolData?.id.toString() ?? "0", "",
               _listYeah[currentYear].replaceAll("Năm ", ""));
         }
-
       }
     }, onError: (error) async {
       pr.hide();
@@ -1318,9 +1449,9 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
 
   String calculatorTotalMonth(List<ItemManage> itemList) {
     var total = 0;
-    if(itemList.isNotEmpty) {
-      for(var i=0; i<itemList.length; i++) {
-        if(itemList[i].type == 1) {
+    if (itemList.isNotEmpty) {
+      for (var i = 0; i < itemList.length; i++) {
+        if (itemList[i].type == 1) {
           total = total + int.parse(itemList[i].deposit.toString());
         } else {
           total = total - int.parse(itemList[i].withdraw.toString());
@@ -1331,7 +1462,6 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     }
     return "0";
   }
-
 
   String getNameMonth(int index) {
     return _listMonth[index];
@@ -1350,8 +1480,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         context: context,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
                 StateSetter setState /*You can rename this!*/) {
               return Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -1380,8 +1510,8 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                 child: SizedBox(
                                   width: 40,
                                   child: IconButton(
-                                    icon:
-                                    Image.asset("assets/images/ic_close.png"),
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -1394,15 +1524,16 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              for (var i = 0;
-                              i < _listMonth.length;
-                              i++) ...[
+                              for (var i = 0; i < _listMonth.length; i++) ...[
                                 InkWell(
                                   onTap: () {
                                     setState(() {
                                       currentMonthIndex = i;
                                       Navigator.of(context).pop();
-                                      loadDataDrawTool(_itemToolData?.id.toString() ?? "0", (currentMonthIndex + 1).toString(), "");
+                                      loadDataDrawTool(
+                                          _itemToolData?.id.toString() ?? "0",
+                                          (currentMonthIndex + 1).toString(),
+                                          "");
                                       // loadDataDraw(
                                       //     idUserTool,
                                       //     (currentRepaymentCycleIndex + 1)
@@ -1419,13 +1550,14 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                         ? Mytheme.color_DCDEE9
                                         : Mytheme.kBackgroundColor,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Padding(
                                           padding:
-                                          const EdgeInsets.only(left: 16),
+                                              const EdgeInsets.only(left: 16),
                                           child: Text(
                                             _listMonth[i],
                                             style: const TextStyle(
@@ -1483,118 +1615,115 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         context: context,
         builder: (context) {
           return MediaQuery(
-              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-              child: StatefulBuilder(builder: (BuildContext context,
-                  StateSetter setState /*You can rename this!*/) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: SizedBox(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          child: Stack(
-                            children: <Widget>[
-                              const Center(
-                                child: Text(
-                                  "Chọn năm",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Mytheme.color_434657,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                    // decoration: TextDecoration.underline,
-                                  ),
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        child: Stack(
+                          children: <Widget>[
+                            const Center(
+                              child: Text(
+                                "Chọn năm",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Mytheme.color_434657,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                  // decoration: TextDecoration.underline,
                                 ),
                               ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: SizedBox(
-                                    width: 40,
-                                    child: IconButton(
-                                      icon:
-                                      Image.asset("assets/images/ic_close.png"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
+                            ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  width: 40,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                        "assets/images/ic_close.png"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              for (var i = 0; i < _listYeah.length; i++) ...[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      currentYear = i;
+                                      Navigator.of(context).pop();
+                                      loadDataDrawTool(
+                                          _itemToolData?.id.toString() ?? "0",
+                                          "",
+                                          _listYeah[i].replaceAll("Năm ", ""));
+                                    });
+                                  },
+                                  child: Container(
+                                    height: 60,
+                                    color: currentYear == i
+                                        ? Mytheme.color_DCDEE9
+                                        : Mytheme.kBackgroundColor,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16),
+                                          child: Text(
+                                            _listYeah[i],
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: Mytheme.color_434657,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: "OpenSans-Semibold",
+                                              // decoration: TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // di chuyen item tối cuối
+                                        const Spacer(),
+                                        Visibility(
+                                          visible:
+                                              currentYear == i ? true : false,
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(right: 16),
+                                            child: Image(
+                                                image: AssetImage(
+                                                    'assets/images/img_check.png'),
+                                                fit: BoxFit.fill),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ))
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                for (var i = 0;
-                                i < _listYeah.length;
-                                i++) ...[
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        currentYear = i;
-                                        Navigator.of(context).pop();
-                                        loadDataDrawTool(
-                                            _itemToolData?.id.toString() ?? "0",
-                                            "",
-                                            _listYeah[i].replaceAll("Năm ", ""));
-
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 60,
-                                      color: currentYear == i
-                                          ? Mytheme.color_DCDEE9
-                                          : Mytheme.kBackgroundColor,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                            const EdgeInsets.only(left: 16),
-                                            child: Text(
-                                              _listYeah[i],
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Mytheme.color_434657,
-                                                fontWeight: FontWeight.w600,
-                                                fontFamily: "OpenSans-Semibold",
-                                                // decoration: TextDecoration.underline,
-                                              ),
-                                            ),
-                                          ),
-
-                                          // di chuyen item tối cuối
-                                          const Spacer(),
-                                          Visibility(
-                                            visible: currentYear == i
-                                                ? true
-                                                : false,
-                                            child: const Padding(
-                                              padding: EdgeInsets.only(right: 16),
-                                              child: Image(
-                                                  image: AssetImage(
-                                                      'assets/images/img_check.png'),
-                                                  fit: BoxFit.fill),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                );
-              }),
+                ),
+              );
+            }),
           );
         });
   }
@@ -1628,7 +1757,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                 flex: 3,
                 child: Padding(
                   padding:
-                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     getNameMonth(currentMonthIndex),
                     textAlign: TextAlign.start,
@@ -1692,7 +1821,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                 flex: 3,
                 child: Padding(
                   padding:
-                  EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                      EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
                   child: Text(
                     getNameYeah(currentYear),
                     textAlign: TextAlign.start,
@@ -1733,12 +1862,10 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
 
   Future<void> loadDataDrawTool(String id, String month, String yeah) async {
     await pr.show();
-    var param = jsonEncode(<String, String>{
-      'user_tool_id': id,
-      'month': month,
-      'year' : yeah
-    });
-    APIManager.postAPICallNeedToken(RemoteServices.listWithDrawFilterToolURL, param)
+    var param = jsonEncode(
+        <String, String>{'user_tool_id': id, 'month': month, 'year': yeah});
+    APIManager.postAPICallNeedToken(
+            RemoteServices.listWithDrawFilterToolURL, param)
         .then((value) async {
       pr.hide();
       int statusCode = value['status_code'];
@@ -1769,15 +1896,18 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
           totalMonth = 0;
           // dataManage = (dataManage..sort()).reversed.toList();
           dataManage.sort((a, b) => b.name!.compareTo(a.name ?? ""));
-          for(var i = 0; i < dataManage.length; i++) {
-            if(dataManage[i].itemList != null && dataManage[i].itemList!.isNotEmpty) {
-              for(var ii = 0; ii < dataManage[i].itemList!.length; ii++) {
+          for (var i = 0; i < dataManage.length; i++) {
+            if (dataManage[i].itemList != null &&
+                dataManage[i].itemList!.isNotEmpty) {
+              for (var ii = 0; ii < dataManage[i].itemList!.length; ii++) {
                 var item = dataManage[i].itemList![ii];
-                if(item.type == 1) {
-                  moneyHasSave = moneyHasSave + int.parse(item.deposit.toString());
+                if (item.type == 1) {
+                  moneyHasSave =
+                      moneyHasSave + int.parse(item.deposit.toString());
                   totalMonth = totalMonth + int.parse(item.deposit.toString());
                 } else {
-                  moneyTienRa = moneyTienRa + int.parse(item.withdraw.toString());
+                  moneyTienRa =
+                      moneyTienRa + int.parse(item.withdraw.toString());
                   totalMonth = totalMonth - int.parse(item.withdraw.toString());
                 }
               }
@@ -1801,6 +1931,32 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     });
   }
 
+  showDialogConfigDelete() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child:
+            WillPopScope(
+                onWillPop: () {
+                  return Future.value(false);
+                },
+                child: ConfirmDialogBoxWithIcon(
+                  title: "Bạn chắc chắn muốn xoá?",
+                  textButtonLeft: "Huỷ",
+                  textButtonRight: "Tiếp tục",
+                  onClickedConfirm: () {
+                    Navigator.pop(context, "");
+                    // deleteItemTool(id, position);
+                  },
+                  onClickedCancel: () {
+                    Navigator.pop(context, "");
+                  },
+                )),
+          );
+        });
+  }
 }
 
 class DataManage {
@@ -1823,14 +1979,14 @@ class ItemManage {
 
   ItemManage(
       {this.id,
-        this.userToolId,
-        this.withdraw,
-        this.deposit,
-        this.type,
-        this.date,
-        this.dateGroupMonth,
-        this.createdAt,
-        this.note});
+      this.userToolId,
+      this.withdraw,
+      this.deposit,
+      this.type,
+      this.date,
+      this.dateGroupMonth,
+      this.createdAt,
+      this.note});
 
   ItemManage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -1857,6 +2013,4 @@ class ItemManage {
     data['note'] = this.note;
     return data;
   }
-
-
 }

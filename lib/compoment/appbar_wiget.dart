@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../themes.dart';
 
@@ -9,14 +10,18 @@ class AppbarWidget extends StatelessWidget {
   final String? text;
   final Color? color;
   final bool? hideBack;
+  final bool? showRight;
   final VoidCallback? onClicked;
+  final VoidCallback? onClickedRight;
 
   const AppbarWidget({
     Key? key,
     this.text,
     this.color,
     this.hideBack,
+    this.showRight = false,
     this.onClicked,
+    this.onClickedRight
   }) : super(key: key);
 
   @override
@@ -31,11 +36,30 @@ class AppbarWidget extends StatelessWidget {
           height: 68,
           alignment: Alignment.center,
           color: Mytheme.colorBgButtonLogin,
-          child: Stack(
-            children: <Widget>[
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if(hideBack != true)...[
+                      SizedBox(
+                        width: 40,
+                        child: IconButton(
+                          icon: Image.asset("assets/images/icon_back.png"),
+                          onPressed: onClicked,
+                        ),
+                      )
+                    ],
+                  ],
+                ),
+              ),
+              Spacer(),
               Center(
                 child:  Padding(
-                  padding: const EdgeInsets.only(left: 70, right: 70),
+                  padding: const EdgeInsets.only(left: 0, right: 0),
                   child: Text(
                     text!,
                     textAlign: TextAlign.center,
@@ -51,23 +75,22 @@ class AppbarWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              Spacer(),
               Padding(
-                padding: const EdgeInsets.only(left: 18),
+                padding: EdgeInsets.only(right: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if(hideBack != true)...[
+                    if(showRight != false)...[
                       SizedBox(
                         width: 40,
                         child: IconButton(
-                          icon: Image.asset("assets/images/icon_back.png"),
-                          onPressed: onClicked,
+                          icon: SvgPicture.asset("assets/svg/ic_add.svg"),
+                          onPressed: onClickedRight,
                         ),
                       )
                     ],
-
-
                   ],
                 ),
               ),

@@ -1,19 +1,19 @@
-class ToolModel {
+class ToolLastUsed {
   bool? statusError;
   int? statusCode;
   String? message;
-  List<ToolData>? data;
+  List<DataToolUsed>? data;
 
-  ToolModel({this.statusError, this.statusCode, this.message, this.data});
+  ToolLastUsed({this.statusError, this.statusCode, this.message, this.data});
 
-  ToolModel.fromJson(Map<String, dynamic> json) {
+  ToolLastUsed.fromJson(Map<String, dynamic> json) {
     statusError = json['status_error'];
     statusCode = json['status_code'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <ToolData>[];
+      data = <DataToolUsed>[];
       json['data'].forEach((v) {
-        data!.add(new ToolData.fromJson(v));
+        data!.add(new DataToolUsed.fromJson(v));
       });
     }
   }
@@ -30,46 +30,46 @@ class ToolModel {
   }
 }
 
-class ToolData {
+class DataToolUsed {
   int? id;
+  int? toolId;
+  String? toolName;
+  String? toolThumbnail;
+  String? toolIcon;
   String? name;
-  String? description;
-  String? content;
-  String? courseId;
-  String? thumbnail;
-  String? icon;
+  int? type;
   String? createdAt;
 
-  ToolData(
+  DataToolUsed(
       {this.id,
+        this.toolId,
+        this.toolName,
+        this.toolThumbnail,
+        this.toolIcon,
         this.name,
-        this.description,
-        this.content,
-        this.courseId,
-        this.thumbnail,
-        this.icon,
+        this.type,
         this.createdAt});
 
-  ToolData.fromJson(Map<String, dynamic> json) {
+  DataToolUsed.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    toolId = json['tool_id'];
+    toolName = json['tool_name'];
+    toolThumbnail = json['tool_thumbnail'];
+    toolIcon = json['tool_icon'];
     name = json['name'];
-    description = json['description'];
-    content = json['content'];
-    courseId = json['course_id'];
-    thumbnail = json['thumbnail'];
-    icon = json['icon'];
+    type = json['type'];
     createdAt = json['createdAt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['tool_id'] = this.toolId;
+    data['tool_name'] = this.toolName;
+    data['tool_thumbnail'] = this.toolThumbnail;
+    data['tool_icon'] = this.toolIcon;
     data['name'] = this.name;
-    data['description'] = this.description;
-    data['content'] = this.content;
-    data['course_id'] = this.courseId;
-    data['thumbnail'] = this.thumbnail;
-    data['icon'] = this.icon;
+    data['type'] = this.type;
     data['createdAt'] = this.createdAt;
     return data;
   }

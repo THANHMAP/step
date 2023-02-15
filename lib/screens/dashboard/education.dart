@@ -105,7 +105,7 @@ class _EducationScreenState extends State<EducationScreen> {
                       linkUrl: _educationList[i].icon,
                       onClicked: () {
                         Get.toNamed('/educationTopic',
-                            arguments: _educationList[i]);
+                            arguments: _educationList[i].id);
                       },
                     ),
                   ]

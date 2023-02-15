@@ -85,6 +85,8 @@ class _LoginScreenState extends State<LoginScreen> {
       type: ProgressDialogType.Normal,
       isDismissible: false,
     );
+    _phoneController.text = "0902970134";
+    _passwordController.text = "Tinh1403";
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
     loadCheckBiometrics();

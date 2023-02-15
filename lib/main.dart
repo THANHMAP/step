@@ -32,7 +32,8 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
   runApp(DevicePreview(
-    enabled: !kReleaseMode,
+    // enabled: !kReleaseMode,
+    enabled: false,
     builder: (context) => MyApp(), // Wrap your app
   ),);
 }

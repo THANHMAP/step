@@ -137,9 +137,78 @@ class _EditAgriculturalProductionPlanToolScreenState
                                       top: 0, left: 0, right: 0),
                                   child: Column(
                                     children: [
-                                      SvgPicture.asset(
-                                        imgHeader,
-                                        width: 450,
+                                      Stack(
+                                        children: [
+                                          SvgPicture.asset(imgHeader, width: 450,),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 70, left: 0, right: 0),
+                                            child:  Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 0;
+                                                        imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 1;
+                                                        imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 2;
+                                                        imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 3;
+                                                        imgHeader = "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
@@ -184,7 +253,7 @@ class _EditAgriculturalProductionPlanToolScreenState
                                                         setState(() {
                                                           indexPlan = indexPlan - 1;
                                                           imgHeader =
-                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                          "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
                                                         });
                                                       },
                                                       child: Container(

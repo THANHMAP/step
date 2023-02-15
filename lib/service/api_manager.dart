@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 
@@ -30,7 +32,7 @@ class APIManager {
       ).timeout(const Duration(seconds: 15),onTimeout : () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -52,7 +54,7 @@ class APIManager {
       ).timeout(const Duration(seconds: 15),onTimeout : () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -78,7 +80,7 @@ class APIManager {
       ).timeout(const Duration(seconds: 15),onTimeout : () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -102,7 +104,7 @@ class APIManager {
       ).timeout(const Duration(seconds: 15),onTimeout : () {
         throw TimeoutException('The connection has timed out, Please try again!');
       });
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -124,7 +126,7 @@ class APIManager {
       request.files.add(await http.MultipartFile.fromPath('avatar', file.path));
       var response = await http.Response.fromStream(await request.send());
 
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -148,7 +150,7 @@ class APIManager {
       request.files.add(await http.MultipartFile.fromPath('error_image', file.path));
       var response = await http.Response.fromStream(await request.send());
 
-      responseJson = _response(response);
+      responseJson = responseCode(response);
       if (kDebugMode) {
         print(responseJson);
       }
@@ -158,7 +160,7 @@ class APIManager {
     return responseJson;
   }
 
-  static dynamic _response(http.Response response) {
+  static dynamic responseCode(http.Response response) async {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
@@ -170,6 +172,10 @@ class APIManager {
         throw BadRequestException(response.body.toString());
       case 401:
       case 403:
+      await SPref.instance.set("token", "");
+      await SPref.instance.set("info_login", "");
+      Get.offAllNamed("/login"
+          "");
         throw UnauthorisedException(response.body.toString());
       case 500:
         throw UnauthorisedException(response.body.toString());

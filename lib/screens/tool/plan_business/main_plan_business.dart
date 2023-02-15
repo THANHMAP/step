@@ -26,6 +26,7 @@ import '../../../compoment/card_item_tool.dart';
 import '../../../compoment/card_setting.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_success.dart';
+import '../../../compoment/info_dialog.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../themes.dart';
 import '../../../util.dart';
@@ -99,6 +100,30 @@ class _PlaneBusinessToolScreenState extends State<PlaneBusinessToolScreen>
                   text: data?.name,
                   onClicked: () {
                     Navigator.of(context).pop(false);
+                  },
+                  showRight: true,
+                  onClickedRight: () {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return MediaQuery(
+                            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+                            child: WillPopScope(
+                                onWillPop: () {
+                                  return Future.value(false);
+                                },
+                                child: InfoDialogBox(
+                                  title: "",
+                                  descriptions: data?.content,
+                                  textButton: "Đóng",
+                                  onClickedDirect: () {
+                                    Navigator.pop(context, "");
+                                    Get.toNamed('/educationTopic',
+                                        arguments: data?.courseId);
+                                  },
+                                )),
+                          );
+                        });
                   },
                 ),
                 Expanded(

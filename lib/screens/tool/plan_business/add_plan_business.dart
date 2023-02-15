@@ -134,7 +134,94 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                       top: 0, left: 0, right: 0),
                                   child: Column(
                                     children: [
-                                      SvgPicture.asset(imgHeader, width: 450,),
+                                      Stack(
+                                        children: [
+                                          SvgPicture.asset(imgHeader, width: 450,),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 70, left: 0, right: 0),
+                                            child:  Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 0;
+                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 1;
+                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 2;
+                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 3;
+                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets.all(0.0),
+                                                  color: Colors.transparent,
+                                                  width: 30.0,
+                                                  height: 30.0,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        indexPlan = 4;
+                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             top: 20, left: 16, right: 16, bottom: 10),
@@ -968,32 +1055,38 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                           ),
                           Expanded(
                             flex:2,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.colorTextDivider,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    dataUsers[i].key ?? "",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      dataUsers[i].key ?? "",
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                            ),),
+                              ),
+                            ),
+                            ),
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -1005,11 +1098,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                             ),
                             child: InkWell(
                               onTap: () {
-                                showDialogEditTool(
-                                    dataUsers[i]
-                                        .value ??
-                                        "0",
-                                    i);
+                                showDialogEditItemTool(dataUsers[i], i);
                               },
                               child:  Padding(
                                 padding: const EdgeInsets.all(10),
@@ -1185,32 +1274,38 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                           ),
                           Expanded(
                             flex:2,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.colorTextDivider,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    dataUsers[i].key ?? "",
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                            child: InkWell(
+                              onTap: (){
+                                showDialogEditItemTool(dataUsers[i], i);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Mytheme.colorTextDivider,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      dataUsers[i].key ?? "",
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily:
+                                        "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
 
-                            ),),
+                              ),
+                            ),
+                            ),
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -1411,181 +1506,181 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
     );
   }
 
-  showDialogAddItemTool() async {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () {
-              return Future.value(false);
-            },
-            child: Dialog(
-              insetPadding: EdgeInsets.all(20),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Constants.padding),
-              ),
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              child: contentBox(context),
-            ),
-          );
-        }
-    );
-  }
+  // showDialogAddItemTool() async {
+  //   showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return WillPopScope(
+  //           onWillPop: () {
+  //             return Future.value(false);
+  //           },
+  //           child: Dialog(
+  //             insetPadding: EdgeInsets.all(20),
+  //             shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(Constants.padding),
+  //             ),
+  //             elevation: 0,
+  //             backgroundColor: Colors.transparent,
+  //             child: contentBox(context),
+  //           ),
+  //         );
+  //       }
+  //   );
+  // }
 
-  contentBox(context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(
-              top: 0,
-              right: 0,
-              bottom: Constants.padding),
-          margin: EdgeInsets.only(top: Constants.avatarRadius),
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            // boxShadow:  [
-            //   BoxShadow(
-            //       color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
-            // ]
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding:
-                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _thuNhapController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
-                      ),
-                      onChanged: (value) {
-
-                      },
-                    ),
-                    SizedBox(
-                      height: 34,
-                    ),
-                    TextField(
-                      controller: _soTienController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Số tiền',
-                      ),
-                      onChanged: (value) {
-                        value = '${formNum(
-                          value.replaceAll(',', ''),
-                        )}';
-                        _soTienController.value = TextEditingValue(
-                          text: value,
-                          selection: TextSelection.collapsed(
-                            offset: value.length,
-                          ),
-                        );
-                      },
-                    )
-                  ],
-                ),
-
-              ),
-
-              SizedBox(
-                height: 34,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context, "");
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 44,
-                      width: 135,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                      ),
-                      child: const Text(
-                        "Hủy",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.color_434657,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      var thunhap = _thuNhapController.text;
-                      var sotien = "";
-                      if(_soTienController.text.isNotEmpty) {
-                        sotien = _soTienController.text.replaceAll(',', '');
-                      }
-                      if(sotien.isEmpty || thunhap.isEmpty) {
-                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
-                        return;
-                      }
-
-                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
-                        setState(() {
-                          dataUsers.add(DataUsers(
-                              key: thunhap,
-                              value: sotien,
-                              type: typeObj
-                          ));
-                        });
-                      }
-                      _thuNhapController.clear();
-                      _soTienController.clear();
-                      print(thunhap);
-                      Navigator.pop(context, "");
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.all(10),
-                      height: 44,
-                      width: 135,
-                      decoration: BoxDecoration(
-                        color: Mytheme.colorBgButtonLogin,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text(
-                        "Thêm",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.kBackgroundColor,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "OpenSans-Semibold",
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // contentBox(context) {
+  //   return Stack(
+  //     alignment: Alignment.center,
+  //     children: <Widget>[
+  //       Container(
+  //         padding: EdgeInsets.only(
+  //             top: 0,
+  //             right: 0,
+  //             bottom: Constants.padding),
+  //         margin: EdgeInsets.only(top: Constants.avatarRadius),
+  //         decoration: BoxDecoration(
+  //           shape: BoxShape.rectangle,
+  //           color: Colors.white,
+  //           borderRadius: BorderRadius.circular(8),
+  //           // boxShadow:  [
+  //           //   BoxShadow(
+  //           //       color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+  //           // ]
+  //         ),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.center,
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: <Widget>[
+  //             Padding(
+  //               padding:
+  //               EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+  //               child: Column(
+  //                 children: [
+  //                   TextField(
+  //                     controller: _thuNhapController,
+  //                     decoration: InputDecoration(
+  //                       border: OutlineInputBorder(),
+  //                       labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
+  //                     ),
+  //                     onChanged: (value) {
+  //
+  //                     },
+  //                   ),
+  //                   SizedBox(
+  //                     height: 34,
+  //                   ),
+  //                   TextField(
+  //                     controller: _soTienController,
+  //                     keyboardType: TextInputType.number,
+  //                     inputFormatters: <TextInputFormatter>[
+  //                       FilteringTextInputFormatter.digitsOnly
+  //                     ],
+  //                     decoration: InputDecoration(
+  //                       border: OutlineInputBorder(),
+  //                       labelText: 'Số tiền',
+  //                     ),
+  //                     onChanged: (value) {
+  //                       value = '${formNum(
+  //                         value.replaceAll(',', ''),
+  //                       )}';
+  //                       _soTienController.value = TextEditingValue(
+  //                         text: value,
+  //                         selection: TextSelection.collapsed(
+  //                           offset: value.length,
+  //                         ),
+  //                       );
+  //                     },
+  //                   )
+  //                 ],
+  //               ),
+  //
+  //             ),
+  //
+  //             SizedBox(
+  //               height: 34,
+  //             ),
+  //             Row(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: [
+  //                 InkWell(
+  //                   onTap: () {
+  //                     Navigator.pop(context, "");
+  //                   },
+  //                   child: Container(
+  //                     alignment: Alignment.center,
+  //                     height: 44,
+  //                     width: 135,
+  //                     decoration: BoxDecoration(
+  //                         color: Colors.white,
+  //                         borderRadius: BorderRadius.circular(8),
+  //                         border: Border.all(color: Mytheme.colorBgButtonLogin)
+  //                     ),
+  //                     child: const Text(
+  //                       "Hủy",
+  //                       style: TextStyle(
+  //                         fontSize: 16,
+  //                         color: Mytheme.color_434657,
+  //                         fontWeight: FontWeight.w600,
+  //                         fontFamily: "OpenSans-Semibold",
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 InkWell(
+  //                   onTap: () {
+  //                     var thunhap = _thuNhapController.text;
+  //                     var sotien = "";
+  //                     if(_soTienController.text.isNotEmpty) {
+  //                       sotien = _soTienController.text.replaceAll(',', '');
+  //                     }
+  //                     if(sotien.isEmpty || thunhap.isEmpty) {
+  //                       Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+  //                       return;
+  //                     }
+  //
+  //                     if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+  //                       setState(() {
+  //                         dataUsers.add(DataUsers(
+  //                             key: thunhap,
+  //                             value: sotien,
+  //                             type: typeObj
+  //                         ));
+  //                       });
+  //                     }
+  //                     _thuNhapController.clear();
+  //                     _soTienController.clear();
+  //                     print(thunhap);
+  //                     Navigator.pop(context, "");
+  //                   },
+  //                   child: Container(
+  //                     alignment: Alignment.center,
+  //                     margin: EdgeInsets.all(10),
+  //                     height: 44,
+  //                     width: 135,
+  //                     decoration: BoxDecoration(
+  //                       color: Mytheme.colorBgButtonLogin,
+  //                       borderRadius: BorderRadius.circular(8),
+  //                     ),
+  //                     child: const Text(
+  //                       "Thêm",
+  //                       style: TextStyle(
+  //                         fontSize: 16,
+  //                         color: Mytheme.kBackgroundColor,
+  //                         fontWeight: FontWeight.w600,
+  //                         fontFamily: "OpenSans-Semibold",
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Future<void> loadDataSampleTool() async {
     await pr.show();
@@ -1762,5 +1857,206 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
       ],
     );
   }
+
+  showDialogEditItemTool(DataUsers dataUser, int position) async {
+    _thuNhapController.text = dataUser.key.toString();
+    _soTienController.text = formNum(dataUser.value.toString());
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return Future.value(false);
+            },
+            child: Dialog(
+              insetPadding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Constants.padding),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              child: contentBox(context, true, position),
+            ),
+          );
+        });
+  }
+
+  showDialogAddItemTool() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () {
+              return Future.value(false);
+            },
+            child: Dialog(
+              insetPadding: EdgeInsets.all(20),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Constants.padding),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              child: contentBox(context, false, 0),
+            ),
+          );
+        }
+    );
+  }
+
+  contentBox(context, bool edit, int position) {
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.only(
+              top: 0,
+              right: 0,
+              bottom: Constants.padding),
+          margin: EdgeInsets.only(top: Constants.avatarRadius),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            // boxShadow:  [
+            //   BoxShadow(
+            //       color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
+            // ]
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding:
+                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: _thuNhapController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
+                      ),
+                      onChanged: (value) {
+
+                      },
+                    ),
+                    SizedBox(
+                      height: 34,
+                    ),
+                    TextField(
+                      controller: _soTienController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Số tiền',
+                      ),
+                      onChanged: (value) {
+                        value = '${formNum(
+                          value.replaceAll(',', ''),
+                        )}';
+                        _soTienController.value = TextEditingValue(
+                          text: value,
+                          selection: TextSelection.collapsed(
+                            offset: value.length,
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+
+              ),
+
+              SizedBox(
+                height: 34,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context, "");
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 44,
+                      width: 135,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Mytheme.colorBgButtonLogin)
+                      ),
+                      child: const Text(
+                        "Hủy",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.color_434657,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "OpenSans-Semibold",
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      var thunhap = _thuNhapController.text;
+                      var sotien = "";
+                      if(_soTienController.text.isNotEmpty) {
+                        sotien = _soTienController.text.replaceAll(',', '');
+                      }
+                      if(sotien.isEmpty || thunhap.isEmpty) {
+                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+                        return;
+                      }
+                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+                        setState(() {
+                          if (edit) {
+                            dataUsers[position].key = thunhap;
+                            dataUsers[position].value = sotien;
+                          } else {
+                            dataUsers.add(DataUsers(
+                                key: thunhap, value: sotien, type: typeObj));
+                          }
+                        });
+                      }
+                      _thuNhapController.clear();
+                      _soTienController.clear();
+                      print(thunhap);
+                      Navigator.pop(context, "");
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(10),
+                      height: 44,
+                      width: 135,
+                      decoration: BoxDecoration(
+                        color: Mytheme.colorBgButtonLogin,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        edit ? "Sửa" : "Thêm",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.kBackgroundColor,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "OpenSans-Semibold",
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
 
 }
