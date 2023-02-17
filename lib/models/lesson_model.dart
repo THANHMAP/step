@@ -33,15 +33,17 @@ class LessonModel {
 class DataLessonModel {
   int? id;
   String? name;
+  String? courseName;
   List<DataLesson>? dataLesson;
   String? createdAt;
   bool? collapsed;
 
-  DataLessonModel({this.id, this.name, this.dataLesson, this.createdAt, this.collapsed});
+  DataLessonModel({this.id, this.name, this.courseName, this.dataLesson, this.createdAt, this.collapsed});
 
   DataLessonModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    courseName = json['course_name'];
     if (json['dataLesson'] != null) {
       dataLesson = <DataLesson>[];
       json['dataLesson'].forEach((v) {
@@ -56,6 +58,7 @@ class DataLessonModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['course_name'] = this.courseName;
     if (this.dataLesson != null) {
       data['dataLesson'] = this.dataLesson!.map((v) => v.toJson()).toList();
     }

@@ -539,7 +539,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                   children: [
                                     InkWell(
                                       onTap: () async {
-                                        showDialogConfigDelete();
+                                        showDialogConfigDelete(dataManage[i].itemList![po].id.toString());
                                         print("showDialogConfigDelete() ${dataManage[i].itemList![po].id}");
                                         // setState(() {
                                         //   dataUsers.removeAt(i);
@@ -1860,6 +1860,29 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     return _listYeah[index];
   }
 
+  Future<void> deleteDataDrawTool(String id) async {
+    await pr.show();
+    var param = jsonEncode(
+        <String, String>{'user_tool_withdraw_id': id});
+    APIManager.postAPICallNeedToken(
+        RemoteServices.deleteDrawFilterToolURL, param)
+        .then((value) async {
+      int statusCode = value['status_code'];
+      if (statusCode == 200) {
+        if (selectDefault) {
+          loadDataDrawTool(_itemToolData?.id.toString() ?? "0",
+              (currentMonthIndex + 1).toString(), "");
+        } else {
+          loadDataDrawTool(_itemToolData?.id.toString() ?? "0", "",
+              _listYeah[currentYear].replaceAll("Năm ", ""));
+        }
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
   Future<void> loadDataDrawTool(String id, String month, String yeah) async {
     await pr.show();
     var param = jsonEncode(
@@ -1931,7 +1954,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     });
   }
 
-  showDialogConfigDelete() {
+  showDialogConfigDelete(String id) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1948,7 +1971,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                   textButtonRight: "Tiếp tục",
                   onClickedConfirm: () {
                     Navigator.pop(context, "");
-                    // deleteItemTool(id, position);
+                    deleteDataDrawTool(id);
                   },
                   onClickedCancel: () {
                     Navigator.pop(context, "");

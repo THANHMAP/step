@@ -56,6 +56,7 @@ import '../screens/notification/notification_schedule_tool.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/register/credit_info_screen.dart';
 import '../screens/register/credit_screen.dart';
+import '../screens/setting/about_us.dart';
 import '../screens/setting/my_tool.dart';
 import '../screens/tool/budget/detail_budget.dart';
 import '../screens/tool/flow_money/add_flow_money.dart';
@@ -443,6 +444,11 @@ class AppPages {
         transition: Transition.rightToLeft,
         name: AppRoutes.introductionScreen,
         page: () => const IntroductionScreenPage(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.aboutUsScreen,
+      page: () => const AboutUsScreen(),
     ),
   ];
 }

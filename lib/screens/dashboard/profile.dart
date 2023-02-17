@@ -22,6 +22,7 @@ import '../../compoment/dialog_nomal.dart';
 import '../../themes.dart';
 import '../../util.dart';
 import '../login/authService.dart';
+import '../news/web_view_news.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, this.controller}) : super(key: key);
@@ -169,6 +170,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     linkUrl: 'assets/svg/ic_lienhe.svg',
                                     onClicked: () {
                                       Get.toNamed('/contactScreen');
+                                    },
+                                  ),
+                                  const SizedBox(height: 10),
+                                  //lien he
+                                  CardSettingWidget(
+                                    title: "Về chúng tôi",
+                                    linkUrl: 'assets/svg/ic_lienhe.svg',
+                                    onClicked: () {
+                                      Get.toNamed('/aboutUsScreen', arguments: "https://internal.co-opsmart.vn/about-app");
                                     },
                                   ),
                                   const SizedBox(height: 10),

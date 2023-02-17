@@ -65,7 +65,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
               body: Column(
                 children: <Widget>[
                   AppbarWidget(
-                    text: "_educationData.name",
+                    text: _lessonList.isNotEmpty ? _lessonList[0].courseName : "",
                     onClicked: () {
                       Navigator.of(context).pop(false);
                     },

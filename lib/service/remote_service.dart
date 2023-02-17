@@ -71,6 +71,7 @@ class RemoteServices {
   static var reportDataDrawToolURL = '$baseURL/api/v1/tool/report-with-draw';
   static var reportDetailDataDrawToolURL = '$baseURL/api/v1/tool/report-detail-with-draw';
 
+  static var deleteDrawFilterToolURL = '$baseURL/api/v1/tool/delete-with-draw';
   static var listWithDrawFilterToolURL = '$baseURL/api/v1/tool/list-with-draw-filter';
   static var nextRepaymentDateToolURL = '$baseURL/api/v1/tool/next-repayment-date';
   static var numberNotificationURL = '$baseURL/api/v1/setting/number-notification';

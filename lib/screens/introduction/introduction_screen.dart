@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../shared/SPref.dart';
 
@@ -33,7 +34,15 @@ class _IntroductionScreenPageState extends State<IntroductionScreenPage> {
             children: [
               Expanded(
                 child: Center(
-                  child: SvgPicture.asset("assets/svg/ic_logo.svg"),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Get.offAndToNamed('/login');
+                    },
+                    child: Text('login'),
+                  )
                 ),
               ),
             ],
