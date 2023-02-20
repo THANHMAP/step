@@ -1,3 +1,5 @@
+import 'package:get/get_utils/get_utils.dart';
+
 class LessonLearned {
   bool? statusError;
   int? statusCode;
@@ -10,7 +12,15 @@ class LessonLearned {
     statusError = json['status_error'];
     statusCode = json['status_code'];
     message = json['message'];
-    data = json['data'] != null ? DataLessonLearned.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      if (json['data'].toString() == "[]") {
+        data = null;
+      } else {
+        data = DataLessonLearned.fromJson(json['data']);
+      }
+    } else {
+      data = null;
+    }
   }
 
   Map<String, dynamic> toJson() {

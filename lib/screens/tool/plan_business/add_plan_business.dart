@@ -28,7 +28,8 @@ class AddPlaneBusinessToolScreen extends StatefulWidget {
   const AddPlaneBusinessToolScreen({Key? key}) : super(key: key);
 
   @override
-  _AddPlaneBusinessToolScreenState createState() => _AddPlaneBusinessToolScreenState();
+  _AddPlaneBusinessToolScreenState createState() =>
+      _AddPlaneBusinessToolScreenState();
 }
 
 class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
@@ -62,13 +63,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
   bool selectDefault = true;
   int typeObj = 2;
   late ToolData data;
+  bool checkCompletePlane = false;
 
   @override
   void initState() {
     super.initState();
     data = Constants.toolData!;
-    scrollController.addListener(() { //scroll listener
-      double showoffset = 10.0; //Back to top botton will show on scroll offset 10.0
+    scrollController.addListener(() {
+      //scroll listener
+      double showoffset =
+          10.0; //Back to top botton will show on scroll offset 10.0
 
       // if(scrollController.offset > showoffset){
       //   showbtn = true;
@@ -99,170 +103,307 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Mytheme.colorBgMain,
-            body: Column(
-              children: <Widget>[
-                AppbarWidget(
-                  text: "Kế hoạch kinh doanh",
-                  onClicked: () {
-                    Navigator.of(context).pop(false);
-                  },
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          top: 0, left: 0, right: 0, bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 0, left: 0, right: 0),
-                                  child: Column(
-                                    children: [
-                                      Stack(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Mytheme.colorBgMain,
+          body: Column(
+            children: <Widget>[
+              AppbarWidget(
+                text: "Kế hoạch kinh doanh",
+                showRight: true,
+                showTextRight: true,
+                onClicked: () {
+                  Navigator.of(context).pop(false);
+                },
+                onClickedRight: () {
+                  if(_namePlantBusinessController.text.isEmpty) {
+                    Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                    return;
+                  } else {
+                    StoreDataTool storeDataTool = StoreDataTool();
+                    storeDataTool.title =
+                        _namePlantBusinessController
+                            .text;
+                    storeDataTool.toolId =
+                        data.id;
+                    storeDataTool.type =
+                    1; // 1 plan business
+
+                    //bạn là ai
+                    dataUsers.add(DataUsers(
+                      key: "ban_la_ai",
+                      value: _whoAreYouController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //ý tương kinh doanh
+                    dataUsers.add(DataUsers(
+                      key: "y_tuong_kinh_doanh",
+                      value: _idealPlanBusinessController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //kinh doanh cái gì
+                    dataUsers.add(DataUsers(
+                      key: "kinh_doanh_cai_gi",
+                      value: _whatBusinessController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //Khách hàng của bạn là ai
+                    dataUsers.add(DataUsers(
+                      key: "khach_hang_cua_ban",
+                      value: _khachHangCuaBanController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //Đối thủ cạnh tranh
+                    dataUsers.add(DataUsers(
+                      key: "doi_thu_canh_tranh",
+                      value: _doiThuCanhTranhController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //Thế mạnh cạnh tranh
+                    dataUsers.add(DataUsers(
+                      key: "the_manh_canh_tranh",
+                      value: _theManhCanhTranhController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //Kế hoạch bán hàng
+                    dataUsers.add(DataUsers(
+                      key: "ke_hoach_ban_hang",
+                      value: _cachTiepThiSanPhamController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //nhiệm vụ thuc hien
+                    dataUsers.add(DataUsers(
+                      key: "nhiem_vu_thuc_hien",
+                      value: _lietKeNhiemVuController
+                          .text,
+                      type: 0,
+                    ));
+
+                    //nguồn lực
+                    dataUsers.add(DataUsers(
+                      key: "nguon_luc",
+                      value: _lietKeNguonLucController
+                          .text,
+                      type: 0,
+                    ));
+
+                    if (
+                        _whoAreYouController.text.isNotEmpty &&
+                        _idealPlanBusinessController.text.isNotEmpty &&
+                        _whatBusinessController.text.isNotEmpty &&
+                        _khachHangCuaBanController.text.isNotEmpty &&
+                        _doiThuCanhTranhController.text.isNotEmpty &&
+                        _theManhCanhTranhController.text.isNotEmpty &&
+                        _cachTiepThiSanPhamController.text.isNotEmpty &&
+                        _lietKeNhiemVuController.text.isNotEmpty &&
+                        _lietKeNguonLucController.text.isNotEmpty
+                    ) {
+                      checkCompletePlane = true;
+                    }
+
+                    storeDataTool.dataUsers =
+                        dataUsers;
+                    saveItemTool(jsonEncode(
+                        storeDataTool));
+                  }
+                },
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 0, left: 0, right: 0),
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        SvgPicture.asset(
+                                          imgHeader,
+                                          width: 450,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 70, left: 0, right: 0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(0.0),
+                                                color: Colors.transparent,
+                                                width: 30.0,
+                                                height: 30.0,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      indexPlan = 0;
+                                                      imgHeader =
+                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(0.0),
+                                                color: Colors.transparent,
+                                                width: 30.0,
+                                                height: 30.0,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      indexPlan = 1;
+                                                      imgHeader =
+                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(0.0),
+                                                color: Colors.transparent,
+                                                width: 30.0,
+                                                height: 30.0,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      indexPlan = 2;
+                                                      imgHeader =
+                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(0.0),
+                                                color: Colors.transparent,
+                                                width: 30.0,
+                                                height: 30.0,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      indexPlan = 3;
+                                                      imgHeader =
+                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(0.0),
+                                                color: Colors.transparent,
+                                                width: 30.0,
+                                                height: 30.0,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      indexPlan = 4;
+                                                      imgHeader =
+                                                          "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 20,
+                                          left: 16,
+                                          right: 16,
+                                          bottom: 10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          SvgPicture.asset(imgHeader, width: 450,),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 0 ? true : false,
+                                            child: layouIndex1(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 1 ? true : false,
+                                            child: layouIndex2(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 2 ? true : false,
+                                            child: layouIndex3(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 3 ? true : false,
+                                            child: layouIndex4(),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 4 ? true : false,
+                                            child: layouIndex5(),
+                                          ),
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 70, left: 0, right: 0),
-                                            child:  Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                              mainAxisSize: MainAxisSize.max,
+                                            padding: EdgeInsets.only(top: 50),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                  padding: const EdgeInsets.all(0.0),
-                                                  color: Colors.transparent,
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        indexPlan = 0;
-                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.all(0.0),
-                                                  color: Colors.transparent,
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        indexPlan = 1;
-                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.all(0.0),
-                                                  color: Colors.transparent,
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        indexPlan = 2;
-                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.all(0.0),
-                                                  color: Colors.transparent,
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        indexPlan = 3;
-                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: const EdgeInsets.all(0.0),
-                                                  color: Colors.transparent,
-                                                  width: 30.0,
-                                                  height: 30.0,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        indexPlan = 4;
-                                                        imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 20, left: 16, right: 16, bottom: 10),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Visibility(
-                                              visible: indexPlan == 0 ? true : false,
-                                              child:  layouIndex1(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 1 ? true : false,
-                                              child:  layouIndex2(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 2 ? true : false,
-                                              child:  layouIndex3(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 3 ? true : false,
-                                              child:  layouIndex4(),
-                                            ),
-                                            Visibility(
-                                              visible: indexPlan == 4 ? true : false,
-                                              child:  layouIndex5(),
-                                            ),
-
-                                            Container(
-                                              margin:EdgeInsets.only(top: 60),
-                                              child: Column(
-                                                children: [
-                                                  Visibility(
-                                                    visible: indexPlan == 0 ? false : true,
-                                                    child:  InkWell(
+                                                Visibility(
+                                                  visible: indexPlan == 0 ? false : true,
+                                                  child:  Expanded(
+                                                    child: InkWell(
                                                       onTap: () {
-                                                        setState(() {
-                                                          indexPlan = indexPlan - 1;
-                                                          imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                        });
+                                                        if (indexPlan > 0) {
+                                                          setState(() {
+                                                            indexPlan = indexPlan - 1;
+                                                            imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                          });
+                                                        }
                                                       },
                                                       child: Container(
+                                                          margin: const EdgeInsets.only(right: 10),
                                                           alignment: Alignment.center,
                                                           decoration: BoxDecoration(
                                                               color: Colors.white,
@@ -285,163 +426,74 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                                       ),
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 10),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          // side: const BorderSide(color: Colors.red)
-                                                        ),
-                                                        primary: Mytheme.colorBgButtonLogin,
-                                                        minimumSize:
-                                                        Size(MediaQuery.of(context).size.width, 44)),
-                                                    child: Text(
-                                                      indexPlan == 4 ? "Lưu" :"Tiếp tục",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontFamily: "OpenSans-Regular",
-                                                          fontWeight: FontWeight.bold),
+                                                ),
+                                                Visibility(
+                                                  visible: indexPlan == 4 ? false : true,
+                                                  child: Expanded(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        if(indexPlan < 4) {
+                                                          setState(() {
+                                                            indexPlan = indexPlan + 1;
+                                                            imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                          });
+                                                          scrollController.animateTo( //go to top of scroll
+                                                              0,  //scroll offset to go
+                                                              duration: const Duration(milliseconds: 500), //duration of scroll
+                                                              curve:Curves.fastOutSlowIn //scroll type
+                                                          );
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              color: Mytheme.colorBgButtonLogin,
+                                                              borderRadius: BorderRadius.circular(8),
+                                                              border: Border.all(color: Mytheme.colorBgButtonLogin)
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                            const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                                                            child: Text(
+                                                              "Tiếp Tục",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Mytheme.kBackgroundColor,
+                                                                fontWeight: FontWeight.w600,
+                                                                fontFamily: "OpenSans-Semibold",
+                                                              ),
+                                                            ),
+                                                          )
+                                                      ),
                                                     ),
-                                                    onPressed: () {
-                                                      if(indexPlan < 4) {
-                                                        if(_namePlantBusinessController.text.isEmpty) {
-                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                          return;
-                                                        }
-                                                        setState(() {
-                                                          indexPlan = indexPlan + 1;
-                                                          imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
-                                                        });
-                                                        scrollController.animateTo( //go to top of scroll
-                                                            0,  //scroll offset to go
-                                                            duration: Duration(milliseconds: 500), //duration of scroll
-                                                            curve:Curves.fastOutSlowIn //scroll type
-                                                        );
-                                                      } else {
-                                                        if(_namePlantBusinessController.text.isEmpty) {
-                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                        } else {
-                                                          StoreDataTool storeDataTool = StoreDataTool();
-                                                          storeDataTool.title =
-                                                              _namePlantBusinessController
-                                                                  .text;
-                                                          storeDataTool.toolId =
-                                                              data.id;
-                                                          storeDataTool.type =
-                                                          1; // 1 plan business
-
-                                                          //bạn là ai
-                                                          dataUsers.add(DataUsers(
-                                                            key: "ban_la_ai",
-                                                            value: _whoAreYouController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //ý tương kinh doanh
-                                                          dataUsers.add(DataUsers(
-                                                            key: "y_tuong_kinh_doanh",
-                                                            value: _idealPlanBusinessController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //kinh doanh cái gì
-                                                          dataUsers.add(DataUsers(
-                                                            key: "kinh_doanh_cai_gi",
-                                                            value: _whatBusinessController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //Khách hàng của bạn là ai
-                                                          dataUsers.add(DataUsers(
-                                                            key: "khach_hang_cua_ban",
-                                                            value: _khachHangCuaBanController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //Đối thủ cạnh tranh
-                                                          dataUsers.add(DataUsers(
-                                                            key: "doi_thu_canh_tranh",
-                                                            value: _doiThuCanhTranhController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //Thế mạnh cạnh tranh
-                                                          dataUsers.add(DataUsers(
-                                                            key: "the_manh_canh_tranh",
-                                                            value: _theManhCanhTranhController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //Kế hoạch bán hàng
-                                                          dataUsers.add(DataUsers(
-                                                            key: "ke_hoach_ban_hang",
-                                                            value: _cachTiepThiSanPhamController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //nhiệm vụ thuc hien
-                                                          dataUsers.add(DataUsers(
-                                                            key: "nhiem_vu_thuc_hien",
-                                                            value: _lietKeNhiemVuController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          //nguồn lực
-                                                          dataUsers.add(DataUsers(
-                                                            key: "nguon_luc",
-                                                            value: _lietKeNguonLucController
-                                                                .text,
-                                                            type: 0,
-                                                          ));
-
-                                                          storeDataTool.dataUsers =
-                                                              dataUsers;
-                                                          saveItemTool(jsonEncode(
-                                                              storeDataTool));
-                                                        }
-                                                      }
-
-                                                    },
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
+                                    ),
 
-
-                                      //
-
-                                    ],
-                                  ),
+                                    //
+                                  ],
                                 ),
-
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
-
-
 
   layouIndex1() {
     return Column(
@@ -464,8 +516,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           child: TextFieldWidget(
               keyboardType: TextInputType.text,
               inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter
-                    .singleLineFormatter
+                FilteringTextInputFormatter.singleLineFormatter
               ],
               textInputAction: TextInputAction.done,
               obscureText: false,
@@ -473,11 +524,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _namePlantBusinessController.clear(),
+              clickSuffixIcon: () => _namePlantBusinessController.clear(),
               textController: _namePlantBusinessController),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -504,15 +553,13 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _whoAreYouController.clear(),
+              clickSuffixIcon: () => _whoAreYouController.clear(),
               textController: _whoAreYouController),
         ),
         const Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.only(
-              top:8),
+            padding: EdgeInsets.only(top: 8),
             child: Text(
               "Điểm mạnh, kinh nghiệm và điểm lợi thế mà bạn sẽ áp dụng vào hoạt động kinh doanh này",
               textAlign: TextAlign.left,
@@ -525,7 +572,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
             ),
           ),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -556,22 +602,22 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _idealPlanBusinessController.clear(),
+              clickSuffixIcon: () => _idealPlanBusinessController.clear(),
               textController: _idealPlanBusinessController),
         ),
         const SizedBox(height: 10),
-         const RichTextWidget(
-              text0: "- Tên ",
-              text1: "- ngắn gọn và dễ nhớ",
-              text2: "- Sứ mệnh ",
-              text3: "- 1 hoặc 2 câu ngắn trả lời về sản phẩm, cách thức kinh doanh, bán hàng cho ai và ở đâu",
-              text4: "- Tầm nhìn ",
-              text5: "- điều mà hoạt động kinh doanh của bạn muốn đạt được",
-              text6: "- Giá trị ",
-              text7: "- những điều quan trọng với hoạt động kinh doanh của bạn, điều mà bạn muốn mọi người nhớ",
-            ),
-
+        const RichTextWidget(
+          text0: "- Tên ",
+          text1: "- ngắn gọn và dễ nhớ",
+          text2: "- Sứ mệnh ",
+          text3:
+              "- 1 hoặc 2 câu ngắn trả lời về sản phẩm, cách thức kinh doanh, bán hàng cho ai và ở đâu",
+          text4: "- Tầm nhìn ",
+          text5: "- điều mà hoạt động kinh doanh của bạn muốn đạt được",
+          text6: "- Giá trị ",
+          text7:
+              "- những điều quan trọng với hoạt động kinh doanh của bạn, điều mà bạn muốn mọi người nhớ",
+        ),
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -602,8 +648,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _whatBusinessController.clear(),
+              clickSuffixIcon: () => _whatBusinessController.clear(),
               textController: _whatBusinessController),
         ),
       ],
@@ -642,8 +687,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _khachHangCuaBanController.clear(),
+              clickSuffixIcon: () => _khachHangCuaBanController.clear(),
               textController: _khachHangCuaBanController),
         ),
         const SizedBox(height: 10),
@@ -653,11 +697,11 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
             text0: "Miêu tả về khách hàng của bạn:",
             text1: "  - Họ là ai ( lứa tuổi, thu nhập...)",
             text2: "  - Thói quen tiêu dùng của họ?",
-            text3: "  - Họ sống ở đâu? Làm việc chỗ nào? Họ có thể tiếp cận các sản phẩm/dịch vụ như thế này ở đâu?",
+            text3:
+                "  - Họ sống ở đâu? Làm việc chỗ nào? Họ có thể tiếp cận các sản phẩm/dịch vụ như thế này ở đâu?",
             text4: "  - Bao giờ họ sẽ mua/sử dụng các sản phẩm/dịch vụ",
           ),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -688,11 +732,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _doiThuCanhTranhController.clear(),
+              clickSuffixIcon: () => _doiThuCanhTranhController.clear(),
               textController: _doiThuCanhTranhController),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -706,7 +748,6 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
             text6: "  - Bạn muốn trở nên giống ai nhất?",
           ),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -737,16 +778,14 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _theManhCanhTranhController.clear(),
+              clickSuffixIcon: () => _theManhCanhTranhController.clear(),
               textController: _theManhCanhTranhController),
         ),
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.only(
-                top:8),
+            padding: EdgeInsets.only(top: 8),
             child: Text(
               "Bằng cách nào bạn có thể trở nên khác biệt so với các đối thủ cạnh tranh: nên là một giải pháp bền vững mà người khác khó có thể học theo",
               textAlign: TextAlign.left,
@@ -762,6 +801,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
       ],
     );
   }
+
   layouIndex3() {
     return Column(
       children: [
@@ -794,8 +834,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _cachTiepThiSanPhamController.clear(),
+              clickSuffixIcon: () => _cachTiepThiSanPhamController.clear(),
               textController: _cachTiepThiSanPhamController),
         ),
         const SizedBox(height: 10),
@@ -803,12 +842,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           alignment: Alignment.centerLeft,
           child: TextWidget3(
             text0: "Cách mà bạn định tiếp thị sản phẩm và dịch vụ:",
-            text1: "   - Cung cấp các sản phẩm/dịch vụ chất lượng tốt như thế nào?",
+            text1:
+                "   - Cung cấp các sản phẩm/dịch vụ chất lượng tốt như thế nào?",
             text2: "   - Các dịch vụ hậu mãi được thực hiện ra sao?",
             text3: "   - Mức giá bán sản phẩm/dịch vụ của bạn?",
-            text4: "   - Sản phẩm và dịch vụ có được cung cấp vào thời gian và địa điểm phù hợp không?",
-            text5: "   - Khách hàng tiềm năng biết đến bạn qua các nguồn/kênh nào?",
-            text6: "   - Bạn dự định trao đổi với khách hàng như thế nào? Bạn sẽ nói gì với họ?",
+            text4:
+                "   - Sản phẩm và dịch vụ có được cung cấp vào thời gian và địa điểm phù hợp không?",
+            text5:
+                "   - Khách hàng tiềm năng biết đến bạn qua các nguồn/kênh nào?",
+            text6:
+                "   - Bạn dự định trao đổi với khách hàng như thế nào? Bạn sẽ nói gì với họ?",
           ),
         ),
       ],
@@ -843,27 +886,31 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // ],
               textInputAction: TextInputAction.newline,
               obscureText: false,
-              hintText: "Liệt kê các nhiệm vụ và người chịu trách nhiệm cho công việc đó",
+              hintText:
+                  "Liệt kê các nhiệm vụ và người chịu trách nhiệm cho công việc đó",
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _lietKeNhiemVuController.clear(),
+              clickSuffixIcon: () => _lietKeNhiemVuController.clear(),
               textController: _lietKeNhiemVuController),
         ),
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: TextWidget2(
-            text0: " - Quản lý chung: lập kế hoạch chung, điều phối các hoạt động và phân tích hiệu quả",
-            text1: " - Hành chính: các nhiệm vụ liên quan đến tài chính (VD: kế toán)",
+            text0:
+                " - Quản lý chung: lập kế hoạch chung, điều phối các hoạt động và phân tích hiệu quả",
+            text1:
+                " - Hành chính: các nhiệm vụ liên quan đến tài chính (VD: kế toán)",
             text2: " - Marketing: triển khai các kế hoạch tiếp thị",
-            text3: " - Bán hàng và dịch vụ hậu mãi: các công việc cần thực hiện để tăng thu nhập",
-            text4: " - Sản xuất và quản lý chất lượng: giám sát việc sản xuất, quản lý chất lượng và phân phối sản phẩm",
-            text5: " - Nghiên cứu và phát triển: lên ý tưởng, nghiên cứu và tạo ra các sản phẩm dịch vụ mới",
+            text3:
+                " - Bán hàng và dịch vụ hậu mãi: các công việc cần thực hiện để tăng thu nhập",
+            text4:
+                " - Sản xuất và quản lý chất lượng: giám sát việc sản xuất, quản lý chất lượng và phân phối sản phẩm",
+            text5:
+                " - Nghiên cứu và phát triển: lên ý tưởng, nghiên cứu và tạo ra các sản phẩm dịch vụ mới",
           ),
         ),
-
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
@@ -894,20 +941,20 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               // labelText: "Phone number",
               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey),
               // suffixIcon: Icons.close,
-              clickSuffixIcon: () =>
-                  _lietKeNguonLucController.clear(),
+              clickSuffixIcon: () => _lietKeNguonLucController.clear(),
               textController: _lietKeNguonLucController),
         ),
         const SizedBox(height: 10),
         const Align(
           alignment: Alignment.centerLeft,
           child: TextWidget(
-            text0: " - Nguồn thông tin: các văn bản liên quan đến triển khai kinh doanh",
+            text0:
+                " - Nguồn thông tin: các văn bản liên quan đến triển khai kinh doanh",
             text1: " - Nguồn nhân lực: người thực hiện các công việc",
-            text2: " - Nguồn nguyên liệu vật liệu: trang thiết bị, nguyên vật liệu cần thiết để sản xuất và bán các sản phẩm, dịch vụ",
+            text2:
+                " - Nguồn nguyên liệu vật liệu: trang thiết bị, nguyên vật liệu cần thiết để sản xuất và bán các sản phẩm, dịch vụ",
           ),
         ),
-
       ],
     );
   }
@@ -920,7 +967,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           children: [
             Expanded(
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   setState(() {
                     selectDefault = true;
                     typeObj = 2;
@@ -931,19 +978,20 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   child: Text(
                     "Chi phí ban đầu",
                     textAlign: TextAlign.left,
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                      color: selectDefault
+                          ? Mytheme.colorBgButtonLogin
+                          : Mytheme.color_82869E,
                       fontWeight: FontWeight.w600,
                       fontFamily: "OpenSans-SemiBold",
                     ),
                   ),
                 ),
               ),
-
             ),
             Expanded(
-              child: InkWell (
+              child: InkWell(
                 onTap: () {
                   setState(() {
                     selectDefault = false;
@@ -955,16 +1003,17 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   child: Text(
                     "Thu nhập",
                     textAlign: TextAlign.left,
-                    style:  TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
+                      color: !selectDefault
+                          ? Mytheme.colorBgButtonLogin
+                          : Mytheme.color_82869E,
                       fontWeight: FontWeight.w600,
                       fontFamily: "OpenSans-SemiBold",
                     ),
                   ),
                 ),
               ),
-
             )
           ],
         ),
@@ -972,31 +1021,34 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
-                    color: selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
-              ),
+                    color: selectDefault
+                        ? Mytheme.colorBgButtonLogin
+                        : Mytheme.color_82869E,
+                  )),
             ),
             Expanded(
-              child:  Align(
-                alignment: Alignment.center,
-                child: Divider(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Divider(
                     thickness: 2,
-                    color: !selectDefault ? Mytheme.colorBgButtonLogin : Mytheme.color_82869E,
-                )
-              ),
+                    color: !selectDefault
+                        ? Mytheme.colorBgButtonLogin
+                        : Mytheme.color_82869E,
+                  )),
             )
           ],
         ),
 
         // type thu nhap
         Visibility(
-          visible: !selectDefault ? true: false,
+          visible: !selectDefault ? true : false,
           child: Padding(
-            padding: const EdgeInsets.only( bottom: 30, top: 10, left: 0, right: 0),
+            padding:
+                const EdgeInsets.only(bottom: 30, top: 10, left: 0, right: 0),
             child: Column(
               children: [
                 Align(
@@ -1008,8 +1060,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
@@ -1025,14 +1076,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       fontSize: 14,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
-
-                for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 1)...[
+                for (var i = 0; i < dataUsers.length; i++) ...[
+                  if (dataUsers[i].type == 1) ...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -1048,15 +1097,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
-                                  child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                  child: SvgPicture.asset(
+                                      "assets/svg/ic_delete.svg"),
                                 ),
                               ],
                             ),
                           ),
                           Expanded(
-                            flex:2,
+                            flex: 2,
                             child: InkWell(
-                              onTap: (){
+                              onTap: () {
                                 showDialogEditItemTool(dataUsers[i], i);
                               },
                               child: Container(
@@ -1077,56 +1127,51 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                         fontSize: 16,
                                         color: Mytheme.colorTextSubTitle,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily:
-                                        "OpenSans-Regular",
+                                        fontFamily: "OpenSans-Regular",
                                       ),
                                     ),
                                   ),
                                 ),
-
                               ),
                             ),
-                            ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                showDialogEditItemTool(dataUsers[i], i);
-                              },
-                              child:  Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    formNum(dataUsers[i].value ?? "0"),
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                              height: 44,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.colorTextDivider,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialogEditItemTool(dataUsers[i], i);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-
-
-                          ),)
+                          )
                         ],
                       ),
                     ),
                   ],
                 ],
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: InkWell(
@@ -1151,8 +1196,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Container(
                       height: 108,
                       decoration: BoxDecoration(
@@ -1164,7 +1208,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 7,
-                            offset: const Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -1180,8 +1225,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                 fontSize: 16,
                                 color: Mytheme.color_82869E,
                                 fontWeight: FontWeight.w400,
-                                fontFamily:
-                                "OpenSans-Regular",
+                                fontFamily: "OpenSans-Regular",
                               ),
                             ),
                           ),
@@ -1197,15 +1241,13 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                 fontSize: 24,
                                 color: Mytheme.colorBgButtonLogin,
                                 fontWeight: FontWeight.w600,
-                                fontFamily:
-                                "OpenSans-SemiBold",
+                                fontFamily: "OpenSans-SemiBold",
                               ),
                             ),
                           ),
                         ],
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
@@ -1213,9 +1255,10 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
         // chi phí ban dau
         Visibility(
-          visible: selectDefault ? true: false,
+          visible: selectDefault ? true : false,
           child: Padding(
-            padding: const EdgeInsets.only( bottom: 30, top: 10, left: 0, right: 0),
+            padding:
+                const EdgeInsets.only(bottom: 30, top: 10, left: 0, right: 0),
             child: Column(
               children: [
                 Align(
@@ -1227,8 +1270,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       fontSize: 13,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
@@ -1244,14 +1286,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       fontSize: 14,
                       color: Mytheme.color_82869E,
                       fontWeight: FontWeight.w400,
-                      fontFamily:
-                      "OpenSans-Regular",
+                      fontFamily: "OpenSans-Regular",
                     ),
                   ),
                 ),
-
-                for(var i=0; i< dataUsers.length; i++) ... [
-                  if(dataUsers[i].type == 2)...[
+                for (var i = 0; i < dataUsers.length; i++) ...[
+                  if (dataUsers[i].type == 2) ...[
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Row(
@@ -1267,15 +1307,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
-                                  child: SvgPicture.asset("assets/svg/ic_delete.svg"),
+                                  child: SvgPicture.asset(
+                                      "assets/svg/ic_delete.svg"),
                                 ),
                               ],
                             ),
                           ),
                           Expanded(
-                            flex:2,
+                            flex: 2,
                             child: InkWell(
-                              onTap: (){
+                              onTap: () {
                                 showDialogEditItemTool(dataUsers[i], i);
                               },
                               child: Container(
@@ -1296,60 +1337,52 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                         fontSize: 16,
                                         color: Mytheme.colorTextSubTitle,
                                         fontWeight: FontWeight.w400,
-                                        fontFamily:
-                                        "OpenSans-Regular",
+                                        fontFamily: "OpenSans-Regular",
                                       ),
                                     ),
                                   ),
                                 ),
-
                               ),
                             ),
-                            ),
+                          ),
                           Expanded(
                             flex: 2,
                             child: Container(
-                            height: 44,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Mytheme.colorTextDivider,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                showDialogEditTool(
-                                    dataUsers[i]
-                                        .value ??
-                                        "0",
-                                    i);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    formNum(dataUsers[i].value ?? "0"),
-                                    textAlign: TextAlign.left,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Mytheme.colorTextSubTitle,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily:
-                                      "OpenSans-Regular",
+                              height: 44,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Mytheme.colorTextDivider,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialogEditTool(
+                                      dataUsers[i].value ?? "0", i);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      formNum(dataUsers[i].value ?? "0"),
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.colorTextSubTitle,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "OpenSans-Regular",
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-
-
-                          ),)
+                          )
                         ],
                       ),
                     ),
                   ],
                 ],
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: InkWell(
@@ -1374,8 +1407,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                        top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: Container(
                       height: 108,
                       decoration: BoxDecoration(
@@ -1387,7 +1419,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 1,
                             blurRadius: 7,
-                            offset: const Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -1403,8 +1436,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                 fontSize: 16,
                                 color: Mytheme.color_82869E,
                                 fontWeight: FontWeight.w400,
-                                fontFamily:
-                                "OpenSans-Regular",
+                                fontFamily: "OpenSans-Regular",
                               ),
                             ),
                           ),
@@ -1420,29 +1452,26 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                 fontSize: 24,
                                 color: Mytheme.colorBgButtonLogin,
                                 fontWeight: FontWeight.w600,
-                                fontFamily:
-                                "OpenSans-SemiBold",
+                                fontFamily: "OpenSans-SemiBold",
                               ),
                             ),
                           ),
                         ],
                       ),
-                    )
-                )
+                    ))
               ],
             ),
           ),
         ),
-
       ],
     );
   }
 
   String calculatorTotalType2() {
     int total = 0;
-    for(var i =0; i < dataUsers.length; i++) {
-      if(dataUsers[i].type == 2) {
-        total = total + int.parse(dataUsers[i].value??"0");
+    for (var i = 0; i < dataUsers.length; i++) {
+      if (dataUsers[i].type == 2) {
+        total = total + int.parse(dataUsers[i].value ?? "0");
       }
     }
     return "${formNum(total.toString())} VNĐ";
@@ -1450,9 +1479,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
   String calculatorTotalType1() {
     int total = 0;
-    for(var i =0; i < dataUsers.length; i++) {
-      if(dataUsers[i].type == 1) {
-        total = total + int.parse(dataUsers[i].value??"0");
+    for (var i = 0; i < dataUsers.length; i++) {
+      if (dataUsers[i].type == 1) {
+        total = total + int.parse(dataUsers[i].value ?? "0");
       }
     }
     return "${formNum(total.toString())} VNĐ";
@@ -1466,13 +1495,13 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
 
   Future<void> saveItemTool(String obj) async {
     await pr.show();
-    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj).then(
-            (value) async {
-          pr.hide();
-          if (value['status_code'] == 200) {
-            showDialogSuccess();
-          }
-        }, onError: (error) async {
+    APIManager.postAPICallNeedToken(RemoteServices.storeDataItemToolURL, obj)
+        .then((value) async {
+      pr.hide();
+      if (value['status_code'] == 200) {
+        showDialogSuccess();
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -1484,7 +1513,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
     return (to.difference(from).inHours / 24).round();
   }
 
-  showDialogSuccess(){
+  showDialogSuccess() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1493,17 +1522,19 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                 return Future.value(false);
               },
               child: SuccessDialogBox(
-                title: "Chúc mừng bạn đã tạo thành công kế hoạch SXKD của mình!",
-                descriptions:
-                "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần.",
+                title:
+                    "Chúc mừng bạn đã tạo thành công kế hoạch SXKD của mình!",
+                descriptions: checkCompletePlane == true ?
+                    "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần." :
+                    "Bạn chưa hoàn thiện kế hoạch của mình? Đừng quên quay lại và điền tất cả các thông tin cần thiết để chuẩn bị tốt nhất cho dự án của mình nhé."
+                ,
                 textButton: "Tiếp tục",
                 onClickedConfirm: () {
                   Get.back(result: true);
                   Get.back(result: true);
                 },
               ));
-        }
-    );
+        });
   }
 
   // showDialogAddItemTool() async {
@@ -1688,18 +1719,18 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
       'tool_id': data.id.toString(),
     });
     APIManager.postAPICallNeedToken(RemoteServices.sampleDataURL, param).then(
-            (value) async {
-          pr.hide();
-          var data = DataSampleTool.fromJson(value);
-          if (data.statusCode == 200) {
-            setState(() {
-              for (var i = 0; i < data.data!.length; i++) {
-                dataUsers.add(DataUsers(
-                    key: data.data![i].name, value: "0", type: data.data![i].type));
-              }
-            });
+        (value) async {
+      pr.hide();
+      var data = DataSampleTool.fromJson(value);
+      if (data.statusCode == 200) {
+        setState(() {
+          for (var i = 0; i < data.data!.length; i++) {
+            dataUsers.add(DataUsers(
+                key: data.data![i].name, value: "0", type: data.data![i].type));
           }
-        }, onError: (error) async {
+        });
+      }
+    }, onError: (error) async {
       pr.hide();
       Utils.showError(error.toString(), context);
     });
@@ -1754,7 +1785,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
             children: <Widget>[
               Padding(
                 padding:
-                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
                 child: Column(
                   children: [
                     TextField(
@@ -1804,7 +1835,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border:
-                          Border.all(color: Mytheme.colorBgButtonLogin)),
+                              Border.all(color: Mytheme.colorBgButtonLogin)),
                       child: const Text(
                         "Hủy",
                         style: TextStyle(
@@ -1821,7 +1852,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       var thunhap = _editMoneyController.text;
                       if (thunhap.isNotEmpty) {
                         setState(() {
-                          dataUsers[position].value = thunhap.replaceAll(",", "");
+                          dataUsers[position].value =
+                              thunhap.replaceAll(",", "");
                         });
                       } else {
                         dataUsers[position].value = "0";
@@ -1899,8 +1931,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               child: contentBox(context, false, 0),
             ),
           );
-        }
-    );
+        });
   }
 
   contentBox(context, bool edit, int position) {
@@ -1908,10 +1939,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
       alignment: Alignment.center,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(
-              top: 0,
-              right: 0,
-              bottom: Constants.padding),
+          padding: EdgeInsets.only(top: 0, right: 0, bottom: Constants.padding),
           margin: EdgeInsets.only(top: Constants.avatarRadius),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
@@ -1928,18 +1956,16 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
             children: <Widget>[
               Padding(
                 padding:
-                EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
+                    EdgeInsets.only(top: 30, left: 10, bottom: 8, right: 10),
                 child: Column(
                   children: [
                     TextField(
                       controller: _thuNhapController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: typeObj == 2 ? 'Chi phí': 'Thu nhập',
+                        labelText: typeObj == 2 ? 'Chi phí' : 'Thu nhập',
                       ),
-                      onChanged: (value) {
-
-                      },
+                      onChanged: (value) {},
                     ),
                     SizedBox(
                       height: 34,
@@ -1968,9 +1994,7 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                     )
                   ],
                 ),
-
               ),
-
               SizedBox(
                 height: 34,
               ),
@@ -1989,8 +2013,8 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Mytheme.colorBgButtonLogin)
-                      ),
+                          border:
+                              Border.all(color: Mytheme.colorBgButtonLogin)),
                       child: const Text(
                         "Hủy",
                         style: TextStyle(
@@ -2006,14 +2030,15 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                     onTap: () {
                       var thunhap = _thuNhapController.text;
                       var sotien = "";
-                      if(_soTienController.text.isNotEmpty) {
+                      if (_soTienController.text.isNotEmpty) {
                         sotien = _soTienController.text.replaceAll(',', '');
                       }
-                      if(sotien.isEmpty || thunhap.isEmpty) {
-                        Utils.showError("Vui lòng nhập đầy đủ thông tin", context);
+                      if (sotien.isEmpty || thunhap.isEmpty) {
+                        Utils.showError(
+                            "Vui lòng nhập đầy đủ thông tin", context);
                         return;
                       }
-                      if(sotien.isNotEmpty && thunhap.isNotEmpty) {
+                      if (sotien.isNotEmpty && thunhap.isNotEmpty) {
                         setState(() {
                           if (edit) {
                             dataUsers[position].key = thunhap;
@@ -2057,6 +2082,4 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
       ],
     );
   }
-
-
 }

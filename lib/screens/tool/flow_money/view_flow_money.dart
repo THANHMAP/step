@@ -1202,52 +1202,55 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                           ),
                         ),
                         const SizedBox(height: 10),
-                        TextField(
-                          keyboardType: TextInputType.text,
-                          // inputFormatters: <TextInputFormatter>[
-                          //   FilteringTextInputFormatter.digitsOnly
-                          // ],
-                          obscureText: false,
-                          controller: _noteController,
-                          enabled: true,
-                          textInputAction: TextInputAction.done,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                              fillColor: const Color(0xFFEFF0FB),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              errorBorder: validate
-                                  ? OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                          color: Colors.red, width: 1),
-                                      borderRadius: BorderRadius.circular(8))
-                                  : OutlineInputBorder(
-                                      // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(8)),
-                              errorText: validate
-                                  ? "Tiền rút ra không được lớn hơn tiền đang có"
-                                  : "",
-                              filled: true,
-                              hintText: "Ghi chú về số tiền",
-                              hintStyle:
-                                  const TextStyle(color: Color(0xFFA7ABC3)),
-                              isDense: true,
-                              // Added this
-                              contentPadding: EdgeInsets.all(8),
-                              // labelText: labelText,
-
-                              // suffixIcon: IconButton(
-                              //     onPressed: () {},
-                              //     icon:
-                              //     SvgPicture.asset("assets/svg/ic_vnd.svg")),
-                              enabledBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.grey, width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              focusedBorder: OutlineInputBorder(
-                                  // borderSide: const BorderSide(color: Colors.green, width: 1.7),
-                                  borderRadius: BorderRadius.circular(8))),
+                        SizedBox(
+                          child: TextFieldWidget(
+                              keyboardType: TextInputType.text,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter
+                                    .singleLineFormatter
+                              ],
+                              textInputAction: TextInputAction.done,
+                              obscureText: false,
+                              hintText: "Lịch trả nợ món vay mới",
+                              // labelText: "Phone number",
+                              // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey)
+                              textController: _noteController),
                         ),
+                        // TextField(
+                        //   keyboardType: TextInputType.text,
+                        //   // inputFormatters: <TextInputFormatter>[
+                        //   //   FilteringTextInputFormatter.digitsOnly
+                        //   // ],
+                        //   obscureText: false,
+                        //   controller: _noteController,
+                        //   enabled: true,
+                        //   textInputAction: TextInputAction.done,
+                        //   textAlignVertical: TextAlignVertical.center,
+                        //   decoration: InputDecoration(
+                        //       fillColor: const Color(0xFFEFF0FB),
+                        //       focusedErrorBorder: OutlineInputBorder(
+                        //           // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                        //           borderRadius: BorderRadius.circular(8)),
+                        //       filled: true,
+                        //       hintText: "Ghi chú về số tiền",
+                        //       hintStyle:
+                        //           const TextStyle(color: Color(0xFFA7ABC3)),
+                        //       isDense: true,
+                        //       // Added this
+                        //       contentPadding: EdgeInsets.all(8),
+                        //       // labelText: labelText,
+                        //
+                        //       // suffixIcon: IconButton(
+                        //       //     onPressed: () {},
+                        //       //     icon:
+                        //       //     SvgPicture.asset("assets/svg/ic_vnd.svg")),
+                        //       enabledBorder: OutlineInputBorder(
+                        //           // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                        //           borderRadius: BorderRadius.circular(8)),
+                        //       focusedBorder: OutlineInputBorder(
+                        //           // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                        //           borderRadius: BorderRadius.circular(8))),
+                        // ),
                         Padding(
                             padding: const EdgeInsets.only(
                                 top: 20, bottom: 5, left: 0, right: 0),

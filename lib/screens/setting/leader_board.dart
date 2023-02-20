@@ -118,20 +118,8 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
 
   headerLayout() {
     return Stack(
-      children: <Widget>[
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/bg_home.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          // child: Column(
-          //   children: const <Widget>[],
-          // ),
-        ),
-
-        const Padding(
+      children: const <Widget>[
+        Padding(
           padding: EdgeInsets.only(
               top: 20, left: 20, right: 25, bottom: 10
           ),
@@ -140,7 +128,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
             child: Text(StringText.text_leader,
               textAlign: TextAlign.justify,
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 15,
                 fontFamily: "OpenSans-Regular",
                 fontWeight: FontWeight.bold,
                 color: Mytheme.color_0xFF002766,
@@ -148,65 +136,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
             ),
           ),
         ),
-
-
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 56, left: 28, right: 0),
-        //   child: Container(
-        //     width: 216,
-        //     child: Column(
-        //       children: const [
-        //         Text(
-        //           "Các khái niệm kinh doanh cơ bản",
-        //           style: TextStyle(
-        //             fontSize: 23,
-        //             color: Mytheme.colorBgButtonLogin,
-        //             fontWeight: FontWeight.w700,
-        //             fontFamily: "OpenSans-Bold",
-        //             // decoration: TextDecoration.underline,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ),
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 136, left: 28, right: 0),
-        //   child: SizedBox(
-        //     width: 130,
-        //     child: ElevatedButton(
-        //       style: ElevatedButton.styleFrom(
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(8),
-        //             // side: const BorderSide(color: Colors.red)
-        //           ),
-        //           primary: Mytheme.colorBgButtonLogin,
-        //           minimumSize: Size(MediaQuery.of(context).size.width, 44)),
-        //       child: const Text(
-        //         "Xem thêm",
-        //         style: TextStyle(
-        //             fontSize: 16,
-        //             fontFamily: "OpenSans-Regular",
-        //             fontWeight: FontWeight.bold),
-        //       ),
-        //       onPressed: () {
-        //         Get.toNamed("/courseScreen");
-        //       },
-        //     ),
-        //   ),
-        // ),
-
-        // Padding(
-        //     padding: const EdgeInsets.only(top: 56, left: 28, right: 20),
-        //     child: Align(
-        //       alignment: Alignment.centerRight,
-        //       child: SvgPicture.asset(
-        //         'assets/svg/ic_eduction_home.svg',
-        //         allowDrawingOutsideViewBox: true,
-        //       ),
-        //     )
-        // ),
-
       ],
     );
   }

@@ -44,7 +44,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       AppbarWidget(
-                        text: "về chúng tôi",
+                        text: "Về chúng tôi",
                         onClicked: () {
                           Navigator.of(context).pop(false);
                         },

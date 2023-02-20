@@ -116,6 +116,119 @@ class _EditAgriculturalProductionPlanToolScreenState
                   onClicked: () {
                     Navigator.of(context).pop(false);
                   },
+                  showRight: true,
+                  showTextRight: true,
+                  onClickedRight: () {
+                    if (_namePlantBusinessController
+                        .text.isEmpty) {
+                      Utils.showError(
+                          "Bạn chưa nhập tên cho kế hoạch",
+                          context);
+                    } else {
+                      UpdateDataTool
+                      updateDataTool =
+                      UpdateDataTool();
+                      updateDataTool.title =
+                          _namePlantBusinessController
+                              .text;
+                      updateDataTool
+                          .userToolId =
+                          _itemToolData?.id;
+                      updateDataTool.type = 2;
+
+                      List<UpdateDataToolUsers>?
+                      listData = [];
+
+                      //bạn là ai
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key: "ban_la_ai",
+                            value:
+                            _whoAreYouController
+                                .text,
+                            type: 0,
+                          ));
+
+                      //trong cay nuoi con gi
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key:
+                            "trong_cay_nuoi_gi",
+                            value:
+                            _trongCayNuoiConGiController
+                                .text,
+                            type: 0,
+                          ));
+
+                      //nha cung cap dich vu
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key:
+                            "nha_cung_cap_dich_vu",
+                            value:
+                            _nhaCungCapDichVuController
+                                .text,
+                            type: 0,
+                          ));
+
+                      //nguon nhan cong
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key: "nguon_nhan_cong",
+                            value:
+                            _nguonNhanCongController
+                                .text,
+                            type: 0,
+                          ));
+
+                      //ban cho ai
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key: "ban_cho_ai",
+                            value:
+                            _banChoAiController
+                                .text,
+                            type: 0,
+                          ));
+
+                      //ban nhu the nào
+                      listData.add(
+                          UpdateDataToolUsers(
+                            key: "ban_nhu_the_nao",
+                            value:
+                            _banNhuTheNaoController
+                                .text,
+                            type: 0,
+                          ));
+
+                      for (var i = 0;
+                      i < dataUsers.length;
+                      i++) {
+                        if (dataUsers[i].type ==
+                            1 ||
+                            dataUsers[i].type ==
+                                2) {
+                          listData.add(
+                              UpdateDataToolUsers(
+                                  key:
+                                  dataUsers[
+                                  i]
+                                      .key,
+                                  type:
+                                  dataUsers[
+                                  i]
+                                      .type,
+                                  value: dataUsers[
+                                  i]
+                                      .value));
+                        }
+                      }
+                      updateDataTool.dataUsers =
+                          listData;
+                      saveItemTool(jsonEncode(
+                          updateDataTool));
+                    }
+                  }
                 ),
                 Expanded(
                   child: SingleChildScrollView(
@@ -240,216 +353,135 @@ class _EditAgriculturalProductionPlanToolScreenState
                                               indexPlan == 3 ? true : false,
                                               child: layouIndex4(),
                                             ),
-                                            Container(
-                                              margin: EdgeInsets.only(top: 60),
-                                              child: Column(
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 50),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                                 children: [
                                                   Visibility(
                                                     visible: indexPlan == 0
                                                         ? false
                                                         : true,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          indexPlan = indexPlan - 1;
-                                                          imgHeader =
-                                                          "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                          alignment:
-                                                          Alignment.center,
-                                                          decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                              border: Border.all(
+                                                    child: Expanded(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          if (indexPlan > 0) {
+                                                            setState(() {
+                                                              indexPlan =
+                                                                  indexPlan - 1;
+                                                              imgHeader =
+                                                              "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                            });
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                            margin: const EdgeInsets
+                                                                .only(right: 10),
+                                                            alignment:
+                                                            Alignment.center,
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                Colors.white,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    8),
+                                                                border: Border.all(
+                                                                    color: Mytheme
+                                                                        .colorBgButtonLogin)),
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 10,
+                                                                  bottom: 10,
+                                                                  left: 0,
+                                                                  right: 0),
+                                                              child: Text(
+                                                                "Quay lại",
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
                                                                   color: Mytheme
-                                                                      .colorBgButtonLogin)),
-                                                          child: Padding(
-                                                            padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 10,
-                                                                bottom: 10,
-                                                                left: 0,
-                                                                right: 0),
-                                                            child: Text(
-                                                              "Quay lại",
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Mytheme
-                                                                    .color_434657,
-                                                                fontWeight:
-                                                                FontWeight.w600,
-                                                                fontFamily:
-                                                                "OpenSans-Semibold",
+                                                                      .color_434657,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  fontFamily:
+                                                                  "OpenSans-Semibold",
+                                                                ),
                                                               ),
-                                                            ),
-                                                          )),
+                                                            )),
+                                                      ),
                                                     ),
                                                   ),
-                                                  const SizedBox(height: 10),
-                                                  ElevatedButton(
-                                                    style: ElevatedButton.styleFrom(
-                                                        shape:
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                          // side: const BorderSide(color: Colors.red)
-                                                        ),
-                                                        primary: Mytheme
-                                                            .colorBgButtonLogin,
-                                                        minimumSize: Size(
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width,
-                                                            44)),
-                                                    child: Text(
-                                                      indexPlan == 3
-                                                          ? "Lưu"
-                                                          : "Tiếp tục",
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontFamily:
-                                                          "OpenSans-Regular",
-                                                          fontWeight:
-                                                          FontWeight.bold),
-                                                    ),
-                                                    onPressed: () {
-                                                      if (indexPlan < 3) {
-                                                        if(_namePlantBusinessController.text.isEmpty) {
-                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
-                                                          return;
-                                                        }
-                                                        setState(() {
-                                                          indexPlan = indexPlan + 1;
-                                                          imgHeader =
-                                                          "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
-                                                        });
-                                                        scrollController.animateTo(
-                                                          //go to top of scroll
-                                                            0, //scroll offset to go
-                                                            duration: Duration(
-                                                                milliseconds: 500),
-                                                            //duration of scroll
-                                                            curve: Curves
-                                                                .fastOutSlowIn //scroll type
-                                                        );
-                                                      } else {
-                                                        if (_namePlantBusinessController
-                                                            .text.isEmpty) {
-                                                          Utils.showError(
-                                                              "Bạn chưa nhập tên cho kế hoạch",
-                                                              context);
-                                                        } else {
-                                                          UpdateDataTool
-                                                          updateDataTool =
-                                                          UpdateDataTool();
-                                                          updateDataTool.title =
-                                                              _namePlantBusinessController
-                                                                  .text;
-                                                          updateDataTool
-                                                              .userToolId =
-                                                              _itemToolData?.id;
-                                                          updateDataTool.type = 2;
-
-                                                          List<UpdateDataToolUsers>?
-                                                          listData = [];
-
-                                                          //bạn là ai
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key: "ban_la_ai",
-                                                                value:
-                                                                _whoAreYouController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          //trong cay nuoi con gi
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key:
-                                                                "trong_cay_nuoi_gi",
-                                                                value:
-                                                                _trongCayNuoiConGiController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          //nha cung cap dich vu
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key:
-                                                                "nha_cung_cap_dich_vu",
-                                                                value:
-                                                                _nhaCungCapDichVuController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          //nguon nhan cong
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key: "nguon_nhan_cong",
-                                                                value:
-                                                                _nguonNhanCongController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          //ban cho ai
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key: "ban_cho_ai",
-                                                                value:
-                                                                _banChoAiController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          //ban nhu the nào
-                                                          listData.add(
-                                                              UpdateDataToolUsers(
-                                                                key: "ban_nhu_the_nao",
-                                                                value:
-                                                                _banNhuTheNaoController
-                                                                    .text,
-                                                                type: 0,
-                                                              ));
-
-                                                          for (var i = 0;
-                                                          i < dataUsers.length;
-                                                          i++) {
-                                                            if (dataUsers[i].type ==
-                                                                1 ||
-                                                                dataUsers[i].type ==
-                                                                    2) {
-                                                              listData.add(
-                                                                  UpdateDataToolUsers(
-                                                                      key:
-                                                                      dataUsers[
-                                                                      i]
-                                                                          .key,
-                                                                      type:
-                                                                      dataUsers[
-                                                                      i]
-                                                                          .type,
-                                                                      value: dataUsers[
-                                                                      i]
-                                                                          .value));
-                                                            }
+                                                  Visibility(
+                                                    visible: indexPlan == 3
+                                                        ? false
+                                                        : true,
+                                                    child: Expanded(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          if (indexPlan < 3) {
+                                                            setState(() {
+                                                              indexPlan =
+                                                                  indexPlan + 1;
+                                                              imgHeader =
+                                                              "assets/svg/img_plan_agricultural_${indexPlan + 1}.svg";
+                                                            });
+                                                            scrollController
+                                                                .animateTo(
+                                                              //go to top of scroll
+                                                                0,
+                                                                //scroll offset to go
+                                                                duration: const Duration(
+                                                                    milliseconds:
+                                                                    500),
+                                                                //duration of scroll
+                                                                curve: Curves
+                                                                    .fastOutSlowIn //scroll type
+                                                            );
                                                           }
-                                                          updateDataTool.dataUsers =
-                                                              listData;
-                                                          saveItemTool(jsonEncode(
-                                                              updateDataTool));
-                                                        }
-                                                      }
-                                                    },
+                                                        },
+                                                        child: Container(
+                                                            alignment:
+                                                            Alignment.center,
+                                                            decoration: BoxDecoration(
+                                                                color: Mytheme
+                                                                    .colorBgButtonLogin,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    8),
+                                                                border: Border.all(
+                                                                    color: Mytheme
+                                                                        .colorBgButtonLogin)),
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 10,
+                                                                  bottom: 10,
+                                                                  left: 0,
+                                                                  right: 0),
+                                                              child: Text(
+                                                                "Tiếp Tục",
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Mytheme
+                                                                      .kBackgroundColor,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  fontFamily:
+                                                                  "OpenSans-Semibold",
+                                                                ),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),

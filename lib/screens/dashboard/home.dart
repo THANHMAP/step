@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -25,8 +27,10 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 import 'package:weather/weather.dart';
 
+import '../../constants.dart';
 import '../../models/education/lesson_learned.dart';
 import '../../models/education/lesson_learned.dart';
+import '../../models/lesson_model.dart';
 import '../../models/number_notification.dart';
 import '../../models/tool/tool_last_used.dart';
 import '../../models/tool_model.dart';
@@ -418,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (dataLessonLearned != null) ...[
                     lessonLearnedLayout(),
                   ] else ...[
-                    hoctapLayout(),
+                    hocTapLayout(),
                   ],
                   const SizedBox(height: 20),
                   viewPager(),
@@ -488,89 +492,98 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ],
           ),
-          for (var i = 0; i < _toolList.length; i++) ...[
-            // if (_toolList[i].id == 1 || _toolList[i].id == 5) ...[
-            const SizedBox(height: 10),
-            InkWell(
-              onTap: () {
-                Get.toNamed('/introductionToolScreen', arguments: _toolList[i]);
-              },
-              child: Container(
-                height: 84,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: Image.network(
-                          _toolList[i].icon ?? "",
-                          fit: BoxFit.fill,
-                          width: 30,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.only(top: 0, left: 10, right: 0),
-                        child: Text(
-                          _toolList[i].name ?? "",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Mytheme.colorTextSubTitle,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans-Semibold",
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Image(
-                        image: AssetImage('assets/images/img_arrow_right.png'),
-                        fit: BoxFit.contain,
-                        width: 16,
-                        height: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          if (_toolList.isNotEmpty && _toolList.length >= 2) ...[
+            for (var i = 0; i < 2; i++) ...[
+              defaultTool(i),
+            ],
           ],
         ],
         // ],
+      ),
+    );
+  }
+
+  Widget defaultTool(position) {
+    // var rng = Random();
+    // var position = rng.nextInt(_toolList.length - 1);
+    return Padding(
+      padding: EdgeInsets.only(top: 10),
+      child: InkWell(
+        onTap: () {
+          Get.toNamed('/introductionToolScreen', arguments: _toolList[position]);
+        },
+        child: Container(
+          height: 84,
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Image.network(
+                    _toolList[position].icon ?? "",
+                    fit: BoxFit.fill,
+                    width: 30,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes !=
+                              null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 0, left: 10, right: 0),
+                  child: Text(
+                    _toolList[position].name ?? "",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Mytheme.colorTextSubTitle,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "OpenSans-Semibold",
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Image(
+                  image: AssetImage('assets/images/img_arrow_right.png'),
+                  fit: BoxFit.contain,
+                  width: 16,
+                  height: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -599,8 +612,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 10),
           InkWell(
             onTap: () {
-              Get.toNamed('/educationTopicDetail',
-                  arguments: dataLessonLearned?.lessonId);
+              loadListEducation("2", dataLessonLearned?.lessonId ?? 0);
+              // Get.toNamed('/educationTopicDetail',
+              //     arguments: dataLessonLearned?.lessonId);
             },
             child: Container(
               height: 84,
@@ -679,7 +693,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  hoctapLayout() {
+  hocTapLayout() {
     return InkWell(
       onTap: () {
         widget.controller?.index = 2;
@@ -1150,6 +1164,36 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }, onError: (error) async {
       // Utils.showError(error.toString(), context);
+    });
+  }
+
+  Future<void> loadListEducation(String courseId, int lessonId) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      'course_id': courseId,
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.listLessonURL, param).then(
+            (value) async {
+          await pr.hide();
+          var result = LessonModel.fromJson(value);
+          if (result.statusCode == 200) {
+            var data = result.data;
+            if (data != null && data.isNotEmpty) {
+              for(var lesson in data) {
+                for (var i = 0; i < lesson.dataLesson!.length; i++) {
+                  if (lesson.dataLesson![i].id == lessonId) {
+                    Constants.nameCourseTemp = lesson.dataLesson![i].name ?? "";
+                    Constants.lessonListTemp = lesson.dataLesson;
+                    Get.toNamed('/educationTopicDetail', arguments: i);
+                    break;
+                  }
+                }
+              }
+            }
+          }
+        }, onError: (error) async {
+      await pr.hide();
+      Utils.showError(error.toString(), context);
     });
   }
 }

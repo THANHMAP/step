@@ -166,21 +166,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   const SizedBox(height: 10),
                                   //lien he
                                   CardSettingWidget(
-                                    title: "Địa chỉ giao dịch",
-                                    linkUrl: 'assets/svg/ic_lienhe.svg',
-                                    onClicked: () {
-                                      Get.toNamed('/contactScreen');
-                                    },
-                                  ),
-                                  const SizedBox(height: 10),
-                                  //lien he
-                                  CardSettingWidget(
                                     title: "Về chúng tôi",
                                     linkUrl: 'assets/svg/ic_lienhe.svg',
                                     onClicked: () {
                                       Get.toNamed('/aboutUsScreen', arguments: "https://internal.co-opsmart.vn/about-app");
                                     },
                                   ),
+                                  const SizedBox(height: 10),
+                                  //lien he
+                                  CardSettingWidget(
+                                    title: "Địa chỉ giao dịch",
+                                    linkUrl: 'assets/svg/ic_lienhe.svg',
+                                    onClicked: () {
+                                      Get.toNamed('/contactScreen');
+                                    },
+                                  ),
+
                                   const SizedBox(height: 10),
                                   // cau hoi
                                   CardSettingWidget(
