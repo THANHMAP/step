@@ -187,6 +187,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
                                             child: CardContentTopicWidget(
                                               title: _studyData[i].name,
                                               type: _studyData[i].type,
+                                              isFinish: _studyData[i].isFinish,
                                               hideImageRight: true,
                                               onClicked: () {
                                                 trackingLesson(_studyData[i].id ?? 0);

@@ -536,23 +536,7 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
 
                                               InkWell(
                                                 onTap: () {
-                                                  var stringDateStart = dateFirst.split("-");
-                                                  var stringDateEnd = dateEnd.split("-");
-                                                  final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
-                                                  final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
-                                                  final differenceDay = daysBetween(dayStart, dayEnd);
-                                                  if(differenceDay <= 0) {
-                                                    Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
-                                                    return;
-                                                  }
-                                                  var calculatorWeek = int.parse(_numberWeekController.text)*7;
-                                                  var solantietkiem = (differenceDay/calculatorWeek).round();
-                                                  var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
-                                                  var result = (soTienCanTietKiem/solantietkiem).round();
-                                                  // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
-                                                  setState(() {
-                                                    moneySave = result.round();
-                                                  });
+                                                  calculatorSave();
                                                 },
                                                 child: Container(
                                                     margin: EdgeInsets.all(10),
@@ -653,6 +637,9 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                           if(_nameSaveController.text.isEmpty) {
                             Utils.showError("Bạn chưa nhập tên", context);
                           } else {
+                            if (moneySave == 0) {
+                              calculatorSave();
+                            }
                             StoreDataTool storeDataTool = StoreDataTool();
                             storeDataTool.title = _nameSaveController.text;
                             storeDataTool.toolId = data.id;
@@ -691,6 +678,11 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
                               key: "repayment_cycle",
                               value: _numberWeekController.text,
                               type: 5,
+                            ));
+                            dataUsers.add(DataUsers(
+                              key: "amount_to_save",
+                              value: moneySave.toString(),
+                              type: 6,
                             ));
                             //
                             storeDataTool.dataUsers = dataUsers;
@@ -984,6 +976,26 @@ class _DetailSaveToolScreenState extends State<DetailSaveToolScreen>
         dateEnd = '${datePicked.day}-${datePicked.month}-${datePicked.year}';
       });
     }
+  }
+
+  calculatorSave() {
+    var stringDateStart = dateFirst.split("-");
+    var stringDateEnd = dateEnd.split("-");
+    final dayStart = DateTime(int.parse(stringDateStart[2]), int.parse(stringDateStart[1]), int.parse(stringDateStart[0]));
+    final dayEnd = DateTime(int.parse(stringDateEnd[2]), int.parse(stringDateEnd[1]), int.parse(stringDateEnd[0]));
+    final differenceDay = daysBetween(dayStart, dayEnd);
+    if(differenceDay <= 0) {
+      Utils.showError("Ngày kết thúc không được nhỏ hơn hoặc bằng ngày bắt đầu", context);
+      return;
+    }
+    var calculatorWeek = int.parse(_numberWeekController.text)*7;
+    var solantietkiem = (differenceDay/calculatorWeek).round();
+    var soTienCanTietKiem = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", ""));
+    var result = (soTienCanTietKiem/solantietkiem).round();
+    // var result = int.parse(_moneyWantSaveController.text.replaceAll(",", "")) - int.parse(_numberHasController.text.replaceAll(",", "")) / numberSaver.round();
+    setState(() {
+      moneySave = result.round();
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants.dart';
@@ -10,6 +11,7 @@ class InfoDialogBox extends StatelessWidget {
   final String? title;
   final String? descriptions;
   final String? textButton;
+  final bool? hideButtonLink;
   final VoidCallback? onClickedDirect;
 
   const InfoDialogBox(
@@ -17,6 +19,7 @@ class InfoDialogBox extends StatelessWidget {
         this.title,
         this.descriptions,
         this.textButton,
+        this.hideButtonLink = false,
         this.onClickedDirect
       })
       : super(key: key);
@@ -32,7 +35,9 @@ class InfoDialogBox extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        child: contentBox(context),
+        child: SingleChildScrollView(
+          child: contentBox(context),
+        ),
       ),
     );
   }
@@ -76,16 +81,16 @@ class InfoDialogBox extends StatelessWidget {
 
               Padding(
                 padding: EdgeInsets.only(top: 0, left:20, bottom: 8, right: 20),
-                child: Text(
-                  descriptions ?? "",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Mytheme.color_44494D,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "OpenSans-Regular",
-                  ),
-
+                child: Html(
+                  data: descriptions ?? "",
+                  style: {
+                    "body": Style(
+                      fontSize: FontSize(16.0),
+                      color: Mytheme.color_44494D,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "OpenSans-Regular",
+                    ),
+                  },
                 ),
               ),
 
@@ -97,35 +102,38 @@ class InfoDialogBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: onClickedDirect,
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(left: 20, right: 20),
-                            height: 44,
-                            width: 135,
-                            decoration: BoxDecoration(
-                              color: Mytheme.colorBgButtonLogin,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              "Mở bài học",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Mytheme.kBackgroundColor,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
+                  Visibility(
+                    visible: hideButtonLink == true ? false : true,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: InkWell(
+                            onTap: onClickedDirect,
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(left: 20, right: 20),
+                              height: 44,
+                              width: 135,
+                              decoration: BoxDecoration(
+                                color: Mytheme.colorBgButtonLogin,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                "Mở bài học",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.kBackgroundColor,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: "OpenSans-Semibold",
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 16,

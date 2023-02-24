@@ -119,7 +119,7 @@ class AppbarWidget extends StatelessWidget {
                           SizedBox(
                             width: 40,
                             child: IconButton(
-                              icon: SvgPicture.asset("assets/svg/ic_add.svg"),
+                              icon: Image.asset("assets/images/img_question.png"),
                               onPressed: onClickedRight,
                             ),
                           )

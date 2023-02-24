@@ -126,9 +126,9 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
           child: Align(
             alignment: Alignment.center,
             child: Text(StringText.text_leader,
-              textAlign: TextAlign.justify,
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 fontFamily: "OpenSans-Regular",
                 fontWeight: FontWeight.bold,
                 color: Mytheme.color_0xFF002766,

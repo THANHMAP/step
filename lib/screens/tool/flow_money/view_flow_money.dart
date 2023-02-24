@@ -1211,7 +1211,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                               ],
                               textInputAction: TextInputAction.done,
                               obscureText: false,
-                              hintText: "Lịch trả nợ món vay mới",
+                              hintText: "Ghi chú",
                               // labelText: "Phone number",
                               // prefixIcon: const Icon(Icons.phone_android, color: Colors.grey)
                               textController: _noteController),

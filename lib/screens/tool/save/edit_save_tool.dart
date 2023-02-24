@@ -585,6 +585,7 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                           if(_nameSaveController.text.isEmpty) {
                             Utils.showError("Bạn chưa nhập tên", context);
                           } else {
+                            calculatorSaveMoney();
                             UpdateDataTool updateDataTool = UpdateDataTool();
                             updateDataTool.title = _nameSaveController.text;
                             updateDataTool.userToolId = int.parse(userId);
@@ -624,6 +625,12 @@ class _EditSaveToolScreenState extends State<EditSaveToolScreen>
                               key: "repayment_cycle",
                               value: _numberWeekController.text,
                               type: 5,
+                            ));
+
+                            dataUsers.add(DataUsers(
+                              key: "amount_to_save",
+                              value: moneySave.toString(),
+                              type: 6,
                             ));
                             //
                             updateDataTool.dataUsers = listData;
