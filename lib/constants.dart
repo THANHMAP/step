@@ -19,7 +19,6 @@ class Constants{
   static bool selectDefault = true;
   static String idCreditTemp = "0";
   static String nameCreditTemp = "";
-  static bool statusShowTutorial = false;
 
   static const Color kSecondaryColor = Color(0xFF8B94BC);
   static const Color kGreenColor = Color(0xFF6AC259);
