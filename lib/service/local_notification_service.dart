@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 
 class LocalNotificationService {
 
@@ -17,7 +18,12 @@ class LocalNotificationService {
         onDidReceiveLocalNotification: onDidReceiveLocalNotification
     );
     var initSetting = InitializationSettings(android: initAndroid,iOS: initIOS);
-    _noticationPlugin.initialize(initSetting);
+    _noticationPlugin.initialize(initSetting, onSelectNotification: handleClickNotification);
+  }
+
+  static Future<dynamic> handleClickNotification(message) async {
+    print("handleClickNotification: ${message.toString()}");
+    Get.toNamed("/notificationScreen");
   }
 
   static Future onDidReceiveLocalNotification(int? id,String? title,String? body, String? payload) async {
@@ -44,7 +50,7 @@ class LocalNotificationService {
               importance: Importance.max, priority: Priority.high));
 
       await _noticationPlugin.show(id, message.notification!.title,
-          message.notification!.body, notificationDetails); //, payload: message.data["type"]
+          message.notification!.body, notificationDetails, payload: message.notification!.body); //, payload: message.data["type"]
     } on Exception catch (e) {
       print(e);
     }

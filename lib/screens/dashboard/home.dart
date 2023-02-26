@@ -226,212 +226,219 @@ class _HomeScreenState extends State<HomeScreen> {
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 90),
-              child: Column(
+              child: Stack(
                 children: [
-                  Stack(
-                    children: <Widget>[
-                      headerLayout(),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            totalNotification = 0;
-                          });
-                          Get.toNamed("/notificationScreen");
-                        },
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 66, right: 20),
-                              child: Container(
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 2, right: 4),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: SvgPicture.asset(
-                                          "assets/svg/ic_notification.svg",
-                                        ),
-                                      ),
-                                    ),
-                                    if (totalNotification > 0) ...[
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            width: 16,
-                                            height: 16,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Mytheme.kRedColor,
-                                            ),
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                totalNotification.toString(),
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  color:
-                                                      Mytheme.kBackgroundColor,
-                                                  fontWeight: FontWeight.w700,
-                                                  fontFamily: "OpenSans-Bold",
-                                                  // decoration: TextDecoration.underline,
-                                                ),
-                                              ),
-                                            ),
-                                          )),
-                                    ],
-                                  ],
-                                ),
-                              )),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          top: 50,
-                          left: 170,
-                          right: 50,
-                          bottom: 0,
-                        ),
-                        child: Text(
-                          'Co-opSmart',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Mytheme.color_0xFF002766,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          top: 75,
-                          left: 120,
-                          right: 65,
-                          bottom: 0,
-                        ),
-                        child: Text(
-                          StringText.text_weather,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontFamily: "OpenSans-Regular",
-                            fontWeight: FontWeight.bold,
-                            color: Mytheme.color_0xFF002766,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 60, left: 33),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
+
+                  Column(
+                    children: [
+                      Stack(
+                        children: <Widget>[
+                          headerLayout(),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                totalNotification = 0;
+                              });
+                              Get.toNamed("/notificationScreen");
+                            },
+                            child: Align(
+                              alignment: Alignment.centerRight,
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 27, right: 0),
-                                child: SvgPicture.asset(
-                                  "assets/svg/ic_logo_notext.svg",
-                                  width: 70,
-                                ),
+                                  padding:
+                                  const EdgeInsets.only(top: 66, right: 20),
+                                  child: Container(
+                                    child: Stack(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                          EdgeInsets.only(top: 2, right: 4),
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: SvgPicture.asset(
+                                              "assets/svg/ic_notification.svg",
+                                            ),
+                                          ),
+                                        ),
+                                        if (totalNotification > 0) ...[
+                                          Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Container(
+                                                width: 16,
+                                                height: 16,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Mytheme.kRedColor,
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    totalNotification.toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 10,
+                                                      color:
+                                                      Mytheme.kBackgroundColor,
+                                                      fontWeight: FontWeight.w700,
+                                                      fontFamily: "OpenSans-Bold",
+                                                      // decoration: TextDecoration.underline,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )),
+                                        ],
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                              top: 50,
+                              left: 170,
+                              right: 50,
+                              bottom: 0,
+                            ),
+                            child: Text(
+                              'Co-opSmart',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Mytheme.color_0xFF002766,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Visibility(
-                              visible: !statusPermission,
-                              child: InkWell(
-                                onTap: () {
-                                  _getCurrentPosition();
-                                },
-                                child: Align(
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                              top: 75,
+                              left: 120,
+                              right: 65,
+                              bottom: 0,
+                            ),
+                            child: Text(
+                              StringText.text_weather,
+                              textAlign: TextAlign.justify,
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontFamily: "OpenSans-Regular",
+                                fontWeight: FontWeight.bold,
+                                color: Mytheme.color_0xFF002766,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 60, left: 33),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Tải lại",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      color: Mytheme.kBackgroundColor,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "OpenSans-Semibold",
+                                  child: Padding(
+                                    padding:
+                                    const EdgeInsets.only(bottom: 27, right: 0),
+                                    child: SvgPicture.asset(
+                                      "assets/svg/ic_logo_notext.svg",
+                                      width: 70,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: statusPermission,
-                              child: Row(
-                                children: [
-                                  Text(
-                                      _data.isNotEmpty
-                                          ? _data[0]
+                                Visibility(
+                                  visible: !statusPermission,
+                                  child: InkWell(
+                                    onTap: () {
+                                      _getCurrentPosition();
+                                    },
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        "Tải lại",
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: 26,
+                                          color: Mytheme.kBackgroundColor,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: "OpenSans-Semibold",
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: statusPermission,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                          _data.isNotEmpty
+                                              ? _data[0]
                                               .tempMax!
                                               .celsius!
                                               .round()
                                               .toString()
-                                          : "34",
-                                      style: GoogleFonts.manrope(
-                                          fontSize: 36,
-                                          fontWeight: FontWeight.w300,
-                                          color: textColorNhietDo)),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8),
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
-                                        "0",
+                                              : "34",
+                                          style: GoogleFonts.manrope(
+                                              fontSize: 36,
+                                              fontWeight: FontWeight.w300,
+                                              color: textColorNhietDo)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(bottom: 8),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Text(
+                                            "0",
+                                            style: GoogleFonts.manrope(
+                                                fontSize: 26,
+                                                fontWeight: FontWeight.w300,
+                                                color: textColorNhietDo),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "C",
                                         style: GoogleFonts.manrope(
-                                            fontSize: 26,
+                                            fontSize: 36,
                                             fontWeight: FontWeight.w300,
                                             color: textColorNhietDo),
                                       ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "C",
-                                    style: GoogleFonts.manrope(
-                                        fontSize: 36,
-                                        fontWeight: FontWeight.w300,
-                                        color: textColorNhietDo),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 15, left: 7),
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Text(
-                                        statusWeather,
-                                        style: GoogleFonts.manrope(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
-                                            color: textColorNhietDo),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 15, left: 7),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Text(
+                                            statusWeather,
+                                            style: GoogleFonts.manrope(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w300,
+                                                color: textColorNhietDo),
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
+                          )
+                        ],
+                      ),
+                      toolLayout(),
+                      const SizedBox(height: 20),
+                      if (dataLessonLearned != null) ...[
+                        lessonLearnedLayout(),
+                      ] else ...[
+                        hocTapLayout(),
+                      ],
+                      const SizedBox(height: 20),
+                      viewPager(),
+                      const SizedBox(height: 20),
+                      newsLayout(),
+                      const SizedBox(height: 20),
+                      bannerLayout(),
                     ],
                   ),
-                  toolLayout(),
-                  const SizedBox(height: 20),
-                  if (dataLessonLearned != null) ...[
-                    lessonLearnedLayout(),
-                  ] else ...[
-                    hocTapLayout(),
-                  ],
-                  const SizedBox(height: 20),
-                  viewPager(),
-                  const SizedBox(height: 20),
-                  newsLayout(),
-                  const SizedBox(height: 20),
-                  bannerLayout(),
+
                 ],
-              ),
+              )
+
             ),
           ),
         ),
