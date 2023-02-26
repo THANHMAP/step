@@ -45,6 +45,31 @@ class _SplashPageState extends State<SplashPage> {
     print("test firebase version ${versionFireBase}");
   }
 
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  // _initFirebaseMessaging() {
+  //   _firebaseMessaging.configure(
+  //     onMessage: (Map<String, dynamic> message) {
+  //       print('AppPushs onMessage : $message');
+  //       return;
+  //     },
+  //     onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler,
+  //     onResume: (Map<String, dynamic> message) {
+  //       print('AppPushs onResume : $message');
+  //       return;
+  //     },
+  //     onLaunch: (Map<String, dynamic> message) {
+  //       print('AppPushs onLaunch : $message');
+  //       return;
+  //     },
+  //   );
+  // }
+
+  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+    print('AppPushs myBackgroundMessageHandler : $message');
+    return Future<void>.value();
+  }
+
   @override
   void initState() {
     _initConfig();
@@ -56,19 +81,17 @@ class _SplashPageState extends State<SplashPage> {
       // }
     });
     FirebaseMessaging.onMessage.listen((event) {
+      print('AppPushs onMessage : $event');
       if (event.notification != null) {
         print(event.notification!.body);
         print(event.notification!.title);
       }
       print(event);
       LocalNotificationService.display(event);
-      // if(event.data.containsKey("type")){
-      //   var type = event.data["type"].toString();
-      //   if(type == "MEDICINE"){
-      //     LocalNotificationService.display(event);
-      //   }
-      // }
     });
+
+    FirebaseMessaging.onBackgroundMessage(LocalNotificationService.firebaseMessagingBackgroundHandler);
+
 
     final newVersion = NewVersion(
       iOSId: 'com.step.bank.step',

@@ -15,15 +15,14 @@ import 'package:step_bank/router/AppPages.dart';
 import 'package:step_bank/router/app_router.dart';
 import 'package:step_bank/screens/login/authService.dart';
 import 'package:step_bank/screens/test.dart';
+import 'package:step_bank/service/local_notification_service.dart';
 
-Future<void> backgroundHandler(RemoteMessage message) async{
-  print(message.data.toString());
-}
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
   FirebaseMessaging.instance.getToken().then((value) {
     print("token fcm: $value");
   });
