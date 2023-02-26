@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:step_bank/shared/SPref.dart';
 
+import '../../constants.dart';
 import '../../service/local_notification_service.dart';
 import '../../service/new_version.dart';
 import '../../themes.dart';
@@ -158,17 +159,18 @@ class _SplashPageState extends State<SplashPage> {
 
   void load() async {
     var isLoginFirst = await SPref.instance.getBoolValuesSF("loginFirst");
-    if (isLoginFirst == null || !isLoginFirst) {
-      Get.offAndToNamed('/introductionScreen');
+    if (isLoginFirst == null || isLoginFirst) {
+      Constants.statusShowTutorial = true;
     } else {
-      var isLogged = await SPref.instance.get("token");
-      if (isLogged != null && isLogged.toString().isNotEmpty) {
-        Get.offAndToNamed('/home');
-        return;
-      } else {
-        Get.offAndToNamed('/login');
-        return;
-      }
+      Constants.statusShowTutorial = false;
+    }
+    var isLogged = await SPref.instance.get("token");
+    if (isLogged != null && isLogged.toString().isNotEmpty) {
+      Get.offAndToNamed('/home');
+      return;
+    } else {
+      Get.offAndToNamed('/login');
+      return;
     }
   }
 
