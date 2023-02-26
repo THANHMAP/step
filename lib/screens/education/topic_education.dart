@@ -20,6 +20,7 @@ import 'package:step_bank/strings.dart';
 import '../../compoment/card_education.dart';
 import '../../compoment/card_education_topic.dart';
 import '../../compoment/card_setting.dart';
+import '../../compoment/info_dialog.dart';
 import '../../constants.dart';
 import '../../models/course_detail_model.dart';
 import '../../themes.dart';
@@ -68,6 +69,26 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                     text: _lessonList.isNotEmpty ? _lessonList[0].courseName ?? "" : "",
                     onClicked: () {
                       Navigator.of(context).pop(false);
+                    },
+                    showRight: true,
+                    onClickedRight: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+                              child: WillPopScope(
+                                  onWillPop: () {
+                                    return Future.value(false);
+                                  },
+                                  child: InfoDialogBox(
+                                    title: "",
+                                    descriptions: _lessonList[0].content,
+                                    textButton: "Đóng",
+                                    hideButtonLink: true,
+                                  )),
+                            );
+                          });
                     },
                   ),
                   Expanded(

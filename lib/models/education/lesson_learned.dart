@@ -38,6 +38,7 @@ class LessonLearned {
 class DataLessonLearned {
   int? id;
   int? lessonId;
+  int? courseId;
   String? lessonName;
   String? thumbnail;
   String? createdAt;
@@ -45,6 +46,7 @@ class DataLessonLearned {
   DataLessonLearned(
       {this.id,
         this.lessonId,
+        this.courseId,
         this.lessonName,
         this.thumbnail,
         this.createdAt});
@@ -52,6 +54,7 @@ class DataLessonLearned {
   DataLessonLearned.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     lessonId = json['lesson_id'];
+    courseId = json['course_id'];
     lessonName = json['lesson_name'];
     thumbnail = json['thumbnail'];
     createdAt = json['createdAt'];
@@ -61,6 +64,7 @@ class DataLessonLearned {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['lesson_id'] = this.lessonId;
+    data['course_id'] = this.courseId;
     data['lesson_name'] = this.lessonName;
     data['thumbnail'] = this.thumbnail;
     data['createdAt'] = this.createdAt;

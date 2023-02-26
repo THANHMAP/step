@@ -12,6 +12,7 @@ import 'dialog_confirm.dart';
 class CardContentTopicWidget extends StatelessWidget {
   final String? title;
   final int? type;
+  final bool? isFinish;
   final bool? hideImageRight;
   final VoidCallback? onClicked;
 
@@ -19,6 +20,7 @@ class CardContentTopicWidget extends StatelessWidget {
     Key? key,
     this.title,
     this.type,
+    this.isFinish,
     this.hideImageRight,
     this.onClicked,
   }) : super(key: key);
@@ -46,59 +48,100 @@ class CardContentTopicWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 10, left: 20, bottom: 10, right: 0),
-              child: IconButton(
-                icon: SvgPicture.asset(urlIcon(type!)),
-                iconSize: 10,
-                onPressed: onClicked,
-              ),
-            ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 0, left: 0, bottom: 0, right: 16),
+              flex: 1,
+              child:
+              Padding(
+                padding: const EdgeInsets.only(left: 0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        title ?? "",
-                        // textAlign: TextAlign.start,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Mytheme.colorBgButtonLogin,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "OpenSans-Regular",
+                      SizedBox(
+                        width: 40,
+                        child: IconButton(
+                          icon: SvgPicture.asset(urlIcon(type!)),
+                          onPressed: onClicked,
                         ),
-                      ),
-                    ),
+                      )
                   ],
                 ),
               ),
             ),
-
-            if (hideImageRight == false) ...[
-              Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 40, bottom: 0, right: 10),
-                    child: SizedBox(
-                      width: 60,
-                      child: IconButton(
-                        icon: SvgPicture.asset("assets/svg/ic_download.svg"),
-                        onPressed: onClicked,
-                      ),
-                    )),
+            Expanded(
+              flex: 5,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  title ?? "",
+                  // textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Mytheme.colorBgButtonLogin,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "OpenSans-Regular",
+                  ),
+                ),
               ),
-            ]
+            ),
+
+            Visibility(
+              visible: hideImageRight == true ? true : false,
+              child: Expanded(
+                flex: 1,
+                child:
+                Padding(
+                  padding: const EdgeInsets.only(right: 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        child: IconButton(
+                          icon: Image.asset(urlIsFinish(isFinish ?? false)), onPressed: () {  },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Visibility(
+              visible: hideImageRight == true ? false : true,
+              child: Expanded(
+                flex: 1,
+                child:
+                Padding(
+                  padding: const EdgeInsets.only(right: 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        child: IconButton(
+                          icon: SvgPicture.asset("assets/svg/ic_download.svg"),
+                          onPressed: onClicked,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),),
+
           ],
         ),
       ),
     );
+  }
+
+  String urlIsFinish(bool isFinish) {
+    if (isFinish) {
+      return "assets/images/img_finish.png";
+    }
+    return "assets/images/img_no_finish.png";
   }
 
   String urlIcon(int type){

@@ -45,6 +45,7 @@ class StudyData {
   List<ContentQuizz>? contentQuizz;
   String? nameCourse;
   List<ExerciseData>? exerciseData;
+  bool? isFinish;
 
   StudyData({
     this.id,
@@ -58,6 +59,7 @@ class StudyData {
     this.contentQuizz,
     this.nameCourse,
     this.exerciseData,
+    this.isFinish
   });
 
   StudyData.fromJson(Map<String, dynamic> json) {
@@ -76,6 +78,7 @@ class StudyData {
       });
     }
     exerciseData = [];
+    isFinish = json['is_finish'];
   }
 
   Map<String, dynamic> toJson() {
@@ -92,6 +95,7 @@ class StudyData {
       data['content_quizz'] =
           this.contentQuizz!.map((v) => v.toJson()).toList();
     }
+    data['is_finish'] = this.isFinish;
     return data;
   }
 }

@@ -428,8 +428,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   viewPager(),
                   const SizedBox(height: 20),
                   newsLayout(),
-                  const SizedBox(height: 20),
-                  bannerLayout(),
+                  // const SizedBox(height: 20),
+                  // bannerLayout(),
                 ],
               ),
             ),
@@ -612,9 +612,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 10),
           InkWell(
             onTap: () {
-              loadListEducation("2", dataLessonLearned?.lessonId ?? 0);
-              // Get.toNamed('/educationTopicDetail',
-              //     arguments: dataLessonLearned?.lessonId);
+              loadListEducation(dataLessonLearned!.courseId.toString(), dataLessonLearned?.lessonId ?? 0);
             },
             child: Container(
               height: 84,
@@ -719,7 +717,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Get.toNamed('/contactScreen');
       },
       child: Padding(
-        padding: const EdgeInsets.only( left: 24, right: 24),
+        padding: const EdgeInsets.only(top: 0),
         child: Container(
           height: 150,
           decoration: const BoxDecoration(
@@ -974,10 +972,14 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ],
           Container(
-            height: 123,
+            height: 300,
             margin: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: [
+                // Divider(
+                //   color: Colors.black,
+                // ),
+                bannerLayout(),
                 Divider(
                   color: Colors.black,
                 ),
