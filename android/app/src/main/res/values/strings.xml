@@ -4,4 +4,5 @@
     <string name="fb_login_protocol_scheme">fb3169695366684934</string>
     <string name="facebook_client_token">ee27a7b187a78e07b110f1b5f55f3e1c</string>
     <string name="app_name">Co-opSmart</string>
+    <string name="default_notification_channel_id">SepChannel</string>
 </resources>

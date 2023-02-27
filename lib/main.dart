@@ -17,15 +17,16 @@ import 'package:step_bank/screens/login/authService.dart';
 import 'package:step_bank/screens/test.dart';
 import 'package:step_bank/service/local_notification_service.dart';
 
-
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification.title);
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  FirebaseMessaging.instance.getToken().then((value) {
-    print("token fcm: $value");
-  });
+  LocalNotificationService.initNotification();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

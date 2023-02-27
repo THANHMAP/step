@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:open_file_safe/open_file_safe.dart';
+// import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/models/exercise_model.dart';
@@ -375,7 +375,7 @@ class _DetailEducationScreenState extends State<DetailEducationScreen> with Sing
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
       if (a) {
-        OpenFile.open('${knockDir.path}/$fileName.$extension');
+        // OpenFile.open('${knockDir.path}/$fileName.$extension');
         print("Opening file");
         // showDialog(
         //     context: context,

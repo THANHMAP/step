@@ -65,32 +65,25 @@ class _SplashPageState extends State<SplashPage> {
   //   );
   // }
 
-  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
-    print('AppPushs myBackgroundMessageHandler : $message');
-    return Future<void>.value();
-  }
-
   @override
   void initState() {
     _initConfig();
-    LocalNotificationService.initNotification(context);
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print(message);
-      // if(message != null){
-      //   Get.offAllNamed("/order");
-      // }
-    });
-    FirebaseMessaging.onMessage.listen((event) {
-      print('AppPushs onMessage : $event');
-      if (event.notification != null) {
-        print(event.notification!.body);
-        print(event.notification!.title);
-      }
-      print(event);
-      LocalNotificationService.display(event);
-    });
 
-    FirebaseMessaging.onBackgroundMessage(LocalNotificationService.firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.instance.getInitialMessage().then((message) {
+    //   print(message);
+    //   // if(message != null){
+    //   //   Get.offAllNamed("/order");
+    //   // }
+    // });
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   print('AppPushs onMessage : $event');
+    //   if (event.notification != null) {
+    //     print(event.notification!.body);
+    //     print(event.notification!.title);
+    //   }
+    //   print(event);
+    //   LocalNotificationService.display(event);
+    // });
 
 
     final newVersion = NewVersion(
@@ -98,10 +91,10 @@ class _SplashPageState extends State<SplashPage> {
       androidId: 'com.step.bank.step_bank',
     );
 
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      final router = event.data["router"];
-      print(router);
-    });
+    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    //   final router = event.data["router"];
+    //   print(router);
+    // });
 
     getVersionLocal(newVersion);
 

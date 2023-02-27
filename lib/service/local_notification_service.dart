@@ -10,19 +10,17 @@ class LocalNotificationService {
       FlutterLocalNotificationsPlugin();
   static late BuildContext myContext;
 
-  static Future<void> initNotification(BuildContext context) async {
-    myContext = context;
+  static Future<void> initNotification() async {
     var initAndroid =
         const AndroidInitializationSettings("@mipmap/ic_launcher");
-    var initIOS = const IOSInitializationSettings(
+    var initIOS = const DarwinInitializationSettings(
         requestSoundPermission: true,
         requestBadgePermission: true,
         requestAlertPermission: true,
         onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initSetting =
         InitializationSettings(android: initAndroid, iOS: initIOS);
-    _noticationPlugin.initialize(initSetting,
-        onSelectNotification: handleClickNotification);
+    _noticationPlugin.initialize(initSetting);
   }
 
   static Future<void> firebaseMessagingBackgroundHandler(
@@ -73,7 +71,7 @@ class LocalNotificationService {
     try {
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const NotificationDetails notificationDetails = NotificationDetails(
-          android: AndroidNotificationDetails("appdrug", "appdrug channel",
+          android: AndroidNotificationDetails("StepAppChannel", "StepAppChannel",
               importance: Importance.max, priority: Priority.high));
       var type = message.data["type"];
       if (type == "NEWS") {
@@ -91,6 +89,30 @@ class LocalNotificationService {
       print(e);
     }
   }
+
+  // static void createanddisplaynotification(RemoteMessage message) async {
+  //   try {
+  //     final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+  //     const NotificationDetails notificationDetails = NotificationDetails(
+  //       android: AndroidNotificationDetails(
+  //         "pushnotificationapp",
+  //         "pushnotificationappchannel",
+  //         importance: Importance.max,
+  //         priority: Priority.high,
+  //       ),
+  //     );
+  //
+  //     await _notificationsPlugin.show(
+  //       id,
+  //       message.notification!.title,
+  //       message.notification!.body,
+  //       notificationDetails,
+  //       payload: message.data['_id'],
+  //     );
+  //   } on Exception catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   String getTypeNotify(RemoteMessage message) {
     var type = message.data["type"];

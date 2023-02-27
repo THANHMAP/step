@@ -1,4 +1,4 @@
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +11,7 @@ import 'package:step_bank/screens/splash/splash.dart';
 import 'package:step_bank/themes.dart';
 
 import '../../constants.dart';
+import '../../service/local_notification_service.dart';
 import '../../shared/SPref.dart';
 import '../../util.dart';
 import '../dashboard/education.dart';
@@ -23,7 +24,8 @@ class HomeMain extends StatefulWidget {
   _HomeMainState createState() => _HomeMainState();
 }
 
-class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin {
+class _HomeMainState extends State<HomeMain>
+    with SingleTickerProviderStateMixin {
   PersistentTabController? _controller;
   ScrollController scrollHomeController = ScrollController();
   ScrollController scrollNewsController = ScrollController();
@@ -41,6 +43,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
+    initNotification();
     Utils.portraitModeOnly();
     _controller = PersistentTabController(initialIndex: 0);
   }
@@ -126,7 +129,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
               ),
               navBarStyle: NavBarStyle.style3,
             ),
-            if (statusShowTutorial)...[
+            if (statusShowTutorial) ...[
               ColorFiltered(
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.8), BlendMode.srcOut),
@@ -140,7 +143,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                           backgroundBlendMode: BlendMode
                               .dstOut), // This one will handle background + difference out
                     ),
-                    if (indexTutorial == _listTutorial.length - 1)...[
+                    if (indexTutorial == _listTutorial.length - 1) ...[
                       Align(
                         alignment: Alignment.topRight,
                         child: Container(
@@ -153,11 +156,13 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                           ),
                         ),
                       ),
-                    ] else if (indexTutorial != 0)... [
+                    ] else if (indexTutorial != 0) ...[
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
-                          margin: EdgeInsets.only(left: getValueMargin(indexTutorial)), // 20 là trang chủ, 16 là cong cụ, 200 là học tập, 295 là tài khoản
+                          margin: EdgeInsets.only(
+                              left: getValueMargin(indexTutorial)),
+                          // 20 là trang chủ, 16 là cong cụ, 200 là học tập, 295 là tài khoản
                           height: 55,
                           width: 100,
                           decoration: BoxDecoration(
@@ -209,10 +214,10 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children:  <Widget>[
+                children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(
-                        top: 0, left: 20, bottom: 8, right: 20),
+                    padding:
+                        EdgeInsets.only(top: 0, left: 20, bottom: 8, right: 20),
                     child: Text(
                       _listTutorial[index] ?? "",
                       textAlign: TextAlign.center,
@@ -225,18 +230,16 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                       ),
                     ),
                   ),
-
                   const SizedBox(
                     height: 24,
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Material(
-                        child:  InkWell(
-                          onTap: (){
+                        child: InkWell(
+                          onTap: () {
                             setState(() {
                               if (indexTutorial < _listTutorial.length - 1) {
                                 indexTutorial++;
@@ -246,9 +249,8 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                                 SPref.instance.addBoolToSF("loginFirst", false);
                               }
                             });
-
                           },
-                          child:  Container(
+                          child: Container(
                             alignment: Alignment.center,
                             margin: EdgeInsets.only(left: 20, right: 20),
                             height: 44,
@@ -258,7 +260,9 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              indexTutorial != _listTutorial.length - 1 ?"Tiếp tục" : "Hoàn thành",
+                              indexTutorial != _listTutorial.length - 1
+                                  ? "Tiếp tục"
+                                  : "Hoàn thành",
                               style: const TextStyle(
                                 fontSize: 16,
                                 decoration: TextDecoration.none,
@@ -268,11 +272,8 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                               ),
                             ),
                           ),
-
                         ),
                       )
-
-
                     ],
                   ),
                 ],
@@ -284,11 +285,54 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                 child: Image.asset("assets/images/img_person.png"),
               ),
             ],
-
           ],
         ),
       ),
     );
   }
 
+  initNotification() {
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+
+    // 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+          (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+          LocalNotificationService.display(message);
+
+        }
+      },
+    );
+
+    FirebaseMessaging.onMessageOpenedApp.listen(
+          (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+  }
 }

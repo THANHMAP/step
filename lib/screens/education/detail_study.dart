@@ -8,7 +8,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:open_file_safe/open_file_safe.dart';
+// import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
@@ -419,7 +419,7 @@ class _DetailEducationScreentate extends State<DetailEducationLessonScreen> {
     io.File('${knockDir.path}/$fileName.$extension').exists().then((a) async {
       print(a);
       if (a) {
-        OpenFile.open('${knockDir.path}/$fileName.$extension');
+        // OpenFile.open('${knockDir.path}/$fileName.$extension');
         print("Opening file");
         // showDialog(
         //     context: context,
