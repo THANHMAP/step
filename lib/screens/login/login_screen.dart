@@ -87,8 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     // _phoneController.text = "0902970134";
     // _passwordController.text = "Tinh1403";
-    _phoneController.text = "0814593597";
-    _passwordController.text = "Nhu123456";
+    // _phoneController.text = "0814593597";
+    // _passwordController.text = "Nhu123456";
     _phoneController.addListener(() => setState(() {}));
     _passwordController.addListener(() => setState(() {}));
     loadCheckBiometrics();

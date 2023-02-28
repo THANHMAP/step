@@ -15,6 +15,7 @@ import 'package:step_bank/service/api_manager.dart';
 import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/strings.dart';
 import 'package:intl/intl.dart';
+import '../../models/navigator_reschedule.dart';
 import '../../themes.dart';
 import '../../util.dart';
 import '../news/web_view_news.dart';
@@ -96,8 +97,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     // Get.toNamed("/notificationNewScreen", arguments: dataListNotification![i].data?.newId);
                   } else if (dataListNotification![i].type ==
                       "REPAYMENT_SCHEDULE_TOOL") {
-                    Get.toNamed("/notificationRepaymentScreen",
-                        arguments: dataListNotification![i].data?.userToolId);
+                    Get.toNamed("/editRepaymentScreen", arguments: NavigatorReschedule(1, dataListNotification![i].data?.userToolId.toString()));
                   }
                 },
                 child: Container(

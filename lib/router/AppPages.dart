@@ -53,6 +53,7 @@ import '../screens/news/web_view_news.dart';
 import '../screens/notification/notification.dart';
 import '../screens/notification/notification_new.dart';
 import '../screens/notification/notification_schedule_tool.dart';
+import '../screens/notification/web_view_notify.dart';
 import '../screens/quizz/quiz_custom.dart';
 import '../screens/register/credit_info_screen.dart';
 import '../screens/register/credit_screen.dart';
@@ -449,6 +450,11 @@ class AppPages {
       transition: Transition.rightToLeft,
       name: AppRoutes.aboutUsScreen,
       page: () => const AboutUsScreen(),
+    ),
+    GetPage(
+      transition: Transition.rightToLeft,
+      name: AppRoutes.notificationNewsScreen,
+      page: () => const NotificationNewsScreen(),
     ),
   ];
 }

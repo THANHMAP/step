@@ -81,5 +81,6 @@ class RemoteServices {
 
   static var getListToolUsed = '$baseURL/api/v1/tool/last-used';
   static var getListLessonLearned = '$baseURL/api/v1/education/lesson-learned';
+  static var refreshToken = '$baseURL/api/v1/user/refresh-token';
 
 }

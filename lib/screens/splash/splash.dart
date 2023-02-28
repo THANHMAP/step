@@ -8,11 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:step_bank/models/refresh_token.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import '../../constants.dart';
+import '../../service/api_manager.dart';
 import '../../service/local_notification_service.dart';
 import '../../service/new_version.dart';
+import '../../service/remote_service.dart';
 import '../../themes.dart';
 
 class SplashPage extends StatefulWidget {
@@ -189,7 +192,7 @@ class _SplashPageState extends State<SplashPage> {
     }
     var isLogged = await SPref.instance.get("token");
     if (isLogged != null && isLogged.toString().isNotEmpty) {
-      Get.offAndToNamed('/home');
+      refreshToken();
       return;
     } else {
       Get.offAndToNamed('/login');
@@ -236,5 +239,24 @@ class _SplashPageState extends State<SplashPage> {
         ),
       ),
     );
+  }
+
+  refreshToken() {
+    APIManager.getAPICallNeedToken(RemoteServices.refreshToken).then(
+            (value) async {
+          var result = RefreshToken.fromJson(value);
+          if (result.statusCode == 200) {
+            if (result.data != null && result.data!.accessToken!.isNotEmpty) {
+              await SPref.instance.set("token", result.data!.accessToken.toString());
+              Get.offAndToNamed('/home');
+            } else {
+              Get.offAndToNamed('/login');
+            }
+          } else {
+            Get.offAndToNamed('/login');
+          }
+        }, onError: (error) async {
+      Get.offAndToNamed('/login');
+    });
   }
 }

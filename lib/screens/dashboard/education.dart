@@ -18,6 +18,7 @@ import 'package:step_bank/strings.dart';
 
 import '../../compoment/card_education.dart';
 import '../../compoment/card_setting.dart';
+import '../../compoment/info_dialog.dart';
 import '../../themes.dart';
 import '../../util.dart';
 
@@ -62,6 +63,32 @@ class _EducationScreenState extends State<EducationScreen> {
                 text: "Học Tập",
                 onClicked: () {
                   Navigator.of(context).pop(false);
+                },
+                showRight: true,
+                onClickedRight: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return MediaQuery(
+                          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+                          child: WillPopScope(
+                              onWillPop: () {
+                                return Future.value(false);
+                              },
+                              child: InfoDialogBox(
+                                title: "",
+                                descriptions: "<p style=\"text-align:justify\">Phần học tập gồm c&aacute;c nội dung đa dạng để gi&uacute;p bạn hiểu r&otilde; hơn về t&igrave;nh h&igrave;nh t&agrave;i ch&iacute;nh của m&igrave;nh. VD: thiết lập mục ti&ecirc;u tiết kiệm, chuẩn bị để đăng k&yacute; vay vốn với tổ chức t&agrave;i ch&iacute;nh, điều chỉnh ng&acirc;n s&aacute;ch để sử dụng tiền cho những hạng mục quan trọng nhất&hellip;</p>" +
+
+                              "<p style=\"text-align:justify\">Nội dung học tập được sắp xếp theo từng chủ đề v&agrave; c&aacute;c b&agrave;i học kh&aacute;c nhau. Mỗi b&agrave;i học bao gồm c&aacute;c hoạt động tương t&aacute;c m&agrave; bạn c&oacute; thể t&igrave;m hiểu theo tiến độ ri&ecirc;ng của m&igrave;nh, v&agrave;o bất kỳ l&uacute;c n&agrave;o, v&agrave; từ bất kỳ đ&acirc;u.</p>" +
+
+                              "<p style=\"text-align:justify\">Bạn cũng c&oacute; thể theo d&otilde;i tiến độ học tập của m&igrave;nh v&agrave; ph&acirc;n bổ lại thời gian để ho&agrave;n thiện tất cả c&aacute;c b&agrave;i học theo nhu cầu. Ngo&agrave;i ra, bạn c&ograve;n c&oacute; thể học lại/l&agrave;m lại c&aacute;c hoạt động/b&agrave;i học nhiều lần để đảm bảo hiểu hết tất cả c&aacute;c nội dung.</p>" +
+
+                              "<p style=\"text-align:justify\">Ch&uacute;c bạn c&oacute; trải nghiệm học tập th&agrave;nh c&ocirc;ng!</p>",
+                                textButton: "Đóng",
+                                hideButtonLink: true,
+                              )),
+                        );
+                      });
                 },
               ),
               Expanded(

@@ -13,6 +13,7 @@ import 'package:step_bank/compoment/button_wiget_border.dart';
 import 'package:step_bank/compoment/textfield_widget.dart';
 import 'package:step_bank/constants.dart';
 import 'package:step_bank/models/education_model.dart';
+import 'package:step_bank/models/navigator_reschedule.dart';
 import 'package:step_bank/models/news_model.dart';
 import 'package:step_bank/models/tool_model.dart';
 import 'package:step_bank/screens/tool/budget/detail_budget.dart';
@@ -201,7 +202,7 @@ class _RepaymentScheduleScreenState extends State<RepaymentScheduleScreen> with 
                         // deleteItemTool(_listItemToolData[i].id ?? 0, i);
                       },
                       onClickedView: () {
-                        Get.toNamed("/editRepaymentScreen", arguments: _listItemToolData[i].id)?.
+                        Get.toNamed("/editRepaymentScreen", arguments: NavigatorReschedule(0, _listItemToolData[i].id.toString()))?.
                         then((value) {
                           print(value);
                           if(value) {

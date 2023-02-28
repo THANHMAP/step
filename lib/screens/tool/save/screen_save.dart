@@ -211,7 +211,7 @@ class _SaveToolScreenState extends State<SaveToolScreen>
                       },
                       onClickedView: () {
                         Get.toNamed("/manageSaveToolScreen",
-                            arguments: _listItemToolData[i])?.then((value) {
+                            arguments: _listItemToolData[i].id)?.then((value) {
                           print(value);
                           if(value) {
                             loadListItemTool();

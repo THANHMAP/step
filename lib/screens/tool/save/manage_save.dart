@@ -46,7 +46,9 @@ class ManageSaveToolScreen extends StatefulWidget {
 class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
     with WidgetsBindingObserver {
   late ProgressDialog pr;
-  ItemToolData? _itemToolData;
+  // ItemToolData? _itemToolData;
+  var userIdTool;
+  var name = "";
   String dates = "";
   TextEditingController _moneyController = TextEditingController();
   TextEditingController _noteController = TextEditingController();
@@ -65,7 +67,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    _itemToolData = Get.arguments;
+    userIdTool = Get.arguments;
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -73,7 +75,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
     );
     Utils.portraitModeOnly();
     Future.delayed(Duration.zero, () {
-      loadDataTool(_itemToolData?.id.toString() ?? "0");
+      loadDataTool(userIdTool.toString());
     });
   }
 
@@ -113,7 +115,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
             body: Column(
               children: <Widget>[
                 AppbarWidget(
-                  text: _itemToolData?.name ?? "",
+                  text: name,
                   onClicked: () {
                     Navigator.of(context).pop(false);
                   },
@@ -845,7 +847,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                   }
                                   Navigator.of(context).pop();
                                   addDataDrawTool(
-                                      _itemToolData?.id.toString() ?? "0",
+                                      userIdTool,
                                       "1",
                                       _moneyController.text.replaceAll(",", ""),
                                       text,
@@ -881,6 +883,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
       var data = DetailTool.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
+          name = data.data!.name ?? "";
           dataUsers = data.data!.dataUsers!;
           for(var i =0; i< dataUsers.length; i++) {
             if(dataUsers[i].key == "money_want_save"){

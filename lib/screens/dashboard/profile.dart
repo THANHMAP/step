@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -165,13 +166,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   // ),
                                   const SizedBox(height: 10),
                                   //lien he
-                                  CardSettingWidget(
-                                    title: "Về chúng tôi",
-                                    linkUrl: 'assets/svg/ic_lienhe.svg',
-                                    onClicked: () {
+                                  InkWell(
+                                    onTap: () {
                                       Get.toNamed('/aboutUsScreen', arguments: "https://internal.co-opsmart.vn/about-app");
                                     },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(8),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 1,
+                                            blurRadius: 7,
+                                            offset: const Offset(
+                                                0, 3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        // crossAxisAlignment: CrossAxisAlignment.center,
+                                        children:  [
+                                          Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 12, left: 16, bottom: 18, right: 26),
+                                              child: SvgPicture.asset(
+                                                'assets/svg/about.svg',
+                                                color: Color(0xFFFEC243),
+                                                width: 50,
+                                              )
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 12,
+                                                    left: 16,
+                                                    bottom: 18,
+                                                    right: 26),
+                                                child: Text(
+                                                  "Về chúng tôi",
+                                                  textAlign: TextAlign.start,
+                                                  style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: Mytheme.colorBgButtonLogin,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontFamily: "OpenSans-Regular",
+                                                  ),
+                                                )),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
                                   ),
+                                  // CardSettingWidget(
+                                  //   title: "Về chúng tôi",
+                                  //   linkUrl: 'assets/svg/about.svg',
+                                  //   onClicked: () {
+                                  //     Get.toNamed('/aboutUsScreen', arguments: "https://internal.co-opsmart.vn/about-app");
+                                  //   },
+                                  // ),
                                   const SizedBox(height: 10),
                                   //lien he
                                   CardSettingWidget(

@@ -30,7 +30,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   var indexTutorial = 0;
   var statusShowTutorial = Constants.statusShowTutorial;
   final List<String> _listTutorial = [
-    "Cùng Co-upSmart khám phá một số tính năng của ứng dụng",
+    "Cùng Co-opSmart khám phá một số tính năng của ứng dụng",
     "Trang chủ: Cung cấp các tin tức, thông tin liên quan đến tài chính và các sự kiện quan trọng khác",
     "Công cụ: giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình",
     "Học tập: cung cấp các tài liệu giáo dục về tài chính như các khóa học, bài giảng, video và tài liệu tham khảo.",
@@ -55,6 +55,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
+    print("sadsadsadsd:${Get.bottomBarHeight}");
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(MyFlutterApp.home),
@@ -144,7 +145,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                       Align(
                         alignment: Alignment.topRight,
                         child: Container(
-                          margin: const EdgeInsets.only(top: 65, right: 15),
+                          margin: const EdgeInsets.only(top: 65, right: 16),
                           height: 35,
                           width: 35,
                           decoration: BoxDecoration(
@@ -157,7 +158,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
-                          margin: EdgeInsets.only(left: getValueMargin(indexTutorial)), // 20 là trang chủ, 16 là cong cụ, 200 là học tập, 295 là tài khoản
+                          margin: EdgeInsets.only(left: getValueMargin(indexTutorial), bottom: Get.bottomBarHeight > 0 ? kBottomNavigationBarHeight - 22 : 0.0), // 20 là trang chủ, 16 là cong cụ, 200 là học tập, 295 là tài khoản
                           height: 55,
                           width: 100,
                           decoration: BoxDecoration(
@@ -177,14 +178,15 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   }
 
   double getValueMargin(int index) {
+
     if (index == 1) {
       return 20;
     } else if (index == 2) {
-      return 112;
+      return Get.bottomBarHeight > 0 ? 116 : 112;
     } else if (index == 3) {
-      return 200;
+      return Get.bottomBarHeight > 0 ? 213 : 200;
     } else if (index == 4) {
-      return 295;
+      return Get.bottomBarHeight > 0 ? 310 : 295;
     }
     return 0;
   }

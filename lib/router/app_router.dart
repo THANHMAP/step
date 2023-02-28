@@ -80,4 +80,5 @@ class AppRoutes {
   static const String creditInfoScreen = "/creditInfoScreen";
   static const String introductionScreen = "/introductionScreen";
   static const String aboutUsScreen = "/aboutUsScreen";
+  static const String notificationNewsScreen = "/notificationNewsScreen";
 }

@@ -83,7 +83,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                   },
                                   child: InfoDialogBox(
                                     title: "",
-                                    descriptions: _lessonList[0].content,
+                                    descriptions: _lessonList[0].contentCourse,
                                     textButton: "Đóng",
                                     hideButtonLink: true,
                                   )),

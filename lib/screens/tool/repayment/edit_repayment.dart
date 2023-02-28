@@ -10,6 +10,7 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:step_bank/compoment/appbar_wiget.dart';
 
 import 'package:step_bank/compoment/textfield_widget.dart';
+import 'package:step_bank/models/navigator_reschedule.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
 import '../../../compoment/dialog_confirm.dart';
 import '../../../constants.dart';
@@ -40,7 +41,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   TextEditingController _numberDayController = TextEditingController();
   late ProgressDialog pr;
   List<DataUsers> dataUsers = [];
-  late ToolData data;
+  // late ToolData data;
   List<String> _listRepaymentCycle = [
     "1 tháng",
     "2 tháng",
@@ -59,17 +60,21 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
   int repaymentNumber = 0;
   String dateFirst = "";
   final minDate = DateTime.now();
-  String userId = Get.arguments.toString();
+  NavigatorReschedule dataNavigator = Get.arguments;
+  var userId = "";
   bool showEdit = false;
   String currentDate = "";
   String dayRepaymentDate = "";
   String nextRepaymentDate = "";
   bool hideButton = true;
+  var titleName = "";
 
   @override
   void initState() {
     super.initState();
-    data = Constants.toolData!;
+    // data = Constants.toolData!;
+
+    userId = dataNavigator.id.toString();
     pr = ProgressDialog(
       context,
       type: ProgressDialogType.Normal,
@@ -99,7 +104,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
           body: Column(
             children: <Widget>[
               AppbarWidget(
-                text: data.name,
+                text: titleName,
                 onClicked: () {
                   Get.back(result: false);
                 },
@@ -1107,6 +1112,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       var data = DetailTool.fromJson(value);
       if (data.statusCode == 200) {
         setState(() {
+          titleName = data.data!.name.toString();
           dataUsers = data.data!.dataUsers!;
           _nameRepaymentController.text = data.data!.name!;
           for (var i = 0; i < dataUsers.length; i++) {
@@ -1127,6 +1133,9 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
             }
           }
           hideButton = checkDateFirst();
+          if (dataNavigator.type != 0) {
+            hideButton = true;
+          }
           nextRepaymentDate = nextDay();
         });
       }
