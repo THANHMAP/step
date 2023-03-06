@@ -12,6 +12,7 @@ import 'package:step_bank/models/refresh_token.dart';
 import 'package:step_bank/shared/SPref.dart';
 
 import '../../constants.dart';
+import '../../router/app_router.dart';
 import '../../service/api_manager.dart';
 import '../../service/local_notification_service.dart';
 import '../../service/new_version.dart';
@@ -48,63 +49,68 @@ class _SplashPageState extends State<SplashPage> {
     print("test firebase version ${versionFireBase}");
   }
 
-  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  // _initFirebaseMessaging() {
-  //   _firebaseMessaging.configure(
-  //     onMessage: (Map<String, dynamic> message) {
-  //       print('AppPushs onMessage : $message');
-  //       return;
-  //     },
-  //     onBackgroundMessage: Platform.isIOS ? null : myBackgroundMessageHandler,
-  //     onResume: (Map<String, dynamic> message) {
-  //       print('AppPushs onResume : $message');
-  //       return;
-  //     },
-  //     onLaunch: (Map<String, dynamic> message) {
-  //       print('AppPushs onLaunch : $message');
-  //       return;
-  //     },
-  //   );
-  // }
-
-  static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
-    print('AppPushs myBackgroundMessageHandler : $message');
-    return Future<void>.value();
-  }
-
   @override
   void initState() {
     _initConfig();
     LocalNotificationService.initNotification(context);
+
+    FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
+    var openBg = false;
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print(message);
-      // if(message != null){
-      //   Get.offAllNamed("/order");
-      // }
+      print('AppPushs getInitialMessage : $message');
+      if (message != null) {
+        if (Platform.isIOS) {
+          openBg = true;
+        } else {
+          Future.delayed(const Duration(seconds: 4), () {
+            if (Get.currentRoute != "/${AppRoutes.login}") {
+              LocalNotificationService.handelClickOpenApp(message);
+            }
+          });
+        }
+
+      }
     });
+
     FirebaseMessaging.onMessage.listen((event) {
-      print('AppPushs onMessage : $event');
+      print('AppPushs onMessage : ${event.data}');
       if (event.notification != null) {
         print(event.notification!.body);
         print(event.notification!.title);
       }
       print(event);
-      LocalNotificationService.display(event);
+      if (Platform.isAndroid) {
+        LocalNotificationService.display(event);
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print('AppPushs onMessageOpenedApp : ${event.data}');
+      if (event != null) {
+        if (Platform.isIOS) {
+          Future.delayed(const Duration(seconds: 4), () {
+            if (Get.currentRoute != "/${AppRoutes.login}") {
+              LocalNotificationService.handelClickOpenApp(event);
+            }
+          });
+        } else {
+          if (Get.currentRoute != "/${AppRoutes.login}") {
+            LocalNotificationService.handelClickOpenApp(event);
+          }
+        }
+      }
     });
 
     FirebaseMessaging.onBackgroundMessage(LocalNotificationService.firebaseMessagingBackgroundHandler);
-
 
     final newVersion = NewVersion(
       iOSId: 'com.step.bank.step',
       androidId: 'com.step.bank.step_bank',
     );
-
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      final router = event.data["router"];
-      print(router);
-    });
 
     getVersionLocal(newVersion);
 

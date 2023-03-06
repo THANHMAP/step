@@ -21,7 +21,8 @@ class LocalNotificationService {
         requestSoundPermission: true,
         requestBadgePermission: true,
         requestAlertPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification
+    );
     var initSetting =
         InitializationSettings(android: initAndroid, iOS: initIOS);
     _noticationPlugin.initialize(initSetting,
@@ -66,20 +67,21 @@ class LocalNotificationService {
 
   static Future onDidReceiveLocalNotification(
       int? id, String? title, String? body, String? payload) async {
-    showDialog(
-        context: myContext,
-        builder: (context) => CupertinoAlertDialog(
-              title: Text(title!),
-              content: Text(body!),
-              actions: [
-                CupertinoDialogAction(
-                  isDefaultAction: true,
-                  child: Text("OK"),
-                  onPressed: () =>
-                      Navigator.of(context, rootNavigator: true).pop(),
-                )
-              ],
-            ));
+      print("payload");
+  }
+
+  static void handelClickOpenApp(RemoteMessage message) {
+    var type = message.data["type"];
+    if (type == "NEWS") {
+      type = type + ":::${message.data["id"]}";
+    } else if (type == "LESSONS_UPDATE") {
+      type = type + ":::${message.data["id"]}";
+    } else if (type == "REMIND_SAVING_TOOL") {
+      type = type + ":::${message.data["id"]}";
+    } else if (type == "REMIND_COMPLETE_LESSON") {
+      type = type + ":::${message.data["id"]}";
+    }
+    handleClickNotification(type);
   }
 
   static void display(RemoteMessage message) async {
@@ -87,7 +89,9 @@ class LocalNotificationService {
       final id = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       const NotificationDetails notificationDetails = NotificationDetails(
           android: AndroidNotificationDetails("appdrug", "appdrug channel",
-              importance: Importance.max, priority: Priority.high));
+              importance: Importance.max, priority: Priority.high),
+        iOS: IOSNotificationDetails(),
+      );
       var type = message.data["type"];
       if (type == "NEWS") {
         type = type + ":::${message.data["id"]}";

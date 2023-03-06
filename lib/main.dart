@@ -22,10 +22,6 @@ import 'package:step_bank/service/local_notification_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
-  FirebaseMessaging.instance.getToken().then((value) {
-    print("token fcm: $value");
-  });
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

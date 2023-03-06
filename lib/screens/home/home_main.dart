@@ -35,7 +35,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
     "Công cụ: giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình",
     "Học tập: cung cấp các tài liệu giáo dục về tài chính như các khóa học, bài giảng, video và tài liệu tham khảo.",
     "Tài khoản: giúp người dùng quản lý và kiểm soát tài khoản của mình",
-    "Thông báo: Thông báo cho người dùng về tin tức mới nhất, học tập mới được đăng tài, và các sự kiện khác liên quan đến tài khoản người dùng"
+    "Thông báo: Thông báo cho người dùng về tin tức mới nhất, học tập mới được đăng tải, và các sự kiện khác liên quan đến tài khoản người dùng"
   ];
 
   @override
@@ -55,7 +55,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
-    print("sadsadsadsd:${Get.bottomBarHeight}");
+    print("sadsadsadsd:${Get.bottomBarHeight} : ${Get.width}  :  ${Get.currentRoute}");
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(MyFlutterApp.home),
@@ -160,7 +160,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                         child: Container(
                           margin: EdgeInsets.only(left: getValueMargin(indexTutorial), bottom: Get.bottomBarHeight > 0 ? kBottomNavigationBarHeight - 22 : 0.0), // 20 là trang chủ, 16 là cong cụ, 200 là học tập, 295 là tài khoản
                           height: 55,
-                          width: 100,
+                          width: Get.width < 405 ? 85 : 90,
                           decoration: BoxDecoration(
                             color: Colors.red,
                             borderRadius: BorderRadius.zero,
@@ -182,11 +182,29 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
     if (index == 1) {
       return 20;
     } else if (index == 2) {
-      return Get.bottomBarHeight > 0 ? 116 : 112;
+      if (Get.width > 405) {
+        return 116;
+      } else if (Get.width < 385) {
+        return 103;
+      } else {
+        return 110;
+      }
     } else if (index == 3) {
-      return Get.bottomBarHeight > 0 ? 213 : 200;
+      if (Get.width > 405) {
+        return 213;
+      } else if (Get.width < 385) {
+        return 190;
+      } else {
+        return 200;
+      }
     } else if (index == 4) {
-      return Get.bottomBarHeight > 0 ? 310 : 295;
+      if (Get.width > 405) {
+        return 306;
+      } else if (Get.width < 385) {
+        return 275;
+      } else {
+        return 290;
+      }
     }
     return 0;
   }
@@ -243,6 +261,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                               if (indexTutorial < _listTutorial.length - 1) {
                                 indexTutorial++;
                               } else {
+                                // indexTutorial = 0;
                                 statusShowTutorial = false;
                                 Constants.statusShowTutorial = false;
                                 SPref.instance.addBoolToSF("loginFirst", false);

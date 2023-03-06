@@ -492,10 +492,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ],
           ),
-          if (_toolList.isNotEmpty && _toolList.length >= 2) ...[
-            for (var i = 0; i < 2; i++) ...[
-              defaultTool(i),
-            ],
+          if (_toolList.isNotEmpty) ...[
+            if (_toolList.length >= 2) ...[
+              for (var i = 0; i < 2; i++) ...[
+                defaultTool(i),
+              ],
+            ] else if (_toolList.length == 1) ...[
+              defaultTool(0),
+            ]
           ],
         ],
         // ],
@@ -510,7 +514,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.only(top: 10),
       child: InkWell(
         onTap: () {
-          Get.toNamed('/introductionToolScreen', arguments: _toolList[position]);
+          Get.toNamed('/introductionToolScreen',
+              arguments: _toolList[position]);
         },
         child: Container(
           height: 84,
@@ -544,10 +549,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (loadingProgress == null) return child;
                       return Center(
                         child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes !=
-                              null
+                          value: loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
+                                  loadingProgress.expectedTotalBytes!
                               : null,
                         ),
                       );
@@ -558,8 +562,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding:
-                  const EdgeInsets.only(top: 0, left: 10, right: 0),
+                  padding: const EdgeInsets.only(top: 0, left: 10, right: 0),
                   child: Text(
                     _toolList[position].name ?? "",
                     style: TextStyle(
@@ -612,7 +615,8 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 10),
           InkWell(
             onTap: () {
-              loadListEducation(dataLessonLearned!.courseId.toString(), dataLessonLearned?.lessonId ?? 0);
+              loadListEducation(dataLessonLearned!.courseId.toString(),
+                  dataLessonLearned?.lessonId ?? 0);
             },
             child: Container(
               height: 84,
@@ -1175,25 +1179,25 @@ class _HomeScreenState extends State<HomeScreen> {
       'course_id': courseId,
     });
     APIManager.postAPICallNeedToken(RemoteServices.listLessonURL, param).then(
-            (value) async {
-          await pr.hide();
-          var result = LessonModel.fromJson(value);
-          if (result.statusCode == 200) {
-            var data = result.data;
-            if (data != null && data.isNotEmpty) {
-              for(var lesson in data) {
-                for (var i = 0; i < lesson.dataLesson!.length; i++) {
-                  if (lesson.dataLesson![i].id == lessonId) {
-                    Constants.nameCourseTemp = lesson.dataLesson![i].name ?? "";
-                    Constants.lessonListTemp = lesson.dataLesson;
-                    Get.toNamed('/educationTopicDetail', arguments: i);
-                    break;
-                  }
-                }
+        (value) async {
+      await pr.hide();
+      var result = LessonModel.fromJson(value);
+      if (result.statusCode == 200) {
+        var data = result.data;
+        if (data != null && data.isNotEmpty) {
+          for (var lesson in data) {
+            for (var i = 0; i < lesson.dataLesson!.length; i++) {
+              if (lesson.dataLesson![i].id == lessonId) {
+                Constants.nameCourseTemp = lesson.dataLesson![i].name ?? "";
+                Constants.lessonListTemp = lesson.dataLesson;
+                Get.toNamed('/educationTopicDetail', arguments: i);
+                break;
               }
             }
           }
-        }, onError: (error) async {
+        }
+      }
+    }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });
