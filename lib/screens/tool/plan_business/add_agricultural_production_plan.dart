@@ -449,6 +449,126 @@ class _AddAgriculturalProductionPlanToolScreenState
                                               ],
                                             ),
                                           ),
+                                          Visibility(
+                                            visible:
+                                            indexPlan == 3 ? true : false,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(top: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        if (_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                          return;
+                                                        } else {
+                                                          StoreDataTool storeDataTool = StoreDataTool();
+                                                          storeDataTool.title = _namePlantBusinessController.text;
+                                                          storeDataTool.toolId = data.id;
+                                                          storeDataTool.type = 2; // 2 plan business
+
+                                                          //bạn là ai
+                                                          dataUsers.add(DataUsers(
+                                                            key: "ban_la_ai",
+                                                            value: _whoAreYouController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //trong cay nuoi con gi
+                                                          dataUsers.add(DataUsers(
+                                                            key: "trong_cay_nuoi_gi",
+                                                            value: _trongCayNuoiConGiController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //nha cung cap dich vu
+                                                          dataUsers.add(DataUsers(
+                                                            key: "nha_cung_cap_dich_vu",
+                                                            value: _nhaCungCapDichVuController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //nguon nhan cong
+                                                          dataUsers.add(DataUsers(
+                                                            key: "nguon_nhan_cong",
+                                                            value: _nguonNhanCongController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //ban cho ai
+                                                          dataUsers.add(DataUsers(
+                                                            key: "ban_cho_ai",
+                                                            value: _banChoAiController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //ban nhu the nào
+                                                          dataUsers.add(DataUsers(
+                                                            key: "ban_nhu_the_nao",
+                                                            value: _banNhuTheNaoController.text,
+                                                            type: 0,
+                                                          ));
+                                                          if (_whoAreYouController.text.isNotEmpty &&
+                                                              _trongCayNuoiConGiController.text.isNotEmpty &&
+                                                              _nhaCungCapDichVuController.text.isNotEmpty &&
+                                                              _nguonNhanCongController.text.isNotEmpty &&
+                                                              _banChoAiController.text.isNotEmpty &&
+                                                              _banNhuTheNaoController.text.isNotEmpty) {
+                                                            checkCompletePlane = true;
+                                                          }
+
+                                                          storeDataTool.dataUsers = dataUsers;
+                                                          saveItemTool(jsonEncode(storeDataTool));
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets
+                                                              .only(right: 10),
+                                                          alignment:
+                                                          Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              color: Mytheme
+                                                                  .colorBgButtonLogin,
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  8),
+                                                              border: Border.all(
+                                                                  color: Mytheme
+                                                                      .colorBgButtonLogin)),
+                                                          child: Padding(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 10,
+                                                                bottom: 10,
+                                                                left: 0,
+                                                                right: 0),
+                                                            child: Text(
+                                                              "Lưu",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Mytheme
+                                                                    .kBackgroundColor,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w600,
+                                                                fontFamily:
+                                                                "OpenSans-Semibold",
+                                                              ),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

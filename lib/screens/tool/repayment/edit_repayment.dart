@@ -1172,7 +1172,7 @@ class _EditRepaymentScreenState extends State<EditRepaymentScreen>
       initialDate: DateTime.now(),
       firstDate: DateTime(1960),
       lastDate: DateTime(2050),
-      dateFormat: "dd-MMMM-yyyy",
+      dateFormat: "dd-MM-yyyy",
       locale: DateTimePickerLocale.en_us,
       looping: true,
       cancelText: "Hủy bỏ",

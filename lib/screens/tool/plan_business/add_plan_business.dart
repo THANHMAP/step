@@ -122,93 +122,79 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                   Navigator.of(context).pop(false);
                 },
                 onClickedRight: () {
-                  if(_namePlantBusinessController.text.isEmpty) {
+                  if (_namePlantBusinessController.text.isEmpty) {
                     Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
                     return;
                   } else {
                     StoreDataTool storeDataTool = StoreDataTool();
-                    storeDataTool.title =
-                        _namePlantBusinessController
-                            .text;
-                    storeDataTool.toolId =
-                        data.id;
-                    storeDataTool.type =
-                    1; // 1 plan business
+                    storeDataTool.title = _namePlantBusinessController.text;
+                    storeDataTool.toolId = data.id;
+                    storeDataTool.type = 1; // 1 plan business
 
                     //bạn là ai
                     dataUsers.add(DataUsers(
                       key: "ban_la_ai",
-                      value: _whoAreYouController
-                          .text,
+                      value: _whoAreYouController.text,
                       type: 0,
                     ));
 
                     //ý tương kinh doanh
                     dataUsers.add(DataUsers(
                       key: "y_tuong_kinh_doanh",
-                      value: _idealPlanBusinessController
-                          .text,
+                      value: _idealPlanBusinessController.text,
                       type: 0,
                     ));
 
                     //kinh doanh cái gì
                     dataUsers.add(DataUsers(
                       key: "kinh_doanh_cai_gi",
-                      value: _whatBusinessController
-                          .text,
+                      value: _whatBusinessController.text,
                       type: 0,
                     ));
 
                     //Khách hàng của bạn là ai
                     dataUsers.add(DataUsers(
                       key: "khach_hang_cua_ban",
-                      value: _khachHangCuaBanController
-                          .text,
+                      value: _khachHangCuaBanController.text,
                       type: 0,
                     ));
 
                     //Đối thủ cạnh tranh
                     dataUsers.add(DataUsers(
                       key: "doi_thu_canh_tranh",
-                      value: _doiThuCanhTranhController
-                          .text,
+                      value: _doiThuCanhTranhController.text,
                       type: 0,
                     ));
 
                     //Thế mạnh cạnh tranh
                     dataUsers.add(DataUsers(
                       key: "the_manh_canh_tranh",
-                      value: _theManhCanhTranhController
-                          .text,
+                      value: _theManhCanhTranhController.text,
                       type: 0,
                     ));
 
                     //Kế hoạch bán hàng
                     dataUsers.add(DataUsers(
                       key: "ke_hoach_ban_hang",
-                      value: _cachTiepThiSanPhamController
-                          .text,
+                      value: _cachTiepThiSanPhamController.text,
                       type: 0,
                     ));
 
                     //nhiệm vụ thuc hien
                     dataUsers.add(DataUsers(
                       key: "nhiem_vu_thuc_hien",
-                      value: _lietKeNhiemVuController
-                          .text,
+                      value: _lietKeNhiemVuController.text,
                       type: 0,
                     ));
 
                     //nguồn lực
                     dataUsers.add(DataUsers(
                       key: "nguon_luc",
-                      value: _lietKeNguonLucController
-                          .text,
+                      value: _lietKeNguonLucController.text,
                       type: 0,
                     ));
 
-                    if (
-                        _whoAreYouController.text.isNotEmpty &&
+                    if (_whoAreYouController.text.isNotEmpty &&
                         _idealPlanBusinessController.text.isNotEmpty &&
                         _whatBusinessController.text.isNotEmpty &&
                         _khachHangCuaBanController.text.isNotEmpty &&
@@ -216,15 +202,12 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                         _theManhCanhTranhController.text.isNotEmpty &&
                         _cachTiepThiSanPhamController.text.isNotEmpty &&
                         _lietKeNhiemVuController.text.isNotEmpty &&
-                        _lietKeNguonLucController.text.isNotEmpty
-                    ) {
+                        _lietKeNguonLucController.text.isNotEmpty) {
                       checkCompletePlane = true;
                     }
 
-                    storeDataTool.dataUsers =
-                        dataUsers;
-                    saveItemTool(jsonEncode(
-                        storeDataTool));
+                    storeDataTool.dataUsers = dataUsers;
+                    saveItemTool(jsonEncode(storeDataTool));
                   }
                 },
               ),
@@ -385,91 +368,281 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
                                             child: layouIndex5(),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(top: 50),
+                                            padding: EdgeInsets.only(top: 30),
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Visibility(
-                                                  visible: indexPlan == 0 ? false : true,
-                                                  child:  Expanded(
+                                                  visible: indexPlan == 0
+                                                      ? false
+                                                      : true,
+                                                  child: Expanded(
                                                     child: InkWell(
                                                       onTap: () {
                                                         if (indexPlan > 0) {
                                                           setState(() {
-                                                            indexPlan = indexPlan - 1;
-                                                            imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                            indexPlan =
+                                                                indexPlan - 1;
+                                                            imgHeader =
+                                                                "assets/svg/img_plan_business_${indexPlan + 1}.svg";
                                                           });
                                                         }
                                                       },
                                                       child: Container(
-                                                          margin: const EdgeInsets.only(right: 10),
-                                                          alignment: Alignment.center,
+                                                          margin: const EdgeInsets
+                                                              .only(right: 10),
+                                                          alignment:
+                                                              Alignment.center,
                                                           decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius: BorderRadius.circular(8),
-                                                              border: Border.all(color: Mytheme.colorBgButtonLogin)
-                                                          ),
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              border: Border.all(
+                                                                  color: Mytheme
+                                                                      .colorBgButtonLogin)),
                                                           child: Padding(
                                                             padding:
-                                                            const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 10,
+                                                                    bottom: 10,
+                                                                    left: 0,
+                                                                    right: 0),
                                                             child: Text(
                                                               "Quay lại",
                                                               style: TextStyle(
                                                                 fontSize: 16,
-                                                                color: Mytheme.color_434657,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontFamily: "OpenSans-Semibold",
+                                                                color: Mytheme
+                                                                    .color_434657,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontFamily:
+                                                                    "OpenSans-Semibold",
                                                               ),
                                                             ),
-                                                          )
-                                                      ),
+                                                          )),
                                                     ),
                                                   ),
                                                 ),
                                                 Visibility(
-                                                  visible: indexPlan == 4 ? false : true,
+                                                  visible: indexPlan == 4
+                                                      ? false
+                                                      : true,
                                                   child: Expanded(
                                                     child: InkWell(
                                                       onTap: () {
-                                                        if(indexPlan < 4) {
+                                                        if (indexPlan < 4) {
                                                           setState(() {
-                                                            indexPlan = indexPlan + 1;
-                                                            imgHeader = "assets/svg/img_plan_business_${indexPlan + 1}.svg";
+                                                            indexPlan =
+                                                                indexPlan + 1;
+                                                            imgHeader =
+                                                                "assets/svg/img_plan_business_${indexPlan + 1}.svg";
                                                           });
-                                                          scrollController.animateTo( //go to top of scroll
-                                                              0,  //scroll offset to go
-                                                              duration: const Duration(milliseconds: 500), //duration of scroll
-                                                              curve:Curves.fastOutSlowIn //scroll type
-                                                          );
+                                                          scrollController
+                                                              .animateTo(
+                                                                  //go to top of scroll
+                                                                  0,
+                                                                  //scroll offset to go
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                          500),
+                                                                  //duration of scroll
+                                                                  curve: Curves
+                                                                      .fastOutSlowIn //scroll type
+                                                                  );
                                                         }
                                                       },
                                                       child: Container(
-                                                          alignment: Alignment.center,
+                                                          alignment:
+                                                              Alignment.center,
                                                           decoration: BoxDecoration(
-                                                              color: Mytheme.colorBgButtonLogin,
-                                                              borderRadius: BorderRadius.circular(8),
-                                                              border: Border.all(color: Mytheme.colorBgButtonLogin)
-                                                          ),
+                                                              color: Mytheme
+                                                                  .colorBgButtonLogin,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                              border: Border.all(
+                                                                  color: Mytheme
+                                                                      .colorBgButtonLogin)),
                                                           child: Padding(
                                                             padding:
-                                                            const EdgeInsets.only(top: 10, bottom: 10, left: 0, right: 0),
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 10,
+                                                                    bottom: 10,
+                                                                    left: 0,
+                                                                    right: 0),
                                                             child: Text(
                                                               "Tiếp Tục",
                                                               style: TextStyle(
                                                                 fontSize: 16,
-                                                                color: Mytheme.kBackgroundColor,
-                                                                fontWeight: FontWeight.w600,
-                                                                fontFamily: "OpenSans-Semibold",
+                                                                color: Mytheme
+                                                                    .kBackgroundColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontFamily:
+                                                                    "OpenSans-Semibold",
                                                               ),
                                                             ),
-                                                          )
-                                                      ),
+                                                          )),
                                                     ),
                                                   ),
                                                 ),
-
                                               ],
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible:
+                                                indexPlan == 4 ? true : false,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(top: 10),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        if (_namePlantBusinessController.text.isEmpty) {
+                                                          Utils.showError("Bạn chưa nhập tên cho kế hoạch", context);
+                                                          return;
+                                                        } else {
+                                                          StoreDataTool storeDataTool = StoreDataTool();
+                                                          storeDataTool.title = _namePlantBusinessController.text;
+                                                          storeDataTool.toolId = data.id;
+                                                          storeDataTool.type = 1; // 1 plan business
+
+                                                          //bạn là ai
+                                                          dataUsers.add(DataUsers(
+                                                            key: "ban_la_ai",
+                                                            value: _whoAreYouController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //ý tương kinh doanh
+                                                          dataUsers.add(DataUsers(
+                                                            key: "y_tuong_kinh_doanh",
+                                                            value: _idealPlanBusinessController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //kinh doanh cái gì
+                                                          dataUsers.add(DataUsers(
+                                                            key: "kinh_doanh_cai_gi",
+                                                            value: _whatBusinessController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //Khách hàng của bạn là ai
+                                                          dataUsers.add(DataUsers(
+                                                            key: "khach_hang_cua_ban",
+                                                            value: _khachHangCuaBanController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //Đối thủ cạnh tranh
+                                                          dataUsers.add(DataUsers(
+                                                            key: "doi_thu_canh_tranh",
+                                                            value: _doiThuCanhTranhController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //Thế mạnh cạnh tranh
+                                                          dataUsers.add(DataUsers(
+                                                            key: "the_manh_canh_tranh",
+                                                            value: _theManhCanhTranhController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //Kế hoạch bán hàng
+                                                          dataUsers.add(DataUsers(
+                                                            key: "ke_hoach_ban_hang",
+                                                            value: _cachTiepThiSanPhamController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //nhiệm vụ thuc hien
+                                                          dataUsers.add(DataUsers(
+                                                            key: "nhiem_vu_thuc_hien",
+                                                            value: _lietKeNhiemVuController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          //nguồn lực
+                                                          dataUsers.add(DataUsers(
+                                                            key: "nguon_luc",
+                                                            value: _lietKeNguonLucController.text,
+                                                            type: 0,
+                                                          ));
+
+                                                          if (_whoAreYouController.text.isNotEmpty &&
+                                                              _idealPlanBusinessController.text.isNotEmpty &&
+                                                              _whatBusinessController.text.isNotEmpty &&
+                                                              _khachHangCuaBanController.text.isNotEmpty &&
+                                                              _doiThuCanhTranhController.text.isNotEmpty &&
+                                                              _theManhCanhTranhController.text.isNotEmpty &&
+                                                              _cachTiepThiSanPhamController.text.isNotEmpty &&
+                                                              _lietKeNhiemVuController.text.isNotEmpty &&
+                                                              _lietKeNguonLucController.text.isNotEmpty) {
+                                                            checkCompletePlane = true;
+                                                          }
+
+                                                          storeDataTool.dataUsers = dataUsers;
+                                                          saveItemTool(jsonEncode(storeDataTool));
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                          margin: const EdgeInsets
+                                                              .only(right: 10),
+                                                          alignment:
+                                                              Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              color: Mytheme
+                                                                  .colorBgButtonLogin,
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  8),
+                                                              border: Border.all(
+                                                                  color: Mytheme
+                                                                      .colorBgButtonLogin)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 10,
+                                                                    bottom: 10,
+                                                                    left: 0,
+                                                                    right: 0),
+                                                            child: Text(
+                                                              "Lưu",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Mytheme
+                                                                    .kBackgroundColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontFamily:
+                                                                    "OpenSans-Semibold",
+                                                              ),
+                                                            ),
+                                                          )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -1524,10 +1697,9 @@ class _AddPlaneBusinessToolScreenState extends State<AddPlaneBusinessToolScreen>
               child: SuccessDialogBox(
                 title:
                     "Chúc mừng bạn đã tạo thành công kế hoạch SXKD của mình!",
-                descriptions: checkCompletePlane == true ?
-                    "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần." :
-                    "Bạn chưa hoàn thiện kế hoạch của mình? Đừng quên quay lại và điền tất cả các thông tin cần thiết để chuẩn bị tốt nhất cho dự án của mình nhé."
-                ,
+                descriptions: checkCompletePlane == true
+                    ? "Trước khi bắt đầu thực hiện hoặc chuẩn bị đến Tổ chức tài chính để đăng ký vay vốn, đừng quên xem lại tất cả các thông tin. Hãy hỏi thêm lời khuyên từ cán bộ tín dụng nếu cần."
+                    : "Bạn chưa hoàn thiện kế hoạch của mình? Đừng quên quay lại và điền tất cả các thông tin cần thiết để chuẩn bị tốt nhất cho dự án của mình nhé.",
                 textButton: "Tiếp tục",
                 onClickedConfirm: () {
                   Get.back(result: true);

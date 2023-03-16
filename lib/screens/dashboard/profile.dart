@@ -192,9 +192,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 12, left: 16, bottom: 18, right: 26),
-                                              child: SvgPicture.asset(
-                                                'assets/svg/about.svg',
-                                                color: Color(0xFFFEC243),
+                                              child: Image.asset(
+                                                'assets/images/about.png',
+                                                // color: Color(0xFFFEC243),
                                                 width: 50,
                                               )
                                           ),

@@ -486,6 +486,173 @@ class _EditAgriculturalProductionPlanToolScreenState
                                                 ],
                                               ),
                                             ),
+                                            Visibility(
+                                              visible:
+                                              indexPlan == 3 ? true : false,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(top: 10),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  children: [
+                                                    Expanded(
+                                                      child: InkWell(
+                                                        onTap: () {
+                                                          if (_namePlantBusinessController
+                                                              .text.isEmpty) {
+                                                            Utils.showError(
+                                                                "Bạn chưa nhập tên cho kế hoạch",
+                                                                context);
+                                                          } else {
+                                                            UpdateDataTool
+                                                            updateDataTool =
+                                                            UpdateDataTool();
+                                                            updateDataTool.title =
+                                                                _namePlantBusinessController
+                                                                    .text;
+                                                            updateDataTool
+                                                                .userToolId =
+                                                                _itemToolData?.id;
+                                                            updateDataTool.type = 2;
+
+                                                            List<UpdateDataToolUsers>?
+                                                            listData = [];
+
+                                                            //bạn là ai
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key: "ban_la_ai",
+                                                                  value:
+                                                                  _whoAreYouController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            //trong cay nuoi con gi
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key:
+                                                                  "trong_cay_nuoi_gi",
+                                                                  value:
+                                                                  _trongCayNuoiConGiController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            //nha cung cap dich vu
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key:
+                                                                  "nha_cung_cap_dich_vu",
+                                                                  value:
+                                                                  _nhaCungCapDichVuController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            //nguon nhan cong
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key: "nguon_nhan_cong",
+                                                                  value:
+                                                                  _nguonNhanCongController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            //ban cho ai
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key: "ban_cho_ai",
+                                                                  value:
+                                                                  _banChoAiController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            //ban nhu the nào
+                                                            listData.add(
+                                                                UpdateDataToolUsers(
+                                                                  key: "ban_nhu_the_nao",
+                                                                  value:
+                                                                  _banNhuTheNaoController
+                                                                      .text,
+                                                                  type: 0,
+                                                                ));
+
+                                                            for (var i = 0;
+                                                            i < dataUsers.length;
+                                                            i++) {
+                                                              if (dataUsers[i].type ==
+                                                                  1 ||
+                                                                  dataUsers[i].type ==
+                                                                      2) {
+                                                                listData.add(
+                                                                    UpdateDataToolUsers(
+                                                                        key:
+                                                                        dataUsers[
+                                                                        i]
+                                                                            .key,
+                                                                        type:
+                                                                        dataUsers[
+                                                                        i]
+                                                                            .type,
+                                                                        value: dataUsers[
+                                                                        i]
+                                                                            .value));
+                                                              }
+                                                            }
+                                                            updateDataTool.dataUsers =
+                                                                listData;
+                                                            saveItemTool(jsonEncode(
+                                                                updateDataTool));
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                            margin: const EdgeInsets
+                                                                .only(right: 10),
+                                                            alignment:
+                                                            Alignment.center,
+                                                            decoration: BoxDecoration(
+                                                                color: Mytheme
+                                                                    .colorBgButtonLogin,
+                                                                borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                    8),
+                                                                border: Border.all(
+                                                                    color: Mytheme
+                                                                        .colorBgButtonLogin)),
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 10,
+                                                                  bottom: 10,
+                                                                  left: 0,
+                                                                  right: 0),
+                                                              child: Text(
+                                                                "Lưu",
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  color: Mytheme
+                                                                      .kBackgroundColor,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  fontFamily:
+                                                                  "OpenSans-Semibold",
+                                                                ),
+                                                              ),
+                                                            )),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),

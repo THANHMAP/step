@@ -47,8 +47,8 @@ class StringText {
   static const text_faq = "Câu hỏi thường gặp";
   static const text_next_lesson = "Bài tiếp";
   static const text_weather="Công cụ, bài học và tin tức giúp bạn ra quyết định tài chính mỗi ngày.";
-  static const text_tool="Dưới đây là các công cụ bạn có thể sử dụng hàng ngày: ghi chép dòng tiền, quản lý tiết kiệm, tính toán khoản vay.... để giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình. Nếu cần thông tin chi tiết về một sản phẩm hoặc dịch vụ tài chính cụ thể, hãy liên hệ với cán bộ tín dụng của Quỹ TDND/ngân hàng nhé.";
-  static const text_leader = "Bằng cách hoàn thành các bài học và công cụ, bạn kiếm được điểm. Dưới đây là danh sách những người dùng giỏi nhất. Số bên trái tên của bạn là vị trí của bạn";
+  static const text_tool="Dưới đây là các công cụ bạn có thể sử dụng hàng ngày: Ghi chép dòng tiền, quản lý tiết kiệm, tính toán khoản vay....để xây dựng kế hoạch tài chính tốt hơn cho riêng mình. Nếu cần thông tin chi tiết về một sản phẩm hoặc dịch vụ tài chính cụ thể, hãy liên hệ với cán bộ tín dụng của Qũy tín dụng nhân dân/Ngân hàng nhé.";
+  static const text_leader = "Bạn nhận được điểm khi hoàn thành bài học hoặc sử dụng các công cụ. Dưới đây là bảng xếp hạng người dùng theo thứ tự giảm dần.. Thứ hạng của bạn nằm ở trước tên tài khoản.";
   static const text_records="Dưới đây là các sổ ghi chép dòng tiền mà bạn đã tạo, hãy cập nhật các chi tiêu và thu nhập của từng sổ nhé";
   static const text_calculation="Dưới đây là các kế hoạch tiết kiệm mà bạn đã đặt ra, hãy kiểm tra và cố gắng đạt được mục tiêu nhé";
   static const text_budget="Dưới đây là các ngân sách mà bạn đã tạo, hãy kiểm tra lại chi tiêu và điều chỉnh ngân sách nếu cần thiết nhé.";
@@ -59,5 +59,5 @@ class StringText {
   static const text_savings_calculation="Số tiền nhận được cuối kỳ chưa đủ theo kế hoạch của bạn? Hãy thử thay đổi số tiền tiết kiệm ban đầu hoặc số tháng gửi tiết kiệm và tính toán lại nhé.";
   static const text_interest_rate="Nhập mức lãi suất tham khảo của các tổ chức tín dụng/ngân hàng mà bạn có ý định gửi tiền";
   static const text_set_a_budget1="Bạn có thể sử dụng số tiền này cho các khoản chi tiêu ngoài dự kiến hoặc tiết kiệm cho tương lai.";
-  static const text_set_a_budget2="Chú ý: Bạn đang chi tiêu nhiều hơn thu nhập. Nợ quá nhiều so với chi trả có khả năng rất nguy hiểm. Bạn hãy thử cắt giảm chi tiêu hoặc tạo thêm thu nhập nhé.";
+  static const text_set_a_budget2="Chú ý: Bạn đang chi tiêu nhiều hơn thu nhập kiếm được. Nợ quá nhiều so với khả năng chi trả có thể khiến bạn gặp phải rắc rối sau này. Hãy thử cắt giảm các chi tiêu hoặc tạo thêm thu nhập nhé.";
 }

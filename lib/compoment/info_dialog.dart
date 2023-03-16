@@ -45,6 +45,7 @@ class InfoDialogBox extends StatelessWidget {
   contentBox(context) {
     return Stack(
       children: <Widget>[
+
         Container(
           padding: EdgeInsets.only(
               left: 0,
@@ -61,118 +62,131 @@ class InfoDialogBox extends StatelessWidget {
             // ]
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Padding(
-                padding:
-                const EdgeInsets.only(top: 0, left: 20, bottom: 8, right: 20),
-                child: Text(
-                  title ?? "",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Mytheme.colorBgButtonLogin,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "OpenSans-Semibold",
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context, "");
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(top: 0, left: 20, bottom: 8, right: 20),
+                    child: Text(
+                      "X",
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(
+                        fontSize: 30,
+                        color: Mytheme.color_82869E,
+                        fontWeight: FontWeight.w900,
+                        fontFamily: "OpenSans-Semibold",
+                      ),
+                    ),
                   ),
                 ),
               ),
-
-              Padding(
-                padding: EdgeInsets.only(top: 0, left:20, bottom: 8, right: 20),
-                child: Html(
-                  data: descriptions ?? "",
-                  style: {
-                    "body": Style(
-                      fontSize: FontSize(16.0),
-                      color: Mytheme.color_44494D,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: "OpenSans-Regular",
-                    ),
-                  },
-                ),
-              ),
-
-              SizedBox(
-                height: 24,
-              ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 0, left:20, bottom: 8, right: 20),
+                      child: Html(
+                        data: descriptions ?? "",
+                        style: {
+                          "body": Style(
+                            fontSize: FontSize(16.0),
+                            color: Mytheme.color_44494D,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
+                        },
+                      ),
+                    ),
 
-                  Visibility(
-                    visible: hideButtonLink == true ? false : true,
-                    child: Row(
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: onClickedDirect,
-                            child: Container(
-                              alignment: Alignment.center,
-                              margin: EdgeInsets.only(left: 20, right: 20),
-                              height: 44,
-                              width: 135,
-                              decoration: BoxDecoration(
-                                color: Mytheme.colorBgButtonLogin,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                "Mở bài học",
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.kBackgroundColor,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: "OpenSans-Semibold",
+
+                        Visibility(
+                          visible: hideButtonLink == true ? false : true,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  onTap: onClickedDirect,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    margin: EdgeInsets.only(left: 20, right: 20),
+                                    height: 44,
+                                    width: 135,
+                                    decoration: BoxDecoration(
+                                      color: Mytheme.colorBgButtonLogin,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      "Bài học liên quan",
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Mytheme.kBackgroundColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
+                        // SizedBox(
+                        //   height: 16,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   crossAxisAlignment: CrossAxisAlignment.center,
+                        //   children: [
+                        //     Expanded(
+                        //       child: InkWell(
+                        //         onTap: () {Navigator.pop(context, "");},
+                        //         child: Container(
+                        //           alignment: Alignment.center,
+                        //           margin: EdgeInsets.only(left: 20, right: 20),
+                        //           height: 44,
+                        //           width: 135,
+                        //           decoration: BoxDecoration(
+                        //             color: Mytheme.colorBgButtonLogin,
+                        //             borderRadius: BorderRadius.circular(8),
+                        //           ),
+                        //           child: Text(
+                        //             textButton!,
+                        //             style: const TextStyle(
+                        //               fontSize: 16,
+                        //               color: Mytheme.kBackgroundColor,
+                        //               fontWeight: FontWeight.w600,
+                        //               fontFamily: "OpenSans-Semibold",
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+
+
+
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {Navigator.pop(context, "");},
-                          child: Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(left: 20, right: 20),
-                            height: 44,
-                            width: 135,
-                            decoration: BoxDecoration(
-                              color: Mytheme.colorBgButtonLogin,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              textButton!,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Mytheme.kBackgroundColor,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: "OpenSans-Semibold",
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-
-
-                ],
+                  ],
               ),
+
+
             ],
           ),
         ),

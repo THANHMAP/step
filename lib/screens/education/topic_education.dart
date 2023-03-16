@@ -70,7 +70,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                     onClicked: () {
                       Navigator.of(context).pop(false);
                     },
-                    showRight: true,
+                    showRight: false,
                     onClickedRight: () {
                       showDialog(
                           context: context,
@@ -82,7 +82,7 @@ class _TopicEducationScreenState extends State<TopicEducationScreen> {
                                     return Future.value(false);
                                   },
                                   child: InfoDialogBox(
-                                    title: "",
+                                    title: "X",
                                     descriptions: _lessonList[0].contentCourse,
                                     textButton: "Đóng",
                                     hideButtonLink: true,

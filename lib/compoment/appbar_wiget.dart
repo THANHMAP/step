@@ -99,7 +99,8 @@ class AppbarWidget extends StatelessWidget {
                               onTap: onClickedRight,
                               child:  const Padding(
                                 padding: EdgeInsets.only(left: 0, right: 0),
-                                child: Text(
+                                child:
+                                Text(
                                   "Lưu",
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
