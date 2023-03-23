@@ -711,7 +711,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                       right: 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .75,
+                    height: MediaQuery.of(context).size.height * .80,
                     child: Column(
                       children: <Widget>[
                         Container(
@@ -936,7 +936,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1960),
                                         lastDate: DateTime(2050),
-                                        dateFormat: "dd-MMMM-yyyy",
+                                        dateFormat: "dd-MM-yyyy",
                                         locale: DateTimePickerLocale.en_us,
                                         looping: true,
                                         cancelText: "Hủy bỏ",

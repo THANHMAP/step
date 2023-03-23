@@ -38,8 +38,37 @@ import '../../strings.dart';
 import '../../themes.dart';
 import '../../util.dart';
 import '../news/web_view_news.dart';
+import '../notification/notification.dart';
 
 enum AppState { NOT_DOWNLOADED, DOWNLOADING, FINISHED_DOWNLOADING }
+
+class LifecycleEventHandler extends WidgetsBindingObserver {
+  final AsyncCallback resumeCallBack;
+  final AsyncCallback suspendingCallBack;
+
+  LifecycleEventHandler({
+    required this.resumeCallBack,
+    required this.suspendingCallBack,
+  });
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (resumeCallBack != null) {
+          await resumeCallBack();
+        }
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        if (suspendingCallBack != null) {
+          await suspendingCallBack();
+        }
+        break;
+    }
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, this.controller}) : super(key: key);
@@ -64,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   DataLessonLearned? dataLessonLearned;
   List<BannerPromotionData>? listBanner = [];
   List<ToolData> _toolList = [];
-  String key = '856822fd8e22db5e1ba48c0e7d69844a';
+  String key = '83709fb372c429d8e4f0eb5289273b78';
   late WeatherFactory ws;
   List<Weather> _data = [];
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
@@ -75,6 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Color textColorNhietDo = Mytheme.kBackgroundColor;
   bool statusPermission = false;
   int totalNotification = 0;
+  var currentIndex = 0;
 
   @override
   void initState() {
@@ -88,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
     Future.delayed(Duration.zero, () {
       fetchData();
-      // loadToolLastUsed();
     });
     _getCurrentPosition();
   }
@@ -202,11 +231,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void queryWeather(double lat, double long) async {
     /// Removes keyboard
     FocusScope.of(context).requestFocus(FocusNode());
-
-    // setState(() {
-    //   _state = AppState.DOWNLOADING;
-    // });
-
     Weather weather = await ws.currentWeatherByLocation(lat, long);
     setState(() {
       _data = [weather];
@@ -218,6 +242,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.controller?.index == 0) {
+        if (widget.controller?.index != currentIndex) {
+          currentIndex = 0;
+          print("test setate${widget.controller?.index}");
+          fetchAgainData();
+        }
+    } else {
+      currentIndex = widget.controller?.index ?? 0;
+    }
+    print("test build n${widget.controller?.index}");
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
       child: GestureDetector(
@@ -236,7 +270,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           setState(() {
                             totalNotification = 0;
                           });
-                          Get.toNamed("/notificationScreen");
+                          Future.delayed(Duration.zero, () {
+                            Get.toNamed("/notificationScreen");
+                          });
+                          // Get.toNamed("/notificationScreen");
                         },
                         child: Align(
                           alignment: Alignment.centerRight,
@@ -514,8 +551,11 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.only(top: 10),
       child: InkWell(
         onTap: () {
-          Get.toNamed('/introductionToolScreen',
-              arguments: _toolList[position]);
+          Future.delayed(Duration.zero, () {
+            Get.toNamed('/introductionToolScreen',
+                arguments: _toolList[position]);
+          });
+
         },
         child: Container(
           height: 84,
@@ -718,7 +758,10 @@ class _HomeScreenState extends State<HomeScreen> {
   bannerLayout() {
     return InkWell(
       onTap: () {
-        Get.toNamed('/contactScreen');
+        Future.delayed(Duration.zero, () {
+          Get.toNamed('/contactScreen');
+        });
+
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 0),
@@ -752,8 +795,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(10.0),
                 child: InkWell(
                   onTap: () {
-                    Get.toNamed("/webViewScreen",
-                        arguments: listBanner![_index]);
+                    Future.delayed(Duration.zero, () {
+                      Get.toNamed("/webViewScreen",
+                          arguments: listBanner![_index]);
+                    });
+
                   },
                   child: Container(
                     height: 140.0,
@@ -996,7 +1042,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       // tooltip: 'Increase volume by 10',
                       iconSize: 100,
                       onPressed: () {
-                        Get.toNamed("/coopBankScreen");
+                        Future.delayed(Duration.zero, () {
+                          Get.toNamed("/coopBankScreen");
+                        });
+
                       },
                     ),
                     // ignore: prefer_const_constructors
@@ -1008,7 +1057,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       // tooltip: 'Increase volume by 10',
                       iconSize: 80,
                       onPressed: () {
-                        Get.toNamed("/qTDScreen");
+                        Future.delayed(Duration.zero, () {
+                          Get.toNamed("/qTDScreen");
+                        });
+
                       },
                     ),
                   ],
@@ -1035,6 +1087,16 @@ class _HomeScreenState extends State<HomeScreen> {
       loadNews(),
       loadBanner(),
       loadNumberNotification(),
+    ]);
+    // var response1 = responses.first;
+
+    // var response2 = responses[1];
+  }
+
+  fetchAgainData() async {
+    var responses = await Future.wait([
+      loadToolLastUsed(),
+      loadLessonLearned(),
     ]);
     // var response1 = responses.first;
 
@@ -1190,7 +1252,10 @@ class _HomeScreenState extends State<HomeScreen> {
               if (lesson.dataLesson![i].id == lessonId) {
                 Constants.nameCourseTemp = lesson.dataLesson![i].name ?? "";
                 Constants.lessonListTemp = lesson.dataLesson;
-                Get.toNamed('/educationTopicDetail', arguments: i);
+                Future.delayed(Duration.zero, () {
+                  Get.toNamed('/educationTopicDetail', arguments: i);
+                });
+
                 break;
               }
             }

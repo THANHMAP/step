@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -106,7 +107,7 @@ class APIManager {
       });
       responseJson = responseCode(response);
       if (kDebugMode) {
-        print(responseJson);
+        debugPrint("data: ${responseJson}");
       }
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -151,9 +152,6 @@ class APIManager {
       var response = await http.Response.fromStream(await request.send());
 
       responseJson = responseCode(response);
-      if (kDebugMode) {
-        print(responseJson);
-      }
     } on SocketException {
       throw FetchDataException('No Internet connection');
     }
@@ -164,6 +162,7 @@ class APIManager {
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
+        print("test nè $responseJson");
         return responseJson;
       case 201:
         var responseJson = json.decode(response.body.toString());

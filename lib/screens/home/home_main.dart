@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -23,19 +24,23 @@ class HomeMain extends StatefulWidget {
   _HomeMainState createState() => _HomeMainState();
 }
 
+
+
+
 class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin {
   PersistentTabController? _controller;
   ScrollController scrollHomeController = ScrollController();
   ScrollController scrollNewsController = ScrollController();
   var indexTutorial = 0;
+  var currentIndex = 0;
   var statusShowTutorial = Constants.statusShowTutorial;
   final List<String> _listTutorial = [
     "Cùng Co-opSmart khám phá một số tính năng của ứng dụng",
-    "Trang chủ: Cung cấp các tin tức, thông tin liên quan đến tài chính và các sự kiện quan trọng khác",
-    "Công cụ: giúp bạn xây dựng kế hoạch tài chính tốt hơn cho riêng mình",
-    "Học tập: cung cấp các tài liệu giáo dục về tài chính như các khóa học, bài giảng, video và tài liệu tham khảo.",
-    "Tài khoản: giúp người dùng quản lý và kiểm soát tài khoản của mình",
-    "Thông báo: Thông báo cho người dùng về tin tức mới nhất, học tập mới được đăng tải, và các sự kiện khác liên quan đến tài khoản người dùng"
+    "Cập nhật các thông tin, mẹo quản lý tài chính, chương trình và hoạt động của Quỹ TDND và Ngân hàng HTX",
+    "Các công cụ giúp quản lý tài chính và kinh doanh hàng ngày",
+    "Các bài học tương tác đơn giản và thú vị về tài chính và kinh doanh",
+    "Quản lý, cập nhật thông tin cá nhân và theo dõi các hoạt động của bạn trên ứng dụng",
+    "Các thông báo mới nhất về tin tức, bài học, lịch trả nợ… của riêng bạn"
   ];
 
   @override
@@ -60,10 +65,15 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
       PersistentBottomNavBarItem(
         icon: const Icon(MyFlutterApp.home),
         title: ("Trang chủ"),
-        onSelectedTabPressWhenNoScreensPushed: () {
-          scrollHomeController.animateTo(0,
-              duration: const Duration(seconds: 1), curve: Curves.ease);
-        },
+        // onSelectedTabPressWhenNoScreensPushed: () {
+        //   scrollHomeController.animateTo(0,
+        //       duration: const Duration(seconds: 1), curve: Curves.ease);
+        // },
+        // onPressed: (context) {
+        //     setState(() {
+        //       _controller?.index = 0;
+        //     });
+        // },
         activeColorPrimary: Mytheme.color_active,
         inactiveColorPrimary: Mytheme.color_inActive,
       ),
@@ -154,7 +164,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                           ),
                         ),
                       ),
-                    ] else if (indexTutorial != 0)... [
+                    ] else if (indexTutorial != 0 && indexTutorial != 1)... [
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Container(
@@ -178,10 +188,7 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
   }
 
   double getValueMargin(int index) {
-
-    if (index == 1) {
-      return 20;
-    } else if (index == 2) {
+  if (index == 2) {
       if (Get.width > 405) {
         return 116;
       } else if (Get.width < 385) {
@@ -209,16 +216,30 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
     return 0;
   }
 
+  double getTop(int index) {
+    if (index == 2 || index == 3 || index == 4) {
+      return 300;
+    }
+    return 20;
+  }
+
+  double getBottom(int index) {
+    if (index == 5) {
+      return 400;
+    }
+    return 0;
+  }
+
   Widget showTutorial(int index) {
     return Align(
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(top: getTop(index), bottom: getBottom(index), left: 20, right: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -232,18 +253,30 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
                 children:  <Widget>[
                   Padding(
                     padding: EdgeInsets.only(
-                        top: 0, left: 20, bottom: 8, right: 20),
-                    child: Text(
-                      _listTutorial[index] ?? "",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 16,
-                        color: Mytheme.color_44494D,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "OpenSans-Regular",
-                      ),
+                        top: 0, left: 0, bottom: 8, right: 0),
+                    child: Column(
+                      children: [
+                        Text(
+                          _listTutorial[index] ?? "",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            fontSize: 16,
+                            color: Mytheme.color_44494D,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "OpenSans-Regular",
+                          ),
+                        ),
+                        if (indexTutorial == 1)...[
+                          Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Image.asset("assets/images/img_tuto_banner.png",
+                            ),
+                          ),
+                        ],
+                      ],
                     ),
+
                   ),
 
                   const SizedBox(
@@ -301,11 +334,12 @@ class _HomeMainState extends State<HomeMain> with SingleTickerProviderStateMixin
             ),
             if (index == 0) ...[
               Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: Image.asset("assets/images/img_person.png"),
+                padding: EdgeInsets.only(top: 20, right: 50),
+                child: Image.asset("assets/images/img_person.png",
+                  width: 170,
+                ),
               ),
-            ],
-
+            ]
           ],
         ),
       ),

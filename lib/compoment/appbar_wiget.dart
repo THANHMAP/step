@@ -94,24 +94,42 @@ class AppbarWidget extends StatelessWidget {
                     children: [
                       if(showRight != false)...[
                         if (showTextRight == true)...[
+                          // SizedBox(
+                          //   child: IconButton(
+                          //     icon: Image.asset("assets/images/img_save.png",
+                          //     width: 80,),
+                          //     onPressed: onClickedRight,
+                          //   ),
+                          // )
                           Center(
                             child: InkWell(
                               onTap: onClickedRight,
-                              child:  const Padding(
-                                padding: EdgeInsets.only(left: 0, right: 0),
-                                child:
-                                Text(
-                                  "Lưu",
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: "OpenSans-Semibold",
-                                    // decoration: TextDecoration.underline,
+                              child:  Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.white),
+                                    shape: BoxShape.rectangle,
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      "Lưu",
+                                      textAlign: TextAlign.center,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: "OpenSans-Semibold",
+                                        // decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+
                                 ),
                               ),
                             ),

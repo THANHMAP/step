@@ -35,9 +35,8 @@ class InfoDialogBox extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
-        child: SingleChildScrollView(
-          child: contentBox(context),
-        ),
+        child: contentBox(context),
+
       ),
     );
   }
@@ -45,8 +44,8 @@ class InfoDialogBox extends StatelessWidget {
   contentBox(context) {
     return Stack(
       children: <Widget>[
-
         Container(
+          height: 600,
           padding: EdgeInsets.only(
               left: 0,
               top: 0,
@@ -62,16 +61,17 @@ class InfoDialogBox extends StatelessWidget {
             // ]
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context, "");
-                },
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding:
-                    const EdgeInsets.only(top: 0, left: 20, bottom: 8, right: 20),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20, top: 10),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context, "");
+                    },
                     child: Text(
                       "X",
                       textAlign: TextAlign.right,
@@ -82,16 +82,18 @@ class InfoDialogBox extends StatelessWidget {
                         fontFamily: "OpenSans-Semibold",
                       ),
                     ),
-                  ),
-                ),
+                  )
+                )
               ),
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
+              Expanded(
+                flex: 1,
+                child:  SingleChildScrollView(
+                child: Column(
+                  children: [
                     Padding(
                       padding: EdgeInsets.only(top: 0, left:20, bottom: 8, right: 20),
-                      child: Html(
+                      child:
+                      Html(
                         data: descriptions ?? "",
                         style: {
                           "body": Style(
@@ -103,7 +105,6 @@ class InfoDialogBox extends StatelessWidget {
                         },
                       ),
                     ),
-
                     SizedBox(
                       height: 24,
                     ),
@@ -184,8 +185,9 @@ class InfoDialogBox extends StatelessWidget {
                       ],
                     ),
                   ],
-              ),
-
+                ),
+              )
+              ,)
 
             ],
           ),
