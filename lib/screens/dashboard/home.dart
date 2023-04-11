@@ -933,6 +933,7 @@ class _HomeScreenState extends State<HomeScreen> {
             for (var i = 0; i < 2; i++) ...[
               InkWell(
                 onTap: () {
+                  print("test ${newsList![i].linkDetail}");
                   pushNewScreen(
                     context,
                     screen: WebViewNewsScreen(url: newsList![i].linkDetail),

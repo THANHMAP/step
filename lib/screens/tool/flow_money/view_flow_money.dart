@@ -32,6 +32,8 @@ import '../../../compoment/card_education.dart';
 import '../../../compoment/card_item_tool.dart';
 import '../../../compoment/card_setting.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
+import '../../../compoment/dialog_content.dart';
+import '../../../compoment/dialog_nomal.dart';
 import '../../../compoment/dialog_success.dart';
 import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/item_tool.dart';
@@ -514,94 +516,110 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                           for (var po = 0;
                               po < dataManage[i].itemList!.length;
                               po++) ...[
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  left: 16.0, right: 16.0, top: 10, bottom: 10),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Mytheme.color_DCDEE9,
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 1,
-                                    blurRadius: 7,
-                                    offset: const Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10, left: 12, right: 12, bottom: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        showDialogConfigDelete(dataManage[i].itemList![po].id.toString());
-                                        print("showDialogConfigDelete() ${dataManage[i].itemList![po].id}");
-                                        // setState(() {
-                                        //   dataUsers.removeAt(i);
-                                        // });
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 10),
-                                            child: SvgPicture.asset(
-                                                "assets/svg/ic_delete.svg"),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        dataManage[i].itemList![po].note ?? "",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        convert(
-                                            dataManage[i].itemList![po].date ??
-                                                ""),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        dataManage[i].itemList![po].type == 1
-                                            ? "+ ${formNum(dataManage[i].itemList![po].deposit ?? "0")}"
-                                            : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
-                                        textAlign: TextAlign.end,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Mytheme.colorTextSubTitle,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: "OpenSans-Regular",
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            layoutItem(dataManage[i].itemList![po]),
+                            // InkWell(
+                            //   onTap: (){
+                            //     showDialog(
+                            //         context: context,
+                            //         builder: (BuildContext context) {
+                            //           return WillPopScope(
+                            //               onWillPop: () {
+                            //                 return Future.value(false);
+                            //               },
+                            //               child: ContentDialogBox(
+                            //                   descriptions: "Ghi chú: ${dataManage[i].itemList![po].noteText.toString()}",
+                            //                   onClicked: () { Navigator.pop(context, "");}));
+                            //         });
+                            //   },
+                            //   child: Container(
+                            //     margin: const EdgeInsets.only(
+                            //         left: 16.0, right: 16.0, top: 10, bottom: 10),
+                            //     decoration: BoxDecoration(
+                            //       shape: BoxShape.rectangle,
+                            //       color: Mytheme.color_DCDEE9,
+                            //       borderRadius: BorderRadius.circular(8),
+                            //       boxShadow: [
+                            //         BoxShadow(
+                            //           color: Colors.grey.withOpacity(0.5),
+                            //           spreadRadius: 1,
+                            //           blurRadius: 7,
+                            //           offset: const Offset(
+                            //               0, 3), // changes position of shadow
+                            //         ),
+                            //       ],
+                            //     ),
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.only(
+                            //           top: 10, left: 12, right: 12, bottom: 10),
+                            //       child: Row(
+                            //         mainAxisAlignment: MainAxisAlignment.start,
+                            //         children: [
+                            //           InkWell(
+                            //             onTap: () async {
+                            //               showDialogConfigDelete(dataManage[i].itemList![po].id.toString());
+                            //               print("showDialogConfigDelete() ${dataManage[i].itemList![po].id}");
+                            //               // setState(() {
+                            //               //   dataUsers.removeAt(i);
+                            //               // });
+                            //             },
+                            //             child: Row(
+                            //               children: [
+                            //                 Padding(
+                            //                   padding: const EdgeInsets.only(
+                            //                       right: 10),
+                            //                   child: SvgPicture.asset(
+                            //                       "assets/svg/ic_delete.svg"),
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           ),
+                            //           Expanded(
+                            //             flex: 1,
+                            //             child: Text(
+                            //               dataManage[i].itemList![po].note ?? "",
+                            //               style: TextStyle(
+                            //                 fontSize: 16,
+                            //                 color: Mytheme.colorTextSubTitle,
+                            //                 fontWeight: FontWeight.w400,
+                            //                 fontFamily: "OpenSans-Regular",
+                            //               ),
+                            //             ),
+                            //           ),
+                            //           Expanded(
+                            //             flex: 1,
+                            //             child: Text(
+                            //               convert(
+                            //                   dataManage[i].itemList![po].date ??
+                            //                       ""),
+                            //               textAlign: TextAlign.center,
+                            //               style: TextStyle(
+                            //                 fontSize: 16,
+                            //                 color: Mytheme.colorTextSubTitle,
+                            //                 fontWeight: FontWeight.w400,
+                            //                 fontFamily: "OpenSans-Regular",
+                            //               ),
+                            //             ),
+                            //           ),
+                            //           Expanded(
+                            //             flex: 1,
+                            //             child: Text(
+                            //               dataManage[i].itemList![po].type == 1
+                            //                   ? "+ ${formNum(dataManage[i].itemList![po].deposit ?? "0")}"
+                            //                   : "- ${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                            //               textAlign: TextAlign.end,
+                            //               style: TextStyle(
+                            //                 fontSize: 16,
+                            //                 color: Mytheme.colorTextSubTitle,
+                            //                 fontWeight: FontWeight.w400,
+                            //                 fontFamily: "OpenSans-Regular",
+                            //               ),
+                            //             ),
+                            //           )
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ],
                       ],
@@ -613,33 +631,6 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                 flex: 1,
                 child: Column(
                   children: [
-                    // InkWell(
-                    //   onTap: () {
-                    //     Get.offAndToNamed("/editSaveToolScreen", arguments: _itemToolData?.id);
-                    //   },
-                    //   child: Container(
-                    //       margin: EdgeInsets.only(left: 16, right: 16, bottom: 5),
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //           color: Colors.white,
-                    //           borderRadius: BorderRadius.circular(8),
-                    //           border:
-                    //           Border.all(color: Mytheme.colorBgButtonLogin)),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.only(
-                    //             top: 10, bottom: 10, left: 16, right: 16),
-                    //         child: Text(
-                    //           "Sửa",
-                    //           style: TextStyle(
-                    //             fontSize: 16,
-                    //             color: Mytheme.color_434657,
-                    //             fontWeight: FontWeight.w600,
-                    //             fontFamily: "OpenSans-Semibold",
-                    //           ),
-                    //         ),
-                    //       )),
-                    // ),
-
                     Padding(
                         padding: const EdgeInsets.only(
                             top: 10, bottom: 10, left: 16, right: 16),
@@ -684,6 +675,171 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   String convert(String date) {
     return date;
     return DateFormat("dd-MM-yyyy").format(DateTime.parse(date));
+  }
+
+  layoutItem(ItemManage item) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 16, right: 16, bottom: 16),
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    item.collapsed = !item.collapsed!;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: item.collapsed == false
+                        ? Colors.white
+                        : Mytheme.color_0xFFCCECFB,
+                    // borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      topLeft: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 12, left: 16, bottom: 18, right: 0),
+                          child: Text(
+                            item.note ?? "",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorBgButtonLogin,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-Semibold",
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                        // dataCalculator.noGocConLai ?? "0",
+                        item.type == 1
+                            ? "+ ${formNum(item.deposit ?? "0")}"
+                            : "- ${formNum(item.withdraw ?? "0")}",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Mytheme.colorBgButtonLogin,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "OpenSans-Regular",
+                        ),
+                      ),),
+
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, left: 6, bottom: 0, right: 0),
+                          child: IconButton(
+                            icon:
+                                Image.asset("assets/images/ic_arrow_down.png"),
+                            // tooltip: 'Increase volume by 10',
+                            iconSize: 50,
+                            onPressed: () {
+                              setState(() {
+                                item.collapsed = !item.collapsed!;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Visibility(
+                  visible: item.collapsed ?? false,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 12, left: 16, bottom: 18, right: 16),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Ghi chú: ${item.noteText ?? ""}",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorBgButtonLogin,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "OpenSans-Regular",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Ngày: ${item.date ?? ""}",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Mytheme.colorBgButtonLogin,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: "OpenSans-Regular",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ))
+
+              // Expanded(
+              //   flex: 1,
+              //   child: Text(
+              //     faqData.description.toString(),
+              //     textAlign: TextAlign.start,
+              //     style: TextStyle(
+              //       fontSize: 16,
+              //       color: Mytheme.colorBgButtonLogin,
+              //       fontWeight: FontWeight.w400,
+              //       fontFamily: "OpenSans-Regular",
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _sexEditModalBottomSheet(context) {
@@ -1050,7 +1206,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                         ),
                         const SizedBox(height: 10),
                         Container(
-                          height: 65,
+                          height: 75,
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             color: Mytheme.colorTextDivider,
@@ -1206,8 +1362,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                           child: TextFieldWidget(
                               keyboardType: TextInputType.text,
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter
-                                    .singleLineFormatter
+                                FilteringTextInputFormatter.singleLineFormatter
                               ],
                               textInputAction: TextInputAction.done,
                               obscureText: false,
@@ -1323,13 +1478,13 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     'Gửi tiết kiệm',
     'Ăn uống',
     'Bảo hiểm',
-    'Chi phí đi lại',
+    'Đi lại',
     'Đầu tư',
-    'Hóa đơn tiện ích',
+    'Điện, nước, dịch vụ',
     'Gia đình',
     'Giáo dục',
     'Giải trí',
-    'Quần áo, mua sắm',
+    'Mua sắm',
     'Thuế',
     'Y tế/Sức khỏe',
     'Chi phí khác',
@@ -1341,12 +1496,12 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
   static const List<String> cashIn = <String>[
     'Lương làm thuê',
     'Lương vợ/chồng',
-    'Thu nhập tiền cho thuê',
+    'Cho thuê nhà',
     'Tiền thưởng',
-    'Tiền lãi/gốc tiết kiệm',
-    'Các khoản chuyển tiền được nhận',
+    'Lãi/gốc tiết kiệm',
+    'Được cho',
     'Bán đồ cũ',
-    'Các nguồn thu nhập khác',
+    'Thu nhập khác',
   ];
 
   void _showDialog(Widget child) {
@@ -1419,8 +1574,14 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
     return '$tempDay/$tempMonth/$tempYear';
   }
 
-  Future<void> addDataDrawTool(String user_tool_id, String type,
-      String withdraw, String deposit, String date, String note, String noteText) async {
+  Future<void> addDataDrawTool(
+      String user_tool_id,
+      String type,
+      String withdraw,
+      String deposit,
+      String date,
+      String note,
+      String noteText) async {
     await pr.show();
     var param = jsonEncode(<String, String>{
       "user_tool_id": user_tool_id,
@@ -1865,10 +2026,9 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
 
   Future<void> deleteDataDrawTool(String id) async {
     await pr.show();
-    var param = jsonEncode(
-        <String, String>{'user_tool_withdraw_id': id});
+    var param = jsonEncode(<String, String>{'user_tool_withdraw_id': id});
     APIManager.postAPICallNeedToken(
-        RemoteServices.deleteDrawFilterToolURL, param)
+            RemoteServices.deleteDrawFilterToolURL, param)
         .then((value) async {
       int statusCode = value['status_code'];
       if (statusCode == 200) {
@@ -1963,8 +2123,7 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
         builder: (BuildContext context) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
-            child:
-            WillPopScope(
+            child: WillPopScope(
                 onWillPop: () {
                   return Future.value(false);
                 },
@@ -2002,6 +2161,8 @@ class ItemManage {
   String? dateGroupMonth;
   String? createdAt;
   String? note;
+  String? noteText;
+  bool? collapsed = false;
 
   ItemManage(
       {this.id,
@@ -2012,7 +2173,9 @@ class ItemManage {
       this.date,
       this.dateGroupMonth,
       this.createdAt,
-      this.note});
+      this.note,
+      this.noteText,
+      this.collapsed});
 
   ItemManage.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -2024,6 +2187,7 @@ class ItemManage {
     dateGroupMonth = json['date_group_month'];
     createdAt = json['createdAt'];
     note = json['note'];
+    noteText = json['note_text'];
   }
 
   Map<String, dynamic> toJson() {
@@ -2037,6 +2201,7 @@ class ItemManage {
     data['date_group_month'] = this.dateGroupMonth;
     data['createdAt'] = this.createdAt;
     data['note'] = this.note;
+    data['note_text'] = noteText;
     return data;
   }
 }

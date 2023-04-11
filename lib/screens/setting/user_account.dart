@@ -80,6 +80,7 @@ class _AccountScreenState extends State<AccountScreen> {
   final TextEditingController textController = new TextEditingController();
   var imagePicker;
   var _image;
+  var imgStatus = false;
   String _date = "Not set";
 
   @override
@@ -140,12 +141,13 @@ class _AccountScreenState extends State<AccountScreen> {
                               color: Mytheme.colorBgButtonLogin,
                               onClicked: () => {
                                     // saveInfoUser()
-                                    if (_image != null)
+                                    if (imgStatus == true)
                                       {
                                         saveImage(_image),
                                       }
-                                    else
-                                      {saveInfoUser()}
+                                    else {
+                                      saveInfoUser(true)
+                                    }
                                   }),
                         ),
                       ],
@@ -761,7 +763,9 @@ class _AccountScreenState extends State<AccountScreen> {
       child: InkWell(
         onTap: () {
           if (currentCityIndex != 0) {
-            Get.toNamed("/creditInfoScreen", arguments: currentCityIndex.toString())?.then((value) {
+            Get.toNamed("/creditInfoScreen",
+                    arguments: currentCityIndex.toString())
+                ?.then((value) {
               print(value);
               if (value) {
                 setState(() {
@@ -772,9 +776,9 @@ class _AccountScreenState extends State<AccountScreen> {
               // _reload();
             });
           } else {
-            Utils.showAlertDialogOneButton(context, "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
+            Utils.showAlertDialogOneButton(context,
+                "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
           }
-
         },
         child: Container(
           // height: 100,
@@ -846,18 +850,22 @@ class _AccountScreenState extends State<AccountScreen> {
                           iconSize: 0,
                           onPressed: () {
                             if (currentCityIndex != 0) {
-                              Get.toNamed("/creditInfoScreen", arguments: currentCityIndex.toString())?.then((value) {
+                              Get.toNamed("/creditInfoScreen",
+                                      arguments: currentCityIndex.toString())
+                                  ?.then((value) {
                                 print(value);
                                 if (value) {
                                   setState(() {
                                     textUserCredit = Constants.nameCreditTemp;
-                                    idCredit = int.parse(Constants.idCreditTemp);
+                                    idCredit =
+                                        int.parse(Constants.idCreditTemp);
                                   });
                                 }
                                 // _reload();
                               });
                             } else {
-                              Utils.showAlertDialogOneButton(context, "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
+                              Utils.showAlertDialogOneButton(context,
+                                  "Vui lòng chọn thông tin đầy đủ trước khi chọn mục này");
                             }
                           },
                         ),
@@ -1434,6 +1442,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     imageQuality: 50,
                     preferredCameraDevice: CameraDevice.front);
                 setState(() {
+                  imgStatus = true;
                   _image = File(image.path);
                 });
               },
@@ -1540,7 +1549,7 @@ class _AccountScreenState extends State<AccountScreen> {
       setState(() {
         user = UserData.fromJson(response);
         if (user.gender != null) {
-          currentSexIndex = user.gender! - 1;
+          currentSexIndex = user.gender ?? 0;
         }
         currentCityIndex = user.cityId ?? 0;
         currentWardIndex = user.provinceId ?? 0;
@@ -1697,9 +1706,11 @@ class _AccountScreenState extends State<AccountScreen> {
       return;
     }
     for (var info in cityData) {
-      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+      if (removeDiacritics(info.name.toString().toLowerCase())
+          .contains(removeDiacritics(text.toLowerCase()))) {
         if (kDebugMode) {
-          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+          print(
+              "search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
         }
         _tempListCity.add(info);
       }
@@ -1714,9 +1725,11 @@ class _AccountScreenState extends State<AccountScreen> {
       return;
     }
     for (var info in _providersData) {
-      if (removeDiacritics(info.name.toString().toLowerCase()).contains(removeDiacritics(text.toLowerCase()))) {
+      if (removeDiacritics(info.name.toString().toLowerCase())
+          .contains(removeDiacritics(text.toLowerCase()))) {
         if (kDebugMode) {
-          print("search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
+          print(
+              "search result---- ${removeDiacritics(info.name.toString().toLowerCase())}");
         }
         _tempProvidersData.add(info);
       }
@@ -1777,10 +1790,14 @@ class _AccountScreenState extends State<AccountScreen> {
     return userGroup;
   }
 
-  Future<void> saveInfoUser() async {
-    if (!pr.isShowing()) await pr.show();
+  Future<void> saveInfoUser(bool showLoading) async {
+    if (!pr.isShowing()) {
+      if (showLoading) {
+        await pr.show();
+      }
+    }
     user.name = _usernameController.text;
-    user.gender = currentSexIndex + 1;
+    user.gender = currentSexIndex;
     user.dob = _userBodController.text;
     user.cityId = currentCityIndex;
     user.provinceId = currentWardIndex;
@@ -1845,7 +1862,7 @@ class _AccountScreenState extends State<AccountScreen> {
         (value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
-        saveInfoUser();
+        saveInfoUser(false);
       }
     }, onError: (error) async {
       var statuscode = error.toString();

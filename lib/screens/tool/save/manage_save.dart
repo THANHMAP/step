@@ -29,7 +29,9 @@ import '../../../compoment/card_education.dart';
 import '../../../compoment/card_item_tool.dart';
 import '../../../compoment/card_setting.dart';
 import '../../../compoment/confirm_dialog_icon.dart';
+import '../../../compoment/dialog_content.dart';
 import '../../../compoment/dialog_success.dart';
+import '../../../compoment/info_dialog.dart';
 import '../../../models/tool/detail_tool.dart';
 import '../../../models/tool/item_tool.dart';
 import '../../../models/tool/store_data_tool_model.dart';
@@ -308,70 +310,99 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                               ],
                             ),
                             for(var po = 0; po < dataManage[i].itemList!.length; po++)...[
-                              Container(
-                                margin: const EdgeInsets.only(
-                                    left: 16.0, right: 16.0, top: 10, bottom: 10),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  color: Mytheme.color_DCDEE9,
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
-                                  child:  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          dataManage[i].itemList![po].deposit == "1" ? "Gửi vào" : "Rút ra",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
+                              InkWell(
+                                onTap: (){
+
+                                },
+                                child:  Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 16.0, right: 16.0, top: 10, bottom: 10),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: Mytheme.color_DCDEE9,
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: const Offset(0, 3), // changes position of shadow
                                       ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          dataManage[i].itemList![po].date ?? "",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          "${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
-                                          textAlign: TextAlign.end,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Mytheme.colorTextSubTitle,
-                                            fontWeight: FontWeight.w400,
-                                            fontFamily: "OpenSans-Regular",
-                                          ),
-                                        ),
-                                      )
                                     ],
                                   ),
-                                ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10, left: 12, right: 12, bottom: 10),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                dataManage[i].itemList![po].deposit == "1" ? "Gửi vào" : "Rút ra",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.colorTextSubTitle,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                dataManage[i].itemList![po].date ?? "",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.colorTextSubTitle,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                "${formNum(dataManage[i].itemList![po].withdraw ?? "0")}",
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.colorTextSubTitle,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 5,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                "Ghi chú: ${dataManage[i].itemList![po].note}",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Mytheme.colorTextSubTitle,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: "OpenSans-Regular",
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
 
+                                  ),
+
+                                ),
                               ),
+
                             ],
 
                           ],
@@ -847,7 +878,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                   }
                                   Navigator.of(context).pop();
                                   addDataDrawTool(
-                                      userIdTool,
+                                      userIdTool.toString(),
                                       "1",
                                       _moneyController.text.replaceAll(",", ""),
                                       text,
@@ -1073,6 +1104,7 @@ class ItemManage {
   String? date;
   String? dateGroupMonth;
   String? createdAt;
+  String? note;
 
   ItemManage(
       {this.id,
@@ -1082,6 +1114,7 @@ class ItemManage {
       this.type,
       this.date,
       this.dateGroupMonth,
+        this.note,
       this.createdAt});
 
   ItemManage.fromJson(Map<String, dynamic> json) {
@@ -1093,6 +1126,7 @@ class ItemManage {
     date = json['date'];
     dateGroupMonth = json['date_group_month'];
     createdAt = json['createdAt'];
+    note = json['note'];
   }
 
   Map<String, dynamic> toJson() {
@@ -1105,6 +1139,7 @@ class ItemManage {
     data['date'] = this.date;
     data['date_group_month'] = this.dateGroupMonth;
     data['createdAt'] = this.createdAt;
+    data['note'] = note;
     return data;
   }
 
