@@ -799,22 +799,22 @@ class _ViewFlowMoneyScreenState extends State<ViewFlowMoneyScreen>
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "Ngày: ${item.date ?? ""}",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Mytheme.colorBgButtonLogin,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "OpenSans-Regular",
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: Text(
+                        //         "Ngày: ${item.date ?? ""}",
+                        //         textAlign: TextAlign.start,
+                        //         style: TextStyle(
+                        //           fontSize: 16,
+                        //           color: Mytheme.colorBgButtonLogin,
+                        //           fontWeight: FontWeight.w400,
+                        //           fontFamily: "OpenSans-Regular",
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 10,
                         ),

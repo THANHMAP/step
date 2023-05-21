@@ -39,7 +39,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
   int currentSexIndex = 0;
   late ProgressDialog pr;
   String idCredit = "";
-  List<String> sexList = ["Nam", "Nữ", "Khác"];
+  List<String> sexList = ["Nam", "Nữ"];
 
   @override
   void initState() {
@@ -415,7 +415,7 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
               return Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .33,
+                  height: MediaQuery.of(context).size.height * .23,
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -513,9 +513,8 @@ class _UpdatePassWordScreenState extends State<UpdatePassWordScreen> {
   String getNameSex(int sex) {
     if (sex == 0) {
       return "Nam";
-    } else if (sex == 1) {
-      return "Nữ";
     }
-    return "khác";
+
+    return "Nữ";
   }
 }

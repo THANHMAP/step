@@ -89,7 +89,7 @@ class ConfirmDialogBox extends StatelessWidget {
               //   height: 15,
               // ),
               Padding(
-                padding: EdgeInsets.only(top: 0, left: 0, bottom: 8, right: 0),
+                padding: EdgeInsets.only(top: 0, left: 10, bottom: 8, right: 10),
                 child: Text(
                   descriptions ?? "",
                   style: TextStyle(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -27,6 +28,7 @@ import 'package:step_bank/service/remote_service.dart';
 import 'package:step_bank/shared/SPref.dart';
 import 'package:weather/weather.dart';
 
+import '../../compoment/dialog_confirm.dart';
 import '../../constants.dart';
 import '../../models/education/lesson_learned.dart';
 import '../../models/education/lesson_learned.dart';
@@ -119,7 +121,46 @@ class _HomeScreenState extends State<HomeScreen> {
     Future.delayed(Duration.zero, () {
       fetchData();
     });
-    _getCurrentPosition();
+    if (Platform.isAndroid) {
+      checkPermison();
+    } else {
+      _getCurrentPosition();
+    }
+  }
+
+  Future<void> checkPermison() async {
+    LocationPermission permission;
+    permission = await _geolocatorPlatform.checkPermission();
+    if (permission == LocationPermission.denied) {
+      Future.delayed(Duration.zero, () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: ConfirmDialogBox(
+                    title: "Quyền truy cập vị trí",
+                    descriptions:
+                    "Chức năng hiển thị thời tiết cần bạn cho phép lấy vị trí hiện tại. Bạn có cho phép ứng dụng truy cập vị trí của bạn không?",
+                    textButtonLeft: "Thoát",
+                    textButtonRight: "Cho phép",
+                    onClickedConfirm: () async {
+                      _getCurrentPosition();
+                      Navigator.pop(context, "");
+                    },
+                    onClickedCancel: () {
+                      Navigator.pop(context, "");
+                    },
+                  ));
+            }
+        );
+      });
+    } else {
+      _getCurrentPosition();
+    }
+
   }
 
   Future<bool> _handlePermission() async {
@@ -1158,9 +1199,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadBanner() async {
-    if (!pr.isShowing()) {
-      await pr.show();
-    }
+    // if (!pr.isShowing()) {
+    //   await pr.show();
+    // }
     APIManager.getAPICallNeedToken(RemoteServices.listBannerPromotionURL).then(
         (value) async {
       var data = BannerPromotionModel.fromJson(value);

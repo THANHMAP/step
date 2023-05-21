@@ -72,7 +72,7 @@ class _AccountScreenState extends State<AccountScreen> {
   List<int> selectedUserGroupList = [];
   String textUserGroup = "";
   String textUserCredit = "";
-  List<String> sexList = ["Nam", "Nữ", "Khác"];
+  List<String> sexList = ["Nam", "Nữ"];
   int currentSexIndex = 1;
   int currentCityIndex = 0;
   int currentWardIndex = 0;
@@ -899,7 +899,7 @@ class _AccountScreenState extends State<AccountScreen> {
               return Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .33,
+                  height: MediaQuery.of(context).size.height * .23,
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -1353,7 +1353,7 @@ class _AccountScreenState extends State<AccountScreen> {
     } else if (sex == 1) {
       return "Nữ";
     }
-    return "khác";
+    return "Chưa lựa chọn";
   }
 
   String valueSex(int sexValue) {
@@ -1362,7 +1362,7 @@ class _AccountScreenState extends State<AccountScreen> {
     } else if (sexValue == 1) {
       return "Nữ";
     }
-    return "Khác";
+    return "Chưa chọn giới tính";
   }
 
   Widget loadImage(UserData user) {
