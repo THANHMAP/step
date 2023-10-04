@@ -394,6 +394,102 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                               ),
                                             ),
                                           ],
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+
+                                            Expanded(
+                                              child:  InkWell(
+                                                onTap: (){
+                                                  _editModalBottomSheet(context, dataManage[i].itemList![po]);
+                                                },
+                                                child: Container(
+                                                  height: 31,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    color: Mytheme.color_0xFFBDE8FF,
+                                                    borderRadius: BorderRadius.circular(8),
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.grey.withOpacity(0.5),
+                                                        spreadRadius: 1,
+                                                        blurRadius: 7,
+                                                        offset: const Offset(0, 3), // changes position of shadow
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        top: 5, left: 12, bottom: 5, right: 12),
+                                                    child:     Align(
+                                                      alignment: Alignment.center,
+                                                      child: Text(
+                                                        "Sửa",
+                                                        // textAlign: TextAlign.start,
+                                                        style: const TextStyle(
+                                                          fontSize: 16,
+                                                          color: Mytheme.color_121212,
+                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily: "OpenSans-Regular",
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                ),
+                                              ),
+                                            ),
+
+                                            Expanded(
+                                              child: InkWell(
+                                                onTap: (){
+                                                  showDialogConfigDelete(dataManage[i].itemList![po].id.toString(), dataManage[i].itemList![po].userToolId.toString());
+                                                },
+                                                child:   Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 16),
+                                                    child: Container(
+                                                      height: 31,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.rectangle,
+                                                        color: Mytheme.color_0xFFFFCFC9,
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.grey.withOpacity(0.5),
+                                                            spreadRadius: 1,
+                                                            blurRadius: 7,
+                                                            offset: const Offset(0, 3), // changes position of shadow
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(
+                                                            top: 5, left: 0, bottom: 5, right: 0),
+                                                        child:     Align(
+                                                          alignment: Alignment.center,
+                                                          child: Text(
+                                                            "Xóa",
+                                                            // textAlign: TextAlign.start,
+                                                            style: const TextStyle(
+                                                              fontSize: 16,
+                                                              color: Mytheme.color_121212,
+                                                              fontWeight: FontWeight.w400,
+                                                              fontFamily: "OpenSans-Regular",
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+
+                                          ],
                                         )
                                       ],
                                     ),
@@ -416,7 +512,7 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                   ),
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Column(
                     children: [
                       // InkWell(
@@ -709,23 +805,24 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
                                       // tooltip: 'Increase volume by 10',
                                       iconSize: 50,
                                       onPressed: () async {
-                                        var datePicked = await DatePicker.showSimpleDatePicker(
-                                          context,
-                                          initialDate: DateTime.now(),
-                                          firstDate: DateTime(1960),
-                                          lastDate: DateTime(2050),
-                                          dateFormat: "dd-MMMM-yyyy",
-                                          locale: DateTimePickerLocale.en_us,
-                                          looping: true,
-                                          cancelText: "Hủy bỏ",
-                                          confirmText: "Cập nhật",
-                                          titleText: "Chọn ngày",
-                                        );
-                                        if(datePicked != null) {
-                                          setState(() {
-                                            dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
-                                          });
-                                        }
+                                        showDatePicker();
+                                        // var datePicked = await DatePicker.showSimpleDatePicker(
+                                        //   context,
+                                        //   initialDate: DateTime.now(),
+                                        //   firstDate: DateTime(1960),
+                                        //   lastDate: DateTime(2050),
+                                        //   dateFormat: "dd-MMMM-yyyy",
+                                        //   locale: DateTimePickerLocale.en_us,
+                                        //   looping: true,
+                                        //   cancelText: "Hủy bỏ",
+                                        //   confirmText: "Cập nhật",
+                                        //   titleText: "Chọn ngày",
+                                        // );
+                                        // if(datePicked != null) {
+                                        //   setState(() {
+                                        //     dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
+                                        //   });
+                                        // }
                                       },
                                     ),
                                   ),
@@ -897,6 +994,26 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
         });
   }
 
+  showDatePicker() async {
+    var datePicked = await DatePicker.showSimpleDatePicker(
+      context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+      dateFormat: "dd-MM-yyyy",
+      locale: DateTimePickerLocale.en_us,
+      looping: true,
+      cancelText: "Hủy bỏ",
+      confirmText: "Cập nhật",
+      titleText: "Chọn ngày",
+    );
+    if(datePicked != null) {
+      setState(() {
+        dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
+      });
+    }
+  }
+
   String formNum(String s) {
     return NumberFormat.decimalPattern().format(
       int.parse(s),
@@ -990,7 +1107,11 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
           if(int.parse(moneyHasSave)/ int.parse(moneySaveTarget) > 1) {
             present = 1;
           } else {
-            present = int.parse(moneyHasSave)/ int.parse(moneySaveTarget);
+            if (int.parse(moneyHasSave)/ int.parse(moneySaveTarget) < 0) {
+              present = 0;
+            } else {
+              present = int.parse(moneyHasSave)/ int.parse(moneySaveTarget);
+            }
           }
           if(dataUsers.isNotEmpty) {
             presentShow = "${(int.parse(moneyHasSave)/int.parse(moneySaveTarget)*100).round().toString()}%";
@@ -1084,6 +1205,505 @@ class _ManageSaveToolScreenState extends State<ManageSaveToolScreen>
         dates = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
       });
     }
+  }
+
+  showDialogConfigDelete(String id, String user_tool_id) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: WillPopScope(
+                onWillPop: () {
+                  return Future.value(false);
+                },
+                child: ConfirmDialogBoxWithIcon(
+                  title: "Bạn chắc chắn muốn xoá?",
+                  textButtonLeft: "Huỷ",
+                  textButtonRight: "Tiếp tục",
+                  onClickedConfirm: () {
+                    Navigator.pop(context, "");
+                    deleteDataDrawTool(id, user_tool_id);
+                  },
+                  onClickedCancel: () {
+                    Navigator.pop(context, "");
+                  },
+                )),
+          );
+        });
+  }
+
+  Future<void> deleteDataDrawTool(String id, String user_tool_id) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{'user_tool_withdraw_id': id});
+    APIManager.postAPICallNeedToken(
+        RemoteServices.deleteDrawFilterToolURL, param)
+        .then((value) async {
+      int statusCode = value['status_code'];
+      if (statusCode == 200) {
+        if (statusCode == 200) {
+          loadDataDrawTool(user_tool_id);
+        }
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  Future<void> editDataDrawTool(
+      String user_tool_id,
+      String id,
+      String type,
+      String withdraw,
+      String deposit,
+      String date,
+      String note,
+      String noteText) async {
+    await pr.show();
+    var param = jsonEncode(<String, String>{
+      "user_tool_withdraw_id": id,
+      "type": type,
+      "withdraw": withdraw,
+      "deposit": deposit,
+      "date": date.replaceAll("/", "-"),
+      "note": note,
+      "note_text": noteText
+    });
+    APIManager.postAPICallNeedToken(RemoteServices.updateWithDrawToolURL, param)
+        .then((value) async {
+      pr.hide();
+      int statusCode = value['status_code'];
+      if (statusCode == 200) {
+        loadDataDrawTool(user_tool_id);
+      }
+    }, onError: (error) async {
+      pr.hide();
+      Utils.showError(error.toString(), context);
+    });
+  }
+
+  void _editModalBottomSheet(context, ItemManage item) {
+    var money = "";
+    if(item.withdraw != "0") {
+      money = item.withdraw.toString();
+    } else {
+      money = item.deposit.toString();
+    };
+    _moneyController.text = formNum(money);
+    _noteController.text = item.note.toString();
+    var selectTab = int.parse(item.deposit.toString());
+    var date = item.date.toString();
+    showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.zero,
+              topLeft: Radius.circular(10),
+              bottomRight: Radius.zero,
+              topRight: Radius.circular(10)),
+        ),
+        context: context,
+        builder: (context) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.03),
+            child: StatefulBuilder(builder: (BuildContext context,
+                StateSetter setState /*You can rename this!*/) {
+              return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: 20,
+                      left: 16,
+                      right: 16,
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * .67,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 38,
+                          alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    width: 40,
+                                    child: IconButton(
+                                      icon: Image.asset(
+                                          "assets/images/ic_close.png"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectTab = 1;
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 0.0, right: 16.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: selectTab == 1
+                                        ? Mytheme.color_0xFFCCECFB
+                                        : Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: selectTab != 1
+                                        ? Border.all(
+                                        color: Mytheme.kBackgroundColor)
+                                        : null,
+                                    boxShadow: selectTab == 1? null : [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16, left: 12, right: 12, bottom: 16),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Gửi vào",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: selectTab == 1
+                                                ? Mytheme.color_0xFF2655A6
+                                                : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selectTab = 2;
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 0.0, right: 0.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    color: selectTab != 1 ? Mytheme.color_0xFFCCECFB: Mytheme.kBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: selectTab != 1 ? null : Border.all(color: Mytheme.kBackgroundColor) ,
+                                    boxShadow: selectTab != 1?  null : [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        offset: const Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 16, left: 12, right: 12, bottom: 16),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Rút ra",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: selectTab != 1 ? Mytheme.color_0xFF2655A6 : Mytheme.color_82869E,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: "OpenSans-SemiBold",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Ngày",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Mytheme.colorTextDivider,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 12, left: 16, bottom: 18, right: 0),
+                                  child: Text(
+                                    date,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Mytheme.colorBgButtonLogin,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "OpenSans-Semibold",
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 0, left: 6, bottom: 0, right: 0),
+                                  child: IconButton(
+                                    icon: SvgPicture.asset(
+                                        "assets/svg/ic_calender.svg"),
+                                    // tooltip: 'Increase volume by 10',
+                                    iconSize: 50,
+                                    onPressed: () async {
+                                      var datePicked = await DatePicker.showSimpleDatePicker(
+                                        context,
+                                        initialDate: DateTime.now(),
+                                        firstDate: DateTime(1960),
+                                        lastDate: DateTime(2050),
+                                        dateFormat: "dd-MM-yyyy",
+                                        locale: DateTimePickerLocale.en_us,
+                                        looping: true,
+                                        cancelText: "Hủy bỏ",
+                                        confirmText: "Cập nhật",
+                                        titleText: "Chọn ngày",
+                                      );
+                                      if(datePicked != null) {
+                                        setState(() {
+                                          date = formatDate(int.parse(datePicked.day.toString()), int.parse(datePicked.month.toString()), int.parse(datePicked.year.toString()));
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Số tiền",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          obscureText: false,
+                          controller: _moneyController,
+                          enabled: true,
+                          textInputAction: TextInputAction.done,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              fillColor: const Color(0xFFEFF0FB),
+                              focusedErrorBorder: OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              errorBorder: validate ? OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.red, width: 1),
+                                  borderRadius: BorderRadius.circular(8)) : OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              errorText: validate ? "Tiền rút ra không được lớn hơn tiền đang có" : "",
+                              filled: true,
+                              hintText: "Nhập số tiền",
+                              hintStyle:
+                              const TextStyle(color: Color(0xFFA7ABC3)),
+                              isDense: true,
+                              // Added this
+                              contentPadding: EdgeInsets.all(8),
+                              // labelText: labelText,
+
+                              suffixIcon: IconButton(
+                                  onPressed: () {},
+                                  icon:
+                                  SvgPicture.asset("assets/svg/ic_vnd.svg")),
+                              enabledBorder: OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                  borderRadius: BorderRadius.circular(8))),
+                          onChanged: (value) {
+                            value = '${formNum(
+                              value.replaceAll(',', ''),
+                            )}';
+                            _moneyController.value = TextEditingValue(
+                              text: value,
+                              selection: TextSelection.collapsed(
+                                offset: value.length,
+                              ),
+                            );
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Ghi chú",
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Mytheme.colorTextSubTitle,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans-SemiBold",
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        TextField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          //Normal textInputField will be displayed
+                          maxLines: 5,
+                          // when user presses enter it will adapt to it
+                          controller: _noteController,
+                          textInputAction: TextInputAction.done,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              fillColor: const Color(0xFFEFF0FB),
+                              filled: true,
+                              hintText: "Ghi chú về số tiền",
+                              hintStyle:
+                              const TextStyle(color: Color(0xFFA7ABC3)),
+                              enabledBorder: OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                // borderSide: const BorderSide(color: Colors.green, width: 1.7),
+                                  borderRadius: BorderRadius.circular(8))),
+                        ),
+                        Padding(
+                            padding: const EdgeInsets.only(
+                                top: 40, bottom: 0, left: 0, right: 0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    // side: const BorderSide(color: Colors.red)
+                                  ),
+                                  primary: Mytheme.colorBgButtonLogin,
+                                  minimumSize: Size(
+                                      MediaQuery.of(context).size.width, 44)),
+                              child: Text(
+                                "Lưu thay đổi",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: "OpenSans-Regular",
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+
+                                if(_moneyController.text.isEmpty) {
+                                  Utils.showError("Vui lòng nhập số tiền", context);
+                                  return;
+                                }
+
+                                var text = "";
+                                if(selectTab == 1) {
+                                  text = "1"; // thu nhap
+
+                                } else {
+                                  text = "2";
+                                  if(int.parse(_moneyController.text.replaceAll(",", "")) > int.parse(moneyHasSave)) {
+                                    setState(() {
+                                      validate = true;
+                                    });
+                                    return;
+                                  }// rút ra
+                                }
+
+                                Navigator.of(context).pop();
+                                editDataDrawTool(
+                                    userIdTool.toString(),
+                                    item.id.toString(),
+                                    "1",
+                                    _moneyController.text.replaceAll(",", ""),
+                                    text,
+                                    date,
+                                    _noteController.text.toString(),
+                                    ""
+                                );
+
+                              },
+                            )),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }),
+          );
+        });
   }
 
 }

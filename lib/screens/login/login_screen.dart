@@ -547,6 +547,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await pr.hide();
         var loginModel = LoginModel.fromJson(value);
         if (loginModel.statusCode == 200) {
+          loginModel.data?.typeUser = 2;
           saveBiometrics(false, phone.toString(), password.toString());
           await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
           await SPref.instance.set("info_login", json.encode(loginModel.data));
@@ -584,6 +585,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
+        loginModel.data?.typeUser = 1;
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
         Get.offAllNamed("/home");

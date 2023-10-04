@@ -40,6 +40,7 @@ class UserData {
   int? creditFundId;
   String? creditFundName;
   List<UserGroup>? userGroup;
+  int? typeUser;
   String? createdAt;
   String? accessToken;
 
@@ -58,6 +59,7 @@ class UserData {
         this.creditFundId,
         this.creditFundName,
         this.userGroup,
+        this.typeUser,
         this.createdAt,
         this.accessToken});
 
@@ -81,6 +83,7 @@ class UserData {
         userGroup!.add(new UserGroup.fromJson(v));
       });
     }
+    typeUser = json['type_user'];
     createdAt = json['createdAt'];
     accessToken = json['access_token'];
   }
@@ -103,6 +106,7 @@ class UserData {
     if (this.userGroup != null) {
       data['user_group'] = this.userGroup!.map((v) => v.toJson()).toList();
     }
+    data['type_user'] = this.typeUser;
     data['createdAt'] = this.createdAt;
     data['access_token'] = this.accessToken;
     return data;

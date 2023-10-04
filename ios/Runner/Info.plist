@@ -96,5 +96,7 @@
     </array>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Ứng dụng này cần quyền truy cập vị trí khi được mở để sử dụng màn hình thời tiết của ứng dụng</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 </dict>
 </plist>

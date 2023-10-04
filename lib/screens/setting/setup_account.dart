@@ -36,6 +36,7 @@ class AccountSetupScreen extends StatefulWidget {
 class _AccountSetupScreentate extends State<AccountSetupScreen> {
   late ProgressDialog pr;
   late UserData user = UserData();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController =
       TextEditingController(text: '123456789');
@@ -48,6 +49,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   bool _canCheckBiometrics = false;
   bool _isFingerprint = false;
   bool showButtonSave = false;
+  bool _isDisablePhoneSocial = true;
 
   @override
   void initState() {
@@ -130,13 +132,15 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       loadImage(user),
-                      if (user.phone?.isNotEmpty == true)...[
+                      if (user.typeUser == 1) ...[
+                        const SizedBox(height: 20),
+                        infoPhoneSocial(),
+                      ] else if (user.typeUser == 2) ...[
                         const SizedBox(height: 20),
                         phoneUser(),
-
                         const SizedBox(height: 10),
                         passwordUser(),
-                       ],
+                      ],
                       const SizedBox(height: 10),
                       emailUser(),
                       const SizedBox(height: 10),
@@ -199,7 +203,11 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                                     //   saveImage(_image),
                                     //
                                     // } else {
-                                    saveInfoUser()
+                                    if (user.typeUser == 2)
+                                      {saveInfoUser()}
+                                    else
+                                      {savePhoneUser()}
+
                                     // }
                                   }),
                         ),
@@ -327,6 +335,116 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  infoPhoneSocial() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: 12, left: 16, bottom: 13, right: 0),
+                child: Text(
+                  "Điện thoại",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Mytheme.colorBgButtonLogin,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "OpenSans-Semibold",
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, left: 0, bottom: 13, right: 0),
+                child: TextField(
+                  onTap: () {
+                    if (_isDisablePhoneSocial == true) {
+                      setState(() {
+                        _isDisablePhoneSocial = false;
+                        _phoneController.text = user.phone.toString();
+                        urlActionUsername = "assets/images/ic_delete.png";
+                      });
+                    }
+                  },
+                  onChanged: (context) {
+                    showButtonSave = true;
+                  },
+                  keyboardType: TextInputType.number,
+                  readOnly: _isDisablePhoneSocial,
+                  controller: _phoneController,
+                  autofocus: true,
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Mytheme.color_82869E,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "OpenSans-Regular",
+                  ),
+                  decoration: InputDecoration.collapsed(
+                    border: InputBorder.none,
+                    hintText: user.phone ?? "Thêm thông tin",
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding:
+                    const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                child: IconButton(
+                  icon: Image.asset(urlActionUsername),
+                  // tooltip: 'Increase volume by 10',
+                  iconSize: 50,
+                  onPressed: () {
+                    if (_isDisablePhoneSocial == true) {
+                      setState(() {
+                        _isDisablePhoneSocial = false;
+                        _phoneController.text = user.phone.toString();
+                        urlActionUsername = "assets/images/ic_delete.png";
+                      });
+                    } else {
+                      setState(() {
+                        showButtonSave = false;
+                        _isDisablePhoneSocial = true;
+                        _phoneController.text = user.phone.toString();
+                        urlActionUsername = "assets/images/ic_edit.png";
+                      });
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -490,33 +608,36 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                 ),
               ),
             ),
-
-
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
-                child: user.phone?.isNotEmpty == false ? null : IconButton(
-                  icon: Image.asset(urlActionUsername),
-                  // tooltip: 'Increase volume by 10',
-                  iconSize: 50,
-                  onPressed: () {
-                    if (_isDisableEmail == true) {
-                      setState(() {
-                        _isDisableEmail = false;
+            if (user.typeUser != 1)...[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                  child: user.phone?.isNotEmpty == false
+                      ? null
+                      : IconButton(
+                    icon: Image.asset(urlActionUsername),
+                    // tooltip: 'Increase volume by 10',
+                    iconSize: 50,
+                    onPressed: () {
+                      if (_isDisableEmail == true) {
+                        setState(() {
+                          _isDisableEmail = false;
+                          _emailController.text = user.email.toString();
+                          urlActionUsername = "assets/images/ic_delete.png";
+                        });
+                      } else {
+                        _isDisableEmail = true;
                         _emailController.text = user.email.toString();
-                        urlActionUsername = "assets/images/ic_delete.png";
-                      });
-                    } else {
-                      _isDisableEmail = true;
-                      _emailController.text = user.email.toString();
-                      urlActionUsername = "assets/images/ic_edit.png";
-                    }
-                  },
+                        urlActionUsername = "assets/images/ic_edit.png";
+                      }
+                    },
+                  ),
                 ),
               ),
-            ),
+            ],
+
           ],
         ),
       ),
@@ -667,6 +788,55 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     await SPref.instance.set("biometrics", json.encode(_biometricsData));
   }
 
+  Future<void> savePhoneUser() async {
+    if (!pr.isShowing()) await pr.show();
+    user.email = _emailController.text.toString();
+    var param =
+        jsonEncode(<String, String>{'phone': _phoneController.text.toString()});
+
+    APIManager.postAPICallNeedToken(RemoteServices.updateUserURL, param).then(
+        (value) async {
+      var loginModel = LoginModel.fromJson(value);
+      if (loginModel.statusCode == 200) {
+        loginModel.data?.typeUser = 1;
+        await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
+        await SPref.instance.set("info_login", json.encode(loginModel.data));
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return WillPopScope(
+                  onWillPop: () {
+                    return Future.value(false);
+                  },
+                  child: NormalDialogBox(
+                      descriptions: "Cập nhật thông tin thành công",
+                      onClicked: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          _isDisablePhoneSocial = true;
+                          urlActionUsername = "assets/images/ic_edit.png";
+                          showButtonSave = false;
+                        });
+                      }));
+            });
+        // Get.offAllNamed("/home");
+      }
+    }, onError: (error) async {
+      var statuscode = error.toString();
+      if (statuscode.contains("Unauthorised:")) {
+        var unauthorised = "Unauthorised:";
+        var test = statuscode.substring(unauthorised.length, statuscode.length);
+        var response = json.decode(test.toString());
+        var message = response["message"];
+        Utils.showAlertDialogOneButton(context, message);
+      } else {
+        print("Error == $error");
+        Utils.showAlertDialogOneButton(context, error.toString());
+      }
+    });
+    await pr.hide();
+  }
+
   Future<void> saveInfoUser() async {
     if (!pr.isShowing()) await pr.show();
     user.email = _emailController.text.toString();
@@ -677,6 +847,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
         (value) async {
       var loginModel = LoginModel.fromJson(value);
       if (loginModel.statusCode == 200) {
+        loginModel.data?.typeUser = 2;
         await SPref.instance.set("token", loginModel.data?.accessToken ?? "");
         await SPref.instance.set("info_login", json.encode(loginModel.data));
         showDialog(
@@ -716,18 +887,17 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
   Future<void> deleteAccount() async {
     await pr.show();
     APIManager.getAPICallNeedToken(RemoteServices.deleteUserURL).then(
-            (value) async {
-          pr.hide();
-          if (value["status_code"] == 200) {
-            await SPref.instance.set("token", "");
-            await SPref.instance.set("info_login", "");
-            Get.offAllNamed("/login"
-                "");
-          }
-        }, onError: (error) async {
+        (value) async {
+      pr.hide();
+      if (value["status_code"] == 200) {
+        await SPref.instance.set("token", "");
+        await SPref.instance.set("info_login", "");
+        Get.offAllNamed("/login"
+            "");
+      }
+    }, onError: (error) async {
       await pr.hide();
       Utils.showError(error.toString(), context);
     });
   }
-
 }
