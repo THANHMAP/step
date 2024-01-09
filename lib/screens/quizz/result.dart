@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -276,41 +277,33 @@ class _ResultQuizScreenState extends State<ResultQuizScreen> {
   }
 
   String imageUrlResult() {
-    if (_dataResult.numOfCorrectAns! == 0) {
+    var resultCorrect = _dataResult.numOfCorrectAns ?? 0;
+    var totalQuestion = _dataResult.listQuestion?.length ?? 0;
+    var result = (resultCorrect/totalQuestion)*100 ;
+    print("result ${result}");
+    if (result == 0 && result <= 5) { // chua đạt 0 sao
       return "assets/images/bg_chuadat.png";
-    } else if (_dataResult.numOfCorrectAns! ==
-        _dataResult.listQuestion!.length) {
-      return "assets/images/bg_dat.png";
-    } else if (_dataResult.numOfCorrectAns! >=
-        _dataResult.listQuestion!.length / 2) {
-      return "assets/images/bg_dat_kha.png";
-    } else if (_dataResult.numOfCorrectAns! <=
-        _dataResult.listQuestion!.length / 2) {
-      return "assets/images/bg_chuadat_2sao.png";
-    } else if (_dataResult.numOfCorrectAns! <=
-        _dataResult.listQuestion!.length / 3) {
+    } else if (result > 5 && result <= 10) { // chua dat 1 sao
       return "assets/images/bg_chuadat_1sao.png";
+    } else if (result > 10 && result <= 35) { // khá 2 sao
+      return "assets/images/bg_chuadat_2sao.png";
+    } else if (result > 35 && result <= 55) { // khá 3 sao
+      return "assets/images/bg_dat_kha_3sao.png";
+    } else if (result > 55 && result <= 80) { // khá 4 sao
+      return "assets/images/bg_dat_kha_4sao.png";
     }
-    return "assets/images/bg_chuadat.png";
+    return "assets/images/bg_dat.png";
   }
 
   String backgroundResult() {
-    if (_dataResult.numOfCorrectAns! == 0) {
-      return "assets/images/bg_nomal.png";
-    } else if (_dataResult.numOfCorrectAns! ==
-        _dataResult.listQuestion!.length) {
+    var resultCorrect = _dataResult.numOfCorrectAns ?? 0;
+    var totalQuestion = _dataResult.listQuestion?.length ?? 0;
+    var result = (resultCorrect/totalQuestion)*100 ;
+    if (result >= 35) { // chua
       return "assets/images/bg_win.png";
-    } else if (_dataResult.numOfCorrectAns! >=
-        _dataResult.listQuestion!.length / 2) {
-      return "assets/images/bg_kha.png";
-    } else if (_dataResult.numOfCorrectAns! <=
-        _dataResult.listQuestion!.length / 2) {
-      return "assets/images/bg_nomal.png";
-    } else if (_dataResult.numOfCorrectAns! <=
-        _dataResult.listQuestion!.length / 3) {
+    } else {
       return "assets/images/bg_nomal.png";
     }
-    return "assets/images/bg_nomal.png";
   }
 
   Future<void> sendListExercise() async {

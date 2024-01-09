@@ -66,6 +66,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     _getAvailableBiometrics();
     loadCheckBiometrics();
     _emailController.text = user.email.toString();
+    _phoneController.text = user.phone.toString();
   }
 
   Future<void> _checkBiometrics() async {
@@ -142,7 +143,14 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                         passwordUser(),
                       ],
                       const SizedBox(height: 10),
-                      emailUser(),
+                      if (user.typeUser == 1) ...[
+                        const SizedBox(height: 20),
+                        emailUserSocial(),
+                      ] else if (user.typeUser == 2) ...[
+                        const SizedBox(height: 20),
+                        emailUser(),
+                      ],
+
                       const SizedBox(height: 10),
                       switchFinger(),
                       const SizedBox(height: 5),
@@ -339,7 +347,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       ),
     );
   }
-
+  FocusNode name_focus = FocusNode();
   infoPhoneSocial() {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
@@ -389,7 +397,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                     if (_isDisablePhoneSocial == true) {
                       setState(() {
                         _isDisablePhoneSocial = false;
-                        _phoneController.text = user.phone.toString();
+                        // _phoneController.text = user.phone.toString();
                         urlActionUsername = "assets/images/ic_delete.png";
                       });
                     }
@@ -397,10 +405,10 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   onChanged: (context) {
                     showButtonSave = true;
                   },
+                  focusNode: name_focus,
                   keyboardType: TextInputType.number,
                   readOnly: _isDisablePhoneSocial,
                   controller: _phoneController,
-                  autofocus: true,
                   textAlign: TextAlign.end,
                   style: const TextStyle(
                     fontSize: 16,
@@ -410,7 +418,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   ),
                   decoration: InputDecoration.collapsed(
                     border: InputBorder.none,
-                    hintText: user.phone ?? "Thêm thông tin",
+                    hintText: "",
                   ),
                   maxLines: 1,
                 ),
@@ -428,16 +436,20 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
                   onPressed: () {
                     if (_isDisablePhoneSocial == true) {
                       setState(() {
-                        _isDisablePhoneSocial = false;
-                        _phoneController.text = user.phone.toString();
+                        name_focus.requestFocus();
+                        _phoneController.clear();
                         urlActionUsername = "assets/images/ic_delete.png";
+                        _isDisablePhoneSocial = false;
+
                       });
                     } else {
                       setState(() {
-                        showButtonSave = false;
-                        _isDisablePhoneSocial = true;
+                        name_focus.unfocus();
                         _phoneController.text = user.phone.toString();
                         urlActionUsername = "assets/images/ic_edit.png";
+                        showButtonSave = false;
+                        _isDisablePhoneSocial = true;
+
                       });
                     }
                   },
@@ -644,6 +656,98 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
     );
   }
 
+  emailUserSocial() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
+      child: Container(
+        height: 50,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Padding(
+                padding:
+                EdgeInsets.only(top: 12, left: 16, bottom: 18, right: 0),
+                child: Text(
+                  "Email",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Mytheme.colorBgButtonLogin,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "OpenSans-Semibold",
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12, left: 0, bottom: 13, right: 0),
+                child: Text(
+                  user.email.toString(),
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Mytheme.color_82869E,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "OpenSans-Regular",
+                  ),
+                ),
+              ),
+            ),
+            if (user.typeUser != 1)...[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding:
+                  const EdgeInsets.only(top: 0, left: 6, bottom: 0, right: 0),
+                  child: user.phone?.isNotEmpty == false
+                      ? null
+                      : IconButton(
+                    icon: Image.asset(urlActionUsername),
+                    // tooltip: 'Increase volume by 10',
+                    iconSize: 50,
+                    onPressed: () {
+                      if (_isDisableEmail == true) {
+                        setState(() {
+                          _isDisableEmail = false;
+                          _emailController.text = user.email.toString();
+                          urlActionUsername = "assets/images/ic_delete.png";
+                        });
+                      } else {
+                        _isDisableEmail = true;
+                        _emailController.text = user.email.toString();
+                        urlActionUsername = "assets/images/ic_edit.png";
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ],
+
+          ],
+        ),
+      ),
+    );
+  }
+
   switchFinger() {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 24, right: 24),
@@ -735,6 +839,7 @@ class _AccountSetupScreentate extends State<AccountSetupScreen> {
       setState(() {
         user = UserData.fromJson(response);
         _emailController.text = user.email.toString();
+        _phoneController.text = user.phone.toString();
       });
       print(response);
     } on FetchDataException catch (e) {

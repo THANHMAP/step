@@ -193,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _loginFacebook() async {
     final facebook = FacebookAuth.instance;
-    await facebook.logOut();
+    // await facebook.logOut();
     final result = await facebook
         .login(permissions: ["public_profile", "email"]);
     if (result.status == LoginStatus.success) {
